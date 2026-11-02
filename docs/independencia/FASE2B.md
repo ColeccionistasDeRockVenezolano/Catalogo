@@ -310,12 +310,12 @@ panel privado no necesita debilitar la API ni montar TLS local; Brian entra por 
 |---|---|---|
 | G1 | Unidades y entornos de `ops/produccion/` revisados | contenido listo, **no instalado** |
 | G2 | `api.env`, `gateway.env`, `admin.env` con secretos propios y `.env` legible por systemd | **Brian** |
-| G3 | Worktree del SHA con `dist` | probado en `dd46cecd`; fijar SHA al autorizar. `dist-public` solo hace falta si se quiere conservar `crv-web-admin` |
+| G3 | Worktree del SHA con `dist` | probado en `810fa51a`; fijar SHA al autorizar. `dist-public` solo hace falta si se quiere conservar `crv-web-admin` |
 | G4 | Respaldo probado y restauración comparada | **probado** (§6) |
 | G5 | Guion de tokens probado | **probado** (§4) |
 | G6 | Paridad contra foto de Herra | **probada** (§11) |
-| G7 | Migración 0125 aplicada en producción (§7) | **aplicada 2026-11-01 con autorización de Brian (exit 0); falta correr `migraciones-2b.sql`** |
-| G11 | Métricas (a) y Herra 1.1.39 **decididas**; paridad EN (§11) | **pendiente: paridad EN** |
+| G7 | Migración 0125 aplicada en producción (§7) | **superada:** aplicada 2026-11-01 y confirmada 2026-11-02 con `migraciones-2b.sql`: 124 esperadas, 124 aplicadas, 124 coinciden, `faltan {}`, `sobran {}` |
+| G11 | Métricas (a) y Herra 1.1.39 **decididas**; paridad EN (§11) | **superada 2026-11-02** en `/`, `/colaborar` y `/login` (§11). `/registro`, `/activar`, `/account` y `/admin` no se compararon en inglés |
 | G8 | Panel | **superada por la decisión del 2026-11-02:** `/admin` en el dominio; `crv-web-admin` `:3131` queda opcional. Probado (§16) |
 | G9 | Enlaces de cuenta | **superada por la misma decisión:** la cabecera ofrece Mi perfil y Administrar proyecto. Probado (§16) |
 | G10 | Cloudflare, fecha y autorización expresa | **Brian** |
@@ -336,9 +336,18 @@ forma temporal en staging para igualar la portada viva (staging tiene 1; se rest
 | «Buscando la emisión…» frente a «El vivo sigue en marcha» | Dinámico: YouTube estaba bloqueado en la prueba |
 | `/login` | Sin diferencias |
 
-**Pendiente:** no se comparó el inglés con la portada viva: el dominio devuelve ES a `?lang=en` y la
-automatización no pudo activar su selector. CRV sí se probó en EN (`fase2b-ensayo` 34/34). Lo revisa
-Brian o se compara en la ventana contra una foto tomada a mano.
+**Inglés, 2026-11-02** (`reports/paridad-en-2026-11-02` y `-b`). El dominio cambia de idioma con `GET /lang/en`, que deja la cookie `herra-crv_lang`. Comparados `/`, `/colaborar` y `/login` en 1440 y 390, con los POST bloqueados para no contar visitas. Para la última pasada, staging se igualó a producción (`collaborate_json` nulo, `show_login=0`, `heroSubPublic` en inglés) y se restauró (md5 igual).
+
+| Diferencia en EN | Clase |
+|---|---|
+| El idioma no se conservaba: `/lang/en` 404, cookie ignorada, enlaces que volvían al español | **Corregido en `36b534d8`.** Whitelist 93/93; clic en el selector y navegación conservan el idioma |
+| Texto de la portada, `/colaborar` y `/login` | **Sin diferencias**, salvo los datos de abajo |
+| Contadores, países, «Last updated», `ONLINE` | Dato de staging o dinámico |
+| La radio no arrancaba sola: el dominio carga el reproductor al abrir; CRV esperaba a «Join live» | **Corregido en `408faf06` por decisión de Brian:** el mismo `public-loader.js` del dominio |
+
+La radio en `127.0.0.1` acaba en `error`, pero eso es el origen de la prueba: con el origen del dominio simulado (nada sale hacia él) llega a `live` y el reproductor de YouTube responde 200, con `no-referrer` y sin él. Es navegador sin sonido: el audio real sigue sin probarse.
+
+No comparados en inglés: `/registro`, `/activar`, `/account` y `/admin` (piden enlace o sesión).
 
 ---
 
@@ -432,7 +441,7 @@ Funnel sin cambios. Cierre: 72 h sin incidentes y sin rutas del catálogo alcanz
 3. **Secretos**: crear `~/apps/crv-landing/api.env` (§4.4) con `CRV_VISITS_SECRET` y
    `CRV_CHAT_SECRET` propios; confirmar que el `.env` de producción es legible por systemd y que
    `DATABASE_URL` apunta a `crv`, no a `crv_staging`.
-4. **Migración 0125**: aplicada. Correr `migraciones-2b.sql` para confirmar `faltan {}`.
+4. **Migración 0125**: aplicada y confirmada el 2026-11-02 (`faltan {}`, `sobran {}`). Repetir `migraciones-2b.sql` en el preflight.
 5. **Cloudflare**: cambiar el destino del hostname y anotar la regla anterior.
 6. **Fecha y hora** (00:00-00:30 de Caracas) y aviso a administradores.
 7. **Acceso al panel**: por `/admin` del dominio, con la cuenta de administración de siempre.
@@ -443,11 +452,13 @@ Funnel sin cambios. Cierre: 72 h sin incidentes y sin rutas del catálogo alcanz
 
 ## 16. Revisión del guion: qué está probado
 
-SHA del código ensayado: **`dd46cecd`** (2026-11-02). Lo posterior solo cambia pruebas y documentación.
+SHA del código ensayado: **`810fa51a`** (2026-11-02). Lo posterior solo cambia documentación.
 Worktree limpio, `npm ci`, `dist`, API `:8093`, portada `:3150` con `/account` y `/admin`, base
 `crv_staging`, `CRV_DEPLOYMENT=rehearsal`, trabajos de fondo apagados.
 
-**Repetición del 2026-11-02 sobre `dd46cecd`:**
+**Repetición sobre `810fa51a`** (idioma conservado y radio al abrir): whitelist **93/93**, `fase2b-ensayo` **34/34**, `2b-flujos-dominio` sin fallos, panel **50/50**, `e2e-flujos` **46/46**, `clave-unica` **31/31**, vuelta atrás 41 ms y 9 ms (proxy local; **no mide Cloudflare**). Radio con el origen del dominio simulado: al abrir carga el reproductor, y al activar el sonido queda en `live`, sin audio real.
+
+**Repetición anterior, sobre `dd46cecd`:**
 
 | Prueba | Resultado |
 |---|---|
