@@ -14,7 +14,7 @@ const LIVE_CACHE_MS = 3_000;
 
 type Fetcher = (url: string, init: RequestInit) => Promise<Pick<Response, "ok" | "json">>;
 
-let cached: { url: string; at: number; snapshot: RadioSnapshot } | null = null;
+let cached: { url: string; country: string | null; at: number; snapshot: RadioSnapshot } | null = null;
 
 function isSnapshot(value: unknown): value is RadioSnapshot {
   if (!value || typeof value !== "object") return false;
@@ -33,18 +33,19 @@ export async function liveRadioSnapshot(
   url: string | undefined,
   fetcher: Fetcher = fetch,
   nowMs = Date.now(),
+  country: string | null = null,
 ): Promise<RadioSnapshot | null> {
   if (!url) return null;
-  if (cached && cached.url === url && nowMs - cached.at < LIVE_CACHE_MS) return cached.snapshot;
+  if (cached && cached.url === url && cached.country === country && nowMs - cached.at < LIVE_CACHE_MS) return cached.snapshot;
   try {
     const response = await fetcher(url, {
-      headers: { Accept: "application/json" },
+      headers: { Accept: "application/json", ...(country ? { "CF-IPCountry": country } : {}) },
       signal: AbortSignal.timeout(LIVE_TIMEOUT_MS),
     });
     if (!response.ok) return null;
     const payload: unknown = await response.json();
     if (!isSnapshot(payload)) return null;
-    cached = { url, at: nowMs, snapshot: payload };
+    cached = { url, country, at: nowMs, snapshot: payload };
     return payload;
   } catch {
     return null;

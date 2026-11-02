@@ -7,6 +7,8 @@
 // informe. El export de las 04:00 y el gancho de géneros siguen siendo de
 // Herra hasta el go-live.
 import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { getEnv } from "../src/config/env.js";
 import { getPool } from "../src/db/client.js";
 import { loadRadioConfig } from "../src/shared/radio/config.js";
@@ -43,7 +45,9 @@ if (testSheet && (testSheet === realSheet || config.readOnlySheetIds.includes(te
 }
 const target = testSheet ?? realSheet;
 const dryRun = !testSheet;
-const out = valueOf("--out") ?? "/tmp/crv-radio-sheet-dry-run.json";
+// Los informes van al staging del SSD y se publican al almacén (docs/SHARED_STORAGE.md).
+const out = valueOf("--out") ?? path.join(os.homedir(), "crv-staging", "reports", "radio-hoja", `ensayo-${new Date().toISOString().slice(0, 10)}.json`);
+fs.mkdirSync(path.dirname(out), { recursive: true });
 
 const channelId = config.channelId;
 const pool = getPool();

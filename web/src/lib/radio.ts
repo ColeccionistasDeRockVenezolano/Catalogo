@@ -5,6 +5,7 @@ export interface RadioGenreRef { slug?: string; name?: string; family?: string }
 export interface RadioItem {
   videoId: string; title: string; artist: string | null; album: string; year: number | null;
   trackNumber: number; startSeconds: number; durationSeconds: number; available: true;
+  regionSubstituteFor?: { videoId: string; title: string; artist: string | null };
   genres?: { primaryGenre?: RadioGenreRef | null; secondaryGenres?: RadioGenreRef[] | null; families?: string[] | null };
 }
 export interface RadioSweeper {
@@ -40,6 +41,12 @@ export interface RadioStatus {
   catalog?: {
     items: number; playable: number; version: string | null; totalDurationSeconds: number;
     genres: number; lastModified: string | null; error: string | null; file: string;
+    regionExcluded: number; regionRestricted: number; regionRestrictedCountries: Array<{ country: string; items: number }>;
+    excluded: number; unclassified: number; availabilityCheckedAt: string | null; owner: boolean;
+  };
+  diagnostics?: {
+    total: number; byKind: Record<string, number>;
+    recent: Array<{ receivedAt: string; kind: string; country: string; browser: string; os: string; server: { videoId?: string; title?: string } | null }>;
   };
   local?: RadioSnapshot | null;
   live?: {
@@ -51,20 +58,5 @@ export interface RadioStatus {
 
 export const radioApi = {
   now: () => request<RadioSnapshot>("/radio/now"),
-  listener: (sessionId: string, active: boolean) =>
-    request<{ listeners: number }>("/radio/listener", { method: "POST", body: { sessionId, active } }),
   status: () => request<RadioStatus>("/community/admin/radio", { authenticated: true }),
 };
-
-export function radioSessionId(): string {
-  const key = "crv-radio-session";
-  try {
-    const stored = window.sessionStorage.getItem(key);
-    if (stored && /^[A-Za-z0-9_-]{16,64}$/u.test(stored)) return stored;
-    const generated = crypto.randomUUID().replace(/-/gu, "");
-    window.sessionStorage.setItem(key, generated);
-    return generated;
-  } catch {
-    return crypto.randomUUID().replace(/-/gu, "");
-  }
-}

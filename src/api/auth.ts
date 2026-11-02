@@ -419,6 +419,19 @@ function noStore(reply: FastifyReply): void {
  *   3. el valor es una IP con forma válida.
  * `web/server.mjs` borra esas cabeceras cuando el peer no es local.
  */
+/**
+ * País del oyente según el proxy (`CF-IPCountry`), solo si la petición llegó por
+ * loopback. Lo peor de un valor inventado es un relleno de radio distinto: nunca
+ * decide seguridad.
+ */
+export function clientCountry(request: FastifyRequest): string | null {
+  const peer = normalizeIp(request.raw.socket?.remoteAddress ?? request.ip);
+  if (peer !== "127.0.0.1" && peer !== "::1") return null;
+  const raw = request.headers["cf-ipcountry"];
+  const value = (Array.isArray(raw) ? raw[0] : raw)?.trim();
+  return value ? value : null;
+}
+
 export function clientIp(request: FastifyRequest): string {
   const peer = normalizeIp(request.raw.socket?.remoteAddress ?? request.ip);
   const isLoopback = peer === "127.0.0.1" || peer === "::1";
@@ -548,6 +561,7 @@ export async function registerOperatorAuth(
     const isCommunityPublicWrite = request.method === "POST" && (
       path === "/community/applications" || path === "/community/register"
       || path === "/community/activate" || path === "/roadmap/visit" || path === "/radio/listener"
+      || path === "/radio/unavailable" || path === "/radio/diagnostic"
       // Aviso interno del gateway para las métricas: exige token propio en la
       // ruta y solo llega desde loopback.
       || path === "/traffic/page");

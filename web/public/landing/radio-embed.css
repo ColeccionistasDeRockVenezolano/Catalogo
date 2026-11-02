@@ -1,0 +1,6 @@
+/* CRV · Tarjeta de radio dentro del catálogo: sin hero ni fondo propios. */
+/* Mismo esquema de color que el marco: si difieren, el navegador pinta el lienzo opaco en blanco. */
+html { color-scheme: dark; }
+html, body.radio-embed { min-height: 0; margin: 0; background: transparent; }
+body.radio-embed .hero-layout { display: block; margin: 0; padding: 0; }
+body.radio-embed .hero-layout > .radio-card { width: 100%; max-width: none; margin: 0; }

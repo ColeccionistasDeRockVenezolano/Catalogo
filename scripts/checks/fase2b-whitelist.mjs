@@ -158,7 +158,7 @@ await debe("/landing/radio.js", 200);
 // --- Radio: GET a Herra, sin tocar el contador de oyentes --------------------
 {
   const respuesta = await pedir("/api/radio/now", { accept: "application/json" });
-  if (respuesta.status === 200 && /"phase"/.test(respuesta.texto)) ok.push("/api/radio/now 200 (Herra)");
+  if (respuesta.status === 200 && /"phase"/.test(respuesta.texto)) ok.push("/api/radio/now 200");
   else fallos.push(`/api/radio/now: ${respuesta.status} ${respuesta.texto.slice(0, 80)}`);
 }
 
@@ -179,9 +179,8 @@ const prohibidas = [
   "/api/community/admin/roadmap", "/api/community/admin/metrics", "/api/community/admin/collaborators",
   "/api/community/admin/applications", "/api/community/admin/invites", "/api/curation/emotions/tags",
   "/api/catalog", "/api/chat/session", "/api/account/profile", "/api/review-queue",
-  "/api/radio/diagnostic",
   // Bajo un prefijo de estáticos, lo que no es un archivo no puede caer en la SPA.
-  "/landing/nada", "/landing/curaduria", "/media/favicon-nada", "/favicon.ico/x",
+  "/radio-embed", "/landing/radio-embed", "/landing/nada", "/landing/curaduria", "/media/favicon-nada", "/favicon.ico/x",
 ];
 for (const ruta of prohibidas) await debe(ruta, 404);
 

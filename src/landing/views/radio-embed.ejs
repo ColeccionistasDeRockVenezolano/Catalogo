@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%
+  const colors = theme.colors;
+  const inlineThemeStyle = [
+    '--bg:' + colors.bg, '--surface:' + colors.surface, '--surface-2:' + colors.surface2,
+    '--red:' + colors.red, '--red-dark:' + colors.redDark, '--white:' + colors.white,
+    '--gray:' + colors.gray, '--border:' + colors.border, '--accent-red:' + colors.accentRed,
+    '--accent-amber:' + colors.accentAmber, '--accent-violet:' + colors.accentViolet,
+    '--accent-teal:' + colors.accentTeal, '--font-title:' + withFontFallbacks(theme.fontTitle),
+    '--font-body:' + withFontFallbacks(theme.fontBody),
+  ].join(';');
+%>
+<%- include('partials/head', {
+  pageTitle: radioTexts.stationName, description: '', noindex: true, inlineTheme: true, publicAssets: true,
+  extraStylesheets: [basePath + '/static/radio-embed.css?v=' + assetVersion],
+}) %>
+</head>
+<body class="public-roadmap has-radio radio-embed" style="<%= inlineThemeStyle %>" data-messages="<%= JSON.stringify(clientMessages(lang, 'roadmap')) %>">
+<div class="hero-layout hero-layout--radio">
+  <%- include('partials/radio-card') %>
+</div>
+<script src="<%= basePath %>/static/public-loader.js?v=<%= assetVersion %>"
+        data-i18n-client="<%= basePath %>/static/i18n-client.js?v=<%= assetVersion %>"
+        data-lucide-client="<%= basePath %>/static/vendor/lucide-public.min.js?v=<%= assetVersion %>"
+        data-icons-client="<%= basePath %>/static/icons.js?v=<%= assetVersion %>"
+        data-full-style="<%= basePath %>/static/roadmap-public.min.css?v=<%= assetVersion %>"
+        data-radio-client="<%= basePath %>/static/radio.js?v=<%= assetVersion %>" async></script>
+</body>
+</html>

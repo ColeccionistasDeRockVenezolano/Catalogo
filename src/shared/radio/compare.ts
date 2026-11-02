@@ -25,6 +25,7 @@ export function compareRadioSnapshots(live: RadioSnapshot, local: RadioSnapshot)
   check("current.videoId", live.current.videoId, local.current.videoId);
   check("current.startSeconds", live.current.startSeconds, local.current.startSeconds);
   check("current.durationSeconds", live.current.durationSeconds, local.current.durationSeconds);
+  check("current.regionSubstituteFor", live.current.regionSubstituteFor?.videoId, local.current.regionSubstituteFor?.videoId);
   check("next.videoId", live.next.videoId, local.next.videoId);
   check("next.startSeconds", live.next.startSeconds, local.next.startSeconds);
   check("upcoming", live.upcoming.map((item) => item.videoId).join(","), local.upcoming.map((item) => item.videoId).join(","));

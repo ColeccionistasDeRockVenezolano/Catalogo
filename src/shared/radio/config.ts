@@ -3,8 +3,9 @@
 // La configuración viaja con el proyecto en `auth.project_features` (feature
 // `radio`, config v5). Durante la transición el catálogo se lee del directorio
 // de datos que exporta Herra; en el paquete final ese directorio pasa a ser el
-// del catálogo. Nadie escribe aquí: la exportación sigue siendo de Herra hasta
-// el go-live.
+// del catálogo. La exportación sigue siendo de Herra hasta la Fase 4; el estado
+// de la emisión (exclusiones, respaldo de géneros) es de quien emite: con
+// `CRV_RADIO_OWNER=true` se guarda en `CRV_RADIO_STATE_DIR`, nunca sobre Herra.
 import path from "node:path";
 import { getPool } from "../../db/client.js";
 import { getEnv } from "../../config/env.js";
@@ -110,7 +111,12 @@ export async function loadRadioConfig(projectId: number): Promise<RadioConfig | 
 }
 
 export function radioStationFromConfig(config: RadioConfig, dataDir = radioDataDir()): RadioStation {
+  const env = getEnv();
+  const owner = env.CRV_RADIO_OWNER && env.CRV_RADIO_STATE_DIR
+    ? { owner: true, statePath: path.resolve(env.CRV_RADIO_STATE_DIR, path.basename(config.catalogFile)) }
+    : {};
   return {
+    ...owner,
     ...(config.sweeper ? { sweeper: config.sweeper } : {}),
     crossfadeSeconds: config.crossfadeSeconds,
     catalogPath: path.resolve(dataDir, config.catalogFile),

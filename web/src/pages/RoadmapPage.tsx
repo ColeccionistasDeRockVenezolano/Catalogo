@@ -9,7 +9,8 @@ import {
   ArrowLeft, ArrowRight, ArrowSquareOut, Broadcast, CaretDown, CheckCircle, Circle,
   Clock, Coffee, HandHeart, Plus,
 } from "@phosphor-icons/react";
-import { RadioMiniPlayer, type RadioMiniCopy } from "../components/RadioMiniPlayer";
+import { RadioEmbed } from "../components/RadioEmbed";
+import "../styles/radio.css";
 import { useI18n } from "../lib/i18n";
 import { roadmapApi, type PublicCategory, type PublicRoadmap, type VisitStats } from "../lib/roadmap";
 import { useAsync } from "../lib/useAsync";
@@ -21,7 +22,7 @@ type PageSize = number | "all";
 
 interface Copy {
   badge: string; title1: string; title2: string; subtitle: string; collaborate: string; collaborateSub: string;
-  radio: RadioMiniCopy;
+  radioUnavailable: string;
   mapTitle: string; mapIntro: string; stagesActive: string; activities: string; collaborators: string;
   overall: string; upToDate: string; complete: string; completed: string; remaining: string;
   total: string; completedLabel: string; remainingLabel: string; stages: string; stagesRange: (a: number, b: number, n: number) => string;
@@ -44,12 +45,7 @@ const COPY: Record<Lang, Copy> = {
     subtitle: "Sigue en público cómo investigamos, digitalizamos y organizamos la memoria gráfica, sonora y audiovisual de la música venezolana, etapa por etapa.",
     collaborate: "Quiero colaborar",
     collaborateSub: "Presenta tu candidatura",
-    radio: {
-      live: "La emisión sigue activa", nowPlaying: "Ahora suena", upNext: "A continuación",
-      join: "Entrar al aire", press: "El vivo sigue en marcha: pulsa para entrar.", paused: "En pausa",
-      onAir: "En vivo", listening: (n) => `${n} escuchando`, cinema: "Modo cine", exitCinema: "Salir del modo cine",
-      unavailable: "La radio no está disponible en este navegador.", loading: "Buscando la emisión…",
-    },
+    radioUnavailable: "La radio no está disponible en este navegador.",
     mapTitle: "MAPA DE TRABAJO",
     mapIntro: "Este mapa organiza el trabajo completo para convertir el archivo de CRV en una biblioteca digital abierta: investigación, catalogación, preservación, desarrollo de la plataforma y publicación de la memoria musical venezolana.",
     stagesActive: "Etapas activas", activities: "Actividades", collaborators: "Colaboradores",
@@ -94,12 +90,7 @@ const COPY: Record<Lang, Copy> = {
     subtitle: "Follow how we research, digitize and organize the graphic, sound and audiovisual memory of Venezuelan music, one stage at a time.",
     collaborate: "I want to help",
     collaborateSub: "Send your application",
-    radio: {
-      live: "The broadcast is still live", nowPlaying: "Now playing", upNext: "Up next",
-      join: "Join live", press: "The broadcast is still on: press to join.", paused: "Paused",
-      onAir: "On air", listening: (n) => `${n} listening`, cinema: "Cinema mode", exitCinema: "Exit cinema mode",
-      unavailable: "Radio is not available in this browser.", loading: "Finding the broadcast…",
-    },
+    radioUnavailable: "Radio is not available in this browser.",
     mapTitle: "WORK MAP",
     mapIntro: "This map organizes the complete work required to turn the CRV archive into an open digital library: research, cataloguing, preservation, platform development and publication of Venezuela’s musical memory.",
     stagesActive: "Active stages", activities: "Activities", collaborators: "Collaborators",
@@ -292,7 +283,7 @@ export function RoadmapPage() {
             <p>{copy.subtitle}</p>
             <Link to="/colaborar" className="landing-collab"><span><HandHeart size={20} /></span><div><strong>{copy.collaborate}</strong><small>{copy.collaborateSub}</small></div><ArrowSquareOut size={16} /></Link>
           </div>
-          <RadioMiniPlayer copy={copy.radio} />
+          <RadioEmbed unavailable={copy.radioUnavailable} />
         </div>
       </section>
 

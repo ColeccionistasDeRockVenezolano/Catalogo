@@ -37,52 +37,7 @@
 .landing-collab small { color: var(--text-muted); font-size: 11.5px; }
 .landing-collab > svg { color: var(--text-muted); margin-left: 6px; }
 
-.landing-radio {
-  position: relative; display: grid; overflow: hidden; border: 1px solid color-mix(in srgb, var(--red) 28%, var(--border));
-  border-radius: 18px; background: #0d0d0f; box-shadow: 0 24px 60px #0006;
-}
-.landing-radio.is-cinema {
-  position: fixed; inset: 18px; z-index: 120; max-width: 1060px; margin: auto; overflow: auto;
-  box-shadow: 0 40px 120px #000c; border-color: var(--red);
-}
-.landing-radio__head {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px;
-  border-bottom: 1px solid color-mix(in srgb, var(--border) 65%, transparent);
-}
-.landing-radio__live { display: inline-flex; align-items: center; gap: 7px; font-family: var(--font-display); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; }
-.landing-radio__live i { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 0 color-mix(in srgb, var(--teal) 55%, transparent); animation: landing-pulse 2.4s ease-out infinite; }
 @keyframes landing-pulse { 70% { box-shadow: 0 0 0 7px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
-.landing-radio__actions { display: flex; align-items: center; gap: 8px; }
-.landing-radio__listeners { color: var(--text-muted); font-size: 10.5px; white-space: nowrap; }
-.landing-radio__cinema {
-  display: inline-flex; align-items: center; gap: 5px; min-height: 30px; padding: 5px 8px;
-  border: 1px solid var(--border); border-radius: 8px; background: transparent; color: var(--text-muted); font-size: 10.5px; cursor: pointer;
-}
-.landing-radio__cinema:hover { color: var(--text); border-color: var(--red); }
-.landing-radio__screen { position: relative; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
-.landing-radio__player, .landing-radio__player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.landing-radio__empty { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center; padding: 18px; text-align: center; color: #ddd; background: #0b0b0c; font-size: 12px; }
-.landing-radio__content { display: grid; gap: 7px; padding: 14px 16px 15px; }
-.landing-radio__label { margin: 0; color: var(--text-muted); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; }
-.landing-radio__content h2 { margin: 0; font-family: var(--font-display); font-size: clamp(22px, 2.3vw, 30px); line-height: 1.05; }
-.landing-radio__artist { margin: 0; color: var(--text-muted); font-size: 12px; }
-.landing-radio__timeline { height: 3px; margin-top: 4px; border-radius: 999px; background: color-mix(in srgb, var(--border) 75%, transparent); overflow: hidden; }
-.landing-radio__timeline i { display: block; height: 100%; border-radius: inherit; background: var(--red); transition: width .4s linear; }
-.landing-radio__times { display: flex; justify-content: space-between; margin-top: -2px; color: var(--text-muted); font-family: var(--font-mono); font-size: 9.5px; }
-.landing-radio__status-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 2px; }
-.landing-radio__status { margin: 0; color: var(--text-muted); font-size: 10.5px; line-height: 1.35; }
-.landing-radio__join {
-  flex: 0 0 auto; min-height: 34px; padding: 7px 11px; border: 1px solid var(--red); border-radius: 8px;
-  background: var(--red); color: #fff; font-size: 10.5px; font-weight: 800; letter-spacing: .02em; cursor: pointer;
-}
-.landing-radio[data-radio-state="live"] .landing-radio__join { background: #0e9d8f; border-color: #16c9b8; }
-.landing-radio__volume { display: flex; align-items: center; gap: 8px; margin-top: 1px; }
-.landing-radio__volume button { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid var(--border); border-radius: 7px; background: transparent; color: var(--text-muted); cursor: pointer; }
-.landing-radio__volume button:hover { color: var(--text); border-color: var(--red); }
-.landing-radio__volume input { flex: 1; accent-color: var(--red); height: 18px; }
-.landing-radio__next { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 12px; margin-top: 4px; padding-top: 9px; border-top: 1px solid color-mix(in srgb, var(--border) 65%, transparent); font-size: 10px; }
-.landing-radio__next span { color: var(--text-muted); letter-spacing: .07em; text-transform: uppercase; }
-.landing-radio__next strong { overflow: hidden; text-align: right; text-overflow: ellipsis; white-space: nowrap; font-weight: 650; }
 
 .landing-section { padding: clamp(48px, 6vw, 76px) 0; border-top: 1px solid var(--border); }
 .landing-map-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 28px; align-items: end; margin-bottom: 26px; }
@@ -248,7 +203,6 @@
 
 @media (max-width: 980px) {
   .landing-hero__inner { grid-template-columns: 1fr; }
-  .landing-radio { max-width: 720px; }
   .landing-map-head { grid-template-columns: 1fr; align-items: start; }
   .landing-map-head dl { width: 100%; min-width: 0; }
   .landing-overall { grid-template-columns: minmax(120px, auto) minmax(80px, auto) minmax(200px, 1fr); }
@@ -267,6 +221,5 @@
   .landing-stages-pager label { width: 100%; }
   .landing-task { grid-template-columns: 17px minmax(0, 1fr); align-items: start; }
   .landing-task em { grid-column: 2; justify-self: start; }
-  .landing-radio.is-cinema { inset: 8px; }
   .visits-widget { width: 196px; right: 10px; bottom: 10px; }
 }

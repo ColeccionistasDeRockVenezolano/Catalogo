@@ -2,12 +2,15 @@
 //
 // Portado del motor de Herra para que el catálogo pueda calcular la misma
 // emisión al mismo segundo. La fuente de verdad sigue siendo el catálogo
-// exportado y su configuración (`auth.project_features`, feature `radio`);
-// este módulo no escribe nada: solo lee el catálogo, sus exclusiones y el
-// respaldo de géneros.
+// exportado y su configuración (`auth.project_features`, feature `radio`).
+// Con `owner` la estación es la dueña de la emisión: barre la disponibilidad y
+// guarda sus exclusiones y su respaldo de géneros en `statePath`. Sin `owner`
+// no escribe nada ni consulta a YouTube: sigue los archivos que mantiene Herra.
 import crypto from "node:crypto";
 import fs from "node:fs";
+import { createRadioAvailabilityStore, oembedAvailability, type RadioAvailabilityChecker, type RadioAvailabilityStore, type RadioVerdict } from "./availability.js";
 import { genrePrimaryKey, type RadioItemGenres } from "./genres.js";
+import { radioLog } from "./log.js";
 import { genreProgrammingOrder } from "./programming.js";
 
 export type { RadioItemGenres } from "./genres.js";
@@ -18,6 +21,8 @@ export interface RadioCatalogItem {
   trackNumber: number; startSeconds: number; durationSeconds: number; available: true;
   genres?: RadioItemGenres | null;
   regionRestriction?: RadioRegionRestriction;
+  /** Solo en un relleno: la pieza programada que el país del oyente veta. */
+  regionSubstituteFor?: { videoId: string; title: string; artist: string | null; album: string; year: number | null };
 }
 export interface RadioSweeper {
   src: string; durationSeconds: number; overlapSeconds?: number; leadSeconds?: number; everyPieces?: number;
@@ -28,7 +33,12 @@ export interface RadioStation {
   catalogPath: string;
   epochMs: number;
   stationName: string;
+  /** Dueña de la emisión: barre, verifica avisos y guarda su estado. */
+  owner?: boolean;
+  /** Base de los archivos de estado del dueño; por defecto, junto al catálogo. */
+  statePath?: string;
 }
+export interface RadioListener { country?: string | null | undefined }
 export interface RadioSnapshot {
   phase: "music" | "sweeper";
   sweeper?: RadioSweeper;
@@ -55,6 +65,11 @@ export interface RadioSnapshot {
 export interface RadioRegionPolicy { homeRegions: string[]; worldwideRegions: number }
 const DEFAULT_WORLDWIDE_REGIONS = 100;
 const REGION_CODE = /^[A-Z]{2}$/u;
+// Códigos que Cloudflare usa sin país real (desconocido y Tor).
+const NO_COUNTRY = new Set(["XX", "T1"]);
+const SWEEP_FIRST_DELAY_MS = 5_000;
+const SWEEP_INTERVAL_MS = 6 * 3600_000;
+const STATION_IDLE_MS = 24 * 3600_000;
 const SUPPORTED_VERSIONS = new Set<unknown>([2, 3]);
 const UPCOMING_COUNT = 6;
 const GENRE_COVERAGE_MIN = 0.9;
@@ -64,33 +79,108 @@ interface CatalogFile {
   version: number; generatedAt: string; availabilityCheckedAt: string; channelId: string;
   items: RadioCatalogItem[]; regionPolicy?: unknown;
 }
+interface CatalogFileCache {
+  path: string; mtimeMs: number; items: RadioCatalogItem[]; regionPolicy: RadioRegionPolicy;
+  regionExcluded: number; availabilityCheckedAt: string;
+}
 interface CatalogCache {
-  path: string; mtimeMs: number; version: string; totalDuration: number;
+  file: CatalogFileCache; revision: number; version: string; totalDuration: number;
   items: RadioCatalogItem[];
+  /** Último segundo conocido de cada video, para un relleno que siga sobre su pista siguiente. */
+  videoEnds: Map<string, number>;
 }
 interface EngineState {
+  file: CatalogFileCache | null;
+  rejectedFile: string;
   catalog: CatalogCache | null;
+  staleCatalog: { cache: CatalogCache; untilMs: number } | null;
   baseOrders: Map<string, RadioCatalogItem[]>;
   orders: Map<string, RadioCatalogItem[]>;
+  availability: RadioAvailabilityStore | null;
+  sweepTimer: NodeJS.Timeout | null;
+  lastUsedMs: number;
 }
 const states = new Map<string, EngineState>();
+let injectedChecker: RadioAvailabilityChecker | undefined;
 
 function stateKey(station: RadioStation): string {
-  return `${station.catalogPath}\n${station.epochMs}\n${JSON.stringify(station.sweeper ?? null)}\n${crossfadeSeconds(station)}`;
+  return [station.catalogPath, station.epochMs, JSON.stringify(station.sweeper ?? null), crossfadeSeconds(station), Boolean(station.owner), station.statePath ?? ""].join("\n");
 }
 
 function stateFor(station: RadioStation): EngineState {
   const key = stateKey(station);
   let state = states.get(key);
   if (!state) {
-    state = { catalog: null, baseOrders: new Map(), orders: new Map() };
+    state = {
+      file: null, rejectedFile: "", catalog: null, staleCatalog: null, baseOrders: new Map(), orders: new Map(),
+      availability: null, sweepTimer: null, lastUsedMs: Date.now(),
+    };
     states.set(key, state);
   }
+  state.lastUsedMs = Date.now();
   return state;
 }
 
+function statePathOf(station: RadioStation): string {
+  return station.owner && station.statePath ? station.statePath : station.catalogPath;
+}
+
+function availabilityOf(state: EngineState, station: RadioStation): RadioAvailabilityStore {
+  if (!state.availability) {
+    const checker = injectedChecker !== undefined ? injectedChecker : station.owner ? oembedAvailability : null;
+    const ownPath = `${statePathOf(station)}.unavailable.json`;
+    const sibling = `${station.catalogPath}.unavailable.json`;
+    state.availability = createRadioAvailabilityStore({
+      filePath: ownPath, checker, writable: Boolean(station.owner),
+      ...(ownPath !== sibling ? { seedPath: sibling } : {}),
+    });
+  }
+  return state.availability;
+}
+
+function disposeState(key: string, state: EngineState): void {
+  if (state.sweepTimer) clearTimeout(state.sweepTimer);
+  state.sweepTimer = null;
+  if (states.get(key) === state) states.delete(key);
+}
+
+// Barrido periódico del dueño: detecta lo que se volvió privado o se borró y
+// devuelve lo que se recupera. Una estación que nadie consulta en un día se apaga.
+function scheduleSweep(state: EngineState, station: RadioStation): void {
+  if (state.sweepTimer || !station.owner || injectedChecker !== undefined) return;
+  const key = stateKey(station);
+  const plan = (delayMs: number): void => {
+    state.sweepTimer = setTimeout(() => {
+      if (Date.now() - state.lastUsedMs > STATION_IDLE_MS) { disposeState(key, state); return; }
+      const videoIds = state.file ? state.file.items.map((item) => item.videoId) : [];
+      availabilityOf(state, station).sweep(videoIds)
+        .catch((error: unknown) => {
+          radioLog("error", "radio_availability_sweep_failed", { station: station.stationName, message: error instanceof Error ? error.message : String(error) });
+        })
+        .finally(() => { if (states.get(key) === state) plan(SWEEP_INTERVAL_MS); });
+    }, delayMs);
+    state.sweepTimer.unref();
+  };
+  plan(SWEEP_FIRST_DELAY_MS);
+}
+
 export function resetRadioEngineForTests(): void {
+  for (const [key, state] of [...states]) disposeState(key, state);
   states.clear();
+  injectedChecker = undefined;
+}
+
+/** Solo pruebas: verificador en lugar de oEmbed; apaga el barrido programado. */
+export function setRadioCheckerForTests(checker: RadioAvailabilityChecker | undefined): void {
+  injectedChecker = checker;
+  for (const state of states.values()) state.availability = null;
+}
+
+/** Solo pruebas: barrido inmediato. */
+export async function sweepRadioForTests(station: RadioStation, nowMs = Date.now()): Promise<void> {
+  const state = stateFor(station);
+  const file = readCatalogFile(state, station);
+  await availabilityOf(state, station).sweep(file ? file.items.map((item) => item.videoId) : [], nowMs);
 }
 
 function cleanText(value: unknown, max: number): string | null {
@@ -167,7 +257,12 @@ export function parseRegionPolicy(value: unknown): RadioRegionPolicy {
   };
 }
 
-function regionBlocks(item: { regionRestriction?: RadioRegionRestriction }, country: string): boolean {
+export function normalizeListenerCountry(value: unknown): string | null {
+  const code = typeof value === "string" ? value.trim().toUpperCase() : "";
+  return REGION_CODE.test(code) && !NO_COUNTRY.has(code) ? code : null;
+}
+
+export function regionBlocks(item: { regionRestriction?: RadioRegionRestriction }, country: string): boolean {
   const restriction = item.regionRestriction;
   if (!restriction) return false;
   if (restriction.allowed && !restriction.allowed.includes(country)) return true;
@@ -208,7 +303,7 @@ function parseItem(value: unknown): RadioCatalogItem | null {
   };
 }
 
-function parseCatalogFile(filePath: string): { items: RadioCatalogItem[]; version: unknown; availabilityCheckedAt: string; regionPolicy: RadioRegionPolicy } {
+function parseCatalogFile(filePath: string): { items: RadioCatalogItem[]; availabilityCheckedAt: string; regionPolicy: RadioRegionPolicy; regionExcluded: number } {
   const raw = JSON.parse(fs.readFileSync(filePath, "utf8")) as Partial<CatalogFile>;
   const seen = new Set<string>();
   const items = (Array.isArray(raw.items) ? raw.items : [])
@@ -227,40 +322,54 @@ function parseCatalogFile(filePath: string): { items: RadioCatalogItem[]; versio
   const regionPolicy = parseRegionPolicy(raw.regionPolicy);
   const airable = items.filter((item) => !regionExcludesFromStation(item, regionPolicy));
   if (airable.length < 2) throw new Error("la política regional deja menos de dos canciones");
-  return { items: airable, version: raw.version, availabilityCheckedAt: String(raw.availabilityCheckedAt), regionPolicy };
+  return { items: airable, availabilityCheckedAt: String(raw.availabilityCheckedAt), regionPolicy, regionExcluded: items.length - airable.length };
 }
 
-function exclusions(filePath: string): Set<string> {
-  const excluded = new Set<string>();
-  try {
-    const raw = JSON.parse(fs.readFileSync(`${filePath}.unavailable.json`, "utf8")) as { videos?: Record<string, unknown> };
-    for (const videoId of Object.keys(raw.videos ?? {})) {
-      if (/^[A-Za-z0-9_-]{11}$/u.test(videoId)) excluded.add(videoId);
-    }
-  } catch { /* sin exclusiones */ }
-  return excluded;
-}
-
-function genreBackup(filePath: string): Map<string, RadioItemGenres> {
+function readGenreBackup(filePath: string): Map<string, RadioItemGenres> | null {
+  let raw: { videos?: Record<string, unknown> };
+  try { raw = JSON.parse(fs.readFileSync(filePath, "utf8")) as typeof raw; } catch { return null; }
   const map = new Map<string, RadioItemGenres>();
-  try {
-    const raw = JSON.parse(fs.readFileSync(`${filePath}.genres.json`, "utf8")) as { videos?: Record<string, unknown> };
-    for (const [videoId, genres] of Object.entries(raw.videos ?? {})) {
-      const parsed = parseGenres(genres);
-      if (parsed && videoId) map.set(videoId, parsed);
-    }
-  } catch { /* sin respaldo */ }
+  for (const [videoId, genres] of Object.entries(raw.videos ?? {})) {
+    const parsed = parseGenres(genres);
+    if (parsed && videoId) map.set(videoId, parsed);
+  }
   return map;
 }
 
-function applyGenreBackup(filePath: string, items: readonly RadioCatalogItem[]): RadioCatalogItem[] {
-  const backup = genreBackup(filePath);
-  if (backup.size === 0) return items.slice();
-  return items.map((item) => {
+function writeGenreBackup(target: string, items: readonly RadioCatalogItem[]): void {
+  const videos: Record<string, RadioItemGenres> = {};
+  for (const item of items) if (item.genres && genrePrimaryKey(item.genres)) videos[item.videoId] = item.genres;
+  if (Object.keys(videos).length === 0) return;
+  const temporary = `${target}.${process.pid}.tmp`;
+  try {
+    fs.writeFileSync(temporary, JSON.stringify({ savedAt: new Date().toISOString(), videos }), "utf8");
+    fs.renameSync(temporary, target);
+  } catch (error) {
+    radioLog("error", "radio_genres_backup_failed", { target, message: error instanceof Error ? error.message : String(error) });
+    fs.rmSync(temporary, { force: true });
+  }
+}
+
+// Rellena los géneros que falten desde el último mapa conocido. El dueño lo
+// mantiene al día en su propio archivo; quien no lo es solo lee.
+function applyGenreBackup(station: RadioStation, items: readonly RadioCatalogItem[]): RadioCatalogItem[] {
+  const ownPath = `${statePathOf(station)}.genres.json`;
+  const backup = readGenreBackup(ownPath) ?? readGenreBackup(`${station.catalogPath}.genres.json`) ?? new Map<string, RadioItemGenres>();
+  const merged = items.map((item) => {
     if (genrePrimaryKey(item.genres)) return item;
     const saved = backup.get(item.videoId);
     return saved ? { ...item, genres: saved } : item;
   });
+  if (station.owner) {
+    const classified = merged.filter((item) => genrePrimaryKey(item.genres));
+    // Una re-anotación debe ganarle al respaldo viejo.
+    const complete = backup.size === classified.length && classified.every((item) => {
+      const saved = backup.get(item.videoId);
+      return Boolean(saved) && genrePrimaryKey(saved) === genrePrimaryKey(item.genres);
+    });
+    if (!complete) writeGenreBackup(ownPath, merged);
+  }
+  return merged;
 }
 
 function effectiveCatalogItems(items: readonly RadioCatalogItem[]): RadioCatalogItem[] {
@@ -302,35 +411,79 @@ export function slotSeconds(station: RadioStation, item: { durationSeconds: numb
   return Math.max(0.5, item.durationSeconds - cross) + (closes ? sweeperGap(station) : 0);
 }
 
-function loadCatalog(station: RadioStation): CatalogCache | null {
+function readCatalogFile(state: EngineState, station: RadioStation): CatalogFileCache | null {
   let stat: fs.Stats;
-  try { stat = fs.statSync(station.catalogPath); } catch { return null; }
-  const state = stateFor(station);
-  if (state.catalog?.path === station.catalogPath && state.catalog.mtimeMs === stat.mtimeMs) return state.catalog;
+  try { stat = fs.statSync(station.catalogPath); } catch { state.file = null; return null; }
+  if (state.file?.path === station.catalogPath && state.file.mtimeMs === stat.mtimeMs) return state.file;
+  const fileKey = `${station.catalogPath}:${stat.mtimeMs}`;
+  if (state.rejectedFile === fileKey) return null;
   try {
-    const parsed = parseCatalogFile(station.catalogPath);
-    const excluded = exclusions(station.catalogPath);
-    const playable = parsed.items.filter((item) => !excluded.has(item.videoId));
-    const restored = applyGenreBackup(station.catalogPath, playable);
-    const items = effectiveCatalogItems(restored);
-    if (items.length < 2) return null;
-    const digest = crypto.createHash("sha256")
-      .update(JSON.stringify(items.map((item) => [item.videoId, item.startSeconds, item.durationSeconds])))
-      .digest("hex").slice(0, 16);
-    state.catalog = {
-      path: station.catalogPath,
-      mtimeMs: stat.mtimeMs,
-      version: digest,
-      totalDuration: items.reduce((sum, item, index) => sum + slotSeconds(station, item, index), 0),
-      items,
-    };
-    state.baseOrders.clear();
-    state.orders.clear();
-    return state.catalog;
-  } catch {
+    state.file = { path: station.catalogPath, mtimeMs: stat.mtimeMs, ...parseCatalogFile(station.catalogPath) };
+    state.rejectedFile = "";
+    return state.file;
+  } catch (error) {
+    radioLog("error", "radio_catalog_invalid", { station: station.stationName, message: error instanceof Error ? error.message : String(error) });
+    state.file = null;
+    state.rejectedFile = fileKey;
+    return null;
+  }
+}
+
+function loadCatalog(state: EngineState, station: RadioStation, nowMs: number): CatalogCache | null {
+  const file = readCatalogFile(state, station);
+  if (!file) {
     state.catalog = null;
     return null;
   }
+  scheduleSweep(state, station);
+  const store = availabilityOf(state, station);
+  const revision = store.revision();
+  if (state.catalog?.file === file && state.catalog.revision === revision) return state.catalog;
+  const playable = file.items.filter((item) => !store.isExcluded(item.videoId));
+  const items = effectiveCatalogItems(applyGenreBackup(station, playable));
+  if (items.length < 2) {
+    radioLog("error", "radio_catalog_exhausted", { station: station.stationName, items: items.length });
+    state.catalog = null;
+    return null;
+  }
+  const digest = crypto.createHash("sha256")
+    .update(JSON.stringify(items.map((item) => [item.videoId, item.startSeconds, item.durationSeconds])))
+    .digest("hex").slice(0, 16);
+  const previous = state.catalog;
+  const videoEnds = new Map<string, number>();
+  for (const item of file.items) {
+    const end = item.startSeconds + item.durationSeconds;
+    if (end > (videoEnds.get(item.videoId) ?? 0)) videoEnds.set(item.videoId, end);
+  }
+  state.catalog = {
+    file, revision, version: digest, items, videoEnds,
+    totalDuration: items.reduce((sum, item, index) => sum + slotSeconds(station, item, index), 0),
+  };
+  // Un catálogo nuevo no corta la pieza en curso: la versión anterior sirve hasta
+  // que esa pieza termina. Si lo que suena es un video retirado, el relevo es inmediato.
+  if (previous && previous.version !== digest && !state.staleCatalog) {
+    const located = locate(state, station, previous, nowMs);
+    const item = located.order[located.position]!;
+    const endsAtMs = located.startsAtMs + slotSeconds(station, item, located.position) * 1000;
+    if (endsAtMs > nowMs && !store.isExcluded(item.videoId)) {
+      state.staleCatalog = { cache: previous, untilMs: endsAtMs };
+    }
+  }
+  return state.catalog;
+}
+
+function activeCatalog(state: EngineState, station: RadioStation, nowMs: number): CatalogCache | null {
+  const fresh = loadCatalog(state, station, nowMs);
+  const stale = state.staleCatalog;
+  if (stale) {
+    const located = locate(state, station, stale.cache, nowMs);
+    const keep = nowMs < stale.untilMs
+      && (!fresh || fresh.version !== stale.cache.version)
+      && !availabilityOf(state, station).isExcluded(located.order[located.position]!.videoId);
+    if (keep) return stale.cache;
+    state.staleCatalog = null;
+  }
+  return fresh;
 }
 
 function cycleSeed(catalog: CatalogCache, cycle: number): number {
@@ -457,25 +610,63 @@ function locate(state: EngineState, station: RadioStation, catalog: CatalogCache
   return { cycle, position, order, startsAtMs: cycleStartMs + cursor * 1000 };
 }
 
-export function radioSnapshot(station: RadioStation, nowMs = Date.now(), listeners = 0): RadioSnapshot | null {
+// Relleno para un oyente cuyo país veta la pieza programada. La emisión común no
+// cambia: en ese mismo tramo suena otra pieza permitida allí, elegida de forma
+// determinista. Prefiere el mismo género y una duración suficiente; si no la hay,
+// una que pueda seguir sobre la pista siguiente de su video.
+function regionSubstitute(catalog: CatalogCache, original: RadioCatalogItem, country: string, slotKey: string, avoid: ReadonlySet<string>): RadioCatalogItem | null {
+  const genre = genrePrimaryKey(original.genres);
+  const fits = (item: RadioCatalogItem): boolean => item.durationSeconds >= original.durationSeconds;
+  const fitsInVideo = (item: RadioCatalogItem): boolean => (catalog.videoEnds.get(item.videoId) ?? 0) - item.startSeconds >= original.durationSeconds;
+  const allowed = catalog.items.filter((item) => !avoid.has(item.videoId) && !regionBlocks(item, country)
+    && (!original.artist || !item.artist || !sameArtist(original, item)));
+  const tiers = [
+    allowed.filter((item) => genre && genrePrimaryKey(item.genres) === genre && fits(item)),
+    allowed.filter(fits),
+    allowed.filter(fitsInVideo),
+  ];
+  const pool = tiers.find((tier) => tier.length > 0);
+  if (!pool) return null;
+  const pick = crypto.createHash("sha256").update(`${catalog.version}:${slotKey}:${country}`).digest().readUInt32LE(0);
+  const chosen = pool[pick % pool.length]!;
+  return {
+    ...chosen,
+    // Ocupa exactamente el tramo de la pieza vetada para no mover el reloj.
+    durationSeconds: original.durationSeconds,
+    regionSubstituteFor: { videoId: original.videoId, title: original.title, artist: original.artist, album: original.album, year: original.year },
+  };
+}
+
+function forListener(catalog: CatalogCache, item: RadioCatalogItem, country: string | null, slotKey: string, avoid: ReadonlySet<string>): RadioCatalogItem {
+  if (!country || !regionBlocks(item, country)) return item;
+  return regionSubstitute(catalog, item, country, slotKey, avoid) ?? item;
+}
+
+export function radioSnapshot(station: RadioStation, nowMs = Date.now(), listeners = 0, listener: RadioListener = {}): RadioSnapshot | null {
   const state = stateFor(station);
-  const catalog = loadCatalog(station);
+  const catalog = activeCatalog(state, station, nowMs);
   if (!catalog) return null;
   const located = locate(state, station, catalog, nowMs);
   const scheduled = located.order[located.position]!;
-  const upcoming: RadioCatalogItem[] = [];
+  const scheduledUpcoming: Array<{ item: RadioCatalogItem; slotKey: string }> = [];
   let candidateCycle = located.cycle;
   let candidatePosition = located.position + 1;
-  while (upcoming.length < Math.min(UPCOMING_COUNT, catalog.items.length - 1)) {
+  while (scheduledUpcoming.length < Math.min(UPCOMING_COUNT, catalog.items.length - 1)) {
     const candidateOrder = candidateCycle === located.cycle ? located.order : rawOrder(state, catalog, candidateCycle);
     if (candidatePosition >= candidateOrder.length) {
       candidateCycle += 1;
       candidatePosition = 0;
       continue;
     }
-    upcoming.push(candidateOrder[candidatePosition]!);
+    scheduledUpcoming.push({ item: candidateOrder[candidatePosition]!, slotKey: `${candidateCycle}:${candidatePosition}` });
     candidatePosition += 1;
   }
+  // Un relleno nunca repite algo programado alrededor. Los tiempos se calculan con
+  // la pieza programada: el relleno ocupa su mismo tramo.
+  const country = normalizeListenerCountry(listener.country);
+  const avoid = new Set([scheduled, ...scheduledUpcoming.map((entry) => entry.item)].map((item) => item.videoId));
+  const current = forListener(catalog, scheduled, country, `${located.cycle}:${located.position}`, avoid);
+  const upcoming = scheduledUpcoming.map((entry) => forListener(catalog, entry.item, country, entry.slotKey, avoid));
   const mediaEndsAtMs = located.startsAtMs + scheduled.durationSeconds * 1000;
   const closes = sweeperClosesSlot(station, located.position);
   const nextCloses = sweeperClosesSlot(station, (located.position + 1) % located.order.length);
@@ -511,22 +702,58 @@ export function radioSnapshot(station: RadioStation, nowMs = Date.now(), listene
     cycle: located.cycle,
     position: located.position + 1,
     total: located.order.length,
-    current: scheduled,
+    current,
     next: upcoming[0]!,
     upcoming,
     listeners,
   };
 }
 
+/**
+ * Un navegador avisa que YouTube rechazó una pieza. Solo vale para lo que está al
+ * aire o preparado a continuación, y decide el servidor. `null`: no está al aire.
+ */
+export async function reportRadioUnavailable(station: RadioStation, videoId: string, nowMs = Date.now(), listener: RadioListener = {}): Promise<{ excluded: boolean; verdict: RadioVerdict } | null> {
+  const snapshot = radioSnapshot(station, nowMs, 0, listener);
+  if (!snapshot) return null;
+  if (![snapshot.current, ...snapshot.upcoming.slice(0, 2)].some((item) => item.videoId === videoId)) return null;
+  const verdict = await availabilityOf(stateFor(station), station).verify(videoId, nowMs);
+  radioLog("info", "radio_video_reported", { station: station.stationName, videoId, verdict });
+  return { excluded: verdict === "unavailable" && Boolean(station.owner), verdict };
+}
+
 export interface RadioCatalogInspection {
   items: number; playable: number; version: string | null; totalDurationSeconds: number;
   genres: number; lastModified: string | null; error: string | null;
+  /** Fuera del aire para todos: vetos en el país base o casi mundiales. */
+  regionExcluded: number;
+  /** Al aire, pero con relleno en los países que las vetan. */
+  regionRestricted: number;
+  regionRestrictedCountries: Array<{ country: string; items: number }>;
+  excluded: number; unclassified: number; availabilityCheckedAt: string | null; owner: boolean;
 }
 
+const emptyInspection = (owner: boolean, error: string): RadioCatalogInspection => ({
+  items: 0, playable: 0, version: null, totalDurationSeconds: 0, genres: 0, lastModified: null, error,
+  regionExcluded: 0, regionRestricted: 0, regionRestrictedCountries: [], excluded: 0, unclassified: 0, availabilityCheckedAt: null, owner,
+});
+
 export function inspectCatalog(station: RadioStation): RadioCatalogInspection {
+  const owner = Boolean(station.owner);
   try {
-    const catalog = loadCatalog(station);
-    if (!catalog) return { items: 0, playable: 0, version: null, totalDurationSeconds: 0, genres: 0, lastModified: null, error: "el catálogo no se pudo leer" };
+    const state = stateFor(station);
+    const catalog = loadCatalog(state, station, Date.now());
+    if (!catalog) return emptyInspection(owner, "el catálogo no se pudo leer");
+    const counts = new Map<string, number>();
+    let regionRestricted = 0;
+    for (const item of catalog.items) {
+      const blocked = item.regionRestriction?.blocked;
+      if (!item.regionRestriction) continue;
+      regionRestricted += 1;
+      for (const country of blocked ?? []) counts.set(country, (counts.get(country) ?? 0) + 1);
+    }
+    const store = availabilityOf(state, station);
+    const excluded = catalog.file.items.filter((item) => store.isExcluded(item.videoId)).length;
     return {
       items: catalog.items.length,
       playable: catalog.items.length,
@@ -535,21 +762,15 @@ export function inspectCatalog(station: RadioStation): RadioCatalogInspection {
       genres: new Set(catalog.items.map((item) => genrePrimaryKey(item.genres)).filter(Boolean)).size,
       lastModified: fs.statSync(station.catalogPath).mtime.toISOString(),
       error: null,
+      regionExcluded: catalog.file.regionExcluded,
+      regionRestricted,
+      regionRestrictedCountries: [...counts].map(([country, items]) => ({ country, items })).sort((a, b) => b.items - a.items || a.country.localeCompare(b.country)),
+      excluded,
+      unclassified: catalog.file.items.length - excluded - catalog.items.length,
+      availabilityCheckedAt: catalog.file.availabilityCheckedAt,
+      owner,
     };
   } catch (error) {
-    return {
-      items: 0, playable: 0, version: null, totalDurationSeconds: 0, genres: 0, lastModified: null,
-      error: error instanceof Error ? error.message : String(error),
-    };
+    return emptyInspection(owner, error instanceof Error ? error.message : String(error));
   }
-}
-
-/** Pieza y fin de tramo en un instante; útil para la sombra. */
-export function radioPieceAt(station: RadioStation, nowMs = Date.now()): { item: RadioCatalogItem; startsAtMs: number; endsAtMs: number } | null {
-  const state = stateFor(station);
-  const catalog = loadCatalog(station);
-  if (!catalog) return null;
-  const located = locate(state, station, catalog, nowMs);
-  const item = located.order[located.position]!;
-  return { item, startsAtMs: located.startsAtMs, endsAtMs: located.startsAtMs + slotSeconds(station, item, located.position) * 1000 };
 }

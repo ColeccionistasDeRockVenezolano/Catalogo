@@ -14,10 +14,10 @@ import { clientMessages as herraClientMessages, translate as herraTranslate } fr
 import { getPool } from "../db/client.js";
 import { ACTIVATION_TTL_DAYS } from "../api/community/validation.js";
 
-export type LandingPage = "roadmap" | "colaborar" | "login" | "registro" | "activar" | "admin" | "account";
+export type LandingPage = "roadmap" | "colaborar" | "login" | "registro" | "activar" | "admin" | "account" | "radio-embed";
 export type AccountSaved = "profile" | "password" | "both";
 interface LandingSession { name: string; role: string; userId: number | null; adminId?: number | null; csrf: string }
-const templates: Record<LandingPage, string> = { roadmap: "roadmap", colaborar: "collaborate", login: "user-login", registro: "register", activar: "activate", admin: "admin", account: "account" };
+const templates: Record<LandingPage, string> = { "radio-embed": "radio-embed", roadmap: "roadmap", colaborar: "collaborate", login: "user-login", registro: "register", activar: "activate", admin: "admin", account: "account" };
 const rawTranslatedKeys = new Set(["register.doneSub", "register.invalidSub", "register.sub", "activate.invalidSub", "activate.subNamed", "activate.sub", "userLogin.sub"]);
 const escapeHtml = (value: string) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
@@ -74,8 +74,9 @@ async function accountLocals(locals: Record<string, unknown>, lang: LandingLangu
 }
 
 /** Genera el documento de Herra con lecturas de la base del catálogo. */
-export async function renderLanding(page: LandingPage, lang: LandingLanguage, token = "", session: LandingSession | null = null, landingMode = false, saved: AccountSaved | null = null): Promise<string> {
-  const data = await loadLandingData(lang, page, session !== null);
+export async function renderLanding(page: LandingPage, lang: LandingLanguage, token = "", session: LandingSession | null = null, landingMode = false, saved: AccountSaved | null = null, country: string | null = null): Promise<string> {
+  const data = await loadLandingData(lang, page, session !== null, country);
+  if (page === "radio-embed" && !data.radio) throw new ApiError(404, "radio_unavailable", "La radio no está disponible.");
   const projectAdmin = Boolean(session && (session.role === "admin" || session.role === "community"));
   const currentUser = session ? { id: session.userId ?? 0, name: session.name } : null;
   let valid = false;

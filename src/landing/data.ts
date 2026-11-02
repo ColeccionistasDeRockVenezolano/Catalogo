@@ -30,7 +30,7 @@ function parseObject(raw: string | null): Record<string, unknown> {
 }
 
 /** Carga solo datos públicos y no modifica la base. A Herra solo le lee lo que emite (GET), mientras sea ella quien emite. */
-export async function loadLandingData(lang: LandingLanguage, page: "roadmap" | "colaborar" | "login" | "registro" | "activar" | "admin" | "account", authenticated = false) {
+export async function loadLandingData(lang: LandingLanguage, page: "roadmap" | "colaborar" | "login" | "registro" | "activar" | "admin" | "account" | "radio-embed", authenticated = false, country: string | null = null) {
   const id = await projectId();
   const pool = getPool();
   const [projects, assets, terms, view, visits, radioConfig] = await Promise.all([
@@ -38,7 +38,7 @@ export async function loadLandingData(lang: LandingLanguage, page: "roadmap" | "
     pool.query<AssetRow>("SELECT kind, mime_type, width, height, checksum FROM auth.project_assets WHERE project_id = $1", [id]),
     pool.query<CatalogRow>("SELECT id, type, label, i18n_json FROM auth.catalog_terms WHERE archived_at IS NULL AND type IN ('skill', 'contribution_area', 'link_type') ORDER BY type, label"),
     page === "roadmap" ? publicRoadmap(id, lang, authenticated) : Promise.resolve(null),
-    visitStats(id, lang), page === "roadmap" && getEnv().CRV_RADIO_ENABLED ? loadRadioConfig(id) : Promise.resolve(null),
+    visitStats(id, lang), (page === "roadmap" || page === "radio-embed") && getEnv().CRV_RADIO_ENABLED ? loadRadioConfig(id) : Promise.resolve(null),
   ]);
   const project = projects.rows[0];
   if (!project) throw new ApiError(404, "project_not_found", "No existe el proyecto.");
@@ -51,7 +51,7 @@ export async function loadLandingData(lang: LandingLanguage, page: "roadmap" | "
   const branding = resolveBranding(project.branding_json, localized);
   const form = resolveCollaborateForm(project.collaborate_json, lang, localized);
   const radio = radioConfig
-    ? await liveRadioSnapshot(getEnv().CRV_RADIO_LIVE_URL) ?? radioSnapshot(radioStationFromConfig(radioConfig), Date.now(), radioListenerCount(id))
+    ? await liveRadioSnapshot(getEnv().CRV_RADIO_LIVE_URL, fetch, Date.now(), country) ?? radioSnapshot(radioStationFromConfig(radioConfig), Date.now(), radioListenerCount(id), { country })
     : null;
   const projectAssets = Object.fromEntries(assets.rows.map((asset) => [asset.kind, { checksum: asset.checksum, mimeType: asset.mime_type, width: asset.width, height: asset.height }]));
   const group = (type: string) => terms.rows.filter((term) => term.type === type).map((term) => {

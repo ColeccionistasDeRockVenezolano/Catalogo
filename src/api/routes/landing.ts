@@ -4,13 +4,14 @@ import { z } from "zod";
 import { renderLanding } from "../../landing/render.js";
 import { getPool } from "../../db/client.js";
 import { projectId } from "../community/store.js";
+import { clientCountry } from "../auth.js";
 
 export async function registerLandingRoutes(app: FastifyInstance): Promise<void> {
   const api = app.withTypeProvider<ZodTypeProvider>();
   api.get("/landing/:page", {
     schema: {
       tags: ["Roadmap"],
-      params: z.object({ page: z.enum(["roadmap", "colaborar", "login", "registro", "activar", "admin", "account"]) }),
+      params: z.object({ page: z.enum(["roadmap", "colaborar", "login", "registro", "activar", "admin", "account", "radio-embed"]) }),
       querystring: z.object({ lang: z.enum(["es", "en"]).optional(), token: z.string().max(200).optional(), mode: z.enum(["landing"]).optional(), saved: z.enum(["profile", "password", "both"]).optional() }),
     },
   }, async (request, reply) => {
@@ -27,7 +28,7 @@ export async function registerLandingRoutes(app: FastifyInstance): Promise<void>
     if (request.params.page === "login" && session) {
       return reply.code(204).header("Cache-Control", "no-store").header("x-crv-landing-redirect", "roadmap").send();
     }
-    const html = await renderLanding(request.params.page, request.query.lang ?? "es", request.query.token ?? "", session, request.query.mode === "landing", request.query.saved ?? null);
+    const html = await renderLanding(request.params.page, request.query.lang ?? "es", request.query.token ?? "", session, request.query.mode === "landing", request.query.saved ?? null, clientCountry(request));
     return reply.header("Cache-Control", "no-store").type("text/html; charset=utf-8").send(html);
   });
   api.get("/landing-media/:kind", {

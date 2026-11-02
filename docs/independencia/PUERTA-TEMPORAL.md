@@ -20,6 +20,9 @@ la ventana ([FASE2B.md](FASE2B.md)).
 | `/register`, `/admin/login` | Enlaces antiguos | Redirigen a `/registro` y `/login`, conservando el token |
 | `/lang/es`, `/lang/en` | Todos | Guardan el idioma en la cookie `herra-crv_lang`, la misma de Herra, y vuelven a `next`, solo dentro del sitio. `?lang=` también lo guarda |
 
+La radio (`/api/radio/now`, `listener`, `unavailable`, `diagnostic`) la atiende Herra o CRV según
+`CRV_RADIO_SOURCE`; ver [FASE3.md](FASE3.md) §8. `/radio-embed` es del catálogo y en la portada da 404.
+
 Todo lo demás responde 404: `/cuenta`, `/curaduria`, fichas, buscador, chat y cualquier API fuera de
 la lista blanca. La única barrera es la lista blanca de `web/server.mjs`, porque la API que hay detrás
 también sabe servir el catálogo. Por eso `scripts/checks/fase2b-whitelist.mjs` debe pasar antes y

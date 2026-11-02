@@ -41,6 +41,12 @@ const chatPort = Number(process.env.CRV_CHAT_PORT ?? "8081");
 const basePath = `/${(process.env.CRV_PUBLIC_PATH ?? "crv").replace(/^\/+|\/+$/g, "")}`;
 // Fase 2B: en producción la portada va en la raíz y el panel privado en /crv;
 // ninguno puede apuntar a los puertos de ensayo ni servir dist-staging.
+// Quién emite la radio de la portada: Herra hasta cerrar la Fase 3, luego CRV.
+const radioSource = process.env.CRV_RADIO_SOURCE ?? "herra";
+if (radioSource !== "herra" && radioSource !== "crv") {
+  console.error(`CRV_RADIO_SOURCE inválido: ${radioSource}`);
+  process.exit(78);
+}
 const deployment = process.env.CRV_DEPLOYMENT ?? "legacy";
 if (deployment === "production") {
   const fail = (message) => {
@@ -52,7 +58,7 @@ if (deployment === "production") {
   if (webMode === "catalog" && basePath !== "/crv") fail(`el panel privado debe servirse en /crv, no en ${basePath}`);
   if (/staging/iu.test(path.basename(dist))) fail(`no se puede servir «${path.basename(dist)}» (build de staging)`);
   if (!existsSync(path.join(dist, "index.html"))) fail(`falta el build: ${dist}/index.html`);
-  if (webMode === "landing" && !process.env.CRV_RADIO_PROXY_URL) fail("falta CRV_RADIO_PROXY_URL: la radio de la portada no llegaría a Herra");
+  if (webMode === "landing" && radioSource === "herra" && !process.env.CRV_RADIO_PROXY_URL) fail("falta CRV_RADIO_PROXY_URL: la radio de la portada no llegaría a Herra");
 } else if (deployment === "rehearsal") {
   console.warn(`CRV deployment guard: ensayo explícito (CRV_DEPLOYMENT=rehearsal), API :${apiPort}, base ${basePath}, build ${path.basename(dist)}`);
 }
@@ -91,7 +97,11 @@ const sessionCookies = (req) =>
 
 async function serveLanding(req, res, page, lang, searchParams) {
   const prefix = basePath === "/" ? "" : basePath;
-  const key = `${page}:${lang}`;
+  // La tarjeta de radio depende del país (relleno de lo vetado allí).
+  const conRadio = page === "roadmap" || page === "radio-embed";
+  const paisCrudo = conRadio && isLoopbackPeer(req) ? String(req.headers["cf-ipcountry"] ?? "").toUpperCase() : "";
+  const pais = /^[A-Z]{2}$/u.test(paisCrudo) ? paisCrudo : "";
+  const key = `${page}:${lang}:${pais}`;
   const token = (page === "registro" || page === "activar") ? searchParams.get("token") : null;
   const cookie = webMode === "landing" ? sessionCookies(req) : req.headers.cookie;
   const privateResponse = Boolean(token || cookie);
@@ -108,7 +118,8 @@ async function serveLanding(req, res, page, lang, searchParams) {
       if (saved === "profile" || saved === "password" || saved === "both") params.set("saved", saved);
       const response = await fetch(`http://${apiHost}:${apiPort}/landing/${page}?${params}`, {
         // Con sesión la copia anónima no sirve: se espera más antes de rendirse.
-        signal: AbortSignal.timeout(privateResponse ? 15000 : 5000), ...(cookie ? { headers: { cookie } } : {}),
+        signal: AbortSignal.timeout(privateResponse ? 15000 : 5000),
+        headers: { ...(cookie ? { cookie } : {}), ...(pais ? { "cf-ipcountry": pais } : {}) },
       });
       if (response.status === 404) return reply(res, 404, "Página no disponible.");
       if (isPrivateDoc(page) && (response.status === 401 || response.status === 403)) {
@@ -125,7 +136,7 @@ async function serveLanding(req, res, page, lang, searchParams) {
     } catch {
       // Una respuesta lenta de la API no puede devolver la copia estática del
       // build, con datos y emisión de cuando se compiló: antes, la última buena.
-      if (isPrivateDoc(page)) return reply(res, 503, "Esta página no está disponible en este momento.");
+      if (isPrivateDoc(page) || page === "radio-embed") return reply(res, 503, "Esta página no está disponible en este momento.");
       if (!cached) return serveFile(req, res, `${prefix}/landing/${page}-${lang}.html`, searchParams);
       entry = cached;
     }
@@ -159,12 +170,12 @@ async function serveLanding(req, res, page, lang, searchParams) {
   // Con <base>, un ancla relativa saldría del panel.
   if (page === "admin") html = html.replaceAll('href="#', `href="${prefix}/${adminDocPath}${lang === "en" ? "?lang=en" : ""}#`);
   html = html.replace(/<li><a(?: class="[^"]*")? href="\/kanban">[\s\S]*?<\/a><\/li>/g, "");
-  const scripts = page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "admin" ? ["landing-session.js"] : page === "account" ? ["account.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js", "visits-mobile.js"] : ["registro-activar.js"];
+  const scripts = page === "radio-embed" ? ["radio-embed.js"] : page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "admin" ? ["landing-session.js"] : page === "account" ? ["account.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js", "visits-mobile.js"] : ["registro-activar.js"];
   html = html.replace("</body>", `${scripts.map((src) => `<script src="${prefix}/landing/${src}" defer></script>`).join("")}</body>`);
   const body = Buffer.from(html);
   const remember = webMode === "landing" && queryLang(searchParams) && queryLang(searchParams) !== cookieLang(req)
     ? { "set-cookie": langSetCookie(req, lang) } : {};
-  res.writeHead(200, { "content-type": MIME_TYPES[".html"], "content-length": body.length, "cache-control": privateResponse ? "no-store" : "no-cache", ...remember, ...SECURITY_HEADERS });
+  res.writeHead(200, { "content-type": MIME_TYPES[".html"], "content-length": body.length, "cache-control": privateResponse ? "no-store" : "no-cache", ...remember, ...(page === "radio-embed" ? EMBED_HEADERS : SECURITY_HEADERS) });
   return res.end(req.method === "HEAD" ? undefined : body);
 }
 
@@ -194,11 +205,18 @@ const SECURITY_HEADERS = {
   // rutas relativas resuelvan siempre bajo el prefijo. `base-uri 'none'`
   // bloqueaba esa etiqueta (y con ella document.baseURI), así que se permite
   // el mismo origen y se sigue rechazando una base ajena.
-  "content-security-policy": `default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; script-src 'self' ${landingAnalyticsScript}https://www.youtube.com https://s.ytimg.com https://w.soundcloud.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://widget.deezer.com https://embed.music.apple.com https://embed.tidal.com https://w.soundcloud.com https://bandcamp.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'${landingAnalyticsConnect}`,
+  "content-security-policy": `default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; script-src 'self' ${landingAnalyticsScript}https://www.youtube.com https://s.ytimg.com https://w.soundcloud.com; frame-src ${webMode === "landing" ? "" : "'self' "}https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://widget.deezer.com https://embed.music.apple.com https://embed.tidal.com https://w.soundcloud.com https://bandcamp.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'${landingAnalyticsConnect}`,
   "permissions-policy": "camera=(), microphone=(), geolocation=()",
   "referrer-policy": "no-referrer",
   "x-content-type-options": "nosniff",
   "x-frame-options": "DENY",
+};
+// La tarjeta de radio dentro del catálogo es lo único que se deja enmarcar, y solo
+// por este mismo sitio. La portada no la sirve.
+const EMBED_HEADERS = {
+  ...SECURITY_HEADERS,
+  "content-security-policy": SECURITY_HEADERS["content-security-policy"].replace("frame-ancestors 'none'", "frame-ancestors 'self'"),
+  "x-frame-options": "SAMEORIGIN",
 };
 
 // --- Copias optimizadas bajo demanda -------------------------------------
@@ -693,7 +711,7 @@ const LANDING_API = [
   /^\/community\/admin\/panel(\/[A-Za-z0-9_/-]*)?$/u,
   /^\/landing-media\/(favicon|share)$/u,
 ];
-const LANDING_RADIO = /^\/radio\/(now|listener|unavailable)$/u;
+const LANDING_RADIO = /^\/radio\/(now|listener|unavailable|diagnostic)$/u;
 const LANDING_STATICS = ["/landing/", "/favicon.ico", "/favicon.png", "/theme.css", "/media/favicon", "/media/share"];
 
 /** Proxy a otro proceso local (la radio de Herra en la 2B). */
@@ -738,6 +756,11 @@ function landingWhitelist(req, res, virtualUrl, acceptsHtml) {
   if (ruta === apiPath || ruta.startsWith(`${apiPath}/`)) {
     const dentro = ruta.slice(apiPath.length) || "/";
     if (LANDING_RADIO.test(dentro)) {
+      // Fase 3: con la emisión en CRV, la radio es una ruta más de la API propia.
+      if (radioSource === "crv") {
+        proxyApi(req, res, virtualUrl);
+        return true;
+      }
       if (!radioProxyUrl) {
         res.writeHead(503, { "content-type": "application/json; charset=utf-8", ...SECURITY_HEADERS });
         res.end(JSON.stringify({ error: { code: "radio_unavailable", message: "La radio aún no está enrutada." } }));
@@ -845,6 +868,9 @@ const server = http.createServer(async (req, res) => {
   // Las cinco páginas usan el documento renderizado por la API, con fallback
   // estático cuando no se puede contactar con ella.
   const landingPrefix = basePath === "/" ? "" : basePath;
+  if ((req.method === "GET" || req.method === "HEAD") && virtualUrl.pathname === `${landingPrefix}/radio-embed`) {
+    return serveLanding(req, res, "radio-embed", requestLang(req, virtualUrl.searchParams), virtualUrl.searchParams);
+  }
   const landingPage = ["roadmap", "colaborar", "login", "registro", "activar", "account"].find((page) => virtualUrl.pathname.replace(/\/+$/u, "") === `${landingPrefix}/${page}`);
   // El panel del roadmap es el documento de Herra, con sesión; nunca desde la portada.
   if ((req.method === "GET" || req.method === "HEAD") && virtualUrl.pathname.replace(/\/+$/u, "") === `${landingPrefix}/${adminDocPath}`) {

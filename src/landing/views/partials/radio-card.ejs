@@ -1,0 +1,119 @@
+<%
+  // El embed debe anunciar el origen real que sirve la pagina: la API de
+  // YouTube compara los postMessage contra el. La URL canonica no siempre
+  // coincide (pruebas locales, hosts alternos) y el handshake muere en
+  // silencio cuando no es asi.
+  const radioOrigin = pageOrigin;
+  // La barra de la radio mide el tramo completo: canción + cuña hasta la
+  // siguiente. Así el primer pintado coincide con el reloj del cliente.
+  const radioGapSeconds = radio && radio.sweeper && radio.sweeperSlot
+    ? Math.max(0, radio.sweeper.durationSeconds - (radio.sweeper.leadSeconds || 0) - (radio.sweeper.overlapSeconds || 0))
+    : 0;
+  // Sin cuña, la canción siguiente entra antes de que esta termine: el tramo
+  // visible de la barra es la canción menos ese cruce.
+  const radioCrossSeconds = radio && !radio.sweeperSlot ? (radio.crossfadeSeconds || 0) : 0;
+  const radioSlotSeconds = radio ? Math.max(1, radio.current.durationSeconds + radioGapSeconds - radioCrossSeconds) : 1;
+  const radioDoneSeconds = radio ? (radio.phase === 'sweeper' ? radio.current.durationSeconds : 0) + radio.offsetSeconds : 0;
+  const radioProgress = Math.max(0, Math.min(1, radioDoneSeconds / radioSlotSeconds));
+%>
+    <aside class="radio-card" id="radio" aria-label="<%= t('radio.aria', { station: radioTexts.stationName }) %>" data-radio-state="ready"
+      data-radio-sweeper="<%= radio.sweeper ? 'true' : 'false' %>" data-radio-static-base="<%= basePath %>/static" data-radio-live-label="<%= t('radio.live', { station: radioTexts.stationName }) %>" data-radio-project-name="<%= theme.projectName %>"
+      data-radio-api="<%= projectBase %>/api/radio/now"
+      data-radio-listener-api="<%= projectBase %>/api/radio/listener"
+      data-radio-unavailable-api="<%= projectBase %>/api/radio/unavailable"
+      data-radio-diagnostic-api="<%= projectBase %>/api/radio/diagnostic"
+      data-radio-video-id="<%= radio.current.videoId %>"
+      data-radio-start-seconds="<%= radio.current.startSeconds %>"
+      data-radio-queue-id="<%= radio.queueId %>"
+      data-radio-starts-at="<%= radio.startsAt %>">
+      <header class="radio-card__head">
+        <span class="radio-card__live"><i aria-hidden="true"></i><%= t('radio.live', { station: radioTexts.stationName }) %></span>
+        <div class="radio-card__head-actions">
+          <span class="radio-card__listeners" data-radio-listeners><%= radio.listeners > 1 ? t('radio.listenerMany', { n: radio.listeners }) : t('radio.listenerQuiet') %></span>
+          <button class="radio-card__cinema" type="button" data-radio-cinema aria-pressed="false"
+            aria-label="<%= t('radio.cinemaEnter') %>" title="<%= t('radio.cinemaEnter') %>"
+            data-enter-label="<%= t('radio.cinemaEnter') %>" data-exit-label="<%= t('radio.cinemaExit') %>">
+            <i data-lucide="maximize-2" data-radio-cinema-enter-icon></i>
+            <i data-lucide="minimize-2" data-radio-cinema-exit-icon hidden></i>
+            <span><%= t('radio.cinema') %></span>
+          </button>
+        </div>
+      </header>
+      <div class="radio-card__screen">
+        <div class="radio-card__identifier" data-radio-identifier hidden>
+          <div class="radio-card__identifier-stage" data-radio-identifier-stage aria-hidden="true">
+            <div class="radio-card__art" data-radio-identifier-art>
+              <svg class="radio-card__arc" viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                <defs>
+                  <linearGradient id="radioArcRed" x1="0" y1="0" x2="1" y2=".4">
+                    <stop offset="0%" stop-color="#0a080a"></stop>
+                    <stop offset="27%" stop-color="#181519"></stop>
+                    <stop offset="56%" stop-color="#c20d1e"></stop>
+                    <stop offset="76%" stop-color="#bf1124"></stop>
+                    <stop offset="100%" stop-color="#16070b"></stop>
+                  </linearGradient>
+                  <linearGradient id="radioArcDull" x1="0" y1="0" x2="1" y2=".45">
+                    <stop offset="0%" stop-color="#060608"></stop>
+                    <stop offset="48%" stop-color="#5a111b"></stop>
+                    <stop offset="74%" stop-color="#e01a2b"></stop>
+                    <stop offset="100%" stop-color="#100709"></stop>
+                  </linearGradient>
+                </defs>
+                <path class="radio-card__arc-dark" d="M 18 306 C 89 85, 248 -10, 404 12 C 566 23, 656 177, 686 325"></path>
+                <path class="radio-card__arc-shadow" d="M 55 310 C 134 119, 269 32, 414 49 C 566 69, 622 185, 645 316"></path>
+                <path class="radio-card__arc-red" d="M 34 295 C 109 98, 255 -5, 416 15 C 561 30, 637 155, 658 298"></path>
+                <path class="radio-card__arc-second" d="M 82 297 C 160 137, 294 53, 421 72 C 539 84, 588 184, 604 297"></path>
+              </svg>
+              <span class="radio-card__wave-fog radio-card__wave-fog--left"></span>
+              <span class="radio-card__wave-fog radio-card__wave-fog--right"></span>
+              <span class="radio-card__wave radio-card__wave--left" data-radio-wave="left"></span>
+              <span class="radio-card__wave radio-card__wave--right" data-radio-wave="right"></span>
+              <span class="radio-card__reflect"></span>
+              <span class="radio-card__horizon"></span>
+              <img class="radio-card__r" src="<%= basePath %>/static/radio/r-logo.png" alt="" width="334" height="315" draggable="false">
+              <span class="radio-card__wordmark"><span class="radio-card__wordmark-first">adio</span><span class="radio-card__wordmark-last"><%= radioTexts.stationName %></span></span>
+            </div>
+          </div>
+          <p class="sr-only"><%= t('radio.brand') %> <%= radioTexts.stationName %></p>
+          <div class="radio-card__identifier-footer">
+            <div class="radio-card__coming">
+              <div class="radio-card__coming-label"><span><%= t('radio.next') %></span><span data-radio-identifier-countdown aria-hidden="true"></span></div>
+              <strong data-radio-identifier-next></strong>
+              <span data-radio-identifier-artist></span>
+            </div>
+            <button type="button" data-radio-identifier-toggle><%= t('radio.identifierPlay') %></button>
+          </div>
+        </div>
+        <iframe id="radioPlayer"
+          data-src="https://www.youtube.com/embed/<%= radio.current.videoId %>?enablejsapi=1&amp;playsinline=1&amp;rel=0&amp;autoplay=1&amp;start=<%= radio.current.startSeconds + radio.offsetSeconds %>&amp;end=<%= radio.current.startSeconds + radio.current.durationSeconds %>&amp;origin=<%= encodeURIComponent(radioOrigin) %>&amp;controls=0&amp;fs=0&amp;disablekb=1&amp;iv_load_policy=3"
+          title="<%= t('radio.videoTitle', { title: radio.current.title }) %>"
+          width="560" height="315" loading="lazy"
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="radio-card__content">
+        <p class="radio-card__label"><%= t('radio.now') %></p>
+        <h2 data-radio-title><%= radio.phase === 'sweeper' ? t('radio.identifier') : radio.current.title %></h2>
+        <p class="radio-card__artist" data-radio-artist><%= [radio.current.artist, radio.current.album, radio.current.year].filter(Boolean).join(' · ') %></p>
+        <div class="radio-card__timeline" aria-hidden="true"><i data-radio-progress style="--radio-progress-scale: <%= radioProgress.toFixed(4) %>"></i></div>
+        <div class="radio-card__status-row">
+          <p class="radio-card__status" data-radio-status aria-live="polite"><%= t('radio.ready') %></p>
+          <button class="radio-card__sync" type="button" data-radio-sync><i data-lucide="radio"></i><span><%= t('radio.join') %></span></button>
+        </div>
+        <div class="radio-card__volume" data-radio-volume hidden>
+          <button class="radio-card__mute" type="button" data-radio-mute
+            aria-label="<%= t('radio.mute') %>" title="<%= t('radio.mute') %>" aria-pressed="false">
+            <i data-lucide="volume-2" data-radio-volume-on-icon></i>
+            <i data-lucide="volume-x" data-radio-volume-off-icon hidden></i>
+          </button>
+          <input class="radio-card__range" type="range" min="0" max="100" step="1" value="100"
+            data-radio-range aria-label="<%= t('radio.volume') %>">
+        </div>
+        <div class="radio-card__next">
+          <span><%= t('radio.next') %></span>
+          <strong data-radio-next><%= [radio.next.artist, radio.next.title].filter(Boolean).join(' — ') %></strong>
+        </div>
+      </div>
+      <noscript><p class="radio-card__noscript"><a href="https://www.youtube.com/watch?v=<%= radio.current.videoId %>&amp;t=<%= radio.current.startSeconds %>s" rel="noopener noreferrer">YouTube · <%= radio.current.title %></a></p></noscript>
+    </aside>
+    <div class="radio-cinema-backdrop" data-radio-cinema-backdrop hidden aria-hidden="true"></div>

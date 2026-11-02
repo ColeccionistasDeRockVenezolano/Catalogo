@@ -74,6 +74,12 @@ const envSchema = z.object({
   // público todavía.
   CRV_RADIO_DATA_DIR: z.string().optional(),
   CRV_RADIO_LIVE_URL: z.string().url().optional(),
+  // Dueña de la emisión: barre la disponibilidad y guarda exclusiones y respaldo de
+  // géneros en su carpeta. Un solo proceso a la vez y nunca sobre los datos de Herra.
+  CRV_RADIO_OWNER: z.enum(["true", "false"]).default("false").transform(value => value === "true"),
+  CRV_RADIO_STATE_DIR: z.string().optional(),
+  // Diagnósticos de escucha (radio-diagnostics.jsonl).
+  CRV_RADIO_LOG_DIR: z.string().optional(),
   CRV_RADIO_SHEET_CREDENTIALS: z.string().optional(),
   CRV_RADIO_TEST_SHEET_ID: z.string().optional(),
   // Proceso propio del chat (src/chat/server.ts): no comparte event loop con
@@ -268,6 +274,12 @@ const envSchema = z.object({
     .enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"])
     .default("info"),
 }).superRefine((value, ctx) => {
+  if (value.CRV_RADIO_OWNER && !value.CRV_RADIO_STATE_DIR) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["CRV_RADIO_STATE_DIR"], message: "CRV_RADIO_OWNER exige una carpeta de estado propia." });
+  }
+  if (value.CRV_RADIO_OWNER && value.CRV_RADIO_STATE_DIR && value.CRV_RADIO_STATE_DIR === value.CRV_RADIO_DATA_DIR) {
+    ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["CRV_RADIO_STATE_DIR"], message: "El estado de la radio no puede escribirse sobre el catálogo que exporta Herra." });
+  }
   if (value.CRV_DISCOVERY_METRICS_ENABLED && !value.CRV_DISCOVERY_METRICS_SECRET) {
     ctx.addIssue({ code: z.ZodIssueCode.custom, path: ["CRV_DISCOVERY_METRICS_SECRET"], message: "Las métricas requieren un secreto independiente de al menos 32 caracteres" });
   }

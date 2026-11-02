@@ -53,6 +53,9 @@ export function CurationRadioPage() {
         <div><strong>{data.catalog ? hours(data.catalog.totalDurationSeconds) : "—"}</strong><span>duración del ciclo</span></div>
         <div><strong>{data.local?.position ?? "—"}</strong><span>posición actual</span></div>
         <div><strong>{data.live ? (aligned ? "0" : diffs.length) : "—"}</strong><span>divergencias</span></div>
+        <div><strong>{data.catalog?.excluded ?? 0}</strong><span>retiradas por no estar disponibles</span></div>
+        <div><strong>{data.catalog?.regionExcluded ?? 0}</strong><span>fuera por veto en el país base</span></div>
+        <div><strong>{data.catalog?.regionRestricted ?? 0}</strong><span>con relleno por país</span></div>
       </div>
 
       <section className="community-card">
@@ -68,11 +71,32 @@ export function CurationRadioPage() {
                 <tr><th>Tramo</th><td>{formatTime(data.local.startsAt)} → {formatTime(data.local.endsAt)} ({data.local.phase})</td></tr>
                 <tr><th>Queue</th><td><code>{data.local.queueId}</code></td></tr>
                 <tr><th>Oyentes</th><td>{data.local.listeners}</td></tr>
+                <tr><th>Quién barre</th><td>{data.catalog?.owner ? "Este servidor: verifica avisos y barre cada 6 h" : "Herra: este servidor solo lee sus exclusiones"} · verificado {formatTime(data.catalog?.availabilityCheckedAt ?? undefined)}</td></tr>
+                {data.catalog?.regionRestrictedCountries.length ? <tr><th>Países con más vetos</th><td>{data.catalog.regionRestrictedCountries.slice(0, 8).map((entry) => `${entry.country} (${entry.items})`).join(" · ")}</td></tr> : null}
                 <tr><th>Config</th><td>epoch {data.station?.epoch} · cruce {data.station?.crossfadeSeconds}s · cuña cada {data.station?.sweeper?.everyPieces ?? 1}</td></tr>
               </tbody>
             </table>
           </div>
         ) : <div className="state-block">El motor local no puede emitir: revisa el catálogo.</div>}
+      </section>
+
+      <section className="community-card">
+        <h2>Diagnóstico de escucha</h2>
+        {!data.diagnostics?.total ? <p className="community-muted">Ningún oyente ha informado problemas.</p> : (
+          <>
+            <p className="community-muted">{data.diagnostics.total} avisos: {Object.entries(data.diagnostics.byKind).map(([kind, count]) => `${kind} ${count}`).join(" · ")}</p>
+            <div className="community-table-wrap">
+              <table className="community-table">
+                <thead><tr><th>Cuándo</th><th>Tipo</th><th>País</th><th>Navegador</th><th>Al aire</th></tr></thead>
+                <tbody>
+                  {data.diagnostics.recent.map((entry, index) => (
+                    <tr key={`${entry.receivedAt}-${index}`}><td>{formatTime(entry.receivedAt)}</td><td>{entry.kind}</td><td>{entry.country}</td><td>{entry.browser} · {entry.os}</td><td>{entry.server?.title ?? "—"}</td></tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
       </section>
 
       <section className="community-card">
