@@ -417,6 +417,14 @@ function proxyApi(req, res, requestUrl) {
     delete headers["cf-connecting-ip"];
     delete headers["cf-ipcountry"];
   }
+  // Por el túnel, un POST sin cuerpo llega como `transfer-encoding: chunked` y sin
+  // content-type, y la API lo rechaza con 415. Sin content-type no hay cuerpo que
+  // la API pueda leer, así que se envía como vacío.
+  const sinCuerpo = Boolean(headers["transfer-encoding"]) && !headers["content-type"];
+  if (sinCuerpo) {
+    delete headers["transfer-encoding"];
+    headers["content-length"] = "0";
+  }
   const upstream = http.request({
     host: apiHost,
     port: upstreamPort,
@@ -430,6 +438,11 @@ function proxyApi(req, res, requestUrl) {
   upstream.on("error", () => reply(res, 502, isChat
     ? "El chat de CRV no está disponible."
     : "La API CRV no está disponible."));
+  if (sinCuerpo) {
+    req.resume();
+    upstream.end();
+    return;
+  }
   req.pipe(upstream);
 }
 
