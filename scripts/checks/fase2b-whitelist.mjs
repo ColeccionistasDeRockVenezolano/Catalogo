@@ -94,6 +94,37 @@ for (const [ruta, estado, destino] of [
   if (respuesta.status === estado && lugar.endsWith(destino)) ok.push(`${ruta} ${estado} → ${destino}`);
   else fallos.push(`${ruta}: esperaba ${estado} → ${destino}, dio ${respuesta.status} ${lugar}`);
 }
+// El idioma se recuerda como en Herra y /lang/* solo vuelve a una ruta de este sitio.
+for (const [ruta, estado, destino] of [
+  ["/lang/en?next=%2Fcolaborar", 303, "/colaborar"], ["/lang/es", 303, "/"],
+  ["/lang/en?next=%2F%2Fevil.example", 303, "/"], ["/lang/en?next=%2F%5Cevil.example", 303, "/"],
+  ["/lang/en?next=https%3A%2F%2Fevil.example", 303, "/"], ["/lang/en?next=%2Fa%0d%0aX-Mal%3A1", 303, "/"],
+]) {
+  const respuesta = await fetch(`${BASE}${ruta}`, { redirect: "manual", headers: { accept: "text/html" } });
+  const lugar = respuesta.headers.get("location");
+  const galleta = respuesta.headers.get("set-cookie") ?? "";
+  if (respuesta.status === estado && lugar === destino && /^herra-crv_lang=(es|en);/u.test(galleta)) ok.push(`${ruta} ${estado} → ${destino}`);
+  else fallos.push(`${ruta}: esperaba ${estado} → ${destino} con cookie, dio ${respuesta.status} ${lugar} «${galleta}»`);
+}
+await debe("/lang/fr", 404);
+{
+  const idioma = async (ruta, cookie) => {
+    const respuesta = await fetch(`${BASE}${ruta}`, { headers: { accept: "text/html", ...(cookie ? { cookie } : {}) } });
+    return { lang: /<html lang="(es|en)"/u.exec(await respuesta.text())?.[1], galleta: respuesta.headers.get("set-cookie") ?? "" };
+  };
+  for (const ruta of ["/", "/roadmap", "/colaborar", "/login"]) {
+    const conCookie = await idioma(ruta, "herra-crv_lang=en");
+    const sinCookie = await idioma(ruta); // la copia en memoria no filtra el inglés de otro visitante
+    if (conCookie.lang === "en" && !conCookie.galleta && sinCookie.lang === "es") ok.push(`${ruta} respeta la cookie de idioma`);
+    else fallos.push(`${ruta}: con cookie ${conCookie.lang}, sin cookie ${sinCookie.lang}`);
+  }
+  const manda = await idioma("/colaborar?lang=es", "herra-crv_lang=en");
+  if (manda.lang === "es" && manda.galleta.startsWith("herra-crv_lang=es;")) ok.push("?lang= manda sobre la cookie y se recuerda");
+  else fallos.push(`?lang=es con cookie en: ${manda.lang} «${manda.galleta}»`);
+  const invalida = await idioma("/colaborar", "herra-crv_lang=fr");
+  if (invalida.lang === "es") ok.push("cookie de idioma inválida → español");
+  else fallos.push(`cookie inválida dio ${invalida.lang}`);
+}
 // El panel responde, pero solo con sesión: sin ella no entrega ni un dato.
 for (const ruta of ["/api/community/admin/panel/users", "/api/community/admin/panel/applications"]) {
   const respuesta = await pedir(ruta, { accept: "application/json" });

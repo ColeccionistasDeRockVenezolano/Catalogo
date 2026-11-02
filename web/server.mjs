@@ -65,11 +65,35 @@ const landingCache = new Map();
 const adminDocPath = webMode === "landing" ? "admin" : "curaduria/roadmap";
 const isPrivateDoc = (page) => page === "admin" || page === "account";
 
+// TEMPORAL-PORTADA: el idioma elegido se conserva como en Herra, con su misma
+// cookie, para que quien ya eligió inglés lo siga viendo tras el cambio de puerta.
+// `?lang=` manda y también se recuerda; sin cookie ni parámetro, español.
+const LANG_COOKIE = "herra-crv_lang";
+const LANG_COOKIE_PAIR = new RegExp(`(?:^|;\\s*)${LANG_COOKIE}=([^;]*)`, "u");
+const cookieLang = (req) => {
+  const value = LANG_COOKIE_PAIR.exec(req.headers.cookie ?? "")?.[1];
+  return value === "en" || value === "es" ? value : null;
+};
+const queryLang = (searchParams) => {
+  const value = searchParams.get("lang");
+  return value === "en" || value === "es" ? value : null;
+};
+const requestLang = (req, searchParams) =>
+  queryLang(searchParams) ?? (webMode === "landing" ? cookieLang(req) : null) ?? "es";
+const langSetCookie = (req, lang) => {
+  const secure = req.headers["x-forwarded-proto"] === "https" ? "; Secure" : "";
+  return `${LANG_COOKIE}=${lang}; Max-Age=31536000; Path=/; HttpOnly; SameSite=Lax${secure}`;
+};
+// Una cookie de idioma no es una sesión: quien solo tiene esa sigue siendo anónimo y usa la copia en memoria.
+const sessionCookies = (req) =>
+  (req.headers.cookie ?? "").split(";").map((part) => part.trim())
+    .filter((part) => part && !part.startsWith(`${LANG_COOKIE}=`)).join("; ") || undefined;
+
 async function serveLanding(req, res, page, lang, searchParams) {
   const prefix = basePath === "/" ? "" : basePath;
   const key = `${page}:${lang}`;
   const token = (page === "registro" || page === "activar") ? searchParams.get("token") : null;
-  const cookie = req.headers.cookie;
+  const cookie = webMode === "landing" ? sessionCookies(req) : req.headers.cookie;
   const privateResponse = Boolean(token || cookie);
   const cached = privateResponse ? undefined : landingCache.get(key);
   let entry = cached;
@@ -137,7 +161,9 @@ async function serveLanding(req, res, page, lang, searchParams) {
   const scripts = page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "admin" ? ["landing-session.js"] : page === "account" ? ["account.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js", "visits-mobile.js"] : ["registro-activar.js"];
   html = html.replace("</body>", `${scripts.map((src) => `<script src="${prefix}/landing/${src}" defer></script>`).join("")}</body>`);
   const body = Buffer.from(html);
-  res.writeHead(200, { "content-type": MIME_TYPES[".html"], "content-length": body.length, "cache-control": privateResponse ? "no-store" : "no-cache", ...SECURITY_HEADERS });
+  const remember = webMode === "landing" && queryLang(searchParams) && queryLang(searchParams) !== cookieLang(req)
+    ? { "set-cookie": langSetCookie(req, lang) } : {};
+  res.writeHead(200, { "content-type": MIME_TYPES[".html"], "content-length": body.length, "cache-control": privateResponse ? "no-store" : "no-cache", ...remember, ...SECURITY_HEADERS });
   return res.end(req.method === "HEAD" ? undefined : body);
 }
 
@@ -682,7 +708,7 @@ function landingWhitelist(req, res, virtualUrl, acceptsHtml) {
   }
 
   if (esLectura && ruta === "/") {
-    const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
+    const lang = requestLang(req, virtualUrl.searchParams);
     reportTraffic(req, "/");
     serveLanding(req, res, "roadmap", lang, virtualUrl.searchParams);
     return true;
@@ -691,6 +717,15 @@ function landingWhitelist(req, res, virtualUrl, acceptsHtml) {
   // expone /curaduria ni las rutas de la API, que en este modo no existen.
   if (esLectura && ruta === "/robots.txt") {
     sendText(req, res, 200, "text/plain; charset=utf-8", "User-agent: *\nAllow: /\n", "public, max-age=3600");
+    return true;
+  }
+  // TEMPORAL-PORTADA: la dirección con la que Herra cambia de idioma. Solo vuelve a una ruta de este sitio.
+  const cambioIdioma = /^\/lang\/(es|en)$/u.exec(ruta);
+  if (esLectura && cambioIdioma) {
+    const next = virtualUrl.searchParams.get("next") ?? "";
+    const location = /^\/(?![/\\])[\x21-\x5b\x5d-\x7e]*$/u.test(next) ? next : "/";
+    res.writeHead(303, { location, "set-cookie": langSetCookie(req, cambioIdioma[1]), "cache-control": "no-store", ...SECURITY_HEADERS });
+    res.end();
     return true;
   }
   if (esLectura && Object.hasOwn(LANDING_LEGACY, ruta)) {
@@ -763,7 +798,7 @@ const server = http.createServer(async (req, res) => {
   const landingPage = ["roadmap", "colaborar", "login", "registro", "activar", "account"].find((page) => virtualUrl.pathname.replace(/\/+$/u, "") === `${landingPrefix}/${page}`);
   // El panel del roadmap es el documento de Herra, con sesión; nunca desde la portada.
   if ((req.method === "GET" || req.method === "HEAD") && virtualUrl.pathname.replace(/\/+$/u, "") === `${landingPrefix}/${adminDocPath}`) {
-    const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
+    const lang = requestLang(req, virtualUrl.searchParams);
     return serveLanding(req, res, "admin", lang, virtualUrl.searchParams);
   }
   if ((req.method === "GET" || req.method === "HEAD") && landingPage) {
@@ -772,7 +807,7 @@ const server = http.createServer(async (req, res) => {
       res.writeHead(301, { location: `${canonical}${virtualUrl.search}` });
       return res.end();
     }
-    const lang = virtualUrl.searchParams.get("lang") === "en" ? "en" : "es";
+    const lang = requestLang(req, virtualUrl.searchParams);
     reportTraffic(req, virtualUrl.pathname.slice(basePath.length) || "/");
     return serveLanding(req, res, landingPage, lang, virtualUrl.searchParams);
   }

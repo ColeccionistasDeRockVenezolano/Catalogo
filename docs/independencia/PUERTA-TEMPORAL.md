@@ -18,6 +18,7 @@ la ventana ([FASE2B.md](FASE2B.md)).
 | `/account` | Con sesión | «Mi perfil», copia 1:1 de Herra 1.1.39. Sin sesión, manda a `/login` |
 | `/admin` | Administración y comunidad | El panel. Sin permiso, manda a `/login` |
 | `/register`, `/admin/login` | Enlaces antiguos | Redirigen a `/registro` y `/login`, conservando el token |
+| `/lang/es`, `/lang/en` | Todos | Guardan el idioma en la cookie `herra-crv_lang`, la misma de Herra, y vuelven a `next`, solo dentro del sitio. `?lang=` también lo guarda |
 
 Todo lo demás responde 404: `/cuenta`, `/curaduria`, fichas, buscador, chat y cualquier API fuera de
 la lista blanca. La única barrera es la lista blanca de `web/server.mjs`, porque la API que hay detrás
@@ -35,7 +36,7 @@ Todo lo temporal lleva la marca `TEMPORAL-PORTADA`: `grep -rn TEMPORAL-PORTADA s
 | `src/landing/views/account.ejs`, `web/public/landing/account.js` | Eliminar; manda `/cuenta` |
 | `accountLocals` y la página `account` en `src/landing/render.ts`, `src/landing/data.ts`, `src/api/routes/landing.ts` | Eliminar |
 | `POST /account/save` en `src/api/routes/account.ts` | Eliminar; `/cuenta` usa `PATCH /account/profile` y `POST /account/password` |
-| Portada con `CRV_WEB_MODE=landing`: lista blanca, `adminDocPath`, `LANDING_LEGACY` en `web/server.mjs` | Eliminar el modo; el dominio sirve el catálogo |
+| Portada con `CRV_WEB_MODE=landing`: lista blanca, `adminDocPath`, `LANDING_LEGACY`, `/lang/*` y su cookie en `web/server.mjs` | Eliminar el modo; el dominio sirve el catálogo. Dejar `/lang/*` como redirección si el catálogo no lo atiende |
 | `ops/produccion/crv-landing.*`, `crv-api-landing.*` | Archivar y apagar |
 | `src/landing/views/{user-login,collaborate,register,activate}.ejs` y sus guiones | Eliminar y quitar la interceptación del gateway. El catálogo ya tiene `CollaboratePage`, `ActivatePage`, `RegisterInvitePage` y el acceso en `/cuenta`; hay que comprobarlos, porque hoy el gateway no los deja servir |
 | Panel `admin.ejs`, `admin.js`, `src/api/routes/admin-panel.ts` | **Se queda** en `/curaduria/roadmap`; solo se quita su dirección `/admin` |
