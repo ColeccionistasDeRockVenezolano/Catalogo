@@ -38,6 +38,13 @@ async function compareOnce(): Promise<{ at: string; diffs: SnapshotDivergence[] 
   const live = await fetchLive();
   const local = radioSnapshot(station, Date.parse(live.serverTime));
   if (!local) throw new Error("el motor local no pudo calcular una emisión");
+  // Si cambia la cuña en producción, la divergencia no es del motor: hay que
+  // copiar la cuña y la época a la base de la que lee esta sombra.
+  const liveSweeper = JSON.stringify(live.sweeper ?? null);
+  const localSweeper = JSON.stringify(station.sweeper ?? null);
+  if (liveSweeper !== localSweeper) {
+    console.error(`! configuración distinta, no del motor: cuña en vivo ${liveSweeper} · cuña local ${localSweeper}`);
+  }
   return { at: live.serverTime, diffs: sameState(live, local) };
 }
 
