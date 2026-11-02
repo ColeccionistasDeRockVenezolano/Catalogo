@@ -1,7 +1,7 @@
 # Fase 2B · Guion de la ventana (NO EJECUTADA · NO LISTA PARA AUTORIZAR)
 
 **Estado (2026-11-02, revisión de Claude):** el ensayo con la **forma de producción** y la base
-`crv_staging` se repitió sobre `03298f7b` y pasó. **La ventana sigue sin autorizar:** faltan las
+`crv_staging` se repitió sobre `dd46cecd`, ya con `/account` y `/admin` en la portada, y pasó (§16). **La ventana sigue sin autorizar:** faltan las
 puertas de §10, la comparación en inglés con la portada viva y la autorización expresa de Brian. La
 versión anterior habría quitado la radio de la portada; ver §1.1.
 
@@ -18,7 +18,7 @@ Fase 3.
 abajo sobre ocultar «Mi cuenta» y «Gestionar proyecto» y sobre el panel solo local. Es temporal y su
 retirada está en [PUERTA-TEMPORAL.md](PUERTA-TEMPORAL.md).
 
-**Decisiones de Brian aplicadas:** panel privado en `127.0.0.1:3131` contra `:8083` (solo local,
+**Decisiones anteriores de Brian, salvo lo que cambia el párrafo de arriba:** panel privado en `127.0.0.1:3131` contra `:8083` (solo local,
 nunca Funnel/Cloudflare); sin merge en la 2B (worktree por SHA); en modo portada se ocultan «Mi
 cuenta» y «Gestionar proyecto»; el acierto de login descuenta un intento del cupo de IP y se añade
 un techo de usuarios distintos fallados.
@@ -277,6 +277,9 @@ No probado: que Herra deje de sumar páginas tras el cambio real; se comprueba e
 
 ## 9. El ensayo con forma de producción (base `crv_staging`)
 
+La repetición vigente, sobre `dd46cecd` y con el panel en el dominio, está en §16. Esta tabla es la
+primera pasada y conserva el panel privado `:3131`, ya sustituido.
+
 Worktree `54fd004b`, puertos API `:8093`, portada `:3150`, panel `:3131`/`:3151`, `dist` y
 `dist-public` propios, `CRV_DEPLOYMENT=rehearsal`, `CRV_BACKGROUND_JOBS=false`, base `crv_staging`.
 Todo se apagó y el worktree se borró.
@@ -307,14 +310,14 @@ panel privado no necesita debilitar la API ni montar TLS local; Brian entra por 
 |---|---|---|
 | G1 | Unidades y entornos de `ops/produccion/` revisados | contenido listo, **no instalado** |
 | G2 | `api.env`, `gateway.env`, `admin.env` con secretos propios y `.env` legible por systemd | **Brian** |
-| G3 | Worktree del SHA con `dist` y `dist-public` | probado en `54fd004b`; fijar SHA al autorizar |
+| G3 | Worktree del SHA con `dist` | probado en `dd46cecd`; fijar SHA al autorizar. `dist-public` solo hace falta si se quiere conservar `crv-web-admin` |
 | G4 | Respaldo probado y restauración comparada | **probado** (§6) |
 | G5 | Guion de tokens probado | **probado** (§4) |
 | G6 | Paridad contra foto de Herra | **probada** (§11) |
 | G7 | Migración 0125 aplicada en producción (§7) | **aplicada 2026-11-01 con autorización de Brian (exit 0); falta correr `migraciones-2b.sql`** |
 | G11 | Métricas (a) y Herra 1.1.39 **decididas**; paridad EN (§11) | **pendiente: paridad EN** |
-| G8 | Panel privado `:3131` | **decidido (a)** y probado |
-| G9 | Enlaces de cuenta ocultos | **decidido** y probado |
+| G8 | Panel | **superada por la decisión del 2026-11-02:** `/admin` en el dominio; `crv-web-admin` `:3131` queda opcional. Probado (§16) |
+| G9 | Enlaces de cuenta | **superada por la misma decisión:** la cabecera ofrece Mi perfil y Administrar proyecto. Probado (§16) |
 | G10 | Cloudflare, fecha y autorización expresa | **Brian** |
 
 Sin 0125, la 2B funcionaría pero perdería la auditoría de candidaturas y activaciones; ya está aplicada.
@@ -351,8 +354,8 @@ Brian o se compara en la ventana contra una foto tomada a mano.
 
 **Paso 2 · Respaldo** de §6; anotar ruta, tamaño y `sha256`.
 
-**Paso 3 · Arrancar** `crv-api-landing` y `crv-landing` (y `crv-web-admin`). Verificar
-`/health` (`{"ok":true,"database":true}`), `/roadmap` 200 en `:3140`, whitelist 72/72, y el POST
+**Paso 3 · Arrancar** `crv-api-landing` y `crv-landing` (`crv-web-admin` solo si se decide conservarlo). Verificar
+`/health` (`{"ok":true,"database":true}`), `/roadmap` 200 en `:3140`, whitelist 80/80, y el POST
 de login con `Origin` del dominio → 401.
 
 **Paso 4 · Foto de Herra** para la paridad (GET) antes de Cloudflare; guardar el PID del servidor
@@ -397,7 +400,7 @@ Qué pasa con lo escrito por CRV si se vuelve atrás:
 | `auth.projects` y assets | Sin cambios en la ventana |
 
 Quién administra: durante la ventana, nadie (Herra congelado y panel aún no publicado). Después,
-Brian/operador por el panel privado `:3131` contra `:8083`; Herra sigue congelado hasta la vuelta
+Brian/operador por `/admin` del dominio contra `:8083`; Herra sigue congelado hasta la vuelta
 atrás o la Fase 3. Si el panel falla, se vuelve atrás.
 
 ---
@@ -432,8 +435,7 @@ Funnel sin cambios. Cierre: 72 h sin incidentes y sin rutas del catálogo alcanz
 4. **Migración 0125**: aplicada. Correr `migraciones-2b.sql` para confirmar `faltan {}`.
 5. **Cloudflare**: cambiar el destino del hostname y anotar la regla anterior.
 6. **Fecha y hora** (00:00-00:30 de Caracas) y aviso a administradores.
-7. **Acceso al panel**: por la máquina o `ssh -L 3131:127.0.0.1:3131 mini-server`; la cookie Secure
-   funciona en `http://127.0.0.1`.
+7. **Acceso al panel**: por `/admin` del dominio, con la cuenta de administración de siempre.
 8. **Cuenta de colaborador** para la prueba de login real, o autorización para usar una existente.
 9. **Autorización expresa** de la 2B.
 
@@ -441,8 +443,27 @@ Funnel sin cambios. Cierre: 72 h sin incidentes y sin rutas del catálogo alcanz
 
 ## 16. Revisión del guion: qué está probado
 
-SHA del código ensayado: **`03298f7b`**. Lo posterior solo cambia documentación. Worktree limpio,
-`npm ci`, `dist` y `dist-public`, API `:8093`, portada `:3150`, panel `:3131`, base `crv_staging`.
+SHA del código ensayado: **`dd46cecd`** (2026-11-02). Lo posterior solo cambia pruebas y documentación.
+Worktree limpio, `npm ci`, `dist`, API `:8093`, portada `:3150` con `/account` y `/admin`, base
+`crv_staging`, `CRV_DEPLOYMENT=rehearsal`, trabajos de fondo apagados.
+
+**Repetición del 2026-11-02 sobre `dd46cecd`:**
+
+| Prueba | Resultado |
+|---|---|
+| `fase2b-whitelist.mjs --base :3150` | **80/80** |
+| `fase2b-ensayo.mjs --base :3150` | **34/34**, sin POST a la radio |
+| `2b-flujos-dominio.mts`, ahora administrando por `/admin` del dominio | **19/19** |
+| `panel-herra-browser.mjs` con `CRV_PANEL_BASE=:3150` | **50/50**: 12 herramientas, etapas y actividades, arrastre con ratón, teclado y dedo emulado, 390 px, candidatura por clics hasta login, `community`, inglés; staging restaurado |
+| `e2e-flujos.mts` (API de staging `:8082`) | **46/46**: candidatura, invitación, tarea, revocación y matriz de roles |
+| `clave-unica.mjs` (API de staging `:8082`) | **31/31** |
+| `fase2b-vuelta-atras.mjs` | 1.758 ms y 8 ms (proxy local; **no mide Cloudflare**) |
+
+La API tarda unos segundos en abrir el puerto: durante ese intervalo el gateway da 502 en sus rutas de API
+(el primer intento del ensayo cayó ahí). La ventana debe esperar a `/health` antes de cambiar el túnel,
+como dice su paso de verificación.
+
+**Pasada anterior (`03298f7b`), con panel privado y lo que sigue sin repetirse:**
 
 | Comando / pieza | Estado | Evidencia |
 |---|---|---|
@@ -522,8 +543,22 @@ Copias del motor en `src/landing/herra/`. El gateway lo sirve sin caché y manda
 React salta al documento salvo en desarrollo. `CurationRoadmapPage` y sus ventanas
 quedan sin uso hasta decidir si se borran.
 
-Ensayado solo en staging. Falta: arrastre con un dedo real en un móvil y la demora
-de 1 a 7 s de algunas peticiones autenticadas de la API de staging, que también
-afecta a `curation/images/jobs` y por tanto no es propia del panel.
+Ensayado solo en staging. Falta el arrastre con un dedo real en un móvil. Desde el
+cambio del 2026-11-02 también se publica en `/admin` del dominio.
+
+**La demora de 1 a 7 s ya tiene causa** (2026-11-02): una pestaña abierta en `/crv/curaduria` pedía
+cada 60 s `/persons/duplicate-candidates?limit=1` solo para su contador, y ese cálculo en memoria
+bloquea el bucle de eventos de la API de 1,7 a 2,7 s; mientras tanto esperan todas las demás
+peticiones, `/health` incluido (hasta 949 ms medidos). Se corrigió con `/persons/duplicate-candidates/count`
+(4-16 ms; commit `20da3ca9`). La API del dominio no recibe esa ruta. Una pestaña abierta con el código
+anterior sigue sondeando hasta recargarla.
+
+**Fallo que las pruebas anteriores no veían** (commit `b2fe3c8e`): `request()` del panel declaraba JSON
+sin cuerpo, de modo que borrar, aprobar, rechazar, crear enlaces, activar y revocar daban 400 con
+«[object Object]». Ahora la aceptación es `scripts/checks/panel-herra-browser.mjs`. Los guiones
+`b6`-`b10`, `c5`, `p7`, `e2e-roles-ui`, `admin-parity-capture`, `b7-touch-check` y `2b-panel-rehearsal`
+apuntan al panel React retirado y **ya no prueban el panel**.
+
+No probado: el efecto en la portada de Formulario, Identidad, Idiomas y tema guardados.
 `default_lang` se guarda (incluido `system`), pero el gateway no lo aplica a la
 elección inicial de idioma: sin `?lang=en` sirve español.

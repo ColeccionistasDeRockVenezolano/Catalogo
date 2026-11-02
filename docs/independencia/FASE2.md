@@ -422,6 +422,13 @@ en móvil (ver P5). El detalle de la comprobación está en `reports/b10-clave-2
 
 ## P7 · Aceptación del cierre: C1-C12 y /cuenta (2026-11-01)
 
+**Aviso del 2026-11-02:** esta tabla evaluó el panel React, retirado. El panel actual es la plantilla de
+Herra (`admin.ejs`) y su prueba es `scripts/checks/panel-herra-browser.mjs`, **50/50** en `:3141` y en la
+copia de ensayo `:3150`. Esa prueba cubre 12 herramientas, roadmap y arrastre, invitaciones, métricas,
+candidaturas y `community`; no cubre el efecto en la portada de Formulario, Identidad, Idiomas ni tema.
+Los guiones citados abajo son evidencia histórica: `b6`-`b10`, `c5`, `p7`, `e2e-roles-ui`,
+`admin-parity-capture`, `b7-touch-check`.
+
 Referencia de paridad: **Herra 1.1.39**, congelada. Por decisión de Brian (2026-11-01), las
 ventanas privadas **3.7-3.13** y `/cuenta` se aceptan **contra las instrucciones**, sin capturas
 de Herra y sin usar credenciales de Herra; quedan marcadas «falta revisión de Brian». Las

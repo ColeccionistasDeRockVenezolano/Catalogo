@@ -10,7 +10,7 @@ La ventana no se abre sin autorización expresa de Brian y sin cerrar las puerta
 |---|---|---|
 | `crv-api-landing.service` | API del dominio (comunidad encendida, trabajos de fondo apagados) | `127.0.0.1:8083` |
 | `crv-landing.service` | Gateway de la portada en la raíz, con la lista blanca | `127.0.0.1:3140` |
-| `crv-web-admin.service` | Gateway del panel privado, solo local | `127.0.0.1:3131` |
+| `crv-web-admin.service` | **Opcional** desde el 2026-11-02: gateway privado con el catálogo, solo local | `127.0.0.1:3131` |
 | `crv-api-landing.env.example` | Entorno de la API (sin secretos reales) | — |
 | `crv-landing.env.example` | Entorno del gateway de la portada | — |
 | `crv-web-admin.env.example` | Entorno del gateway del panel | — |
@@ -35,7 +35,10 @@ Los `.env` reales viven en `~/apps/crv-landing/` con permisos `0600`, fuera de G
 `.env` de producción por `CRV_ENV_FILE` (no se copia); el gateway solo necesita sus propias
 variables. Los ejemplos llevan marcadores, nunca valores reales.
 
-## Acceso al panel privado
+## Acceso al panel
 
-`:3131` escucha solo en loopback. Brian entra por la máquina o con un túnel SSH
+El panel se publica en `/admin` del propio dominio, con sesión, rol y CSRF, por decisión de Brian del
+2026-11-02 (`docs/independencia/PUERTA-TEMPORAL.md`). `crv-web-admin` ya no es necesario para administrar.
+
+Si se instala, `:3131` escucha solo en loopback. Brian entra por la máquina o con un túnel SSH
 (`ssh -L 3131:127.0.0.1:3131 mini-server`), nunca por Funnel ni Cloudflare.
