@@ -1,3 +1,4 @@
+/* global window, document -- las funciones de page.evaluate y addInitScript corren en la página */
 // CRV · Fase 3: lo que el dominio debe darle al reproductor de la radio para que suene.
 // Solo lee y escucha como un visitante; se puede pasar contra producción.
 //   - Cada reproductor de YouTube, también el de reserva, debe llevar Referer (sin él: error 153).
