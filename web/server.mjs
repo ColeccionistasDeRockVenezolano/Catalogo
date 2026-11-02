@@ -195,11 +195,17 @@ const MIME_TYPES = {
   ".png": "image/png", ".svg": "image/svg+xml", ".webp": "image/webp",
   ".avif": "image/avif", ".gif": "image/gif",
   ".woff2": "font/woff2",
+  ".wav": "audio/wav",
 };
 
 // TEMPORAL-PORTADA: Cloudflare inyecta su analítica en el dominio; Herra la permitía.
 const landingAnalyticsScript = webMode === "landing" ? "https://static.cloudflareinsights.com " : "";
 const landingAnalyticsConnect = webMode === "landing" ? " https://cloudflareinsights.com" : "";
+// YouTube rechaza con el error 153 un reproductor incrustado que llega sin Referer.
+// El reproductor de reserva de la radio lo crea su API sin atributo propio, así que
+// la portada y el marco de la radio necesitan esta política en el documento. El resto
+// del catálogo la conserva estricta: sus reproductores la fijan en cada iframe.
+const REFERRER_FOR_YOUTUBE = "strict-origin-when-cross-origin";
 const SECURITY_HEADERS = {
   // `base-uri 'self'`: las portadas insertan <base href="/crv/"> para que sus
   // rutas relativas resuelvan siempre bajo el prefijo. `base-uri 'none'`
@@ -207,7 +213,7 @@ const SECURITY_HEADERS = {
   // el mismo origen y se sigue rechazando una base ajena.
   "content-security-policy": `default-src 'self'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'; object-src 'none'; script-src 'self' ${landingAnalyticsScript}https://www.youtube.com https://s.ytimg.com https://w.soundcloud.com; frame-src ${webMode === "landing" ? "" : "'self' "}https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com https://widget.deezer.com https://embed.music.apple.com https://embed.tidal.com https://w.soundcloud.com https://bandcamp.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self'${landingAnalyticsConnect}`,
   "permissions-policy": "camera=(), microphone=(), geolocation=()",
-  "referrer-policy": "no-referrer",
+  "referrer-policy": webMode === "landing" ? REFERRER_FOR_YOUTUBE : "no-referrer",
   "x-content-type-options": "nosniff",
   "x-frame-options": "DENY",
 };
@@ -217,6 +223,7 @@ const EMBED_HEADERS = {
   ...SECURITY_HEADERS,
   "content-security-policy": SECURITY_HEADERS["content-security-policy"].replace("frame-ancestors 'none'", "frame-ancestors 'self'"),
   "x-frame-options": "SAMEORIGIN",
+  "referrer-policy": REFERRER_FOR_YOUTUBE,
 };
 
 // --- Copias optimizadas bajo demanda -------------------------------------
@@ -514,6 +521,25 @@ function proxyChatUpgrade(req, socket, head) {
   socket.on("error", () => upstream.destroy());
 }
 
+/**
+ * Resuelve una cabecera Range de un solo tramo. Safari no reproduce un <audio> sin
+ * ella y el resto de navegadores la usan para saltar al punto de la cuña.
+ * Devuelve null si hay que entregar el archivo entero y "unsatisfiable" para un 416.
+ */
+function parseByteRange(header, size) {
+  const match = /^bytes=(\d*)-(\d*)$/u.exec(header ?? "");
+  if (!match || (!match[1] && !match[2])) return null;
+  if (!match[1]) {
+    const suffix = Number(match[2]);
+    if (suffix === 0 || size === 0) return "unsatisfiable";
+    return { start: Math.max(0, size - suffix), end: size - 1 };
+  }
+  const start = Number(match[1]);
+  if (start >= size) return "unsatisfiable";
+  const end = match[2] ? Math.min(Number(match[2]), size - 1) : size - 1;
+  return end < start ? null : { start, end };
+}
+
 async function serveFile(req, res, pathname, searchParams) {
   if (req.method !== "GET" && req.method !== "HEAD") return reply(res, 405, "Método no permitido.");
   let relativePath;
@@ -596,14 +622,33 @@ async function serveFile(req, res, pathname, searchParams) {
     res.writeHead(304, { etag, "cache-control": cacheControl, ...SECURITY_HEADERS });
     return res.end();
   }
-  res.writeHead(200, {
+  const lastModified = fileStat.mtime.toUTCString();
+  const fileHeaders = {
     "content-type": MIME_TYPES[ext] ?? "application/octet-stream",
-    "content-length": fileStat.size,
+    "accept-ranges": "bytes",
     etag,
-    "last-modified": fileStat.mtime.toUTCString(),
+    "last-modified": lastModified,
     "cache-control": cacheControl,
     ...SECURITY_HEADERS,
-  });
+  };
+  const ifRange = req.headers["if-range"];
+  const range = req.method === "GET" && (!ifRange || ifRange === lastModified || ifRange === etag)
+    ? parseByteRange(req.headers.range, fileStat.size)
+    : null;
+  if (range === "unsatisfiable") {
+    res.writeHead(416, { ...fileHeaders, "content-range": `bytes */${fileStat.size}`, "content-length": 0 });
+    return res.end();
+  }
+  if (range) {
+    res.writeHead(206, {
+      ...fileHeaders,
+      "content-range": `bytes ${range.start}-${range.end}/${fileStat.size}`,
+      "content-length": range.end - range.start + 1,
+    });
+    createReadStream(file, range).on("error", (error) => res.destroy(error)).pipe(res);
+    return;
+  }
+  res.writeHead(200, { ...fileHeaders, "content-length": fileStat.size });
   if (req.method === "HEAD") return res.end();
   createReadStream(file).on("error", (error) => res.destroy(error)).pipe(res);
 }
