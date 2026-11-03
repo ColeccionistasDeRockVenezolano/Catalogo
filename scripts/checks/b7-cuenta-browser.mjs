@@ -119,7 +119,7 @@ async function estructura(page, lang, prefijo) {
 }
 
 // ------------------------------------------------- escritorio ES (interactivo)
-let estadoSesionCompartida = null;
+let estadoSesionCompartida;
 {
   const { context, page, errors } = await open({ width: 1440, height: 900 }, "es");
   report.datos.url = page.url();

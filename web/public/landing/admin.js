@@ -145,10 +145,6 @@
     }, 4000);
   }
 
-  function errText(r) {
-    return r.json().then(function (j) { return (j && j.error) ? j.error : T('common.error', { status: r.status }); }, function () { return T('common.error', { status: r.status }); });
-  }
-
   // Lista de colaboradores conocida por el cliente, para poder regenerar los
   // checklists de responsables (por tarea y en «Nueva actividad») sin ir al
   // servidor. Arranca leyendo el checklist ya renderizado por el servidor y
@@ -1274,7 +1270,7 @@
     closeModal(editForm);
   }
 
-  function act(action, id, payload) {
+  function act(action, id) {
     var p;
     switch (action) {
       case 'save-task': {
@@ -1299,12 +1295,12 @@
         p = request('POST', base + 'tasks/' + id + '/move', { direction: action });
         break;
       case 'category-save': {
-        var titleInput = document.querySelector('[data-cat-title-input][data-id="' + id + '"]');
-        if (!titleInput) return Promise.resolve();
-        var catBlock = titleInput.closest('.cat-block');
+        var catTitleInput = document.querySelector('[data-cat-title-input][data-id="' + id + '"]');
+        if (!catTitleInput) return Promise.resolve();
+        var catBlock = catTitleInput.closest('.cat-block');
         var viewTitleEl = catBlock && catBlock.querySelector('.cat-title');
         var currentTitle = viewTitleEl ? viewTitleEl.textContent : '';
-        var nextTitle = titleInput.value.trim();
+        var nextTitle = catTitleInput.value.trim();
         if (!nextTitle) { msg(T('admin.jsEmptyTitle'), true); return Promise.resolve(); }
         if (nextTitle === currentTitle) { closeCategoryEditor(catBlock); return Promise.resolve(); }
         p = request('PATCH', base + 'categories/' + id, { title: nextTitle });

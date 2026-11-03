@@ -1,4 +1,4 @@
-/* global document, window, history, URL, fetch, sessionStorage */
+/* global document, window, history, URL, fetch */
 // TEMPORAL-PORTADA · «Mi perfil» 1:1 de Herra. Un solo botón guarda perfil, enlaces
 // y clave; al terminar se recarga como el POST de Herra para repintar los avisos.
 // Ver docs/independencia/PUERTA-TEMPORAL.md.

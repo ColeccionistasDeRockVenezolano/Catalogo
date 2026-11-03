@@ -147,7 +147,7 @@ async function main(): Promise<void> {
     const colaborador = await entrar(PORTADA, "", nombre, clave, delDominio());
     comprobar(Boolean(colaborador.rol), "login del colaborador en el dominio", colaborador.rol);
     const etapa = (await pool.query<{ id: number }>("SELECT id FROM auth.categories ORDER BY sort_order LIMIT 1")).rows[0]!.id;
-    const creada = await pedir(PANEL, `${API_PANEL}/tasks`, { method: "POST", headers: conAdmin, body: { categoryId: etapa, title: `2B tarea ${sufijo}`, status: "pending", assignedUserIds: [userId] } });
+    await pedir(PANEL, `${API_PANEL}/tasks`, { method: "POST", headers: conAdmin, body: { categoryId: etapa, title: `2B tarea ${sufijo}`, status: "pending", assignedUserIds: [userId] } });
     tareaId = (await pool.query<{ id: number }>("SELECT id FROM auth.tasks WHERE title = $1", [`2B tarea ${sufijo}`])).rows[0]?.id ?? null;
     const cambio = await pedir(PORTADA, `/api/roadmap/tasks/${tareaId}/status`, { method: "PATCH", headers: { ...delDominio(), cookie: colaborador.cookie, "x-crv-csrf": colaborador.csrf }, body: { status: "in_progress" } });
     comprobar(cambio.status === 200, "el colaborador cambia su tarea desde el dominio", cambio.status);

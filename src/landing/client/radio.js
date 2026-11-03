@@ -465,7 +465,7 @@
   }
   function cueStart() { return Number(snapshot && snapshot.sweeper && snapshot.sweeper.videoStartSeconds) || 0; }
   function cueLevel() {
-    var at = 0;
+    var at;
     try { at = Number(cueDeck.player.getCurrentTime()) - cueDeck.seconds; } catch (_) { at = 0; }
     var left = cueDeck.duration - at;
     var envelope = cueDeck.overlap && left < cueDeck.overlap ? Math.max(0, left / cueDeck.overlap) : 1;
@@ -900,7 +900,7 @@
   }
 
   function restoreDiagnostics() {
-    var stored = null;
+    var stored;
     try {
       stored = window.localStorage.getItem(DIAG_STORE);
       window.localStorage.removeItem(DIAG_STORE);
@@ -926,7 +926,7 @@
     if (cueDeck.sounded && stateOf(cueDeck) === PLAYING) return true;
     var deck = activeDeck();
     if (!deck.player || soundPending) return false;
-    var time = null;
+    var time;
     try { time = Number(deck.player.getCurrentTime()); } catch (_) { time = null; }
     var now = Date.now();
     if (diag.lastTimeKey !== deck.key) diag.progressAt = now;
@@ -977,7 +977,7 @@
       trace('flags', { started: started, listening: listening, userPaused: userPaused, userMuted: userMuted, soundPending: soundPending, ready: ready });
       diag.flags = flags;
     }
-    var sounding = false;
+    var sounding;
     try { sounding = soundingNow(); } catch (_) { sounding = false; }
     if (sounding) diag.everAudible = true;
     var expected = diag.everAudible && started && listening && !userPaused && !userMuted;

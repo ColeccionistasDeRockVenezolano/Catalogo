@@ -1,4 +1,3 @@
-/* global document, window, getComputedStyle -- las funciones de page.evaluate corren en la página */
 // CRV · comprobación de la base 1.1.39 en la portada pública.
 //
 // Verifica que /crv/roadmap sirve el radio.js de CRV y los assets de 1.1.39 (CSS con

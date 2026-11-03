@@ -52,7 +52,10 @@ try {
       for (const copia of outcome.result.copias) {
         copyFileSync(copia.origen, copia.destino);
         const entry = manifest.entries[`artist:${copia.id}`];
-        if (entry) entry["localPath"] = copia.destino.replace("web/public/", ""), entry["sourceUrl"] = `catalogo:${copia.origen}`;
+        if (entry) {
+          entry["localPath"] = copia.destino.replace("web/public/", "");
+          entry["sourceUrl"] = `catalogo:${copia.origen}`;
+        }
       }
       writeFileSync(MANIFEST, `${JSON.stringify(manifest, null, 2)}\n`);
     }

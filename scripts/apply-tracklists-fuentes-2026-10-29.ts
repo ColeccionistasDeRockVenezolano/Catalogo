@@ -59,7 +59,7 @@ async function main(): Promise<void> {
         const pistas: string[] = [];
         const vistos = new Set<string>();
         const ultimo = new Map<number, number>();
-        for (const [i, p] of a.pistas.entries()) {
+        for (const [, p] of a.pistas.entries()) {
           const titulo = (p.title ?? "").trim().slice(0, 240);
           if (!titulo) continue;
           const disc = p.disc || 1;

@@ -1,4 +1,3 @@
-/* global document, window, getComputedStyle -- las funciones de page.evaluate corren en la página */
 // CRV · Ensayo de la Fase 2B en la instancia raíz (:3141).
 //
 // §5.2.2 del plan, en ES, EN y móvil: portada con radio, contador, candidatura,
