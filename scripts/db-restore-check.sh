@@ -23,7 +23,7 @@ fail() { printf '\033[31mERROR: %s\033[0m\n' "$*" >&2; exit 1; }
 BACKUP="${1:-}"
 [[ -n "$BACKUP" && -d "$BACKUP" ]] || fail "uso: scripts/db-restore-check.sh <backups/crv-...>"
 BACKUP="$(cd "$BACKUP" && pwd)"
-manifest() { grep -m1 "^$1=" "$BACKUP/manifest.txt" | cut -d= -f2-; }
+manifest() { grep -m1 "^$1=" "$BACKUP/manifest.txt" | cut -d= -f2- || true; }
 
 IMAGE="${CRV_RESTORE_IMAGE:-$(docker inspect -f '{{.Config.Image}}' crv-postgres 2>/dev/null || echo postgres:16-alpine)}"
 NAME="crv-restore-check-$$"
@@ -32,7 +32,7 @@ PASSWORD="restore-check-$$"
 OWNER="$(manifest db_owner)"
 DATABASE="$(manifest db_name)"
 WORK="$(mktemp -d "${TMPDIR:-/tmp}/crv-restore-check.XXXXXX")"
-cleanup() { docker rm -f "$NAME" >/dev/null 2>&1 || true; rm -rf "$WORK"; }
+cleanup() { docker rm -f -v "$NAME" >/dev/null 2>&1 || true; rm -rf "$WORK"; }
 trap cleanup EXIT
 
 say "1/5 PostgreSQL desechable ($IMAGE en 127.0.0.1:$PORT)"
@@ -62,18 +62,26 @@ echo "   $(wc -l < "$WORK/counts.tsv" | tr -d ' ') tablas, $(awk -F'\t' '{ total
   || fail "las migraciones restauradas no coinciden con el manifest"
 
 say "4/5 crudo: existencia y sha256"
-missing=0; mismatched=0; checked=0
-while IFS='|' read -r rel sha; do
-  [[ -n "$rel" ]] || continue
-  checked=$((checked + 1))
-  if [[ ! -f "$WORK/data/$rel" ]]; then missing=$((missing + 1)); continue; fi
-  [[ "$(sha256sum "$WORK/data/$rel" | cut -d' ' -f1)" == "$sha" ]] || mismatched=$((mismatched + 1))
-done < <(psql_r -c "SELECT stored_path||'|'||sha256 FROM ingest.raw_pages")
-echo "   $checked raw_pages revisadas; $missing sin archivo; $mismatched con hash distinto"
-(( mismatched == 0 )) || fail "hay crudos cuyo contenido no coincide con su sha256"
-(( missing == $(manifest raw_missing) )) || fail "faltan $missing crudos (el origen registraba $(manifest raw_missing))"
+if [[ "$(manifest raw_included || true)" == no ]]; then
+  echo "   omitido: este respaldo no incluye crudo (raw_included=no)"
+else
+  missing=0; mismatched=0; checked=0
+  while IFS='|' read -r rel sha; do
+    [[ -n "$rel" ]] || continue
+    checked=$((checked + 1))
+    if [[ ! -f "$WORK/data/$rel" ]]; then missing=$((missing + 1)); continue; fi
+    [[ "$(sha256sum "$WORK/data/$rel" | cut -d' ' -f1)" == "$sha" ]] || mismatched=$((mismatched + 1))
+  done < <(psql_r -c "SELECT stored_path||'|'||sha256 FROM ingest.raw_pages")
+  echo "   $checked raw_pages revisadas; $missing sin archivo; $mismatched con hash distinto"
+  (( mismatched == 0 )) || fail "hay crudos cuyo contenido no coincide con su sha256"
+  (( missing == $(manifest raw_missing) )) || fail "faltan $missing crudos (el origen registraba $(manifest raw_missing))"
+fi
 
 say "5/5 doctor contra la base restaurada"
-DATABASE_URL="postgresql://$OWNER:$PASSWORD@127.0.0.1:$PORT/$DATABASE" npm run --silent doctor
+if [[ "${CRV_RESTORE_DOCTOR:-yes}" == no ]]; then
+  echo "   OMITIDO (CRV_RESTORE_DOCTOR=no): la integridad operativa no se ha comprobado"
+else
+  DATABASE_URL="postgresql://$OWNER:$PASSWORD@127.0.0.1:$PORT/$DATABASE" npm run --silent doctor
+fi
 
 printf '\n\033[1mRESTORE VERIFICADO\033[0m: %s\n' "$BACKUP"

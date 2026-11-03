@@ -1,0 +1,10 @@
+[Unit]
+Description=CRV respaldo diario del catálogo
+
+[Timer]
+OnCalendar=*-*-* 01:30:00 America/Caracas
+Persistent=true
+RandomizedDelaySec=5min
+
+[Install]
+WantedBy=timers.target

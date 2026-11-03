@@ -13,6 +13,9 @@
 # Guía completa: docs/DATABASE_BACKUP_RESTORE.md.
 #
 #   uso: scripts/db-backup.sh [directorio-destino]      (por defecto $CRV_BACKUP_ROOT o /mnt/datos/backups/crv)
+#
+# CRV_BACKUP_RAW=no omite raw.tar.gz (solo la base): lo usa el respaldo programado
+# de scripts/catalogo-respaldo.sh. El manifest lo registra como raw_included=no.
 set -euo pipefail
 umask 077
 
@@ -24,6 +27,8 @@ PGUSER_="${CRV_PG_USER:-crv}"
 PGDB="${CRV_PG_DB:-crv}"
 DATA_DIR_="${CRV_DATA_DIR:-$ROOT/data}"
 OUT_ROOT="${1:-${CRV_BACKUP_ROOT:-/mnt/datos/backups/crv}}"
+INCLUDE_RAW="${CRV_BACKUP_RAW:-yes}"
+[[ "$INCLUDE_RAW" == yes || "$INCLUDE_RAW" == no ]] || { echo "CRV_BACKUP_RAW debe ser yes o no" >&2; exit 1; }
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 FINAL_OUT="$OUT_ROOT/crv-$STAMP"
 OUT="$OUT_ROOT/.crv-$STAMP.partial"
@@ -59,7 +64,7 @@ trap cleanup EXIT
 
 say "1/5 comprobaciones previas"
 docker inspect -f '{{.State.Running}}' "$CONTAINER" 2>/dev/null | grep -qx true || fail "el contenedor $CONTAINER no está corriendo (npm run db:up)"
-[[ -d "$DATA_DIR_/raw" ]] || fail "no existe $DATA_DIR_/raw"
+[[ "$INCLUDE_RAW" == no || -d "$DATA_DIR_/raw" ]] || fail "no existe $DATA_DIR_/raw"
 # El respaldo va al disco de datos: si no está montado, mkdir -p crearía un
 # directorio «sombra» en el disco raíz y el respaldo quedaría en el lugar
 # equivocado sin avisar. Mejor abortar.
@@ -87,28 +92,34 @@ docker exec -i "$CONTAINER" pg_restore --list < "$OUT/crv.dump" > "$OUT/crv.dump
 
 say "3/5 crudo (data/raw)"
 raw_pages="$(psql_q -c "SELECT count(*) FROM ingest.raw_pages")"
+raw_files=0
 raw_missing=0
-while IFS= read -r rel; do
-  [[ -n "$rel" ]] || continue
-  [[ -f "$DATA_DIR_/$rel" ]] || raw_missing=$((raw_missing + 1))
-done < <(psql_q -c "SELECT stored_path FROM ingest.raw_pages")
-(
-  cd "$DATA_DIR_"
-  # raw puede ser el enlace al archivo de capturas en /mnt/1tb/Shared.
-  # -H sigue ese argumento, sin seguir enlaces encontrados dentro del crudo.
-  find -H raw -type f -print0 > "$OUT/raw-files.list"
-)
-raw_files="$(tr -cd '\0' < "$OUT/raw-files.list" | wc -c | tr -d ' ')"
-# Freeze the file inventory before archiving. Crawlers may create additional
-# captures while this read-only backup runs; directory mtime changes must not
-# invalidate an archive of the existing immutable captures. A listed file that
-# changes or disappears still makes tar fail, and restore-check validates the
-# referenced contents against the database dump.
-tar -C "$DATA_DIR_" --null --no-recursion -T "$OUT/raw-files.list" -czf "$OUT/raw.tar.gz"
-rm "$OUT/raw-files.list"
-echo "   $raw_files archivos; $raw_pages raw_pages; $raw_missing sin archivo en disco"
-if (( raw_missing > 0 )); then
-  echo "   AVISO: hay raw_pages cuyo archivo no está en $DATA_DIR_ (queda registrado en el manifest)"
+if [[ "$INCLUDE_RAW" == yes ]]; then
+  raw_missing=0
+  while IFS= read -r rel; do
+    [[ -n "$rel" ]] || continue
+    [[ -f "$DATA_DIR_/$rel" ]] || raw_missing=$((raw_missing + 1))
+  done < <(psql_q -c "SELECT stored_path FROM ingest.raw_pages")
+  (
+    cd "$DATA_DIR_"
+    # raw puede ser el enlace al archivo de capturas en /mnt/1tb/Shared.
+    # -H sigue ese argumento, sin seguir enlaces encontrados dentro del crudo.
+    find -H raw -type f -print0 > "$OUT/raw-files.list"
+  )
+  raw_files="$(tr -cd '\0' < "$OUT/raw-files.list" | wc -c | tr -d ' ')"
+  # Freeze the file inventory before archiving. Crawlers may create additional
+  # captures while this read-only backup runs; directory mtime changes must not
+  # invalidate an archive of the existing immutable captures. A listed file that
+  # changes or disappears still makes tar fail, and restore-check validates the
+  # referenced contents against the database dump.
+  tar -C "$DATA_DIR_" --null --no-recursion -T "$OUT/raw-files.list" -czf "$OUT/raw.tar.gz"
+  rm "$OUT/raw-files.list"
+  echo "   $raw_files archivos; $raw_pages raw_pages; $raw_missing sin archivo en disco"
+  if (( raw_missing > 0 )); then
+    echo "   AVISO: hay raw_pages cuyo archivo no está en $DATA_DIR_ (queda registrado en el manifest)"
+  fi
+else
+  echo "   omitido (CRV_BACKUP_RAW=no)"
 fi
 
 say "4/5 manifest"
@@ -132,16 +143,19 @@ IFS='|' read -r db_encoding db_collate db_ctype < <(psql_q -c "SELECT pg_encodin
   echo "migrations=$(psql_q -c "SELECT string_agg(version, ',' ORDER BY version) FROM ingest.schema_migrations")"
   echo "tables=$(wc -l < "$OUT/counts.tsv" | tr -d ' ')"
   echo "rows_total=$(awk -F'\t' '{ total += $2 } END { print total }' "$OUT/counts.tsv")"
+  echo "raw_included=$INCLUDE_RAW"
   echo "raw_pages=$raw_pages"
   echo "raw_files=$raw_files"
   echo "raw_missing=$raw_missing"
   echo "dump_bytes=$(stat -c %s "$OUT/crv.dump")"
-  echo "raw_tar_bytes=$(stat -c %s "$OUT/raw.tar.gz")"
+  echo "raw_tar_bytes=$(stat -c %s "$OUT/raw.tar.gz" 2>/dev/null || echo 0)"
 } > "$OUT/manifest.txt"
 sed 's/^/   /' "$OUT/manifest.txt"
 
 say "5/5 sumas"
-(cd "$OUT" && sha256sum crv.dump raw.tar.gz counts.tsv manifest.txt > SHA256SUMS)
+artifacts=(crv.dump counts.tsv manifest.txt)
+[[ "$INCLUDE_RAW" == no ]] || artifacts+=(raw.tar.gz)
+(cd "$OUT" && sha256sum "${artifacts[@]}" > SHA256SUMS)
 mv "$OUT" "$FINAL_OUT"
 complete=yes
 echo "   backup listo: $FINAL_OUT"
