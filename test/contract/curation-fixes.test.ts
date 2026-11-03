@@ -470,14 +470,15 @@ describe("marco de acciones de corrección de Curaduría (E4)", () => {
     expect(finding).toMatchObject({ signature: "sin_articulo_o_espacios" });
 
     const group = await preview({
-      mode: "group", filter: { category: "fichas_repetidas", detector: "artistas_equivalentes", signature: "sin_articulo_o_espacios" },
+      // Desde c240fbb9 la acción recomendada del detector es verificar_identidad_ia (nivel 0); la fusión se pide por clave.
+      mode: "group", filter: { category: "fichas_repetidas", detector: "artistas_equivalentes", signature: "sin_articulo_o_espacios" }, actionKey: "fusionar",
     });
     const groupItem = group.items.find((item) => item.findingId === Number(finding!.id));
     expect(groupItem).toMatchObject({ status: "blocked", actionKey: "fusionar", level: 2, errorCode: "level" });
     expect(group.counts).toMatchObject({ pending: 0 });
     expect((await apply(group.id, { previewHash: group.previewHash, note: "fusionar en grupo" })).statusCode).toBe(422);
 
-    const selected = await preview({ mode: "selected", findingIds: [Number(finding!.id)] });
+    const selected = await preview({ mode: "selected", findingIds: [Number(finding!.id)], actionKey: "fusionar" });
     expect(selected.items[0]).toMatchObject({ status: "pending", actionKey: "fusionar", level: 2 });
     // Un valor escrito a mano solo vale para una corrección individual.
     const invalid = await app.inject({ method: "POST", url: "/curation/fixes/preview", headers, payload: { mode: "selected", findingIds: [Number(finding!.id)], overrides: { params: { value: "x" } } } });
