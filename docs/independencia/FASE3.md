@@ -388,3 +388,19 @@ servicios, builds raíz y `/crv`), `pg_dump`, medios, reportes, claves y secreto
 reproducible en un host limpio con ensayo real de restauración; runbook del go-live (orden de
 switches, ventana, rollback, dominio, Cloudflare, credencial de Sheets y llaves); procedimiento de
 congelación y delta entre paquete y corte; paquete cifrado con hashes e inventario.
+
+## Clientes de la portada: fuente en CRV (2026-11-03)
+
+Los ocho clientes minificados de la portada salen de `src/landing/client/`: `radio`, `first-touch`,
+`i18n-client`, `icons`, `nav`, `public-loader`, `roadmap` y `visit-counter`. No se editan a mano en
+`web/public/landing/`: se cambia la fuente y se ejecuta `node scripts/build-radio-client.mjs`. CI falla
+si lo publicado no sale de la fuente (`--check`).
+
+`herra-separacion` es la 1.1.10 y la portada viene de la 1.1.39, de la que no queda fuente. `roadmap`,
+`icons` e `i18n-client` salen idénticos byte a byte de la 1.1.10. A `nav` y `public-loader` se les
+portaron los cambios de la 1.1.39, y a `visit-counter` se le quitó el token CSRF, como en CRV. Esos tres
+cambian solo en nombres de variables locales: comparados por ámbitos y token a token con lo publicado,
+son el mismo programa.
+
+Siguen sin fuente en CRV: `vendor/lucide-public.min.js`, un paquete de terceros, porque CRV no tiene
+`lucide` entre sus dependencias, y `roadmap-public.min.css`, que no es JS.
