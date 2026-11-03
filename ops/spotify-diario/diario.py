@@ -326,18 +326,33 @@ def reproductores(sp, artista, discos, lote):
     return {"artist_link": artist_link, "album_links": casados, "via": via}
 
 
-def cosechar_reproductores(sp):
-    entrada = EMBEDS / "entrada"
-    out = EMBEDS / "spotify"
+def cosechar_reproductores(sp, entrada=None, salida=None, prioridad=None):
+    """Cosecha una entrada concreta (por defecto la del 13-oct). La cola es por DISCO pendiente:
+    un artista ya procesado en una campaña anterior vuelve a entrar si tiene discos sin enlace,
+    porque su a-<id>.json viejo no conoce los discos añadidos después."""
+    entrada = entrada or (EMBEDS / "entrada")
+    salida = salida or (EMBEDS / "spotify")
+    salida.mkdir(parents=True, exist_ok=True)
     artistas = [json.loads(l) for l in (entrada / "artistas.jsonl").read_text().splitlines() if l.strip()]
     discos = {}
     for l in (entrada / "discos.jsonl").read_text().splitlines():
         if l.strip():
             d = json.loads(l)
             discos.setdefault(d["artistId"], []).append(d)
+
+    def perfil_verificado(a):
+        return bool((a["links"].get("spotify") or {}).get("verified"))
+
+    if prioridad == 1:
+        artistas = [a for a in artistas if perfil_verificado(a)]
+    elif prioridad == 2:
+        artistas = [a for a in artistas if not perfil_verificado(a)]
     lote = barrido()
-    faltan = [a for a in artistas if not (out / f"a-{a['id']}.json").exists()]
-    log(f"reproductores: faltan {len(faltan)} de {len(artistas)} artistas")
+    faltan = [a for a in artistas
+              if any(not (d["links"].get("spotify") or {}).get("verified") for d in discos.get(a["id"], []))
+              and not (salida / f"a-{a['id']}.json").exists()]
+    log(f"reproductores: faltan {len(faltan)} de {len(artistas)} artistas"
+        + (f" (prioridad {prioridad})" if prioridad else ""))
     hechos = 0
     for a in faltan:
         if not (sp.disponible("busqueda") or sp.disponible("discos-del-artista")):
@@ -351,7 +366,7 @@ def cosechar_reproductores(sp):
             log(f"reproductores: {a['name']}: ERROR {str(e)[:160]}")
             continue
         r.update({"artistId": a["id"], "name": a["name"]})
-        (out / f"a-{a['id']}.json").write_text(json.dumps(r, ensure_ascii=False))
+        (salida / f"a-{a['id']}.json").write_text(json.dumps(r, ensure_ascii=False))
         hechos += 1
         log(f"reproductores: {a['name']}: {r['via']} · perfil {'sí' if r['artist_link'] else 'no'} · discos {len(r['album_links'])} ({sp.resumen()})")
     return hechos, len(faltan) - hechos
@@ -377,7 +392,20 @@ def main():
     # → el trío italiano) o extranjeros cuya discografía no es pertinente. Solo con --con-fotos.
     ap.add_argument("--con-fotos", action="store_true")
     ap.add_argument("--solo", choices=["fotos", "reproductores"])
+    ap.add_argument("--entrada", help="directorio con entrada/ (por defecto reports/streaming-embeds-2026-10-13)")
+    ap.add_argument("--salida", help="directorio de salidas a-*.json (por defecto <entrada>/../spotify)")
+    ap.add_argument("--prioridad", type=int, choices=[1, 2],
+                    help="1 = solo artistas con perfil de Spotify verificado; 2 = solo sin perfil")
     args = ap.parse_args()
+    entrada_arg = Path(args.entrada) if args.entrada else (EMBEDS / "entrada")
+    if not (entrada_arg / "artistas.jsonl").exists() and (entrada_arg / "entrada/artistas.jsonl").exists():
+        entrada_arg = entrada_arg / "entrada"  # se aceptó el directorio de campaña, no su subcarpeta
+    # OJO: reports/ es un symlink al HDD; .resolve() sale del árbol del repo y rompe relative_to.
+    # Se conservan los paths tal como se pasan (relativos al WorkingDirectory) para el aplicador.
+    entrada = entrada_arg.resolve()
+    salida_arg = Path(args.salida) if args.salida else (entrada_arg.parent / "spotify")
+    salida = salida_arg.resolve()
+    log(f"entrada · {entrada} → {salida}")
     sp = Cuota(args.tope, args.pausa)
     log(f"inicio · {sp.resumen()}")
     fotos_faltan = rep_faltan = None
@@ -390,10 +418,10 @@ def main():
         except Agotada as e:
             log(f"fotos: parada, {e}")
     if args.solo in (None, "reproductores"):
-        nuevos, rep_faltan = cosechar_reproductores(sp)
+        nuevos, rep_faltan = cosechar_reproductores(sp, entrada, salida, args.prioridad)
     if nuevos:
         r = subprocess.run(["bash", "scripts/with-node22.sh", "npx", "tsx", "scripts/apply-streaming-embeds.ts",
-                            str(EMBEDS.relative_to(ROOT)), "--confirm"], cwd=ROOT, capture_output=True, text=True, timeout=1800)
+                            str(salida_arg.parent), "--confirm"], cwd=ROOT, capture_output=True, text=True, timeout=1800)
         log("aplicación: " + (r.stdout.strip().splitlines() or ["(sin salida)"])[-1])
         if r.returncode != 0:
             log("aplicación falló: " + r.stderr.strip()[-400:])

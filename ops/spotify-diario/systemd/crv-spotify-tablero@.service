@@ -1,0 +1,14 @@
+[Unit]
+Description=CRV tablero vivo de Spotify · campaña %i
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+ExecStart=/bin/bash ops/spotify-diario/tablero.sh %i
+Restart=always
+RestartSec=5
+Nice=10
+
+[Install]
+WantedBy=default.target
