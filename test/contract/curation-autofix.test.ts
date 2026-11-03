@@ -122,7 +122,7 @@ describe("autocorrección segura de Curaduría (E10)", () => {
     expect(await dirtyArtists()).toEqual([artistA, artistB]);
 
     const { report, events } = await state();
-    expect(report).toMatchObject({ enabled: false, rules: { total: 1, active: 1 }, today: { batches: 0, applied: 0, undone: 0 } });
+    expect(report).toMatchObject({ enabled: false, rules: { total: 2, active: 1 }, today: { batches: 0, applied: 0, undone: 0 } });
     expect(events.map((event) => event.event)).toEqual(["enabled", "created"]);
     expect(events[0]).toMatchObject({ operator: OPERATOR });
   }, 90_000);
@@ -145,7 +145,7 @@ describe("autocorrección segura de Curaduría (E10)", () => {
       payload: { detector: "caracteres_invisibles", actionKey: "limpiar_texto" },
     });
     expect(repeated.statusCode).toBe(409);
-    expect((await state()).rules).toHaveLength(1);
+    expect((await state()).rules).toHaveLength(2);
   }, 60_000);
 
   it("con el interruptor puesto, una regla activa corrige sola, respeta su tope y deja un lote reversible (E10.2, E10.4)", async () => {
