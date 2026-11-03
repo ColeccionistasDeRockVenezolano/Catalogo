@@ -105,12 +105,13 @@ describe('edición conectada con las fichas públicas',()=>{
   const before=Number((await sql('SELECT count(*) AS n FROM public.albums')).rows[0]!.n);
   const url=`/catalog-editor/artist/${artist}/audiovisual`;
   const created=await write('POST',url,{title:'Documental del artista',kind:'documentary',url:'https://youtu.be/zyxwvutsrqp',description:'Descripción editorial'});expect(created.statusCode,created.body).toBe(200);
-  const id=created.json().id;await sql("UPDATE media.youtube_videos SET publication_status='published',metadata=jsonb_build_object('status',jsonb_build_object('embeddable',true)) WHERE video_id='zyxwvutsrqp'");
+  const id=created.json().id;await sql("UPDATE media.youtube_videos SET publication_status='published',metadata=jsonb_build_object('status',jsonb_build_object('privacyStatus','public','uploadStatus','processed','embeddable',true)) WHERE video_id='zyxwvutsrqp'");
   const published=(await get(`/artists/${artist}`)).json();expect(published.audiovisuals).toEqual(expect.arrayContaining([expect.objectContaining({id,title:'Documental del artista',playable:true,description:'Descripción editorial'})]));
-  await sql("UPDATE media.youtube_videos SET metadata=jsonb_build_object('status',jsonb_build_object('embeddable',false)) WHERE video_id='zyxwvutsrqp'");
-  const notEmbeddable=(await get(`/artists/${artist}`)).json();expect(notEmbeddable.audiovisuals).not.toEqual(expect.arrayContaining([expect.objectContaining({id})]));
+  await sql("UPDATE media.youtube_videos SET metadata=jsonb_build_object('status',jsonb_build_object('privacyStatus','public','uploadStatus','processed','embeddable',false)) WHERE video_id='zyxwvutsrqp'");
+  // a75f1c57 (Brian, 2026-11-01): un video registrado se muestra aunque no se pueda incrustar, como tarjeta no disponible (playable=false).
+  const notEmbeddable=(await get(`/artists/${artist}`)).json();expect(notEmbeddable.audiovisuals).toEqual(expect.arrayContaining([expect.objectContaining({id,playable:false})]));
   await sql("UPDATE media.youtube_videos SET publication_status='copyright_blocked' WHERE video_id='zyxwvutsrqp'");
-  const detail=(await get(`/artists/${artist}`)).json();expect(detail.audiovisuals).not.toEqual(expect.arrayContaining([expect.objectContaining({id})]));
+  const detail=(await get(`/artists/${artist}`)).json();expect(detail.audiovisuals).toEqual(expect.arrayContaining([expect.objectContaining({id,playable:false})]));
   expect((await get(url)).json()[0].url).toBe('https://youtu.be/zyxwvutsrqp');expect(Number((await sql('SELECT count(*) AS n FROM public.albums')).rows[0]!.n)).toBe(before);
   const removed=await write('DELETE',`${url}/${id}?note=Retiro%20editorial`);expect(removed.statusCode,removed.body).toBe(200);expect((await get(url)).json()).toHaveLength(0);
   expect((await sql('SELECT metadata FROM media.artist_audiovisuals WHERE id=$1',[id])).rows[0]!.metadata).toMatchObject({editorialHidden:true});expect((await undo(removed.json().runId)).statusCode).toBe(200);expect((await get(url)).json()).toHaveLength(1);
