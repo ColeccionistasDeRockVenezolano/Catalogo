@@ -61,7 +61,6 @@ const fieldLabels: Record<string, string> = {
   birthDate: "nacimiento",
   deathDate: "fallecimiento",
   albumType: "tipo de publicación",
-  artistType: "tipo de artista",
   coverUrl: "portada",
   imageUrl: "imagen",
   photoUrl: "foto",
@@ -121,14 +120,6 @@ const organizationTypes: Record<string, string[]> = {
   "record label": ["sello", "disquera", "discografica", "record label", "label"],
   studio: ["estudio", "studio"],
   distributor: ["distribuidora", "distributor"],
-};
-/** How sources name each kind of artist: «solista», «banda», «dúo». `other` es genérico y no se exige. */
-const artistTypes: Record<string, string[]> = {
-  solo_artist: ["solista", "solo", "cantautor", "cantautora", "cantante", "vocalista", "musico", "musica", "artista"],
-  band: ["banda", "band", "agrupacion", "grupo", "conjunto"],
-  duo: ["duo", "dueto", "pareja"],
-  group: ["grupo", "agrupacion", "colectivo", "conjunto", "banda"],
-  project: ["proyecto", "project"],
 };
 /** A founding is told as «fundó», «creó su propia compañía» or «fundada por». */
 const roleSynonyms: Record<string, string[]> = {
@@ -192,10 +183,8 @@ function fieldGap(key: string, value: CatalogValue, text: string, raw: string, e
     const words = organizationTypes[normalize(value)];
     return (words ? words.some((w) => mentioned(w, text)) : mentioned(value, text)) ? null : `${label(key)} «${value}»`;
   }
-  if (key === "artistType" && typeof value === "string") {
-    const words = artistTypes[normalize(value).replace(/ /gu, "_")];
-    return (words ? words.some((w) => mentioned(w, text)) : mentioned(value, text)) ? null : `${label(key)} «${value}»`;
-  }
+  // Decisión de Brian (2026-11-03): el tipo de artista es un dato propuesto por la IA; no se exige en la cita.
+  if (key === "artistType") return null;
   if (key === "albumType" && typeof value === "string") {
     const words = albumTypes[normalize(value)];
     return (words ? words.some((w) => mentioned(w, text)) : mentioned(value, text)) ? null : `${label(key)} «${value}»`;
