@@ -77,9 +77,10 @@ describe("portada (GET /home)", () => {
     expect(seventies.albums[0].coverUrl).toBe("/c/a.jpg");
     expect(home.eras.map((group: { decade: number }) => group.decade)).toEqual([1970, 1990, 2000]);
 
-    // Solo videos publicados; el que tiene disco lleva a su ficha.
-    expect(home.videos).toHaveLength(1);
-    expect(home.videos[0]).toMatchObject({ videoId: "aaaaaaaaaaa", album: { title: "Disco A" } });
+    // a75f1c57 (Brian, 2026-11-01): se muestra todo video registrado del canal, sea cual sea su estado
+    // (el «Borrador» de estado desconocido también); el de otro canal no. El que tiene disco lleva a su ficha.
+    expect(home.videos.map((video: { videoId: string }) => video.videoId)).toEqual(["bbbbbbbbbbb", "aaaaaaaaaaa"]);
+    expect(home.videos[1]).toMatchObject({ videoId: "aaaaaaaaaaa", album: { title: "Disco A" } });
 
     // «Various Artists» tiene foto, bio y portada, pero nunca es artista del día.
     expect(home.featuredArtist).toMatchObject({ name: "Banda Uno", startYear: 1975, albumCount: 2, originCity: "Caracas" });
