@@ -3,13 +3,16 @@
 // `crv-youtube-availability` en media.youtube_videos (regla de AGENTS.md).
 // Solo lee PostgreSQL. No copia payloads, descripciones ni evidencia.
 //
-//   npm run radio:export -- <salida.json> [--base <catálogo>] [--dry-run] [--max-retiradas 5]
+//   npm run radio:export -- <salida.json> [--base <catálogo>] [--tipos-hoja] [--dry-run] [--max-retiradas 5]
 //
+// --tipos-hoja     lee los tipos de la hoja YT Master (solo lectura) en vez de su copia
+//                  en seed_uploads; si la hoja no se puede leer, no exporta.
 // --base           catálogo cuyo orden se conserva (por defecto, la propia salida).
 // --max-retiradas  porcentaje máximo de piezas que puede perder; por encima no escribe.
 // Nunca escribe sobre el catálogo de una instancia de Herra: su cron sigue siendo el dueño.
 import fs from "node:fs";
 import path from "node:path";
+import { getEnv } from "../src/config/env.js";
 import { closeDb, getPool } from "../src/db/client.js";
 import { RADIO_CATALOG_VERSION, buildRadioTracks, livePlayable, type RadioTrackRow } from "../src/radio/catalog.js";
 import { mergeWithPrevious, removedShare, type MergeableItem } from "../src/radio/catalog-merge.js";
@@ -17,6 +20,8 @@ import { albumsForVideos, annotateRadioCatalog, loadRadioAlbumGenres, loadRadioA
 import { annotateRadioRegions } from "../src/radio/regions.js";
 import { iso8601DurationToSeconds, type YouTubeVideoPayload } from "../src/youtube/api.js";
 import { CRV_CHANNEL_ID } from "../src/youtube/home-channel.js";
+import { loadRadioConfig } from "../src/shared/radio/config.js";
+import { readAlbumTypesByVideo } from "./lib/sheets-tracking.js";
 
 interface ExportRow extends Omit<RadioTrackRow, "video_duration_seconds"> {
   video_duration_seconds: number | null;
@@ -39,6 +44,14 @@ function knownEnds(items: readonly MergeableItem[]): Map<string, number> {
   return ends;
 }
 
+async function sheetTypes(): Promise<Map<string, string[]>> {
+  const config = await loadRadioConfig(Number(process.env["CRV_RADIO_PROJECT_ID"] ?? "1"));
+  if (!config?.trackingSheetId) throw new Error("radio: la configuración no define trackingSheetId");
+  const credentials = getEnv().CRV_RADIO_SHEET_CREDENTIALS
+    ?? "/home/brian/apps/herra-instances/herra-crv/secrets/service-account-radio-sheet.json";
+  return readAlbumTypesByVideo(config.trackingSheetId, credentials);
+}
+
 function readItems(filePath: string): MergeableItem[] {
   if (!fs.existsSync(filePath)) return [];
   const raw = JSON.parse(fs.readFileSync(filePath, "utf8")) as { items?: MergeableItem[] };
@@ -52,7 +65,7 @@ async function main(): Promise<void> {
   const args = process.argv.slice(2);
   const valued = new Set(["--base", "--max-retiradas"]);
   const requested = args.find((arg, index) => !arg.startsWith("--") && !valued.has(args[index - 1] ?? "")) ?? process.env["CRV_RADIO_EXPORT_PATH"];
-  if (!requested) throw new Error("uso: npm run radio:export -- <salida.json> [--base <catálogo>] [--dry-run] [--max-retiradas 5]");
+  if (!requested) throw new Error("uso: npm run radio:export -- <salida.json> [--base <catálogo>] [--tipos-hoja] [--dry-run] [--max-retiradas 5]");
   const outputPath = path.resolve(requested);
   if (/(^|\/)herra(-instances)?\//.test(outputPath)) throw new Error(`no se escribe sobre el catálogo de Herra: ${outputPath}`);
   const dryRun = args.includes("--dry-run");
@@ -71,6 +84,7 @@ async function main(): Promise<void> {
      WHERE v.channel_id = $1 AND v.title IS NOT NULL
      ORDER BY v.video_id, t.position`, [CRV_CHANNEL_ID]);
 
+  const typesFromSheet = args.includes("--tipos-hoja") ? await sheetTypes() : null;
   const previous = readItems(basePath);
   const previousEnds = knownEnds(previous);
   const withoutDuration = new Set<string>();
@@ -87,7 +101,10 @@ async function main(): Promise<void> {
       ?? iso8601DurationToSeconds(payload.contentDetails?.["duration"] as string | undefined)
       ?? previousEnds.get(row.video_id) ?? null;
     if (duration === null) withoutDuration.add(row.video_id);
-    else trackRows.push({ ...row, video_duration_seconds: duration });
+    else trackRows.push({
+      ...row, video_duration_seconds: duration,
+      sheet_types: typesFromSheet?.get(row.video_id)?.join(", ") ?? row.sheet_types ?? null,
+    });
   }
   const built = buildRadioTracks(trackRows, playable);
   if (built.length < 2) throw new Error(`catálogo insuficiente: ${built.length} canciones elegibles`);
