@@ -10,6 +10,7 @@ import { migrateUp } from "../../src/db/migrate.js";
 import { getPool, closeDb } from "../../src/db/client.js";
 import { resetEnvCache } from "../../src/config/env.js";
 import { registerOperatorAuth, resetAuthStateForTests } from "../../src/api/auth.js";
+import { externalDataAvailable } from "../support/external-data.js";
 import { registerSearchRoutes } from "../../src/api/routes/search.js";
 import { ApiError } from "../../src/api/http-errors.js";
 import { refreshSearchIndex } from "../../src/api/search-index.js";
@@ -74,6 +75,8 @@ describe("buscador unificado: etapa 1", () => {
     expect(admin.json().resources.rows).toHaveLength(46);
     expect(JSON.stringify(admin.json().resources)).not.toContain("/mnt/");
     const resources=admin.json().resources;
+    // El cotejo de campos lee los insumos de reports/ (almacén externo, fuera de Git): se comprueba donde existen.
+    if(externalDataAvailable("reports/alimentar-laya-contexto-2026-10-16.md")){
     expect(resources.fieldReviewStatus).toBe("verified");
     expect(resources.fieldReview).toMatchObject({revision:(await resourceFields.readResourceFieldReview(process.cwd())).revision,publicationAuthorized:false,coverage:{resources:46,fields:107,measures:"field_dispositions_not_musical_coverage"}});
     expect(resources.rows.reduce((n:number,row:{fields:unknown[]})=>n+row.fields.length,0)).toBe(107);
@@ -81,6 +84,7 @@ describe("buscador unificado: etapa 1", () => {
     expect(r03.status).toBe("partially_extracted");
     expect(r03.fields.some((field:{key:string;disposition:string})=>field.key==="discography_reviews"&&field.disposition==="deferred")).toBe(true);
     expect(resources.rows.find((row:{id:string})=>row.id==="R16").fields.every((field:{disposition:string})=>field.disposition==="excluded")).toBe(true);
+    }
     for(const privateField of ["sourceFieldText","sourceTerms","sha256","data/raw","/mnt/","captureHash"])
       expect(JSON.stringify(resources)).not.toContain(privateField);
   });

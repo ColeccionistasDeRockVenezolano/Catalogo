@@ -5,6 +5,7 @@ import { migrateUp } from "../../src/db/migrate.js";
 import { getPool, closeDb } from "../../src/db/client.js";
 import { resetEnvCache } from "../../src/config/env.js";
 import { adjudicateMapping, humanEvaluationState, mappingAdjudicationState, saveBlindReading, saveVerdict } from "../../src/search/human-review.js";
+import { externalDataAvailable } from "../support/external-data.js";
 
 const root = process.cwd();
 const blind = { object: "track", type: "sound", state: "affirmed", appreciation: "liked", coverage: "partial" } as const;
@@ -18,7 +19,8 @@ describe("etapa 2: evaluación humana y adjudicación de correspondencias", () =
   });
   afterAll(async () => { await closeDb(); await pg?.stop(); process.env = env; resetEnvCache(); });
 
-  it("oculta la anotación hasta registrar la lectura ciega y no permite reescribirla", async () => {
+  // Lee las anotaciones de reports/ (almacén externo, fuera de Git): se salta si faltan y corre donde existen.
+  it.skipIf(!externalDataAvailable("reports/unified-search-stage2/development-annotations.json"))("oculta la anotación hasta registrar la lectura ciega y no permite reescribirla", async () => {
     const before = await humanEvaluationState(root, getPool(), "Brian");
     expect(before.items).toHaveLength(90);
     expect(before.items.every(i => i.annotation === null)).toBe(true);
