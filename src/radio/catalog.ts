@@ -126,7 +126,8 @@ export function buildRadioTracks(
     // La hoja manda sobre el título: un concierto subido como "Full Album"
     // sigue siendo un concierto.
     if (excludedFromRadio(head.sheet_types)) continue;
-    const parsed = parseYouTubeTitle(head.video_title);
+    // Algunos títulos del canal llevan una sola barra antes de «Full Album».
+    const parsed = parseYouTubeTitle(head.video_title.replace(/(?<!\|)\|\s*full\s+album\s*\|\|/i, "|| Full Album ||"));
     if (!parsed.isFullAlbum || head.video_duration_seconds < MIN_TRACK_SECONDS) continue;
 
     // Las descripciones reales contienen unos pocos relojes duplicados o fuera

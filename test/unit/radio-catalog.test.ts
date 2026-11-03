@@ -71,6 +71,12 @@ describe("catalogo de radio por canciones", () => {
     expect(buildRadioTracks([{ ...single, start_seconds: 30 }], new Set(["BBBBBBBBBBB"]))).toEqual([]);
   });
 
+  it("limpia el álbum cuando el título lleva una sola barra antes de Full Album", () => {
+    const video_title = "Cunaguaro Soul - Cunaguaro Soul (2008) | Full Album ||";
+    const items = buildRadioTracks([row({ video_title }), row({ video_title, position: 1, start_seconds: 180 })], new Set(["AAAAAAAAAAA"]));
+    expect(items[0]).toMatchObject({ artist: "Cunaguaro Soul", album: "Cunaguaro Soul", year: 2008 });
+  });
+
   it("omite videoclips, conciertos y documentales según la hoja, aunque tengan otro tipo", () => {
     const chapters = (video_id: string, sheet_types: string | null) => [
       row({ video_id, sheet_types }),
