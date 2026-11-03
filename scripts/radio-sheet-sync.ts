@@ -2,9 +2,9 @@
 //
 //   tsx scripts/radio-sheet-sync.ts [--out informe.json]           ensayo: lee la hoja y no escribe
 //   tsx scripts/radio-sheet-sync.ts --test-sheet <id>              escribe en una hoja de prueba
+//   tsx scripts/radio-sheet-sync.ts --real                         escribe en la hoja real
 //
-// Esta herramienta no escribe en la hoja real: hasta el corte, su dueño sigue
-// siendo el cron de Herra. Las filas fuera de la lista pública toman su estado
+// Sin --real nunca escribe en la hoja real. Las filas fuera de la lista pública toman su estado
 // del registro de media.youtube_videos; nunca consulta páginas de YouTube.
 import fs from "node:fs";
 import os from "node:os";
@@ -45,13 +45,15 @@ async function main(): Promise<void> {
     return status && status !== "Listed" ? [[videoId, status as Exclude<TrackingStatus, "Listed">] as const] : [];
   }));
 
-  const result = await syncTrackingSheet(testSheet ?? config.trackingSheetId, credentials, listed, !testSheet, probe, {
+  const real = args.includes("--real");
+  if (real && testSheet) throw new Error("radio: --real y --test-sheet son incompatibles");
+  const result = await syncTrackingSheet(testSheet ?? config.trackingSheetId, credentials, listed, !testSheet && !real, probe, {
     ...(config.channelTitle ? { channelName: config.channelTitle } : {}),
     readOnlySheetIds: config.readOnlySheetIds,
   });
   const report = {
     generatedAt: new Date().toISOString(),
-    mode: testSheet ? "test-sheet" : "dry-run",
+    mode: testSheet ? "test-sheet" : real ? "real" : "dry-run",
     listed: listed.length,
     added: result.added,
     orderChanges: result.orderChanges,

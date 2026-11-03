@@ -1,0 +1,11 @@
+[Unit]
+Description=CRV hoja YT Master y catálogo de la radio, desde la base
+After=network-online.target
+
+[Service]
+Type=oneshot
+# Copia fijada del repositorio: no depende de la rama del árbol de trabajo compartido.
+Environment="CRV_ENV_FILE=/home/brian/apps/Coleccionistas De Rock Venezolano/.env"
+WorkingDirectory=%h/apps/crv-radio-catalogo
+ExecStart=/bin/bash %h/apps/crv-radio-catalogo/ops/radio-catalogo/diario.sh
+TimeoutStartSec=20min

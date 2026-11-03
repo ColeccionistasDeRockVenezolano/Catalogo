@@ -3,13 +3,13 @@
 // `crv-youtube-availability` en media.youtube_videos (regla de AGENTS.md).
 // Solo lee PostgreSQL. No copia payloads, descripciones ni evidencia.
 //
-//   npm run radio:export -- <salida.json> [--base <catálogo>] [--tipos-hoja] [--dry-run] [--max-retiradas 5]
+//   npm run radio:export -- <salida.json> [--base <catálogo>] [--tipos-hoja] [--dry-run] [--max-retiradas 5] [--catalogo-vivo]
 //
 // --tipos-hoja     lee los tipos de la hoja YT Master (solo lectura) en vez de su copia
 //                  en seed_uploads; si la hoja no se puede leer, no exporta.
 // --base           catálogo cuyo orden se conserva (por defecto, la propia salida).
 // --max-retiradas  porcentaje máximo de piezas que puede perder; por encima no escribe.
-// Nunca escribe sobre el catálogo de una instancia de Herra: su cron sigue siendo el dueño.
+// No escribe bajo Herra salvo el catálogo vivo de la radio, y solo con --catalogo-vivo.
 import fs from "node:fs";
 import path from "node:path";
 import { getEnv } from "../src/config/env.js";
@@ -30,6 +30,8 @@ interface ExportRow extends Omit<RadioTrackRow, "video_duration_seconds"> {
   last_fetched_at: Date | null;
 }
 
+// Archivo que lee la radio (CRV_RADIO_DATA_DIR de crv-api-landing).
+const LIVE_CATALOG = "/home/brian/apps/herra-instances/herra-crv/data/crv-radio-catalog.json";
 const VOLATILE_FIELDS = new Set(["generatedAt", "availabilityCheckedAt", "genresAnnotatedAt"]);
 
 function option(args: string[], name: string): string | undefined {
@@ -67,7 +69,8 @@ async function main(): Promise<void> {
   const requested = args.find((arg, index) => !arg.startsWith("--") && !valued.has(args[index - 1] ?? "")) ?? process.env["CRV_RADIO_EXPORT_PATH"];
   if (!requested) throw new Error("uso: npm run radio:export -- <salida.json> [--base <catálogo>] [--tipos-hoja] [--dry-run] [--max-retiradas 5]");
   const outputPath = path.resolve(requested);
-  if (/(^|\/)herra(-instances)?\//.test(outputPath)) throw new Error(`no se escribe sobre el catálogo de Herra: ${outputPath}`);
+  const liveAllowed = args.includes("--catalogo-vivo") && outputPath === LIVE_CATALOG;
+  if (/(^|\/)herra(-instances)?\//.test(outputPath) && !liveAllowed) throw new Error(`no se escribe sobre el catálogo de Herra: ${outputPath}`);
   const dryRun = args.includes("--dry-run");
   const maxRemoved = Number(option(args, "--max-retiradas") ?? "5") / 100;
   if (!Number.isFinite(maxRemoved) || maxRemoved < 0) throw new Error("--max-retiradas debe ser un porcentaje");
