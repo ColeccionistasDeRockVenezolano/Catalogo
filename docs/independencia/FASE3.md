@@ -391,9 +391,9 @@ congelación y delta entre paquete y corte; paquete cifrado con hashes e inventa
 
 ## Clientes de la portada: fuente en CRV (2026-11-03)
 
-Los ocho clientes minificados de la portada salen de `src/landing/client/`: `radio`, `first-touch`,
+Los ocho clientes de la portada salen de `src/landing/client/`: `radio`, `first-touch`,
 `i18n-client`, `icons`, `nav`, `public-loader`, `roadmap` y `visit-counter`. No se editan a mano en
-`web/public/landing/`: se cambia la fuente y se ejecuta `node scripts/build-radio-client.mjs`. CI falla
+`web/public/landing/`: se cambia la fuente y se ejecuta `node scripts/build-landing-client.mjs`. CI falla
 si lo publicado no sale de la fuente (`--check`).
 
 `herra-separacion` es la 1.1.10 y la portada viene de la 1.1.39, de la que no queda fuente. `roadmap`,
@@ -402,5 +402,10 @@ portaron los cambios de la 1.1.39, y a `visit-counter` se le quitó el token CSR
 cambian solo en nombres de variables locales: comparados por ámbitos y token a token con lo publicado,
 son el mismo programa.
 
-Siguen sin fuente en CRV: `vendor/lucide-public.min.js`, un paquete de terceros, porque CRV no tiene
-`lucide` entre sus dependencias, y `roadmap-public.min.css`, que no es JS.
+Con el mismo comando salen `vendor/lucide-public.min.js` (entrada en
+`src/landing/client/lucide-public.entry.js`, idéntico byte a byte), `vendor/lucide.min.js` (copia del
+paquete) y `roadmap-public.min.css` (desde `roadmap.css`; respecto a lo publicado cambia un solo espacio).
+`web/package.json` fija `esbuild` 0.25.9 (la versión con que Herra construía), `lucide` 1.38.0 y `purgecss`
+7.0.2; Vite conserva su propio esbuild.
+
+`src/landing/roadmap-critical.min.css` no se genera: su lista de clases de la 1.1.39 no se conserva.
