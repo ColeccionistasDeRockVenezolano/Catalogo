@@ -20,11 +20,13 @@ describe("etapa 3: efectos por WebSocket", () => {
   let container: PgContainer;
   let app: FastifyInstance;
   let hub: ChatHub;
+  let envBefore: NodeJS.ProcessEnv = {};
   let base = "";
   const sockets = new Set<WebSocket>();
 
   beforeAll(async () => {
     container = await startPgContainer();
+    envBefore = { ...process.env };
     Object.assign(process.env, {
       DATABASE_URL: container.databaseUrl, CRV_CHAT_SECRET: "secreto-para-el-escenario-de-prueba-de-contrato",
       CRV_CHAT_GUEST_COINS: "5000", CRV_CHAT_NEW_ACCOUNT_MINUTES: "0", CRV_CHAT_AI_MODERATION: "false",
@@ -55,7 +57,12 @@ describe("etapa 3: efectos por WebSocket", () => {
     })));
     sockets.clear();
   });
-  afterAll(async () => { await app?.close(); await closeDb(); await container?.stop(); });
+  afterAll(async () => {
+    await app?.close(); await closeDb(); await container?.stop();
+    // No dejar CRV_ALLOWED_ORIGINS, DATABASE_URL… a los archivos siguientes (misma bifurcación con --singleFork).
+    for (const key of Object.keys(process.env)) if (!(key in envBefore)) delete process.env[key];
+    Object.assign(process.env, envBefore); resetEnvCache();
+  });
 
   const buy = async (actor: Actor, code: string) => buyEffect({ actorId: actor.id, code, idempotencyKey: randomUUID() });
   function connect(actor: Actor) {

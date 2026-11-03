@@ -39,6 +39,7 @@ describe("blindaje del chat (PostgreSQL + WebSocket)", () => {
   let container: PgContainer;
   let app: FastifyInstance;
   let hub: ChatHub;
+  let envBefore: NodeJS.ProcessEnv = {};
   let wsBase = "";
   let ipCounter = 10;
 
@@ -126,6 +127,7 @@ describe("blindaje del chat (PostgreSQL + WebSocket)", () => {
 
   beforeAll(async () => {
     container = await startPgContainer();
+    envBefore = { ...process.env };
     Object.assign(process.env, {
       DATABASE_URL: container.databaseUrl,
       CRV_CHAT_SECRET: "secreto-de-contrato-con-mas-de-32-caracteres",
@@ -156,6 +158,9 @@ describe("blindaje del chat (PostgreSQL + WebSocket)", () => {
     await app?.close();
     await closeDb();
     await container?.stop();
+    // No dejar CRV_ALLOWED_ORIGINS, DATABASE_URL… a los archivos siguientes (misma bifurcación con --singleFork).
+    for (const key of Object.keys(process.env)) if (!(key in envBefore)) delete process.env[key];
+    Object.assign(process.env, envBefore); resetEnvCache();
   }, 60_000);
 
   // ── Sesiones ────────────────────────────────────────────────────────────
