@@ -12,6 +12,7 @@
 //
 // Uso: ./scripts/with-node22.sh npx tsx scripts/apply-rockhecho-2026-10-29.ts [--confirm]
 //        [--fase=artistas|albumes|todas] [--solo="Nombre"] [--limit=N]
+import { isPlaceholderImageUrl } from "../src/merge/image-candidates.js";
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { createHash } from "node:crypto";
@@ -260,7 +261,7 @@ async function main(): Promise<void> {
           }
         }
 
-        if (!cur.picture_url && band.picture) {
+        if (!cur.picture_url && band.picture && !isPlaceholderImageUrl(band.picture)) {
           const saved = await guardarRemota(band.picture);
           if (saved) {
             const r = await escribirCampo(c, "artist", top.id, "picture_url", "picture_url", saved.url, band.url,

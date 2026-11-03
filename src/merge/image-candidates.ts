@@ -18,6 +18,24 @@ import type { PoolClient } from "pg";
 
 export type ImageEntityKind = "album" | "artist";
 
+// Marcadores de «sin foto» que publican las fuentes: no son imágenes de nadie.
+// Se reconocen por la URL antes de bajarlos y por el contenido después, porque
+// una copia local ya no conserva el nombre original (2026-11-01: RHV, 65 fichas).
+// RHV «banda sin foto» y la silueta gris que Deezer sirve a los artistas sin imagen (ruta sin hash).
+const PLACEHOLDER_IMAGE_URL = /\/RHV-banda_sinfoto(?:-\d+x\d+)?\.[a-z0-9]+(?:[?#]|$)|dzcdn\.net\/images\/artist\/\//iu;
+const PLACEHOLDER_IMAGE_SHA256: ReadonlySet<string> = new Set([
+  "3f6cda9d663034075039e4be52b8a6559cb7799ad865bf397cdd2b0792cd716e",
+  "bd8dae144dc585a7eb090e2071fe386bbe0df6ebcc47ee0d96d5ec5c23274530",
+]);
+
+export function isPlaceholderImageUrl(url: string): boolean {
+  return PLACEHOLDER_IMAGE_URL.test(url) || [...PLACEHOLDER_IMAGE_SHA256].some((sha) => url.includes(sha));
+}
+
+export function isPlaceholderImageSha256(sha256: string): boolean {
+  return PLACEHOLDER_IMAGE_SHA256.has(sha256.toLowerCase());
+}
+
 /** Campo de imagen principal por tipo de ficha. Personas y organizaciones quedan fuera de la regla. */
 export const IMAGE_FIELD: Readonly<Record<ImageEntityKind, string>> = { album: "cover_url", artist: "picture_url" };
 
@@ -72,6 +90,7 @@ export type ImageProposalResult = "proposed" | "already" | "known";
 /** Propone una imagen distinta de la actual en Curaduría · Portadas y fotos; nunca toca el core. */
 export async function proposeImageCandidate(client: PoolClient, proposal: ImageProposal): Promise<ImageProposalResult> {
   const { kind, targetId, currentUrl, candidateUrl } = proposal;
+  if (isPlaceholderImageUrl(candidateUrl)) return "known";
   if (candidateUrl === currentUrl || candidateUrl === localSourceUrl(kind, targetId)) return "known";
   const column = TARGET_COLUMN[kind];
   const field = IMAGE_FIELD[kind];

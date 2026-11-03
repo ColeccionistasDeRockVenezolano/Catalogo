@@ -19,7 +19,7 @@ import type { ResolutionDecision, ResolutionInput, ScoreFeature } from "../er/ty
 import { ENTITY_SPECS, claimTargetId, resolvableSpec, type EntitySpec, type ResolvableClaimKind } from "./specs.js";
 import { isRelationKind, mergeRelationClaim, type RelationClaimKind } from "./relations.js";
 import { MEDIA_LINK_KIND, mergeMediaLinkClaim } from "./media-links.js";
-import { isImageField, proposeImageCandidate } from "./image-candidates.js";
+import { isImageField, isPlaceholderImageUrl, proposeImageCandidate } from "./image-candidates.js";
 import { audiovisualAlbumConflict } from "../youtube/audiovisuals.js";
 
 export interface MergeOutcome {
@@ -170,7 +170,7 @@ async function wasAsserted(client: PoolClient, spec: EntitySpec, targetId: numbe
   return (rowCount ?? 0) > 0;
 }
 
-async function attachClaim(client: PoolClient, claimId: number, spec: EntitySpec, targetId: number, status: "accepted" | "candidate" | "conflict" = "accepted"): Promise<void> {
+async function attachClaim(client: PoolClient, claimId: number, spec: EntitySpec, targetId: number, status: "accepted" | "candidate" | "conflict" | "rejected" = "accepted"): Promise<void> {
   // La misma ficha puede volver con otra identidad (el adapter cambió cómo lee
   // el título) y el mismo valor: el gemelo ya está pegado a la entidad, y
   // pegar este rompería claims_dedupe_uk. Queda superseded, sin destino.
@@ -724,6 +724,11 @@ async function mergeEntityClaim(
     const aliasResult = await insertAlias(client, claim, persisted.id, spec, targetId, proposed, false);
     await attachClaim(client, persisted.id, spec, targetId, aliasResult === "ambiguous" ? "candidate" : "accepted");
     return { action: aliasResult === "ambiguous" ? "candidate" : "applied", ...targetResult(spec, targetId, { resolutionDecisionId: decisionId }), detail: "variante conservada como alias; canonical name no se reemplazo" };
+  }
+  // Un marcador de «sin foto» de la fuente nunca llena una ficha ni se propone.
+  if (isImageField(spec.kind, claim.field) && typeof proposed === "string" && isPlaceholderImageUrl(proposed)) {
+    await attachClaim(client, persisted.id, spec, targetId, "rejected");
+    return { action: "unchanged", ...targetResult(spec, targetId, { resolutionDecisionId: decisionId }), detail: "marcador de «sin foto» de la fuente; no es una imagen de la ficha" };
   }
   // Portada o foto de artista distinta de la que la ficha ya tiene: la actual se
   // queda y la nueva se propone en Curaduría · Portadas y fotos (regla del

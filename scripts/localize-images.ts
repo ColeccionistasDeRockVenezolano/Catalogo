@@ -18,6 +18,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { config as loadDotenv } from "dotenv";
 import pg from "pg";
+import { isPlaceholderImageSha256 } from "../src/merge/image-candidates.js";
 import { withOperatorRun, updateEntity } from "../src/merge/operator.js";
 
 loadDotenv();
@@ -269,6 +270,7 @@ async function download(target: Target, manifest: Manifest): Promise<"downloaded
     const contentType = response.headers.get("content-type") ?? "";
     if (!contentType.toLowerCase().startsWith("image/")) throw new Error(`content-type no es imagen: ${contentType || "ausente"}`);
     const bytes = await imageBytes(response);
+    if (isPlaceholderImageSha256(createHash("sha256").update(bytes).digest("hex"))) throw new Error("marcador de «sin foto» de la fuente");
     const ext = extension(contentType, bytes);
     if (!ext) throw new Error(`formato de imagen no reconocido: ${contentType}`);
     const directory = target.mediaLinkId === undefined
