@@ -36,7 +36,7 @@ while (( $# > 0 )); do
   esac
 done
 
-manifest() { grep -m1 "^$1=" "$BACKUP/manifest.txt" | cut -d= -f2-; }
+manifest() { grep -m1 "^$1=" "$BACKUP/manifest.txt" | cut -d= -f2- || true; }
 [[ "$(manifest format)" == "crv-backup-1" ]] || fail "$BACKUP no parece un backup de scripts/db-backup.sh (manifest.txt)"
 OWNER="${CRV_PG_USER:-$(manifest db_owner)}"
 DATABASE="${DATABASE:-$(manifest db_name)}"
@@ -52,7 +52,10 @@ docker inspect -f '{{.State.Running}}' "$CONTAINER" 2>/dev/null | grep -qx true 
 if [[ "$(psql_admin -c "SELECT count(*) FROM pg_database WHERE datname='$DATABASE'")" != "0" ]]; then
   fail "la base $DATABASE ya existe en $CONTAINER. Este script no borra datos: renómbrala (ALTER DATABASE $DATABASE RENAME TO ${DATABASE}_antes_$(date +%Y%m%d)) o usa --database otro_nombre."
 fi
-if [[ -d "$DATA_DIR_/raw" ]] && [[ -n "$(ls -A "$DATA_DIR_/raw" 2>/dev/null)" ]]; then
+# Los respaldos sin crudo (raw_included=no) no tocan data-dir. Los antiguos no
+# llevan el campo y siempre incluyen raw.tar.gz.
+INCLUDE_RAW="$(manifest raw_included || true)"
+if [[ "$INCLUDE_RAW" != no ]] && [[ -d "$DATA_DIR_/raw" ]] && [[ -n "$(ls -A "$DATA_DIR_/raw" 2>/dev/null)" ]]; then
   fail "$DATA_DIR_/raw ya existe y no está vacío. Muévelo antes o usa --data-dir otro_directorio."
 fi
 echo "   contenedor=$CONTAINER base=$DATABASE data-dir=$DATA_DIR_"
@@ -71,7 +74,11 @@ docker exec -i "$CONTAINER" pg_restore -U "$OWNER" -d "$DATABASE" --exit-on-erro
 echo "   pg_restore completado ($(manifest tables) tablas, $(manifest rows_total) filas en el origen)"
 
 say "4/4 crudo"
-mkdir -p "$DATA_DIR_/raw"
-tar -C "$DATA_DIR_" -xzf "$BACKUP/raw.tar.gz"
-echo "   data/raw restaurado en $DATA_DIR_/raw ($(find -H "$DATA_DIR_/raw" -type f | wc -l | tr -d ' ') archivos)"
+if [[ "$INCLUDE_RAW" == no ]]; then
+  echo "   este respaldo no incluye crudo (raw_included=no): data/raw no se ha tocado"
+else
+  mkdir -p "$DATA_DIR_/raw"
+  tar -C "$DATA_DIR_" -xzf "$BACKUP/raw.tar.gz"
+  echo "   data/raw restaurado en $DATA_DIR_/raw ($(find -H "$DATA_DIR_/raw" -type f | wc -l | tr -d ' ') archivos)"
+fi
 echo "   verifica con: DATABASE_URL=postgresql://<usuario>:<pass>@<host>:<puerto>/$DATABASE npm run doctor"

@@ -41,6 +41,37 @@ Cuándo sacarlo, como mínimo:
   `ambiguity:apply`, `yt:link --confirm`);
 - antes de reinstalar la máquina o mover el volumen de Docker.
 
+### Respaldo programado del catálogo
+
+`scripts/catalogo-respaldo.sh` (timer de usuario `crv-respaldo-catalogo`, 01:30
+de Caracas) saca cada día la **base completa, sin crudo**, y la guarda cifrada en
+`/mnt/1tb/Shared/coleccionistas-rock-venezolano/respaldos-catalogo`. Ese disco es
+distinto del SSD donde vive PostgreSQL. Se conservan 7 diarios y 4 semanales.
+
+- **Cifrado:** el disco es NTFS con permisos uniformes y el dump incluye `auth`,
+  así que se cifra con `gpg` (AES-256). La clave está en
+  `~/.config/crv/respaldo-catalogo.key` (600). **Sin ella los respaldos no se
+  pueden abrir: debe existir también una copia fuera de esta máquina.**
+- **Comprobación:** `crear` descifra lo escrito en el disco de destino y compara su
+  suma antes de publicarlo. `verificar` restaura en un PostgreSQL desechable y
+  compara filas por tabla. `estado` falla si el último tiene más de 36 h.
+- **Lo que no cubre:** `data/raw` y el resto del almacén de 1 TB, ni un fallo de la
+  máquina entera. El respaldo sigue dentro de este equipo.
+- **Instalación:** los servicios ejecutan una copia fijada del repositorio
+  (`~/apps/crv-respaldo-catalogo`) para no depender de la rama del árbol compartido.
+  Para actualizarla: `git -C ~/apps/crv-respaldo-catalogo checkout --detach <commit>`.
+
+```bash
+scripts/catalogo-respaldo.sh iniciar-clave
+scripts/catalogo-respaldo.sh crear
+CRV_RESTORE_DOCTOR=no scripts/catalogo-respaldo.sh verificar
+cp ops/respaldo-catalogo/crv-respaldo-catalogo.* ~/.config/systemd/user/
+systemctl --user daemon-reload && systemctl --user enable --now crv-respaldo-catalogo.timer
+```
+
+`CRV_RESTORE_DOCTOR=no` omite `doctor`. Úsalo solo mientras la base no tenga los
+índices de claves foráneas que `doctor` exige.
+
 ### Contenido
 
 | Archivo | Contenido |

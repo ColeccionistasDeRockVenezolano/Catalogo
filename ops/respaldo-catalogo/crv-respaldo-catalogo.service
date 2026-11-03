@@ -1,0 +1,12 @@
+[Unit]
+Description=CRV respaldo cifrado del catálogo (base completa, sin crudo)
+Wants=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+# Copia fijada del repositorio: no depende de la rama del árbol de trabajo compartido.
+WorkingDirectory=%h/apps/crv-respaldo-catalogo
+ExecStart=%h/apps/crv-respaldo-catalogo/scripts/catalogo-respaldo.sh crear
+Nice=10
+IOSchedulingClass=idle
