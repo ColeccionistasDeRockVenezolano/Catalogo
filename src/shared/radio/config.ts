@@ -49,6 +49,11 @@ function parseSweeper(value: unknown): RadioSweeper | undefined {
       sweeper[field] = value;
     }
   }
+  if (typeof raw["videoId"] === "string" && /^[A-Za-z0-9_-]{11}$/u.test(raw["videoId"])) {
+    sweeper.videoId = raw["videoId"];
+    const start = raw["videoStartSeconds"];
+    if (typeof start === "number" && Number.isFinite(start) && start >= 0) sweeper.videoStartSeconds = start;
+  }
   const every = raw["everyPieces"];
   if (typeof every === "number" && Number.isInteger(every) && every >= 1 && every <= 50) sweeper.everyPieces = every;
   return sweeper;

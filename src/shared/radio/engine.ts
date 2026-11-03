@@ -26,6 +26,8 @@ export interface RadioCatalogItem {
 }
 export interface RadioSweeper {
   src: string; durationSeconds: number; overlapSeconds?: number; leadSeconds?: number; everyPieces?: number;
+  /** La misma cuña en YouTube: es lo único que puede sonar sin un toque completo del visitante. */
+  videoId?: string; videoStartSeconds?: number;
 }
 export interface RadioStation {
   sweeper?: RadioSweeper;

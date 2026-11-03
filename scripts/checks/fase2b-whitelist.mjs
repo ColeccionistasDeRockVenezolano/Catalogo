@@ -136,6 +136,7 @@ for (const ruta of ["/api/community/admin/panel/%2e%2e/metrics", "/api/community
 // --- Estáticos y metadatos ---------------------------------------------------
 await debe("/landing/roadmap-public.min.css", 200);
 await debe("/landing/radio.js", 200);
+await debe("/landing/radio-first-touch.js", 200);
 {
   // La cuña sale de donde dice la portada, no de la ruta /static de Herra.
   const portada = await pedir("/", { accept: "text/html" });

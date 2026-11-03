@@ -118,6 +118,7 @@
   var BACKGROUND_FADE_IN_MS = 2000;
   // El reproductor en espera avanza este tiempo en silencio antes de quedar en pausa.
   var PREPARE_PLAY_MS = 1000;
+  var SOFT_START_MS = 1500;
   var WARM_EVERY_MS = 60000;
   var WARM_STOP_MS = 20000;
   var RELAY_REPORTS_MAX = 6;
@@ -130,6 +131,8 @@
   // dispositivos el relevo reutiliza el reproductor que la persona ya activo.
   var appleTouchDevice = /iPad|iPhone|iPod/.test(navigator.userAgent)
     || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  // El arranque sin gesto y la cuña por YouTube solo hacen falta en Android; desktop no cambia.
+  var androidDevice = /Android/i.test(navigator.userAgent);
   // iOS tampoco permite cambiar el volumen por codigo: ahi el relevo sigue
   // siendo un corte limpio.
   var volumeControl = !appleTouchDevice;
@@ -146,7 +149,7 @@
   // vuelve a encender.
   var userPaused = false;
   var fadeTimer = null;
-  var UNLOCK_EVENTS = ['pointerdown', 'keydown', 'touchstart'];
+  var UNLOCK_EVENTS = ['pointerdown', 'keydown', 'touchstart', 'pointerup', 'touchend', 'click'];
   var mediaSessionReady = false;
   var mediaSessionKey = null;
 
@@ -350,6 +353,13 @@
       if (bgSweeperFaded) bgSweeper.load();
     } catch (_) { bgSweeper = null; bgSweeperFaded = false; }
   }
+  function deckAheadMs() {
+    if (!document.hidden || !ready) return 0;
+    try {
+      var ahead = Number(activeDeck().player.getCurrentTime()) - liveSecond();
+      return ahead > 0 && ahead < 15 ? ahead * 1000 : 0;
+    } catch (_) { return 0; }
+  }
   function backgroundSweeperPlaying() {
     return Boolean(bgSweeper && bgSweeperTicker && !bgSweeper.paused && !bgSweeper.ended);
   }
@@ -372,7 +382,8 @@
     if (!isFinite(start) || start === bgSweeperStartMs) return;
     prepareBackgroundSweeper();
     if (!bgSweeper) return;
-    var target = (serverNow() - start) / 1000;
+    // Un relevo oculto entra antes de su hora: la canción va adelantada y la cuña la sigue a ella.
+    var target = (serverNow() - start + deckAheadMs()) / 1000;
     if (target < 0 || target >= snapshot.sweeper.durationSeconds - 0.5) return;
     bgSweeperStartMs = start;
     bgSweeperDuration = snapshot.sweeper.durationSeconds;
@@ -384,7 +395,7 @@
       var playing = sweeper.play();
       trace('bg_sweeper_on', { at: Math.round(target * 10) / 10, baked: bgSweeperFaded ? 1 : 0 });
       if (playing && playing.catch) playing.catch(function (error) {
-        trace('bg_sweeper_err', { n: error && error.name });
+        trace('bg_sweeper_err', { n: error && error.name, m: error && String(error.message).slice(0, 90) });
         stopBackgroundSweeper();
       });
     } catch (_) { return; }
@@ -392,6 +403,134 @@
     bgSweeperTicker = window.setInterval(function () {
       if (sweeper.ended || !listening || userPaused || userMuted) { stopBackgroundSweeper(); return; }
       try { sweeper.volume = backgroundSweeperLevel(); } catch (_) { /* volumen de solo lectura */ }
+    }, 200);
+  }
+
+  // --- Cuña sin gesto completo ---------------------------------------------------
+  //
+  // Sin un toque completo (deslizar no cuenta) el navegador no deja sonar nada propio: pausa un
+  // <video> al quitarle el silencio, un <audio> da NotAllowedError y Web Audio queda suspendido.
+  // Un reproductor de YouTube sí puede: se carga mientras la página se ve, arranca en silencio y
+  // se le quita al sonar, igual que los relevos. Con un toque real sigue el camino de siempre.
+  var cueDeck = { player: null, ready: false, warming: false, warmed: false, warmTimer: null, playing: false, startMs: NaN, endAt: 0, ticker: null, sounded: false, duration: 0, overlap: 0, seconds: 0 };
+  function noGesture() {
+    var activation = navigator.userActivation;
+    return Boolean(androidDevice && activation && !activation.hasBeenActive);
+  }
+  function cueVideoId() { return snapshot && snapshot.sweeper ? snapshot.sweeper.videoId || null : null; }
+  function createCueDeck() {
+    if (cueDeck.player || !window.YT || !window.YT.Player) return;
+    var holder = document.createElement('div');
+    holder.id = 'radioCue';
+    frame.parentNode.appendChild(holder);
+    try {
+      cueDeck.player = new window.YT.Player(holder, {
+        host: 'https://www.youtube.com',
+        width: 560,
+        height: 315,
+        playerVars: { playsinline: 1, rel: 0, autoplay: 0, controls: 0, fs: 0, disablekb: 1, iv_load_policy: 3, origin: window.location.origin },
+        events: {
+          onReady: function () {
+            cueDeck.ready = true;
+            var el = iframeOf(cueDeck);
+            if (el) { el.setAttribute('data-radio-deck', 'standby'); el.setAttribute('aria-hidden', 'true'); el.setAttribute('tabindex', '-1'); }
+          },
+          onStateChange: onCueState,
+          onError: function (event) { trace('cue_error', { code: event && event.data }); cueDeck.failed = true; cueDeck.warming = false; cueDeck.warmed = false; stopCue(); }
+        }
+      });
+    } catch (_) { cueDeck.player = null; }
+  }
+  // Se carga una vez, con la página visible: oculta, un reproductor que nunca arrancó no carga.
+  function keepCueDeck() {
+    if (!noGesture() || !cueVideoId() || cueDeck.failed || soundPending || userMuted) return;
+    if (!cueDeck.player) { createCueDeck(); return; }
+    // Si la pantalla se apagó mientras cargaba, vuelve a intentarlo la próxima vez que se vea.
+    if (cueDeck.warming && !cueDeck.warmTimer && Date.now() - cueDeck.warmAt > 8000) { cueDeck.warming = false; trace('cue_load_fail', { s: YT_STATE_NAMES[String(stateOf(cueDeck))] || stateOf(cueDeck) }); }
+    if (cueDeck.ready && !cueDeck.warmed && !cueDeck.warming && !document.hidden && stateOf(activeDeck()) === PLAYING) {
+      cueDeck.warming = true;
+      cueDeck.warmAt = Date.now();
+      trace('cue_load');
+      try {
+        cueDeck.player.mute();
+        cueDeck.player.loadVideoById({ videoId: cueVideoId(), startSeconds: cueStart() });
+      } catch (_) { cueDeck.warming = false; }
+    }
+    // Con la pantalla apagada la canción va adelantada: la cuña entra a su hora respecto a ella.
+    if (cueDeck.warmed && !cueDeck.playing && !isSweeper() && slotSweeper() && activeDeck().key === currentKey()) {
+      var wait = Date.parse(snapshot.endsAt) - sweeperLeadSeconds() * 1000 - deckAheadMs() - serverNow();
+      if (wait <= 0) syncCueDeck();
+      else if (wait < 1000 && !cueDeck.entry) cueDeck.entry = window.setTimeout(function () { cueDeck.entry = null; syncCueDeck(); }, wait);
+    }
+  }
+  function cueStart() { return Number(snapshot && snapshot.sweeper && snapshot.sweeper.videoStartSeconds) || 0; }
+  function cueLevel() {
+    var at = 0;
+    try { at = Number(cueDeck.player.getCurrentTime()) - cueDeck.seconds; } catch (_) { at = 0; }
+    var left = cueDeck.duration - at;
+    var envelope = cueDeck.overlap && left < cueDeck.overlap ? Math.max(0, left / cueDeck.overlap) : 1;
+    return Math.round(Math.max(0, Math.min(100, chosenVolume() * envelope)));
+  }
+  function onCueState(event) {
+    var state = event.data;
+    trace('cue_yt', { s: YT_STATE_NAMES[String(state)] || state });
+    if (state !== PLAYING) return;
+    if (cueDeck.warming && !cueDeck.warmTimer) {
+      cueDeck.warmTimer = window.setTimeout(function () {
+        cueDeck.warmTimer = null;
+        cueDeck.warming = false;
+        cueDeck.warmed = true;
+        try { cueDeck.player.pauseVideo(); cueDeck.player.seekTo(cueStart(), true); } catch (_) { cueDeck.warmed = false; }
+        trace('cue_ready', { ok: cueDeck.warmed ? 1 : 0 });
+      }, PREPARE_PLAY_MS);
+      return;
+    }
+    if (cueDeck.playing && !cueDeck.sounded) {
+      cueDeck.sounded = true;
+      trace('cue_sound', { hidden: document.hidden ? 1 : 0 });
+      try { cueDeck.player.setVolume(cueLevel()); cueDeck.player.unMute(); } catch (_) { stopCue(); }
+    }
+  }
+  function stopCue() {
+    if (cueDeck.ticker) { window.clearInterval(cueDeck.ticker); cueDeck.ticker = null; }
+    if (!cueDeck.playing) return;
+    cueDeck.playing = false;
+    cueDeck.sounded = false;
+    trace('cue_off');
+    try {
+      cueDeck.player.mute();
+      cueDeck.player.pauseVideo();
+      cueDeck.player.seekTo(cueStart(), true);
+    } catch (_) { /* la siguiente cuña lo intenta otra vez */ }
+  }
+  function syncCueDeck() {
+    if (cueDeck.playing) return;
+    var start = sweeperStartMs();
+    if (!isFinite(start) || start === cueDeck.startMs) return;
+    if (!listening || userPaused || userMuted || soundPending) return;
+    if (!cueDeck.warmed) { cueDeck.startMs = start; trace('cue_skip', { warming: cueDeck.warming ? 1 : 0 }); return; }
+    var target = Math.max(0, (serverNow() - start + deckAheadMs()) / 1000);
+    if (target >= snapshot.sweeper.durationSeconds - 0.5) return;
+    cueDeck.startMs = start;
+    cueDeck.duration = snapshot.sweeper.durationSeconds;
+    cueDeck.overlap = snapshot.sweeper.overlapSeconds || 0;
+    cueDeck.seconds = cueStart();
+    cueDeck.playing = true;
+    cueDeck.sounded = false;
+    cueDeck.endAt = Date.now() + (cueDeck.duration - target) * 1000 + 1500;
+    trace('cue_on', { at: Math.round(target * 10) / 10 });
+    try {
+      cueDeck.player.mute();
+      // Un salto de milisegundos obliga a volver a cargar y con la pantalla apagada se queda ahí.
+      if (target > 1.5) cueDeck.player.seekTo(cueDeck.seconds + target, true);
+      cueDeck.player.playVideo();
+    } catch (_) { stopCue(); return; }
+    var beganAt = Date.now();
+    cueDeck.ticker = window.setInterval(function () {
+      if (!cueDeck.sounded && Date.now() - beganAt > 6000) { trace('cue_fail', { s: YT_STATE_NAMES[String(stateOf(cueDeck))] || stateOf(cueDeck) }); stopCue(); return; }
+      var level = cueDeck.sounded ? cueLevel() : 0;
+      if (Date.now() >= cueDeck.endAt || !listening || userPaused || userMuted || (cueDeck.sounded && level <= 0)) { stopCue(); return; }
+      if (cueDeck.sounded) { try { cueDeck.player.setVolume(level); } catch (_) { /* volumen de solo lectura */ } }
     }, 200);
   }
 
@@ -427,6 +566,9 @@
   }
   function syncSweeper(force) {
     if (!hasSweeperAudio()) { stopSweeper(); return; }
+    if (cueDeck.playing) { stopSweeper(); return; }
+    // Sin gesto la cuña propia no puede sonar: va por YouTube, o la música sigue sin ella.
+    if (noGesture()) { stopSweeper(); if (cueVideoId()) syncCueDeck(); return; }
     // Oculta, la cuña nunca detiene la música (Android no deja volver a arrancar el
     // reproductor) y va siempre por <audio>: entre el final de una canción y el inicio
     // de la siguiente es lo único que suena, y con solo Web Audio Brave corta la red.
@@ -533,7 +675,7 @@
   }
   document.addEventListener('pointerdown', unlockSweeper, { passive: true });
   document.addEventListener('keydown', unlockSweeper, { passive: true });
-  window.addEventListener('pagehide', function () { stopSweeper(); stopBackgroundSweeper(); });
+  window.addEventListener('pagehide', function () { stopSweeper(); stopBackgroundSweeper(); stopCue(); });
 
 
   function listeningSessionId() {
@@ -781,6 +923,7 @@
   function soundingNow() {
     if (sweeperSource && sweeperContext && sweeperContext.state === 'running') return true;
     if (backgroundSweeperPlaying()) return true;
+    if (cueDeck.sounded && stateOf(cueDeck) === PLAYING) return true;
     var deck = activeDeck();
     if (!deck.player || soundPending) return false;
     var time = null;
@@ -803,7 +946,7 @@
     var deck = activeDeck();
     if (!deck.player) parts.push('no_player');
     else {
-      if (isSweeper() && !document.hidden) {
+      if (isSweeper() && !document.hidden && !noGesture()) {
         parts.push(sweeperContext ? 'sweeper_ctx_' + sweeperContext.state : 'sweeper_no_ctx');
         if (!sweeperSource) parts.push('sweeper_not_playing');
       }
@@ -935,6 +1078,22 @@
     return item ? startsAt + '|' + item.videoId + '|' + item.startSeconds : null;
   }
 
+  // La pieza que sigue a una cuña se calcula sumando su hueco, que no es un número entero de
+  // milisegundos: en 4 de cada 10 cuñas difiere en uno de la hora del servidor. Es la misma pieza.
+  function samePiece(key, other) {
+    if (!key || !other || key === other) return false;
+    var a = key.split('|'), b = other.split('|');
+    return a[1] === b[1] && a[2] === b[2] && Math.abs(Date.parse(a[0]) - Date.parse(b[0])) < 1000;
+  }
+  function alignDeckKeys() {
+    var targets = [currentKey(), nextPieceKey()];
+    for (var index = 0; index < decks.length; index += 1) {
+      for (var option = 0; option < targets.length; option += 1) {
+        if (samePiece(decks[index].key, targets[option])) { decks[index].key = targets[option]; break; }
+      }
+    }
+  }
+
   function initialKey() {
     return root.getAttribute('data-radio-starts-at') + '|' + root.getAttribute('data-radio-video-id')
       + '|' + root.getAttribute('data-radio-start-seconds');
@@ -1029,7 +1188,10 @@
     var audible = !soundPending && !userMuted;
     if (volumeControl && audible) prepareFadeIn(deck, chosenVolume());
     else { cancelRamp(deck); deck.dimmed = false; deck.fadeInLevel = null; setLevel(deck, chosenVolume()); }
-    if (audible) deck.player.unMute();
+    if (audible && quietStart()) {
+      deck.player.mute();
+      deck.unmuteOnPlay = true;
+    } else if (audible) deck.player.unMute();
   }
 
   // Ya llegó el corte del tramo (o estamos en la cuña). En oculto el relevo
@@ -1189,6 +1351,10 @@
     deck.preparing = false;
     deck.prepared = false;
     deck.tailPlaying = false;
+    if (quietStart()) {
+      deck.player.mute();
+      deck.unmuteOnPlay = true;
+    }
     deck.player.loadVideoById(segment(item, fromSecond === undefined ? liveSecond() : fromSecond));
   }
 
@@ -1210,7 +1376,7 @@
   // escuchando ni enciende el punto de emision.
   function audible() {
     if (userPaused || userMuted) return false;
-    if (isSweeper()) return Boolean(listening && !soundPending && sweeperSource && sweeperContext && sweeperContext.state === 'running');
+    if (isSweeper()) return Boolean(listening && !soundPending && (cueDeck.sounded || (sweeperSource && sweeperContext && sweeperContext.state === 'running')));
     if (!started || soundPending) return false;
     if (listening && Date.now() < swapGraceUntil) return true;
     var state = playerState();
@@ -1311,6 +1477,7 @@
     var leavingSlotSweeper = slotSweeper();
     snapshot = data;
     lastSlotSweeper = leavingSlotSweeper;
+    alignDeckKeys();
     root.setAttribute('data-radio-video-id', data.current.videoId);
     root.setAttribute('data-radio-start-seconds', String(data.current.startSeconds));
     root.setAttribute('data-radio-starts-at', data.startsAt);
@@ -1443,7 +1610,7 @@
       refreshLabels(); refreshStatus(); return;
     }
     if (isSweeper()) {
-      if (ready && mutedOf(activeDeck())) soundPending = true;
+      if (ready && mutedOf(activeDeck()) && !noGesture()) soundPending = true;
       syncSweeper(false); refreshLabels(); refreshStatus(); return;
     }
     syncSweeper(false);
@@ -1721,7 +1888,7 @@
       }
       return;
     }
-    if (!deck.prepared || now - deck.pausedAt < WARM_EVERY_MS) return;
+    if (deck.softStarted || !deck.prepared || now - deck.pausedAt < WARM_EVERY_MS) return;
     if (Date.parse(snapshot.endsAt) - serverNow() < WARM_STOP_MS) return;
     trace('warm', { pausedMs: now - deck.pausedAt });
     deck.warmAt = now;
@@ -1736,14 +1903,49 @@
     }
   }
 
+  // Sin gesto completo (un deslizamiento no lo es), un play() con sonido no arranca, pero uno
+  // en silencio sí, y al que ya suena se le puede quitar el silencio (prueba en Brave Android).
+  var quietBlocked = false;
+  // Brave deja quitar el silencio sin gesto, un navegador más estricto pausa el video. La música
+  // sigue en silencio y un toque completo la activa; deslizar no cuenta y volvería a pausarla.
+  function quietUnmuteBlocked(deck) {
+    trace('quiet_blocked');
+    quietBlocked = true;
+    deck.quietAt = 0;
+    soundPending = true;
+    armSoundUnlock();
+    try { deck.player.mute(); deck.player.playVideo(); } catch (_) { /* lo ve el vigilante */ }
+    refreshLabels();
+    refreshStatus();
+  }
+
+  function quietStart() {
+    var activation = navigator.userActivation;
+    return Boolean(androidDevice && activation && !activation.hasBeenActive && !soundPending && !userMuted && !quietBlocked);
+  }
+
+  // Arranca justo antes de su relevo, para que este no deje hueco.
+  function softStart(deck) {
+    if (deck.softStarted || !document.hidden || !quietStart() || !deck.prepared) return;
+    var left = isSweeper() ? 0 : Date.parse(snapshot.endsAt) - serverNow();
+    if (left > SOFT_START_MS) return;
+    trace('soft_start', { left: Math.round(left) });
+    deck.softStarted = true;
+    try {
+      deck.player.mute();
+      deck.player.playVideo();
+    } catch (_) { deck.softStarted = false; }
+  }
+
   function maybePrepare() {
     if (!listening || !snapshot || !snapshot.upcoming || !snapshot.upcoming.length) return;
+    keepCueDeck();
     var deck = standbyDeck();
     if (!deck.ready) return;
     var next = snapshot.upcoming[0];
     var key = nextPieceKey();
     var leadReached = Date.parse(snapshot.endsAt) - serverNow() <= PREPARE_LEAD_MS;
-    if (deck.key === key) { warmStandby(deck); return; }
+    if (deck.key === key) { softStart(deck); warmStandby(deck); return; }
     if (deck.tailPlaying) return;
     // El activo ya suena esa pieza (entró antes de su hora, con la pantalla apagada).
     if (activeDeck().key === key) return;
@@ -1819,13 +2021,17 @@
     if (!document.hidden || !ready || !listening || userPaused || !snapshot || isSweeper()) return;
     var from = activeDeck();
     var to = standbyDeck();
-    if (!to.ready || !to.prepared || to.key !== nextPieceKey() || from.key !== currentKey()) return;
-    if (stateOf(from) !== PLAYING || backgroundSweeperPlaying()) return;
+    if (from.key !== currentKey()) return;
+    if (stateOf(from) !== PLAYING || backgroundSweeperPlaying() || cueDeck.playing) return;
     var at;
     try { at = Number(from.player.getCurrentTime()) || 0; } catch (_) { return; }
     var end = (Number(snapshot.current.startSeconds) || 0) + (Number(snapshot.current.durationSeconds) || 0);
     if (end - at > BACKGROUND_OVERLAP_S) return;
-    swapDecks(true);
+    if (to.ready && to.prepared && to.key === nextPieceKey()) { swapDecks(true); return; }
+    // Un reproductor que nunca sonó no carga con la pantalla apagada: la siguiente entra en el que suena.
+    if (!quietStart() || !nextPieceKey()) return;
+    trace('same_deck', { to: YT_STATE_NAMES[String(stateOf(to))] || stateOf(to) });
+    relayNextInBackground();
   }
 
   // `early`: la entrante arranca antes de su hora, desde el inicio de su tramo.
@@ -1833,7 +2039,7 @@
     var from = activeDeck();
     var to = standbyDeck();
     var pausedMs = to.pausedAt ? Date.now() - to.pausedAt : null;
-    trace('swap', { from: activeIndex, early: early ? 1 : 0, pausedMs: pausedMs, prepared: to.prepared ? 1 : 0 });
+    trace('swap', { from: activeIndex, early: early ? 1 : 0, pausedMs: pausedMs, prepared: to.prepared ? 1 : 0, playing: stateOf(to) === PLAYING ? 1 : 0, gesture: navigator.userActivation ? (navigator.userActivation.hasBeenActive ? 1 : 0) : -1 });
     // El relevo hereda la eleccion del visitante: silencio y volumen.
     var wantSound = !soundPending && !mutedOf(from);
     var level = chosenVolume(from);
@@ -1849,7 +2055,10 @@
       // golpe y el fundido de entrada arranca cuando el video ya suena.
       if (volumeControl) prepareFadeIn(to, level);
       else setLevel(to, level);
-      to.player.unMute();
+      if (quietStart() && stateOf(to) !== PLAYING) {
+        to.player.mute();
+        to.unmuteOnPlay = true;
+      } else to.player.unMute();
     } else {
       to.player.mute();
       setLevel(to, level);
@@ -1877,6 +2086,9 @@
     from.preparing = false;
     from.dimmed = false;
     from.fadeInLevel = null;
+    to.softStarted = false;
+    from.softStarted = false;
+    from.unmuteOnPlay = false;
     // Oculta hay que reaccionar mientras suena la saliente: sin sonido se corta la red.
     window.setTimeout(function () { confirmSwap(to, wantSound, pausedMs); }, document.hidden ? 1200 : 2500);
   }
@@ -1895,6 +2107,7 @@
     try {
       if (document.hidden) {
         trace('swap_reload', { s: YT_STATE_NAMES[String(state)] || state });
+        if (quietStart()) { deck.player.mute(); deck.unmuteOnPlay = true; }
         if (deck.key === nextPieceKey()) deck.player.loadVideoById(segment(snapshot.upcoming[0], deck.startSeconds));
         else loadCurrent(deck, liveSecond());
         return;
@@ -2148,6 +2361,10 @@
   // video. Solo los eventos confiables desbloquean el sonido.
   function soundUnlockHandler(event) {
     if (event && event.isTrusted === false) return;
+    // En Android, pointerdown llega antes de que el gesto cuente: quitar el silencio ahí hace que
+    // el navegador pause el video. Espera a pointerup o touchend.
+    if (noGesture()) return;
+    trace('sound_unlock', { type: event && event.type, active: navigator.userActivation ? (navigator.userActivation.isActive ? 1 : 0) : -1 });
     enableSound();
   }
 
@@ -2187,8 +2404,19 @@
 
   function onDeckState(deck, event) {
     var state = event.data;
-    if (state === PLAYING) deck.everPlayed = true;
+    if (state === PLAYING) {
+      deck.everPlayed = true;
+      if (deck.unmuteOnPlay) {
+        deck.unmuteOnPlay = false;
+        if (deck === activeDeck() && !soundPending && !userMuted) {
+          trace('quiet_unmute');
+          deck.quietAt = Date.now();
+          try { deck.player.unMute(); } catch (_) { /* lo ve el vigilante de silencio */ }
+        }
+      }
+    }
     trace('yt', { d: deckIndex(deck), s: YT_STATE_NAMES[String(state)] || state, a: deck === activeDeck() ? 1 : 0 });
+    if (state === PAUSED && deck === activeDeck() && deck.quietAt && Date.now() - deck.quietAt < 2000 && !userPaused) { quietUnmuteBlocked(deck); return; }
     if (deck !== activeDeck()) {
       // Una saliente en cruce sigue sonando su último tramo con el fundido ya
       // en marcha: se apaga sola al terminar su capítulo, no se detiene.
@@ -2199,6 +2427,7 @@
       // En espera nunca suena: tras la primera imagen se detiene y queda
       // listo en el inicio exacto de la cancion.
       if (state !== PLAYING) return;
+      if (deck.softStarted) return;
       if (deck.preparing) {
         if (!deck.prepareTimer) {
           var preparingKey = deck.key;
@@ -2449,6 +2678,8 @@
   window.setInterval(function () {
     try { watchSound(); flushDiagnostics(); } catch (_) { /* el diagnóstico nunca frena la radio */ }
     updateProgress();
+    // El gesto sobre el video le llega a su iframe: aquí no hay evento, pero sí la activación.
+    if (androidDevice && soundPending && playerMuted() && !noGesture()) { trace('sound_unlock', { type: 'activation' }); enableSound(); }
     // La cuña es audio propio y no depende del reproductor de YouTube: entra
     // y sale igual aunque el visitante todavía no haya sintonizado.
     if (hasSweeperAudio()) {

@@ -63,6 +63,7 @@
   <link rel="stylesheet" href="<%= basePath %>/static/roadmap-nojs.css?v=<%= assetVersion %>">
 </noscript>
 <script type="application/ld+json"><%- jsonLd({ '@context': 'https://schema.org', '@graph': structuredGraph }) %></script>
+<% if (radio) { %><script src="<%= basePath %>/static/radio-first-touch.js?v=<%= radioClientVersion %>"></script><% } %>
 </head>
 <body class="public-roadmap<%= radio ? ' has-radio' : '' %>" style="<%= inlineThemeStyle %>" data-current-user-id="<%= currentUser ? currentUser.id : '' %>" data-can-manage-all-tasks="<%= projectAdmin ? 'true' : 'false' %>" data-api-base="<%= projectBase %>/api" data-messages="<%= JSON.stringify(clientMessages(lang, 'roadmap')) %>">
 <%- include('partials/header', { isAdmin: false, currentUser, alwaysShowLoginInMenu: true, showContextLinks: Boolean(branding.aboutTitle), showRadio: Boolean(radio), showMap: true, publicAssets: true }) %>

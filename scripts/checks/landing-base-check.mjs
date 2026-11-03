@@ -59,7 +59,7 @@ for (const vista of [
     })(),
   }));
   report.datos[vista.nombre] = assets;
-  if (assets.radio.some((src) => /radio\.js\?v=crv-2026-11-03c/.test(src ?? ""))) ok(`${vista.nombre}: radio.js propio de CRV`);
+  if (assets.radio.some((src) => /radio\.js\?v=crv-2026-11-03e/.test(src ?? ""))) ok(`${vista.nombre}: radio.js propio de CRV`);
   else fallo(`${vista.nombre}: radio.js`, JSON.stringify(assets.radio));
   if (assets.css.some((href) => /roadmap-public\.min\.css\?v=1\.1\.39/.test(href ?? ""))) ok(`${vista.nombre}: CSS de 1.1.39`);
   else fallo(`${vista.nombre}: CSS`, JSON.stringify(assets.css));
