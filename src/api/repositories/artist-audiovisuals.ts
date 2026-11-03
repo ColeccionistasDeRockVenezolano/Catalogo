@@ -18,7 +18,7 @@ export async function artistAudiovisuals(artistId: number): Promise<ArtistAudiov
   }>(`SELECT av.id::text,av.title,av.release_year,av.kind,coalesce(av.description,v.description) AS description,
       ARRAY(SELECT jsonb_array_elements_text(CASE WHEN jsonb_typeof(av.metadata->'tags')='array' THEN av.metadata->'tags' ELSE '[]'::jsonb END)) AS tags,
       v.video_id,v.thumbnail_url,v.duration_seconds,v.published_at,coalesce(v.publication_status::text,'unknown') AS publication_status,
-      ${playableVideoSql('v', { allowUnlisted: true })} AS playable,
+      coalesce(${playableVideoSql('v', { allowUnlisted: true })}, false) AS playable,
       coalesce((SELECT jsonb_agg(jsonb_build_object('title',t.title,'startSeconds',t.start_seconds) ORDER BY t.position)
         FROM media.youtube_tracklist_entries t WHERE t.video_id=v.id AND t.start_seconds>=0
           AND (v.duration_seconds IS NULL OR t.start_seconds<v.duration_seconds)),'[]') AS chapters
