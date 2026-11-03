@@ -80,7 +80,8 @@ describe("sesiones con cuentas de herra", () => {
     const cookie = (user.headers["set-cookie"] as string).split(";", 1)[0]!;
     const denied = await app.inject({ method: "POST", url: "/protected", headers: { cookie, "x-crv-csrf": user.json().csrf } });
     expect(denied.statusCode).toBe(403);
-    expect(denied.json()).toMatchObject({ error: { code: "admin_required" } });
+    // 53c350f7 sustituyó admin_required por forbidden_role al introducir los roles curator/community.
+    expect(denied.json()).toMatchObject({ error: { code: "forbidden_role" } });
 
     const boss = await login("JEFE");
     expect(boss.statusCode).toBe(200);
