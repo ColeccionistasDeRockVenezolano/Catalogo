@@ -11,7 +11,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { radioSnapshot, type RadioStation } from "../../src/shared/radio/engine.js";
 // @ts-expect-error: el constructor del cliente es un .mjs sin tipos.
-import { minifyRadioClient } from "../build-radio-client.mjs";
+import { minifyRadioClient } from "../build-landing-client.mjs";
 
 const raiz = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const opcion = (nombre: string, defecto: string) => process.argv.find((a) => a.startsWith(`--${nombre}=`))?.split("=")[1] ?? defecto;

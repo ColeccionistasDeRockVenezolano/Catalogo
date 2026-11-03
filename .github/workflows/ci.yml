@@ -95,6 +95,8 @@ jobs:
       - run: npm ci
       - run: npm ci
         working-directory: web
+      - name: Clientes de la portada salen de su fuente
+        run: node scripts/build-landing-client.mjs --check
       - name: Unitarias web
         run: npm run test:web
       - run: npm run build
