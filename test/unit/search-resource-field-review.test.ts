@@ -2,9 +2,12 @@ import { mkdir, mkdtemp, readFile, rm, symlink, writeFile, rename } from "node:f
 import path from "node:path";
 import os from "node:os";
 import { afterEach, expect, it } from "vitest";
+import { externalDataAvailable } from "../support/external-data.js";
 import { hashText } from "../../src/search/review-protocol.js";
 import { archiveResourceFieldReview, projectResourceFieldReview, readResourceFieldReview, resourceFieldAdministration, resourceFieldReviewSchema, resourceFieldStatus } from "../../src/search/resource-field-review.js";
 
+// Los insumos de la revisión viven en reports/ (almacén externo): sin ellos se saltan; con ellos corren.
+const available = externalDataAvailable("reports/alimentar-laya-contexto-2026-10-16.md");
 const reviewPath = "docs/unified-search/stage2/resource-field-review.json", roots: string[] = [];
 afterEach(async () => { await Promise.all(roots.splice(0).map(root => rm(root, { recursive: true, force: true }))); });
 const original = async () => resourceFieldReviewSchema.parse(JSON.parse(await readFile(reviewPath, "utf8")));
@@ -24,7 +27,7 @@ async function fixture() {
   await save(); return { root, review, save };
 }
 
-it("contrasta los 46 recursos y sus campos con el anexo real sin presentarlos como cobertura musical", async () => {
+it.skipIf(!available)("contrasta los 46 recursos y sus campos con el anexo real sin presentarlos como cobertura musical", async () => {
   const review = await readResourceFieldReview(process.cwd());
   expect(review.coverage.resources).toBe(46); expect(review.coverage.fields).toBe(107);
   expect(Object.values(review.coverage.dispositions).reduce((n, count) => n + count, 0)).toBe(107);
@@ -41,7 +44,7 @@ it("contrasta los 46 recursos y sus campos con el anexo real sin presentarlos co
     expect(serialized).not.toContain(privateField);
 });
 
-it("conserva el cotejo de evidencias cuando reports vive fuera del repositorio", async () => {
+it.skipIf(!available)("conserva el cotejo de evidencias cuando reports vive fuera del repositorio", async () => {
   const f = await fixture(), shared = await mkdtemp(path.join(os.tmpdir(), "crv-resource-shared-")); roots.push(shared);
   await rename(path.join(f.root, "reports"), path.join(shared, "reports"));
   await symlink(path.join(shared, "reports"), path.join(f.root, "reports"), "dir");
@@ -70,7 +73,7 @@ it("un literal técnico del anexo no puede quedar fuera de la disposición de ca
   expect(resourceFieldReviewSchema.safeParse(review).success).toBe(false);
 });
 
-it("un registro rehecho sin el campo del plan no supera el cotejo aunque se actualicen sus huellas", async () => {
+it.skipIf(!available)("un registro rehecho sin el campo del plan no supera el cotejo aunque se actualicen sus huellas", async () => {
   const f = await fixture();
   const filename = path.join(f.root, "docs/unified-search/resources.json");
   const registry = JSON.parse(await readFile(filename, "utf8"));
@@ -81,7 +84,7 @@ it("un registro rehecho sin el campo del plan no supera el cotejo aunque se actu
   await expect(readResourceFieldReview(f.root)).rejects.toThrow(/sin revisión vigente/);
 });
 
-it("una revisión ausente es distinta de evidencia faltante o cambiada", async () => {
+it.skipIf(!available)("una revisión ausente es distinta de evidencia faltante o cambiada", async () => {
   const f = await fixture(); expect((await resourceFieldAdministration(f.root))?.coverage.resources).toBe(46);
   await writeFile(path.join(f.root, "proof.txt"), "changed");
   await expect(resourceFieldAdministration(f.root)).rejects.toThrow(/obsoleta/);
@@ -90,7 +93,7 @@ it("una revisión ausente es distinta de evidencia faltante o cambiada", async (
   await rm(path.join(f.root, reviewPath)); expect(await resourceFieldAdministration(f.root)).toBeNull();
 });
 
-it("rechaza rutas que escapan del proyecto y enlaces simbólicos ajenos", async () => {
+it.skipIf(!available)("rechaza rutas que escapan del proyecto y enlaces simbólicos ajenos", async () => {
   const f = await fixture(); f.review.evidence[0]!.path = "../proof.txt"; await f.save();
   await expect(readResourceFieldReview(f.root)).rejects.toThrow(/fuera del proyecto/);
   f.review.evidence[0]!.path = "proof.txt"; await f.save(); await rm(path.join(f.root, "proof.txt"));
@@ -106,7 +109,7 @@ it("el resumen conserva usos parciales y diferimientos sin declararlos una integ
   expect(() => resourceFieldStatus([])).toThrow();
 });
 
-it("conserva el corte y las pruebas por hash, es idempotente y exige otra revisión al cambiarlo", async () => {
+it.skipIf(!available)("conserva el corte y las pruebas por hash, es idempotente y exige otra revisión al cambiarlo", async () => {
   const f = await fixture(), first = await archiveResourceFieldReview(f.root);
   expect((await archiveResourceFieldReview(f.root)).cut).toEqual(first.cut);
   for (const pin of first.cut.inputs) expect(hashText(await readFile(path.join(f.root, first.cut.directory, pin.archived)))).toBe(pin.sha256);

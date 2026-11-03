@@ -2,9 +2,12 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, expect, it } from "vitest";
+import { externalDataAvailable } from "../support/external-data.js";
 import { readIndependentReview } from "../../src/search/independent-review.js";
 import { hashText } from "../../src/search/review-protocol.js";
 
+// Corpus del almacén externo (reports/): sin él se saltan; con él corren.
+const available = externalDataAvailable("reports/unified-search-stage2/study-cuts/development-0.5.0/reports/unified-search-stage2/development-annotations.json");
 const reviewPath = "docs/unified-search/stage2/independent-review-claude.json";
 const roots: string[] = [];
 afterEach(async () => { await Promise.all(roots.splice(0).map(root => rm(root, { recursive: true, force: true }))); });
@@ -22,7 +25,7 @@ async function fixture(mutate: (review: any, annotations: any) => void) {
   return root;
 }
 
-it("cubre las 35 anotaciones con una segunda lectura ciega de IA, sin presentarla como evaluación humana; umbrales aprobados por Brian", async () => {
+it.skipIf(!available)("cubre las 35 anotaciones con una segunda lectura ciega de IA, sin presentarla como evaluación humana; umbrales aprobados por Brian", async () => {
   const { review, meetsProposedThresholds, humanEvaluation, thresholdsApproved } = await readIndependentReview(process.cwd());
   expect(review.items).toHaveLength(35);
   expect(review.reviewer.kind).toBe("ai_model_distinct_from_first_analyst");
@@ -32,7 +35,7 @@ it("cubre las 35 anotaciones con una segunda lectura ciega de IA, sin presentarl
   expect(review.rectificationStatus).toBe("applied_after_brian_approval");
 });
 
-it("rechaza acuerdos inflados, citas cambiadas y anotaciones sin revisar", async () => {
+it.skipIf(!available)("rechaza acuerdos inflados, citas cambiadas y anotaciones sin revisar", async () => {
   await expect(readIndependentReview(await fixture(review => { review.metrics.blindAgreement.coverage = 0.9; })))
     .rejects.toThrow("Acuerdo declarado");
   await expect(readIndependentReview(await fixture((_r, a) => { a.annotations[0].observation.quote += "!"; })))

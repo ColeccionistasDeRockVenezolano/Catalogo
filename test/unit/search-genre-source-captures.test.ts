@@ -2,9 +2,12 @@ import { mkdir, mkdtemp, writeFile, readFile, rm, symlink, rename } from "node:f
 import path from "node:path";
 import os from "node:os";
 import { afterEach, expect, it } from "vitest";
+import { externalDataAvailable } from "../support/external-data.js";
 import { genreSourceManifestSchema, verifyGenreSourceCaptures } from "../../src/search/genre-source-captures.js";
 import { hashText } from "../../src/search/review-protocol.js";
 import { readGenreKnowledge } from "../../src/search/genre-map.js";
+// Corpus del almacén externo (reports/, data/research): sin él se saltan; con él corren.
+const available=externalDataAvailable("data/research/unified-search-genres-2026-10-17");
 const roots:string[]=[];
 afterEach(async()=>{await Promise.all(roots.splice(0).map(root=>rm(root,{recursive:true,force:true})));});
 async function fixture(){
@@ -69,7 +72,7 @@ it("rechaza páginas bloqueadas aunque su hash y título estén declarados",asyn
  await writeFile(path.join(f.root,capture),html);Object.assign(f.manifest.sources[0]!,{html:capture,sha256:sha,bytes:Buffer.byteLength(html),sections:[]});
  await expect(verifyGenreSourceCaptures(f.root,await f.save(),f.definitions)).rejects.toThrow(/artículo legible/);
 });
-it("el libro real verifica todas sus capturas y distingue fuentes heredadas sin fingir validación musical",async()=>{
+it.skipIf(!available)("el libro real verifica todas sus capturas y distingue fuentes heredadas sin fingir validación musical",async()=>{
  const file=await readGenreKnowledge(process.cwd());expect(file.sourceCaptureManifest).toBeDefined();
  const result=await verifyGenreSourceCaptures(process.cwd(),file.sourceCaptureManifest!,file.descriptions);
  expect(result.capturedSources).toBeGreaterThanOrEqual(32);expect(result.checkedSourceIds).toContain("unesco:llano-work-songs");expect(result.institutionalSources).toBeGreaterThan(0);expect(result.legacySourcesWithoutSnapshot).toBeGreaterThan(0);expect(result.entityAssignmentsAuthorized).toBe(false);

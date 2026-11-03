@@ -2,14 +2,17 @@ import { mkdtemp, mkdir, writeFile, rm } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, expect, it } from "vitest";
+import { externalDataAvailable } from "../support/external-data.js";
 import { buildGenreKnowledgeMap, genreKnowledgeFileSchema, readGenreKnowledge } from "../../src/search/genre-map.js";
 import { reviewGenreMappings } from "../../src/search/genre-mapping-review.js";
 import { hashText } from "../../src/search/review-protocol.js";
 import { genreDescriptionSchema } from "../../src/search/taxonomy-knowledge.js";
 
+// Corpus del almacén externo (reports/, data/research): sin él se saltan; con él corren.
+const available=externalDataAvailable("data/research/unified-search-genres-2026-10-17");
 const roots:string[]=[];
 afterEach(async()=>{await Promise.all(roots.splice(0).map(root=>rm(root,{recursive:true,force:true})));});
-it("conserva el texto editorial aunque haya propuesta y no rellena rasgos ausentes",async()=>{
+it.skipIf(!available)("conserva el texto editorial aunque haya propuesta y no rellena rasgos ausentes",async()=>{
   const file=await readGenreKnowledge(process.cwd());
   const proposal=file.descriptions[0]!;
   const genres=[{id:1,slug:proposal.slug,name:"Género",description:"Texto editorial conservado"},{id:2,slug:"sin-documentar",name:"Pendiente",description:null},...file.descriptions.slice(1).map((d,i)=>({id:i+3,slug:d.slug,name:d.slug,description:null})),
@@ -22,7 +25,7 @@ it("conserva el texto editorial aunque haya propuesta y no rellena rasgos ausent
   expect(result.genres.every(g=>g.entityAssignmentsAuthorized===false)).toBe(true);
   expect(result.coverage.described).toBe(file.descriptions.length);
 });
-it("marca las exclusiones editoriales sin describirlas ni contarlas como pendientes",async()=>{
+it.skipIf(!available)("marca las exclusiones editoriales sin describirlas ni contarlas como pendientes",async()=>{
   const file=await readGenreKnowledge(process.cwd());
   const genres=[...file.descriptions.map((d,i)=>({id:i+1,slug:d.slug,name:d.slug,description:null})),
     ...(file.exclusions??[]).map((e,i)=>({id:10000+i,slug:e.slug,name:e.slug,description:null})),{id:99999,slug:"sin-documentar",name:"Pendiente",description:null}];
@@ -35,7 +38,7 @@ it("marca las exclusiones editoriales sin describirlas ni contarlas como pendien
   expect(genreKnowledgeFileSchema.safeParse(described).success).toBe(false);
   expect(()=>buildGenreKnowledgeMap(genres.filter(g=>g.slug!==file.exclusions![0]!.slug),file,"available")).toThrow(/Exclusión/);
 });
-it("rechaza identidad ausente, fuentes inexistentes y descripciones duplicadas",async()=>{
+it.skipIf(!available)("rechaza identidad ausente, fuentes inexistentes y descripciones duplicadas",async()=>{
   const file=await readGenreKnowledge(process.cwd());
   expect(()=>buildGenreKnowledgeMap([],file,"available")).toThrow(/ausente/);
   expect(genreKnowledgeFileSchema.safeParse({...file,descriptions:[file.descriptions[0],file.descriptions[0]]}).success).toBe(false);
@@ -70,7 +73,7 @@ it("detiene remapeo si la captura cambia o queda un término sin revisar",async(
   await expect(reviewGenreMappings(root,legacy,releases,new Set())).rejects.toThrow(/Captura del piloto cambió/);
 });
 
-it("una categoría funcional documentada no necesita inventar un perfil sonoro uniforme",async()=>{
+it.skipIf(!available)("una categoría funcional documentada no necesita inventar un perfil sonoro uniforme",async()=>{
  const file=await readGenreKnowledge(process.cwd()),functional=file.descriptions.find(d=>d.slug==="banda-sonora")!;
  expect(functional.categoryKind).toBe("functional_category");expect(functional.characteristics).toEqual([]);expect(functional.profileLimits).toContain("video");
  const invalid=structuredClone(file);const entry=invalid.descriptions.find(d=>d.slug==="banda-sonora")!;entry.categoryKind="genre_style";
