@@ -1,6 +1,7 @@
 // CRV · Fase 3: el cliente real de la radio, con el motor real y una emisión corta, en una página aislada.
 // No toca la radio, ni la base, ni el dominio, ni web/public: minifica src/landing/client/radio.js en memoria.
-//   canciones de 60 s, solape de 3 s y cuña cada 3 piezas, para ver varios relevos con la pantalla apagada.
+//   canciones reales, solape de 3 s y cuña cada 3 piezas. La emisión empieza con la primera visita, para que
+//   el primer relevo llegue tras unos 6 min con el segundo reproductor ya preparado, como en el dominio.
 //
 //   npx tsx scripts/checks/radio-prueba-solape.mts --salida=dir [--puerto=3198] [--ruta=secreto] [--host=127.0.0.1]
 // Con --ruta, todo lo que no cuelgue de ella responde 404: sirve para exponerla un rato por un túnel.
@@ -38,6 +39,8 @@ const estacion: RadioStation = {
   sweeper: { src: "radio/sweeper-v2.wav", durationSeconds: 13.404422, overlapSeconds: 6, leadSeconds: 4.5, everyPieces: 3 },
 };
 
+let emisionEmpezada = false;
+
 // Solo aquí: el cliente publica su rastro y sus reproductores para poder registrarlos.
 function instrumentar(fuente: string): string {
   const sustituir = (a: string, b: string) => {
@@ -59,7 +62,7 @@ body{margin:0;padding:16px;background:#111;color:#eee;font:16px system-ui}button
 .radio-card__screen iframe[data-radio-deck="active"]{z-index:1}
 .radio-card__screen iframe[data-radio-deck="standby"],.radio-card__screen iframe:not(#radioPlayer):not([data-radio-deck="active"]){opacity:0;pointer-events:none}
 pre{font-size:12px;white-space:pre-wrap}</style>
-<p>Toca Sintonizar, espera a que suene y apaga la pantalla. Canciones de 60 s, solape de 3 s, cuña cada 3 canciones.</p>
+<p>No toques nada: cuando suene, espera 10 s y apaga la pantalla. Primer relevo a los 6 min; cuña cada 3 canciones.</p>
 <aside id="radio" data-radio-state="ready" data-radio-sweeper="true" data-radio-static-base="${ruta}/static" data-radio-live-label="Prueba" data-radio-project-name="Prueba"
  data-radio-api="${ruta}/api/radio/now" data-radio-listener-api="${ruta}/api/radio/listener" data-radio-unavailable-api="${ruta}/api/radio/unavailable" data-radio-diagnostic-api="${ruta}/api/radio/diagnostic">
 <button type="button" data-radio-sync><span>Sintonizar</span></button><p data-radio-status></p>
@@ -102,6 +105,7 @@ createServer((peticion, respuesta) => {
     return;
   }
   if (url === `${ruta}/`) {
+    if (!emisionEmpezada) { emisionEmpezada = true; estacion.epochMs = Date.now(); }
     respuesta.writeHead(200, { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" });
     return respuesta.end(pagina);
   }

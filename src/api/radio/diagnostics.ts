@@ -8,7 +8,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export const RADIO_DIAGNOSTIC_KINDS = ["stall", "stall_end", "stall_abandoned", "player_error", "api_outage_end", "bg_relay", "player_reload"] as const;
+export const RADIO_DIAGNOSTIC_KINDS = ["stall", "stall_end", "stall_abandoned", "player_error", "api_outage_end", "bg_relay", "player_reload", "hidden_relay"] as const;
 export type RadioDiagnosticKind = (typeof RADIO_DIAGNOSTIC_KINDS)[number];
 const MAX_DEPTH = 5;
 const MAX_KEYS = 60;

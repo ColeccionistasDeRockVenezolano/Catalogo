@@ -313,7 +313,12 @@ ni los demás experimentos.
 - **En staging con cliente `crv-2026-11-03b`:** `radio-crv-browser.mjs` 48/48 (`reports/radio-publicacion-b`), lista blanca 101/101 y
   `landing-base-check.mjs` 32/32. Esa comprobación dejó de esperar `networkidle`, que YouTube impide llegar a veces, también en producción. Un aviso
   `compute-pressure` en consola apareció en 1 de 4 pasadas; origen sin identificar.
-- **Sin publicar en producción:** el dominio sigue con `8233db48`, sin el arreglo, y por eso aún se para en Brave con la pantalla apagada.
+- **Publicado en producción con autorización de Brian (2026-11-03 03:4x UTC, release `98773c06`, API y gateway):** `/mnt/datos/crv-release/98773c06`,
+  sin cambios en la configuración y sin salto de canción. Por el dominio: cliente `?v=crv-2026-11-03b` con el arreglo, `media-src 'self' blob:` y lista blanca 101/101.
+- **Error 153 en iPad: descartado por Brian (2026-11-03):** el error que había mostrado ya no aparece y la radio suena con normalidad en su iPad.
+- **Sin comprobar en el dominio:** escucha de Brian en Brave con la pantalla apagada.
+- **Vuelta atrás a `8233db48`:** copiar `~/apps/crv-landing/unidades-antes-98773c06/*` sobre `~/.config/systemd/user/`, `daemon-reload` y reiniciar
+  `crv-api-landing` y `crv-landing`. La base no cambió.
 - **Vuelta atrás:** copiar `~/apps/crv-landing/unidades-antes-8233db48/*` sobre `~/.config/systemd/user/`,
   `daemon-reload`, reiniciar `crv-api-landing` y `crv-landing`, y restaurar en la base los tres valores anteriores.
 

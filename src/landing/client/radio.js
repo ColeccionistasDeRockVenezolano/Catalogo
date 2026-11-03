@@ -118,6 +118,10 @@
   var BACKGROUND_FADE_IN_MS = 2000;
   // El reproductor en espera avanza este tiempo en silencio antes de quedar en pausa.
   var PREPARE_PLAY_MS = 1000;
+  var WARM_EVERY_MS = 60000;
+  var WARM_STOP_MS = 20000;
+  var RELAY_REPORTS_MAX = 6;
+  var relayReports = 0;
   // Oculta y sin cuña sonando, la entrante arranca cuando a la saliente le queda esto.
   var BACKGROUND_OVERLAP_S = 3.2;
   // Safari, Chrome y los demas navegadores de iPhone/iPad comparten las
@@ -701,6 +705,7 @@
     report.kind = kind;
     report.sessionId = sessionId;
     report.brave = Boolean(navigator.brave);
+    report.gesture = navigator.userActivation ? navigator.userActivation.hasBeenActive : null;
     report.clientTime = new Date().toISOString();
     if (extra) {
       for (var name in extra) {
@@ -1701,19 +1706,52 @@
 
   // Carga la cancion siguiente en el reproductor en espera: arranca en
   // silencio, se detiene en cuanto tiene datos y vuelve al inicio del tramo.
+  // Android no deja arrancar con la pantalla apagada un reproductor que lleva más de unos
+  // minutos en pausa (4 min 22 s falló, 1 min 56 s no), ni recargarlo si solo sonó en silencio.
+  // Mientras espera, una preparación temprana se mueve un segundo cada minuto, en silencio.
+  function warmStandby(deck) {
+    if (!deck.earlyPrepare || appleTouchDevice) return;
+    var now = Date.now();
+    if (deck.preparing) {
+      if (deck.warmAt && now - deck.warmAt > 8000) {
+        trace('warm_fail', { s: YT_STATE_NAMES[String(stateOf(deck))] || stateOf(deck) });
+        deck.preparing = false;
+        deck.prepared = true;
+        deck.warmAt = 0;
+      }
+      return;
+    }
+    if (!deck.prepared || now - deck.pausedAt < WARM_EVERY_MS) return;
+    if (Date.parse(snapshot.endsAt) - serverNow() < WARM_STOP_MS) return;
+    trace('warm', { pausedMs: now - deck.pausedAt });
+    deck.warmAt = now;
+    deck.prepared = false;
+    deck.preparing = true;
+    try {
+      deck.player.mute();
+      deck.player.playVideo();
+    } catch (_) {
+      deck.preparing = false;
+      deck.prepared = true;
+    }
+  }
+
   function maybePrepare() {
     if (!listening || !snapshot || !snapshot.upcoming || !snapshot.upcoming.length) return;
     var deck = standbyDeck();
     if (!deck.ready) return;
     var next = snapshot.upcoming[0];
     var key = nextPieceKey();
-    if (deck.key === key || deck.tailPlaying) return;
+    var leadReached = Date.parse(snapshot.endsAt) - serverNow() <= PREPARE_LEAD_MS;
+    if (deck.key === key) { warmStandby(deck); return; }
+    if (deck.tailPlaying) return;
     // El activo ya suena esa pieza (entró antes de su hora, con la pantalla apagada).
     if (activeDeck().key === key) return;
     // Android no deja arrancar con la página oculta un reproductor que nunca sonó: la
     // primera preparación se hace mientras se ve, sin esperar al final de la canción.
     var firstWhileVisible = !deck.everPlayed && !document.hidden && stateOf(activeDeck()) === PLAYING;
-    if (!firstWhileVisible && Date.parse(snapshot.endsAt) - serverNow() > PREPARE_LEAD_MS) return;
+    if (!firstWhileVisible && !leadReached) return;
+    deck.earlyPrepare = !leadReached;
     deck.key = key;
     deck.videoId = next.videoId;
     deck.startSeconds = next.startSeconds;
@@ -1768,6 +1806,8 @@
         deck.player.unMute();
       }
       deck.prepared = true;
+      deck.pausedAt = Date.now();
+      deck.warmAt = 0;
     } catch (_) {
       deck.prepared = false;
     }
@@ -1790,9 +1830,10 @@
 
   // `early`: la entrante arranca antes de su hora, desde el inicio de su tramo.
   function swapDecks(early) {
-    trace('swap', { from: activeIndex, early: early ? 1 : 0 });
     var from = activeDeck();
     var to = standbyDeck();
+    var pausedMs = to.pausedAt ? Date.now() - to.pausedAt : null;
+    trace('swap', { from: activeIndex, early: early ? 1 : 0, pausedMs: pausedMs, prepared: to.prepared ? 1 : 0 });
     // El relevo hereda la eleccion del visitante: silencio y volumen.
     var wantSound = !soundPending && !mutedOf(from);
     var level = chosenVolume(from);
@@ -1836,16 +1877,28 @@
     from.preparing = false;
     from.dimmed = false;
     from.fadeInLevel = null;
-    window.setTimeout(function () { confirmSwap(to, wantSound); }, 2500);
+    // Oculta hay que reaccionar mientras suena la saliente: sin sonido se corta la red.
+    window.setTimeout(function () { confirmSwap(to, wantSound, pausedMs); }, document.hidden ? 1200 : 2500);
   }
 
   // Si el navegador no deja sonar al reproductor entrante sin un gesto, la
   // emision sigue en silencio y el primer clic, toque o tecla la devuelve.
-  function confirmSwap(deck, wantSound) {
+  function confirmSwap(deck, wantSound, pausedMs) {
     if (activeDeck() !== deck || !listening || currentRejected()) return;
     var state = stateOf(deck);
+    // Sale mientras la saliente aún suena y hay red: se mide cada relevo, también el que falla.
+    if (document.hidden && relayReports < RELAY_REPORTS_MAX) {
+      relayReports += 1;
+      diagnose('hidden_relay', { relayState: YT_STATE_NAMES[String(state)] || state, pausedMs: pausedMs });
+    }
     if (state === PLAYING || state === BUFFERING) return;
     try {
+      if (document.hidden) {
+        trace('swap_reload', { s: YT_STATE_NAMES[String(state)] || state });
+        if (deck.key === nextPieceKey()) deck.player.loadVideoById(segment(snapshot.upcoming[0], deck.startSeconds));
+        else loadCurrent(deck, liveSecond());
+        return;
+      }
       // Sin nadie delante, mutearla solo la callaría: se pide que siga sonando.
       if (wantSound && !document.hidden) {
         soundPending = true;
@@ -1921,6 +1974,7 @@
     });
   }
 
+  var reloadPaused = false;
   function correctDrift(forcePlay, allowUnmute) {
     // Una entrada forzada (boton de la tarjeta, vuelta al vivo) reanuda la
     // emision y retira la pausa del visitante.
@@ -1948,7 +2002,7 @@
         loadCurrent(deck, target);
       } else {
         var deckState = stateOf(deck);
-        if (forcePlay && deckState !== PLAYING && deckState !== PAUSED) {
+        if (forcePlay && deckState !== PLAYING && (deckState !== PAUSED || reloadPaused)) {
           // Colgado o sin cargar: seek+play no lo despierta, hay que recargar.
           clearStuck();
           loadCurrent(deck, target);
@@ -2368,7 +2422,14 @@
     // fuerza la reproduccion cuando el navegador realmente la interrumpio.
     var state = playerState();
     var interrupted = state !== PLAYING && (state !== BUFFERING || playerStuck(STUCK_NOTICE_MS));
-    if (resume && started && interrupted) correctDrift(true, false);
+    // Un reproductor que el sistema dejó en pausa no se despierta con seek+play, y la pausa
+    // que eso provoca no es del visitante: se recarga y no se toma por una pausa suya.
+    if (resume && started && interrupted) {
+      quietUntil = Date.now() + 3000;
+      reloadPaused = true;
+      correctDrift(true, false);
+      reloadPaused = false;
+    }
     refresh(function (ok) {
       if (!ok || !started) return;
       var refreshedState = playerState();
