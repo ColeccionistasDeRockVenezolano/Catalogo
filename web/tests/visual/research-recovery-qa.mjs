@@ -47,6 +47,8 @@ try{
     if(["127.0.0.1","localhost"].includes(url.hostname)&&url.origin!==base){errors.push("El bundle apuntó fuera de la API de aceptación aislada");return route.abort("blockedbyclient");}
     return route.continue();
   });
+  // Desde e6d91e2f el panel de fiabilidad vive dentro de «Fiabilidad, comparación e investigaciones anteriores» (cerrado por defecto).
+  const openVerification=async()=>{const summary=page.getByText("Fiabilidad, comparación e investigaciones anteriores",{exact:true});await expect(summary).toBeVisible();if(!(await summary.evaluate(node=>node.closest("details").open)))await summary.click();};
   await page.goto(base);await page.getByRole("button",{name:"Iniciar sesión como colaborador"}).click();
   await page.getByLabel("Usuario",{exact:true}).fill("qa.admin");await page.getByLabel("Contraseña",{exact:true}).fill(password);
   await page.getByRole("button",{name:"Iniciar sesión",exact:true}).click();await expect(page.getByRole("dialog")).toHaveCount(0);
@@ -72,6 +74,7 @@ try{
       }},undefined,notify,options);
     });
     await page.goto(`${base}/artistas/${created.id}`);
+    await openVerification();
     await expect(page.getByRole("button",{name:"Pausar investigación",exact:true})).toBeVisible();
     for(let attempt=0;attempt<100&&!release;attempt++)await new Promise(resolve=>setTimeout(resolve,20));assert.ok(release);
     await page.getByRole("button",{name:"Pausar investigación",exact:true}).click();
@@ -85,6 +88,7 @@ try{
     for(let attempt=0;attempt<100&&(await getIndividualJob(resumed.id))?.status!=="done";attempt++)await new Promise(resolve=>setTimeout(resolve,100));
     assert.equal((await getIndividualJob(resumed.id)).status,"done");
     await page.reload();
+    await openVerification();
     const latest=(await getPool().query("SELECT status,report_id FROM ingest.entity_verification_jobs WHERE entity_kind='artist' AND entity_id=$1 ORDER BY id DESC LIMIT 1",[created.id])).rows[0];
     assert.equal(latest.status,"done");
     const report=(await getPool().query("SELECT report FROM ingest.entity_verification_reports WHERE id=$1",[latest.report_id])).rows[0].report;
@@ -110,7 +114,7 @@ try{
     for(let attempt=0;attempt<100&&["queued","running"].includes((await getIndividualJob(reprocessed.id))?.status);attempt++)await new Promise(resolve=>setTimeout(resolve,100));
     assert.equal((await getIndividualJob(reprocessed.id)).status,"done");
     assert.deepEqual((await getPool().query("SELECT report FROM ingest.entity_verification_reports WHERE id=$1",[latest.report_id])).rows[0].report,savedBefore);
-    assert.equal(fetched,1);await page.reload();
+    assert.equal(fetched,1);await page.reload();await openVerification();
     await expect(page.getByText(/Guardado el/u)).toBeVisible();
     await page.getByText("Versiones anteriores y copias preservadas",{exact:true}).click();
     await page.getByLabel("Informe anterior",{exact:true}).selectOption(String(latest.report_id));
