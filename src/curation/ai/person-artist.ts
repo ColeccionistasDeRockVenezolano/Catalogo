@@ -459,7 +459,9 @@ export async function resolvePersonArtist(
           { kind: "person", id: personId },
           draft,
           evidence,
-          [],
+          // Un artista ya existente se vincula tras coincidir por alias exacto y pasar el contraste de
+          // la IA (arriba): su nombre completo no tiene por qué aparecer en la cita («Jeremías Solista»).
+          artist ? ["link"] : [],
           { preview: false },
         );
         const resolvedArtistId=artist?.id ?? executed.created["solo"]!.id;
