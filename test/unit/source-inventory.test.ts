@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { existsSync } from "node:fs";
+import path from "node:path";
 import { createHash } from "node:crypto";
 import { inventoryResearchUrls, inventorySummary, loadSourceInventory, sourceInventorySchema } from "../../src/verification/source-inventory.js";
 import { researchVerification, type ResearchState } from "../../src/verification/research.js";
@@ -11,15 +13,19 @@ const snapshot = (name: string, kind: VerificationSnapshot["kind"] = "artist"): 
 const gateway = () => new DeepSeekGateway({ baseUrl: "https://example.com", models: { fast: "mock", reasoning: "mock", vision: "mock" }, maxTokens: 4096, timeoutMs: 1000 },
   new MockDeepSeekTransport({ findings: [], discoveries: [] }), new MemoryDeepSeekRunStore());
 
+// El inventario real vive en el almacén externo (docs/SHARED_STORAGE.md); sin él, test/unit/setup.ts carga uno
+// vacío para el CI y estas aserciones sobre el corpus real no tienen qué comprobar. Donde el dato existe, corren.
+const hasRealInventory = existsSync(path.resolve("data/research/venezuelan-music-sources.json"));
+
 describe("inventario de fuentes para investigación dirigida", () => {
-  it("valida el inventario y calcula conteos sin adoptar los números del informe original", () => {
+  it.skipIf(!hasRealInventory)("valida el inventario y calcula conteos sin adoptar los números del informe original", () => {
     const inventory = loadSourceInventory();
     expect(inventorySummary(inventory)).toMatchObject({ projects: 34, discoverySources: 2, urls: 53, criticalProjects: 8, pageRead: 42, indexedOnly: 5, fetchFailed: 6, researchEntrypoints: 36 });
     expect(inventory.policy.catalogAutoImport).toBe(false);
     expect(inventory.projects.flatMap(project => project.sources).filter(source => source.sourceType === "artist_bandcamp")
       .every(source => source.authorityStatus === "unverified")).toBe(true);
   });
-  it("rechaza inventarios que habilitan páginas no leídas o repiten URL", () => {
+  it.skipIf(!hasRealInventory)("rechaza inventarios que habilitan páginas no leídas o repiten URL", () => {
     const inventory = loadSourceInventory();
     const first = inventory.projects[0]!.sources[0]!;
     first.verificationStatus = "indexed_only";
@@ -30,7 +36,7 @@ describe("inventario de fuentes para investigación dirigida", () => {
     inventory.projects[1]!.sources.push(first);
     expect(sourceInventorySchema.safeParse(inventory).success).toBe(false);
   });
-  it("normaliza tildes y aliases explícitos, sin buscar por fragmentos ni proyectos relacionados", () => {
+  it.skipIf(!hasRealInventory)("normaliza tildes y aliases explícitos, sin buscar por fragmentos ni proyectos relacionados", () => {
     expect(inventoryResearchUrls(snapshot("  ZAPATO3  "))).toEqual(["https://www.zapato3.com/biografia"]);
     expect(inventoryResearchUrls(snapshot("Simon Diaz", "person"))).toEqual(["https://simondiaz.com/biografia/"]);
     expect(inventoryResearchUrls(snapshot("Zapato"))).toEqual([]);
@@ -48,7 +54,7 @@ describe("inventario de fuentes para investigación dirigida", () => {
     expect(inventoryResearchUrls(snapshot("MúsicaVenezuela"))).toEqual([]);
     expect(inventoryResearchUrls(snapshot("Jorge Glem", "person"))).not.toContain("https://www.jorgeglem.com/proyectos/");
   });
-  it("selecciona el artista del disco o pista y excluye fichas de otros lanzamientos", () => {
+  it.skipIf(!hasRealInventory)("selecciona el artista del disco o pista y excluye fichas de otros lanzamientos", () => {
     const album = snapshot("Tiempo al Tiempo", "album");
     album.albums = [{ id: album.id, artist: "C4 Trío", title: album.name, year: 2019 }, { id: 2, artist: "Los Mentas", title: "Otro disco", year: null }];
     expect(inventoryResearchUrls(album)).toEqual(["https://www.c4trio.com/en/discografia/", "https://www.c4trio.com/en/album/tiempo-al-tiempo/"]);
