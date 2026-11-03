@@ -18,6 +18,12 @@ export default tseslint.config(
       // Worktrees y estado de Claude Code: es tooling, no código del repo
       // (sus archivos rompen el parser por doble tsconfig raíz).
       "**/.claude/**",
+      // Bibliotecas de terceros minificadas copiadas tal cual (lucide): no se lintean.
+      "**/vendor/**/*.min.js",
+      // Clientes minificados en una sola línea: radio.js y radio-first-touch.js los genera
+      // scripts/build-radio-client.mjs desde src/landing/client; el resto son copias
+      // minificadas de Herra (portada temporal). El código fuente de la radio sí se lintea.
+      "web/public/landing/{radio,radio-first-touch,nav,public-loader,visit-counter,icons,roadmap,i18n-client}.js",
     ],
   },
   js.configs.recommended,
@@ -85,5 +91,30 @@ export default tseslint.config(
   {
     files: ["web/tests/**/*.{js,mjs,ts}", "web/server.mjs"],
     languageOptions: { globals: { ...globals.node, ...globals.browser } },
+  },
+  {
+    // JS de navegador servido tal cual (no pasa por Vite): portada temporal, radio, panel
+    // de administración y su espejo en src/landing/client. Se escribe con `a && b()` y con
+    // `catch {}` a propósito (el reproductor ignora errores de autoplay y de pestañas
+    // cerradas), así que aquí se admiten esas dos formas; el resto de reglas sigue activo.
+    files: ["web/public/**/*.js", "src/landing/client/**/*.js"],
+    languageOptions: { sourceType: "script", globals: { ...globals.browser } },
+    rules: {
+      "@typescript-eslint/no-unused-expressions": ["error", { allowShortCircuit: true, allowTernary: true }],
+      "no-empty": ["error", { allowEmptyCatch: true }],
+      // Con globals de navegador, `const name`/`status`/`location` locales chocarían con window.
+      "no-redeclare": ["error", { builtinGlobals: false }],
+    },
+  },
+  {
+    // Comprobaciones con Playwright: las funciones de page.evaluate() corren en el navegador.
+    files: ["scripts/**/*browser*.mjs", "scripts/checks/**/*.mjs", "scripts/radio-sweeper-video.mjs"],
+    languageOptions: { globals: { ...globals.node, ...globals.browser } },
+    rules: { "no-redeclare": ["error", { builtinGlobals: false }] },
+  },
+  {
+    // Tipos (.d.ts) y módulos copiados de Herra: se mantienen iguales que en origen.
+    files: ["src/landing/herra/**/*.d.ts"],
+    rules: { "@typescript-eslint/no-explicit-any": "off" },
   },
 );
