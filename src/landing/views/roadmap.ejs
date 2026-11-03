@@ -347,6 +347,6 @@
         data-full-style="<%= basePath %>/static/roadmap-public.min.css?v=<%= assetVersion %>"
         data-roadmap-client="<%= basePath %>/static/roadmap.js?v=<%= assetVersion %>"
         <% if (!showVisitCounter) { %>data-presence-url="<%= projectBase %>/api/presence"<% } %>
-        <%- radio ? `data-radio-client="${basePath}/static/radio.js?v=${assetVersion}"` : '' %> async></script>
+        <%- radio ? `data-radio-client="${basePath}/static/radio.js?v=${radioClientVersion}"` : '' %> async></script>
 </body>
 </html>

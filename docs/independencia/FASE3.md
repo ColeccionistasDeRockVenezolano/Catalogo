@@ -212,6 +212,91 @@ oyentes vuelven a la misma pieza. Las exclusiones de CRV quedan en su carpeta si
 
 **No hace falta nada más en Herra:** sigue exportando el catálogo y redirigiendo `www` hasta la Fase 4.
 
+### Registro del corte (2026-11-02 14:56 UTC, adelantado por orden de Brian)
+
+Brian ordenó adelantarlo el mismo día: la sombra por país llevaba 1 h 16 min limpia de los 7 días previstos.
+
+- **Árboles:** API y gateway en `/mnt/datos/crv-release/511bb437`. Estado en `/mnt/datos/crv-radio/estado`, registros en `/mnt/datos/crv-radio/logs`.
+- **Primer intento fallido:** la guarda de `src/config/deployment.ts` exigía `CRV_RADIO_LIVE_URL` también a la API dueña. La API no arrancó, la vuelta atrás automática restauró todo y `/admin` y `/account` dieron 503 alrededor de 1 min. El ensayo no lo vio porque corría sin `CRV_DEPLOYMENT=production`. Corregido en `511bb437`. **Un ensayo de corte debe arrancar con la configuración real** (sus env con otros puertos).
+- **Comprobado por el dominio:** lista blanca 101/101; reproducción hasta `live` en escritorio y móvil, navegador sin pantalla; 12 muestras en 1 min con la misma cola en dominio, CRV y Herra. Reinicio del gateway: 152 ms.
+- **Sin comprobar:** escucha humana en un teléfono con la pantalla apagada.
+- **La sombra sigue encendida, a diferencia del paso 5:** Herra sigue emitiendo su reloj en `:3020`, así que aún hay con quién comparar. Apagarla el 2026-11-09 con `systemctl --user disable --now crv-radio-sombra.timer`.
+- **Vuelta atrás:** `~/apps/crv-landing/api.env.antes-511bb437`, `gateway.env.antes-511bb437` y `unidades-antes-511bb437/` sobre sus originales, `systemctl --user daemon-reload` y reiniciar `crv-api-landing` y `crv-landing`. Devuelve API `810fa51a`, gateway `449158c3` y radio de Herra.
+
+### Primera escucha real y gateway `4b2a3b4f` (2026-11-02)
+
+**Brave en Android 10 con la pantalla apagada (sesión `ae3f6629c9f8`, 15:08–15:20 UTC):** la cuña no sonó y hubo
+12 min 10 s de silencio, hasta encender la pantalla. Traza: `bg_sweeper_err NotAllowedError` con el archivo ya
+cargado; `keepalive_try` rechazado y contexto de audio `suspended`; relevo a `buffering`; `api_fail` con estado 0
+a los 5 s; `freeze`. Es el límite ya medido con Herra 1.1.36–1.1.38: Brave no deja arrancar audio con la página
+oculta y Android corta la red en cuanto calla. **El tono de la 1.1.39 tampoco lo evita.** El cliente es el mismo
+de Herra; no es una regresión del corte. **Sigue sin resolver.**
+
+**Error 153 en un iPad con Brave:** sin ningún `player_error` 153 en los registros de CRV ni de Herra. El gateway
+enviaba `no-referrer` desde la Fase 2B, mientras Herra enviaba `strict-origin-when-cross-origin`. En Chromium los
+dos reproductores llevan `Referer` con cualquiera de las dos, así que esta diferencia es la causa probable pero no
+está demostrada: falta repetir en ese iPad.
+
+**Publicado en el gateway `4b2a3b4f`; la API sigue en `511bb437`:** política de `Referer` igual a Herra en la portada
+y en `/radio-embed` (el catálogo conserva `no-referrer`), cuña como `audio/wav` con rangos y las 271 banderas.
+Prueba: `node scripts/checks/radio-reproductor-dominio.mjs [--oculta]`. Simula la pantalla apagada en Chromium: no
+reproduce el bloqueo de Android.
+
+**Escucha de 17 min contra el dominio (Chromium móvil sin pantalla, 2026-11-02):** antes de publicar, visible 10/15 y
+oculta 12/17, con fallos solo en MIME, rangos, cabecera de `Referer` y banderas `gb`/`sg`. Con `4b2a3b4f`, visible
+15/15 y oculta 17/17, con una cuña completa en cada una. Esto valida la portada publicada; **no prueba ni Brave en
+Android ni el iPad.** Evidencia: `reports/radio-escucha-2026-11-02/{antes,despues}`.
+
+**Prueba de la lista de reproducción en Brave para Android 10, pantalla apagada (2026-11-02):** con
+`scripts/checks/radio-prueba-lista.mjs`, página aislada servida por un túnel temporal. Modo `lista`
+(`loadPlaylist`, avanza el propio reproductor): al acabar la primera pieza, a las 16:27:47 UTC, pasó a la posición 1
+y quedó en `buffering` sin datos del video; siguió así al volver a la vista a las 16:36:54 y la página se recargó
+14 s después. Modo `relevo` (`loadVideoById`, como la radio): `buffering` desde las 16:39:22 hasta 22 s después de
+encender la pantalla (16:44:21 a 16:44:43). **La lista de YouTube tampoco evita el corte.** Evidencia:
+`reports/radio-lista-2026-11-02`.
+
+**Prueba de dos reproductores en Brave para Android 10, pantalla apagada (2026-11-02):** mismo script, modos `dos_*`.
+El segundo reproductor carga la pieza siguiente, avanza 1 s en silencio y queda en pausa, con la página aún visible.
+- **`dos_solapado` (sesión `1f7dedpm`, oculta 20:12:36–20:20:01 UTC, 7 min 25 s):** arranca 3 s antes del final de la
+  pieza que suena. Tres pasos seguidos con la página oculta (20:14:30, 20:17:02, 20:19:40) sin `buffering` sostenido, y el
+  reproductor libre preparó con la página oculta la pieza que seguía (20:14:35, 20:17:07, 20:19:45). La carga siguió
+  avanzando oculta (12 % → 81 % en 5 s). **Es lo primero que supera el límite medido hasta ahora.**
+- **`dos_fin` (sesión `h31k9iif`):** arranca al terminar, con cerca de 1 s de hueco. Pasó a la segunda pieza (20:08:05),
+  pero la carga no avanzó: sonó lo ya cargado, unos 20 s, y quedó en `buffering` hasta encender la pantalla: 3 min 8 s
+  (20:08:25–20:11:33). La tercera nunca arrancó. **Este modo no sirve.**
+- **Lectura, probable y no demostrada:** el corte lo causa el hueco de sonido, y el solape lo evita. Una sesión de cada
+  modo, en un teléfono. El registro da el estado del reproductor, no el sonido: lo que se oyó lo confirma Brian.
+- Evidencia: `reports/radio-dos-2026-11-02`.
+
+**Cliente real con relevo solapado en Brave para Android 10, pantalla apagada (2026-11-02 y 03 UTC). Veredicto de Brian
+sobre la última versión: «Listo quedó perfecto».** Página aislada `scripts/checks/radio-prueba-solape.mts`: motor real,
+piezas de 60 s, cruce de 3 s, cuña con entrada a 4,5 s del final. Cliente en `src/landing/client/radio.js`, sin el tono
+ni los demás experimentos.
+- **`w39vb9up`, cuña oculta por `<audio>` (oculta 35 min):** 36 relevos, 12 cuñas, sin cuelgues. Sonaba mal: en 5 de las
+  12 cuñas la canción entrante se recargó y retrocedió entre 5 y 11 s después de entrar.
+- **`4b4997ei`, cuña oculta por Web Audio:** se colgó en la primera cuña oculta y estuvo 52 min callada. Entre el final
+  de una canción y el inicio de la siguiente solo sonaba Web Audio; la red se cortó y la canción siguió con lo ya
+  cargado. Mismo patrón que `dos_fin`. Lectura, probable y no demostrada: Web Audio no mantiene viva la red.
+- **Causa de la recarga:** el relevo local trunca a milisegundos y el servidor no, así que el inicio de la pieza difiere
+  en 1 ms. El motor lo produce en 41 % de las cuñas (17 de 41, simulado). Afecta también con la pantalla encendida.
+- **Arreglo:** oculta, la cuña va siempre por `<audio>`; la bajada va grabada en una copia WAV en memoria, porque los
+  temporizadores ocultos van a saltos; una diferencia menor de 1 s en el inicio no es pieza nueva; una respuesta que
+  tarda más de 2 s no ajusta el reloj.
+- **`rnjvpnjf`, versión aprobada (oculta 02:04:00–02:11:26 UTC, 7 min 26 s):** 8 relevos, 3 cuñas con la copia en
+  memoria, ninguna pieza recargada, ningún cuelgue ni corte de red. Lo que se oyó lo confirma Brian. Una sesión, en un teléfono.
+- **Ensayo en Chromium, que solo simula la pantalla apagada:** 2 cuñas en cada caso. Normal y con respuestas retrasadas
+  9 s: a su hora y sin recargas. Con el audio rechazado a propósito: la siguiente entra antes del corte, sin hueco.
+- **Sin probar:** iPhone/iPad y otros navegadores de Android con esta versión.
+- Evidencia: `reports/radio-solape-2026-11-02`.
+- **En staging (2026-11-03 UTC, solo código):** cliente `?v=crv-2026-11-03` y `media-src 'self' blob:` en el gateway.
+  Lista blanca 101/101 y pruebas del motor 11/11; la copia en memoria se reproduce con la CSP real. Por `http://127.0.0.1:3141`
+  YouTube no arranca, porque el reproductor declara el origen del dominio, así que no hay escucha completa en staging.
+- **Falta:** poner cruce de 3 s y cuña a 4,5 s en la configuración, primero en staging (la sombra lee esa configuración y
+  divergirá de Herra) y luego en producción con la `epoch` ajustada para no saltar. Publicar requiere autorización de Brian.
+
+**Vuelta atrás del gateway:** cambiar `4b2a3b4f` por `511bb437` en `WorkingDirectory` de
+`~/.config/systemd/user/crv-landing.service`, `systemctl --user daemon-reload` y reiniciar `crv-landing`.
+
 ## 9. Siguiente fase (Fase 4)
 
 Paquete de traspaso y runbook: código unificado y documentación reescrita (PostgreSQL, puertos,

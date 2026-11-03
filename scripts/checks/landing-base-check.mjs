@@ -1,7 +1,7 @@
 /* global document, window, getComputedStyle -- las funciones de page.evaluate corren en la página */
 // CRV · comprobación de la base 1.1.39 en la portada pública.
 //
-// Verifica que /crv/roadmap sirve los assets de 1.1.39 (radio.js y CSS con
+// Verifica que /crv/roadmap sirve el radio.js de CRV y los assets de 1.1.39 (CSS con
 // ?v=1.1.39), que la tarjeta de radio se pinta, que no hay errores de consola y
 // que no se pide /api/radio/diagnostic (CRV no la tiene hasta la Fase 3).
 // Escritorio 1440 y móvil 390, ES y EN.
@@ -59,7 +59,7 @@ for (const vista of [
     })(),
   }));
   report.datos[vista.nombre] = assets;
-  if (assets.radio.some((src) => /radio\.js\?v=1\.1\.39/.test(src ?? ""))) ok(`${vista.nombre}: radio.js de 1.1.39`);
+  if (assets.radio.some((src) => /radio\.js\?v=crv-2026-11-03/.test(src ?? ""))) ok(`${vista.nombre}: radio.js propio de CRV`);
   else fallo(`${vista.nombre}: radio.js`, JSON.stringify(assets.radio));
   if (assets.css.some((href) => /roadmap-public\.min\.css\?v=1\.1\.39/.test(href ?? ""))) ok(`${vista.nombre}: CSS de 1.1.39`);
   else fallo(`${vista.nombre}: CSS`, JSON.stringify(assets.css));

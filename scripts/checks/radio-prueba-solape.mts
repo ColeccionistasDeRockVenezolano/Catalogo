@@ -1,0 +1,120 @@
+// CRV · Fase 3: el cliente real de la radio, con el motor real y una emisión corta, en una página aislada.
+// No toca la radio, ni la base, ni el dominio, ni web/public: minifica src/landing/client/radio.js en memoria.
+//   canciones de 60 s, solape de 3 s y cuña cada 3 piezas, para ver varios relevos con la pantalla apagada.
+//
+//   npx tsx scripts/checks/radio-prueba-solape.mts --salida=dir [--puerto=3198] [--ruta=secreto] [--host=127.0.0.1]
+// Con --ruta, todo lo que no cuelgue de ella responde 404: sirve para exponerla un rato por un túnel.
+import { appendFileSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { createServer } from "node:http";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+import { radioSnapshot, type RadioStation } from "../../src/shared/radio/engine.js";
+import { minifyRadioClient } from "../build-radio-client.mjs";
+
+const raiz = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+const opcion = (nombre: string, defecto: string) => process.argv.find((a) => a.startsWith(`--${nombre}=`))?.split("=")[1] ?? defecto;
+const host = opcion("host", "127.0.0.1");
+const puerto = Number(opcion("puerto", "3198"));
+const salida = opcion("salida", "");
+const ruta = opcion("ruta", "") ? `/${opcion("ruta", "")}` : "";
+if (!salida) { console.error("falta --salida=dir"); process.exit(2); }
+mkdirSync(salida, { recursive: true });
+const registro = join(salida, "eventos.jsonl");
+
+const pieza = (videoId: string, startSeconds: number, trackNumber: number) => ({
+  videoId, title: `${videoId} desde ${startSeconds}`, artist: "Prueba", album: "Prueba", year: 2000, trackNumber,
+  startSeconds, durationSeconds: 60, available: true,
+});
+const catalogo = join(salida, "catalogo.json");
+writeFileSync(catalogo, JSON.stringify({
+  version: 3, generatedAt: new Date().toISOString(), availabilityCheckedAt: new Date().toISOString(), channelId: "prueba",
+  items: [pieza("KLXp1um-404", 20, 1), pieza("HJGiuG-jt9Q", 20, 1), pieza("wT3f-lFO-zY", 20, 1),
+    pieza("KLXp1um-404", 65, 2), pieza("HJGiuG-jt9Q", 85, 2), pieza("wT3f-lFO-zY", 85, 2)],
+}));
+const estacion: RadioStation = {
+  catalogPath: catalogo, epochMs: Date.now(), stationName: "Prueba", crossfadeSeconds: 3,
+  sweeper: { src: "radio/sweeper-v2.wav", durationSeconds: 13.404422, overlapSeconds: 6, leadSeconds: 4.5, everyPieces: 3 },
+};
+
+// Solo aquí: el cliente publica su rastro y sus reproductores para poder registrarlos.
+function instrumentar(fuente: string): string {
+  const sustituir = (a: string, b: string) => {
+    if (fuente.split(a).length !== 2) throw new Error(`no aparece una sola vez: ${a}`);
+    fuente = fuente.replace(a, () => b);
+  };
+  sustituir("  function trace(event, detail) {\n", "  function trace(event, detail) {\n    if (window.__traza) window.__traza(event, detail);\n");
+  sustituir("  var activeIndex = 0;\n", "  var activeIndex = 0;\n  window.__decks = function () { return { activo: activeIndex, decks: decks }; };\n");
+  return fuente;
+}
+const cliente = await minifyRadioClient(instrumentar(readFileSync(join(raiz, "src/landing/client/radio.js"), "utf8")));
+
+const pagina = `<!doctype html><html lang="es"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Prueba de radio</title><style>
+body{margin:0;padding:16px;background:#111;color:#eee;font:16px system-ui}button{font:inherit;padding:14px;margin:0 8px 12px 0;min-height:48px}
+.radio-card__screen{position:relative;width:100%;max-width:480px;height:200px;background:#000;margin-bottom:8px}
+.radio-card__screen iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0}
+.radio-card__screen iframe[data-radio-deck="active"]{z-index:1}
+.radio-card__screen iframe[data-radio-deck="standby"],.radio-card__screen iframe:not(#radioPlayer):not([data-radio-deck="active"]){opacity:0;pointer-events:none}
+pre{font-size:12px;white-space:pre-wrap}</style>
+<p>Toca Sintonizar, espera a que suene y apaga la pantalla. Canciones de 60 s, solape de 3 s, cuña cada 3 canciones.</p>
+<aside id="radio" data-radio-state="ready" data-radio-sweeper="true" data-radio-static-base="${ruta}/static" data-radio-live-label="Prueba" data-radio-project-name="Prueba"
+ data-radio-api="${ruta}/api/radio/now" data-radio-listener-api="${ruta}/api/radio/listener" data-radio-unavailable-api="${ruta}/api/radio/unavailable" data-radio-diagnostic-api="${ruta}/api/radio/diagnostic">
+<button type="button" data-radio-sync><span>Sintonizar</span></button><p data-radio-status></p>
+<div class="radio-card__screen"><div data-radio-identifier hidden><strong data-radio-identifier-next></strong></div>
+<iframe id="radioPlayer" title="Radio" data-src="https://www.youtube.com/embed/KLXp1um-404?enablejsapi=1&amp;playsinline=1&amp;rel=0&amp;autoplay=1&amp;controls=0&amp;fs=0&amp;disablekb=1&amp;iv_load_policy=3&amp;origin=__ORIGEN__" width="560" height="315" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+<p><b data-radio-title></b> <span data-radio-artist></span></p><p>Sigue: <span data-radio-next></span></p></aside><pre id="v"></pre>
+<script>
+const textos={"radio.sound":"Toca para activar el sonido","radio.muted":"En silencio: toca para activar el sonido","radio.join":"Sintonizar","radio.synced":"Sonando","radio.resync":"Volver al vivo","radio.ready":"Lista","radio.loading":"Cargando…","radio.shared":"Sonando","radio.identifier":"Cuña","radio.error":"Error","radio.paused":"En pausa","radio.reconnecting":"Reconectando…"};
+window.HerraI18n={t:(k)=>textos[k]||k};
+const sesion=Math.random().toString(36).slice(2,10);let pendientes=[];const v=document.getElementById("v");
+function enviar(){if(!pendientes.length)return;const lote=pendientes;pendientes=[];
+ fetch("${ruta}/eventos",{method:"POST",keepalive:true,headers:{"content-type":"application/json"},body:JSON.stringify(lote)}).catch(()=>{pendientes=lote.concat(pendientes)})}
+function ev(tipo,datos){const f={t:new Date().toISOString(),sesion,tipo,oculta:document.hidden,...datos};pendientes.push(f);v.textContent=f.t.slice(11,19)+" "+tipo+" "+JSON.stringify(datos||{}).slice(0,200)+"\\n"+v.textContent.slice(0,1500);enviar()}
+function foto(d){try{const p=d.player;return{estado:p.getPlayerState(),video:p.getVideoData().video_id,tiempo:Math.round(p.getCurrentTime()),cargado:Math.round(p.getVideoLoadedFraction()*100),mudo:p.isMuted(),vol:p.getVolume(),prep:!!d.prepared,cola:!!d.tailPlaying}}catch(e){return{}}}
+window.__traza=(tipo,datos)=>{if(tipo!=="silence_tick")ev("c:"+tipo,datos||{})};
+ev("carga",{ua:navigator.userAgent});
+for(const n of["visibilitychange","freeze","resume","pagehide","pageshow"])document.addEventListener(n,()=>ev(n));
+for(const n of["online","offline"])window.addEventListener(n,()=>ev(n));
+setInterval(()=>{const f=window.__decks&&window.__decks();if(f)ev("latido",{activo:f.activo,a:foto(f.decks[0]),b:foto(f.decks[1]),radio:document.getElementById("radio").getAttribute("data-radio-state")})},5000);
+const marco=document.getElementById("radioPlayer");marco.dataset.src=marco.dataset.src.replace("__ORIGEN__",encodeURIComponent(location.origin));
+</script><script src="${ruta}/radio.js"></script></html>`;
+
+const cuna = join(raiz, "web/public/landing/radio/sweeper-v2.wav");
+createServer((peticion, respuesta) => {
+  const url = (peticion.url ?? "").split("?")[0]!;
+  const json = (dato: unknown) => { respuesta.writeHead(200, { "content-type": "application/json", "cache-control": "no-store" }); respuesta.end(JSON.stringify(dato)); };
+  if (peticion.method === "POST") {
+    let cuerpo = "";
+    peticion.on("data", (trozo) => { if (cuerpo.length < 200000) cuerpo += trozo; });
+    peticion.on("end", () => {
+      if (url === `${ruta}/eventos`) {
+        try { for (const fila of JSON.parse(cuerpo)) appendFileSync(registro, `${JSON.stringify(fila)}\n`); } catch { respuesta.writeHead(400); return respuesta.end(); }
+        respuesta.writeHead(204); return respuesta.end();
+      }
+      if (url === `${ruta}/api/radio/listener`) return json({ listeners: 1 });
+      if (url === `${ruta}/api/radio/unavailable`) { appendFileSync(registro, `${JSON.stringify({ t: new Date().toISOString(), tipo: "aviso_no_disponible", cuerpo })}\n`); return json({ excluded: false }); }
+      if (url === `${ruta}/api/radio/diagnostic`) { appendFileSync(registro, `${JSON.stringify({ t: new Date().toISOString(), tipo: "diagnostico", cuerpo: cuerpo.slice(0, 20000) })}\n`); return json({ ok: true }); }
+      respuesta.writeHead(404); respuesta.end();
+    });
+    return;
+  }
+  if (url === `${ruta}/`) {
+    respuesta.writeHead(200, { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" });
+    return respuesta.end(pagina);
+  }
+  if (url === `${ruta}/radio.js`) { respuesta.writeHead(200, { "content-type": "text/javascript", "cache-control": "no-store" }); return respuesta.end(cliente); }
+  if (url === `${ruta}/api/radio/now`) return json(radioSnapshot(estacion, Date.now(), 1));
+  if (url === `${ruta}/static/radio/sweeper-v2.wav`) {
+    const datos = readFileSync(cuna), total = statSync(cuna).size;
+    const rango = /bytes=(\d+)-(\d*)/u.exec(peticion.headers.range ?? "");
+    if (rango) {
+      const inicio = Number(rango[1]), fin = rango[2] ? Number(rango[2]) : total - 1;
+      respuesta.writeHead(206, { "content-type": "audio/wav", "accept-ranges": "bytes", "content-range": `bytes ${inicio}-${fin}/${total}`, "content-length": fin - inicio + 1 });
+      return respuesta.end(datos.subarray(inicio, fin + 1));
+    }
+    respuesta.writeHead(200, { "content-type": "audio/wav", "accept-ranges": "bytes", "content-length": total });
+    return respuesta.end(datos);
+  }
+  respuesta.writeHead(404); respuesta.end();
+}).listen(puerto, host, () => console.log(`http://${host}:${puerto}${ruta}/`));
