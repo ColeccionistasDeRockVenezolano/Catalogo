@@ -92,12 +92,16 @@ describe("cuentas unificadas: importación y sesiones PostgreSQL", () => {
 
   it("mantiene contraseñas, roles y alcance del proyecto",async () => {
     expect((await login("BRIAN")).json().user.role).toBe("admin");
-    expect((await login("pedro")).json().user.role).toBe("reader");
+    // 9eefc2b8: quien fue promovido (aquí «vinculado» ↔ Pedro) entra con su rol de administración, también en el catálogo.
+    expect((await login("pedro")).json().user.role).toBe("admin");
+    // Un colaborador sin promoción sigue siendo lector.
+    await getPool().query("INSERT INTO auth.users (project_id,name,status,access_code_hash) SELECT project_id,'Lector','approved',access_code_hash FROM auth.users WHERE id=1");
+    expect((await login("lector")).json().user.role).toBe("reader");
     expect((await login("local")).json().user.role).toBe("admin");
     expect((await login("jefe")).json().user.role).toBe("admin");
     expect((await login("pendiente")).statusCode).toBe(401);
     expect((await login("ajeno")).statusCode).toBe(401);
-    const reader = await login("pedro");
+    const reader = await login("lector");
     expect((await app.inject({method:"POST",url:"/edit",headers:{cookie:cookie(reader),"x-crv-csrf":reader.json().csrf}})).statusCode).toBe(403);
   });
 
