@@ -32,7 +32,7 @@ PASSWORD="restore-check-$$"
 OWNER="$(manifest db_owner)"
 DATABASE="$(manifest db_name)"
 WORK="$(mktemp -d "${TMPDIR:-/tmp}/crv-restore-check.XXXXXX")"
-cleanup() { docker rm -f "$NAME" >/dev/null 2>&1 || true; rm -rf "$WORK"; }
+cleanup() { docker rm -f -v "$NAME" >/dev/null 2>&1 || true; rm -rf "$WORK"; }
 trap cleanup EXIT
 
 say "1/5 PostgreSQL desechable ($IMAGE en 127.0.0.1:$PORT)"
