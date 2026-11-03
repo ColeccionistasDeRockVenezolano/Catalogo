@@ -78,7 +78,8 @@ describe("apariencia compartida del catálogo", () => {
       expect(saved.statusCode).toBe(200);
       expect(saved.json()).toEqual({ catalogTheme, updatedAt: expect.any(String) });
       expect((await app.inject("/site-appearance")).json()).toEqual(saved.json());
-      expect((await getPool().query("SELECT updated_by FROM ingest.site_appearance")).rows[0]).toEqual({ updated_by: "Admin Temas" });
+      // aa562976: el rastro de auditoría guarda el usuario, no el nombre visible.
+      expect((await getPool().query("SELECT updated_by FROM ingest.site_appearance")).rows[0]).toEqual({ updated_by: "theme.admin" });
       expect(saved.json()).not.toHaveProperty("updatedBy");
     }
     expect((await app.inject({ method: "PATCH", url: "/site-appearance", headers, payload: { catalogTheme: "invalid" } })).statusCode).toBe(400);
