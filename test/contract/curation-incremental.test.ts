@@ -150,7 +150,7 @@ describe("análisis incremental de Curaduría (E9)", () => {
     console.log([`E9.5 · ${loaded.rows} filas (${loaded.artists} artistas, ${loaded.persons} personas, ${loaded.albums} discos, ${loaded.tracks} pistas)`,
       line("  completo en frío", cold), line("  completo de régimen", warm), line("  dirigido", directed)].join("\n"));
 
-    expect(warm.durationMs).toBeLessThan(5_000);
+    expect(warm.durationMs).toBeLessThan(Number(process.env["CRV_E95_WARM_MAX_MS"] ?? 5_000));
     expect(directed.durationMs).toBeLessThan(1_000);
   }, 300_000);
 });

@@ -25,6 +25,8 @@ concurrency:
 # el runner carga un inventario de fuentes mínimo para que API y pruebas arranquen.
 env:
   CRV_SOURCE_INVENTORY: ${{ github.workspace }}/test/fixtures/source-inventory-ci.json
+  # E9.5 (curation-incremental): 5 s en local; el runner compartido midió 5,5 s y 6,9 s, se admite 10 s.
+  CRV_E95_WARM_MAX_MS: "10000"
 
 jobs:
   calidad:
