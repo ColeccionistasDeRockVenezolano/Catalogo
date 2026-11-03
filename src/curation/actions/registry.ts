@@ -26,16 +26,20 @@ export const FIX_ACTIONS: readonly AnyFixAction[] = [
   ...TEXTUAL_ACTIONS.map(erase),
   ...STRUCTURAL_ACTIONS.map(erase),
   erase(mergeAction),
-  ...(getEnv().CRV_CURATION_AI_VERDICTS ? [erase(verifyIdentityAction)] : []),
+  erase(verifyIdentityAction),
   erase(distinctAction),
   erase(autoDistinctAction),
 ];
 
-const BY_KEY = new Map(FIX_ACTIONS.map((action) => [action.key, action]));
+/** El interruptor `CRV_CURATION_AI_VERDICTS` se lee al consultar, no al importar el módulo (así importarlo no exige entorno). */
+function isEnabled(action: AnyFixAction): boolean {
+  return action.key !== verifyIdentityAction.key || getEnv().CRV_CURATION_AI_VERDICTS;
+}
 const DETECTORS = new Map(DETECTOR_DEFINITIONS.map((detector) => [detector.key, detector]));
 
 export function getFixAction(key: string): AnyFixAction | undefined {
-  return BY_KEY.get(key);
+  const action = FIX_ACTIONS.find((candidate) => candidate.key === key);
+  return action && isEnabled(action) ? action : undefined;
 }
 
 /** Claves que el detector declara para ese subgrupo (las del subgrupo y las de `*`, sin repetir). */
@@ -48,7 +52,7 @@ export function declaredActions(detector: string, signature: string): string[] {
 /** Acciones que se ofrecen sobre el hallazgo, en el orden en que el detector las declara: la primera es la recomendada. */
 export function applicableActions(finding: ActionFinding): AnyFixAction[] {
   return declaredActions(finding.detector, finding.signature)
-    .map((key) => BY_KEY.get(key))
+    .map((key) => getFixAction(key))
     .filter((action): action is AnyFixAction => action !== undefined && action.appliesTo(finding));
 }
 
