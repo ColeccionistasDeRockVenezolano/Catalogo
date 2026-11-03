@@ -98,7 +98,7 @@ export async function renderLanding(page: LandingPage, lang: LandingLanguage, to
   const langOptions = (["es", "en"] as const).map((code) => ({ code, label: code.toUpperCase(), name: code === "es" ? "Español" : "English", current: code === lang, url: `/${page === "admin" ? (landingMode ? "admin" : "curaduria/roadmap") : page}?lang=${code}${token ? `&token=${encodeURIComponent(token)}` : ""}` }));
   const locals = {
     ...data, lang, t, langOptions, ogLocale: lang === "es" ? "es_ES" : "en_US", publicCriticalCss,
-    assetVersion: "1.1.39", radioClientVersion: "crv-2026-11-03", basePath: "", projectBase: "", pageOrigin: origin, canonicalUrl: `${origin}/${page === "roadmap" ? "" : page}`,
+    assetVersion: "1.1.39", radioClientVersion: "crv-2026-11-03b", basePath: "", projectBase: "", pageOrigin: origin, canonicalUrl: `${origin}/${page === "roadmap" ? "" : page}`,
     showLoginLinks: data.project.show_login === 1, showVisitCounter: data.project.visitor_counter === 1,
     visibilityMode: session ? "full" : data.project.visibility_mode, isAdmin: false, projectAdmin, currentUser,
     landingMode,

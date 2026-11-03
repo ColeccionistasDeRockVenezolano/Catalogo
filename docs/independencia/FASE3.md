@@ -291,10 +291,33 @@ ni los demás experimentos.
 - **En staging (2026-11-03 UTC, solo código):** cliente `?v=crv-2026-11-03` y `media-src 'self' blob:` en el gateway.
   Lista blanca 101/101 y pruebas del motor 11/11; la copia en memoria se reproduce con la CSP real. Por `http://127.0.0.1:3141`
   YouTube no arranca, porque el reproductor declara el origen del dominio, así que no hay escucha completa en staging.
-- **Falta:** poner cruce de 3 s y cuña a 4,5 s en la configuración, primero en staging (la sombra lee esa configuración y
-  divergirá de Herra) y luego en producción con la `epoch` ajustada para no saltar. Publicar requiere autorización de Brian.
+- **Publicado en producción con autorización de Brian (2026-11-03 02:21 UTC):** API y gateway en
+  `/mnt/datos/crv-release/8233db48`. Configuración en `auth.project_features`: cruce 3 s, cuña a 4,5 s y época
+  `2026-09-07T12:19:47.774Z` (antes `2026-09-07T19:09:18.774Z`, cruce 4 s, cuña a 6 s). La pieza en curso conservó su
+  hora de inicio. Por el dominio: `media-src`, cliente `?v=crv-2026-11-03` y lista blanca 101/101. Staging quedó con los
+  mismos valores y `CRV_RADIO_SOURCE=crv`.
+- **Sombra apagada el 2026-11-03 por decisión de Brian:** `crv-radio-sombra.timer` deshabilitado, ya no coincide con Herra.
+- **Escucha automática por el dominio tras publicar (Chromium móvil):** visible 15/15 y oculta simulada 17/17, con una
+  cuña en cada una. Evidencia: `reports/radio-publicada-2026-11-03`.
+- **Ensayo con la forma del corte (`:3152`, API dueña con estado propio y catálogo de staging):** `radio-crv-browser.mjs`
+  48/48 y lista blanca 101/101. El primer intento dio 45/48: `crv-web-staging` seguía con la CSP anterior y bloqueaba la
+  copia de la cuña dentro del iframe; pasó al reiniciarlo. **Al publicar el catálogo, `crv-web` debe tomar esta CSP y este cliente.**
+- **Fallo por el dominio tras publicar (2026-11-03, Brave Android, sesiones `dbe98c2bf33c` y `5966bc2789ac`):** la radio se paró en la
+  siguiente música y solo volvió al encender la pantalla (hasta 479 s de silencio). La aprobación anterior («quedó perfecto»,
+  sesión `rnjvpnjf`) usó piezas de 60 s: la preparación ocurría con la página visible y ocultó el fallo. Con canciones reales ocurre
+  ya oculta, y Brave no deja arrancar con la página oculta un reproductor que nunca sonó (se queda en `unstarted`).
+- **Arreglo `everPlayed`:** la primera preparación del segundo reproductor se hace mientras la página se ve, sin esperar al final de
+  la canción; uno que ya sonó sí prepara oculto. **Aprobado por Brian** («Funcionó perfectamente», sesión `1lvlhlbj`, canciones reales,
+  página de prueba): 21 min 17 s oculta, 5 relevos, 2 cuñas, sin `stuck_reload`; preparaciones ocultas cada ~5 min, con 41 s en pausa. Evidencia:
+  `reports/radio-solape-largo-2026-11-03`. La preparación tarda unos 4 s desde que empieza a sonar y en esta sesión terminó 1 s antes de apagar la pantalla; apagarla antes de eso está sin probar.
+- **En staging con cliente `crv-2026-11-03b`:** `radio-crv-browser.mjs` 48/48 (`reports/radio-publicacion-b`), lista blanca 101/101 y
+  `landing-base-check.mjs` 32/32. Esa comprobación dejó de esperar `networkidle`, que YouTube impide llegar a veces, también en producción. Un aviso
+  `compute-pressure` en consola apareció en 1 de 4 pasadas; origen sin identificar.
+- **Sin publicar en producción:** el dominio sigue con `8233db48`, sin el arreglo, y por eso aún se para en Brave con la pantalla apagada.
+- **Vuelta atrás:** copiar `~/apps/crv-landing/unidades-antes-8233db48/*` sobre `~/.config/systemd/user/`,
+  `daemon-reload`, reiniciar `crv-api-landing` y `crv-landing`, y restaurar en la base los tres valores anteriores.
 
-**Vuelta atrás del gateway:** cambiar `4b2a3b4f` por `511bb437` en `WorkingDirectory` de
+**Vuelta atrás del gateway `4b2a3b4f` (ya sustituido por `8233db48`):** cambiar `4b2a3b4f` por `511bb437` en `WorkingDirectory` de
 `~/.config/systemd/user/crv-landing.service`, `systemctl --user daemon-reload` y reiniciar `crv-landing`.
 
 ## 9. Siguiente fase (Fase 4)

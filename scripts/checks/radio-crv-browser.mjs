@@ -112,8 +112,11 @@ if (CATALOGO) {
     await ctx.route(`${PUBLICO}${catalogoUrl.pathname}/**`, async (ruta) => {
       const peticion = ruta.request();
       const url = new URL(peticion.url());
-      const respuesta = await ruta.fetch({ url: `${catalogoUrl.origin}${url.pathname}${url.search}`, headers: { ...peticion.headers(), origin: catalogoUrl.origin, host: catalogoUrl.host } });
-      await ruta.fulfill({ response: respuesta });
+      // Al cerrar la hoja quedan peticiones en vuelo: su fallo no dice nada de la radio.
+      try {
+        const respuesta = await ruta.fetch({ url: `${catalogoUrl.origin}${url.pathname}${url.search}`, headers: { ...peticion.headers(), origin: catalogoUrl.origin, host: catalogoUrl.host } });
+        await ruta.fulfill({ response: respuesta });
+      } catch { await ruta.abort().catch(() => undefined); }
     });
     await hoja.goto(`${PUBLICO}${catalogoUrl.pathname}/radio`, { waitUntil: "load" });
     const iframe = hoja.locator("iframe.radio-embed__frame");

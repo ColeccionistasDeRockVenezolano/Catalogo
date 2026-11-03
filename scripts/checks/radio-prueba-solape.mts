@@ -21,15 +21,17 @@ if (!salida) { console.error("falta --salida=dir"); process.exit(2); }
 mkdirSync(salida, { recursive: true });
 const registro = join(salida, "eventos.jsonl");
 
-const pieza = (videoId: string, startSeconds: number, trackNumber: number) => ({
-  videoId, title: `${videoId} desde ${startSeconds}`, artist: "Prueba", album: "Prueba", year: 2000, trackNumber,
-  startSeconds, durationSeconds: 60, available: true,
+// Canciones reales del catálogo: con piezas cortas la preparación ocurre con la página
+// visible y no se ve el fallo del segundo reproductor que nunca sonó.
+const pieza = (videoId: string, startSeconds: number, durationSeconds: number) => ({
+  videoId, title: `${videoId} desde ${startSeconds}`, artist: "Prueba", album: "Prueba", year: 2000, trackNumber: 1,
+  startSeconds, durationSeconds, available: true,
 });
 const catalogo = join(salida, "catalogo.json");
 writeFileSync(catalogo, JSON.stringify({
   version: 3, generatedAt: new Date().toISOString(), availabilityCheckedAt: new Date().toISOString(), channelId: "prueba",
-  items: [pieza("KLXp1um-404", 20, 1), pieza("HJGiuG-jt9Q", 20, 1), pieza("wT3f-lFO-zY", 20, 1),
-    pieza("KLXp1um-404", 65, 2), pieza("HJGiuG-jt9Q", 85, 2), pieza("wT3f-lFO-zY", 85, 2)],
+  items: [pieza("rlbxuNzpC9s", 4338, 370), pieza("prWDFZjEil8", 2066, 260), pieza("H3_vxhva6Gg", 2083, 301),
+    pieza("BAThGeGAQLQ", 1010, 332), pieza("gBlx_BpQ1ug", 1683, 295), pieza("y1FxXyO1RMc", 799, 277)],
 }));
 const estacion: RadioStation = {
   catalogPath: catalogo, epochMs: Date.now(), stationName: "Prueba", crossfadeSeconds: 3,

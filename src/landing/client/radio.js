@@ -1710,7 +1710,10 @@
     if (deck.key === key || deck.tailPlaying) return;
     // El activo ya suena esa pieza (entró antes de su hora, con la pantalla apagada).
     if (activeDeck().key === key) return;
-    if (Date.parse(snapshot.endsAt) - serverNow() > PREPARE_LEAD_MS) return;
+    // Android no deja arrancar con la página oculta un reproductor que nunca sonó: la
+    // primera preparación se hace mientras se ve, sin esperar al final de la canción.
+    var firstWhileVisible = !deck.everPlayed && !document.hidden && stateOf(activeDeck()) === PLAYING;
+    if (!firstWhileVisible && Date.parse(snapshot.endsAt) - serverNow() > PREPARE_LEAD_MS) return;
     deck.key = key;
     deck.videoId = next.videoId;
     deck.startSeconds = next.startSeconds;
@@ -2130,6 +2133,7 @@
 
   function onDeckState(deck, event) {
     var state = event.data;
+    if (state === PLAYING) deck.everPlayed = true;
     trace('yt', { d: deckIndex(deck), s: YT_STATE_NAMES[String(state)] || state, a: deck === activeDeck() ? 1 : 0 });
     if (deck !== activeDeck()) {
       // Una saliente en cruce sigue sonando su último tramo con el fundido ya

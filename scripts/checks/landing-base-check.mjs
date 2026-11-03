@@ -34,14 +34,14 @@ for (const vista of [
   page.on("pageerror", (error) => errores.push(`pageerror: ${String(error).slice(0, 160)}`));
   page.on("console", (message) => {
     // El 401 de /auth/me antes de entrar es la comprobación normal del shell.
-    if (message.type() === "error" && !/401 \(Unauthorized\)/.test(message.text())) errores.push(message.text().slice(0, 160));
+    if (message.type() === "error" && !/401 \(Unauthorized\)/.test(message.text())) errores.push(`${message.text().slice(0, 160)} [${message.location().url.slice(0, 80)}]`);
   });
   page.on("response", (respuesta) => {
     if (respuesta.status() >= 400) peticiones.push(`${respuesta.status()} ${respuesta.url().replace(BASE, "")}`);
   });
 
-  const respuesta = await page.goto(`${BASE}/crv/roadmap?lang=${vista.lang}`, { waitUntil: "networkidle" });
-  await page.waitForTimeout(900);
+  const respuesta = await page.goto(`${BASE}/crv/roadmap?lang=${vista.lang}`, { waitUntil: "load" });
+  await page.waitForTimeout(3000);
   if (respuesta?.status() === 200) ok(`${vista.nombre}: portada 200`); else fallo(`${vista.nombre}: portada`, respuesta?.status());
 
   const assets = await page.evaluate(() => ({
@@ -59,7 +59,7 @@ for (const vista of [
     })(),
   }));
   report.datos[vista.nombre] = assets;
-  if (assets.radio.some((src) => /radio\.js\?v=crv-2026-11-03/.test(src ?? ""))) ok(`${vista.nombre}: radio.js propio de CRV`);
+  if (assets.radio.some((src) => /radio\.js\?v=crv-2026-11-03b/.test(src ?? ""))) ok(`${vista.nombre}: radio.js propio de CRV`);
   else fallo(`${vista.nombre}: radio.js`, JSON.stringify(assets.radio));
   if (assets.css.some((href) => /roadmap-public\.min\.css\?v=1\.1\.39/.test(href ?? ""))) ok(`${vista.nombre}: CSS de 1.1.39`);
   else fallo(`${vista.nombre}: CSS`, JSON.stringify(assets.css));
