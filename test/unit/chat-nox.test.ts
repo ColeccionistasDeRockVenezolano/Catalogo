@@ -7,13 +7,14 @@ import { rarityOf } from "../../src/chat/rarity.js";
 import { bloodfallAnchors } from "../../web/src/lib/bloodfall.js";
 
 describe("colección NOX", () => {
-  it("conserva los once efectos en las tres superficies y sus monedas y rarezas", () => {
-    expect(NOX_PRESETS).toHaveLength(11);
-    expect(NOX_PRODUCTS).toHaveLength(33);
-    expect(new Set(NOX_PRODUCTS.map(p => p.code)).size).toBe(33);
+  // 49bab941 añadió «bats» (enjambre de murciélagos), solo nombre: doce efectos, 34 productos.
+  it("conserva los doce efectos en sus superficies y sus monedas y rarezas", () => {
+    expect(NOX_PRESETS).toHaveLength(12);
+    expect(NOX_PRODUCTS).toHaveLength(34);
+    expect(new Set(NOX_PRODUCTS.map(p => p.code)).size).toBe(34);
     for (const effect of NOX_EFFECTS) {
       const products = NOX_PRODUCTS.filter(p => p.manifest.nox?.preset === effect.id);
-      expect(products.map(p => p.kind)).toEqual(["name", "frame", "bubble"]);
+      expect(products.map(p => p.kind)).toEqual("kinds" in effect ? effect.kinds : ["name", "frame", "bubble"]);
       for (const product of products) {
         const parsed = effectPublicationSchema.parse(product);
         expect(effectProductSchema.parse(parsed).manifest.nox?.preset).toBe(effect.id);
