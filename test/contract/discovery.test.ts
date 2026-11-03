@@ -12,6 +12,7 @@ import { withOperatorRun } from "../../src/merge/operator.js";
 import { undoRunWithJournal } from "../../src/merge/journal-undo.js";
 import { mergeInto } from "../../src/review/duplicates.js";
 import type { FastifyInstance } from "fastify";
+import { warmSearchIndex } from "../../src/api/search-index.js";
 
 describe("descubrimiento editorial: contrato, curaduría, migración e integridad", () => {
  let pg: PgContainer, app: FastifyInstance, id: number, other: number, evidence: number, source: number;
@@ -34,6 +35,10 @@ describe("descubrimiento editorial: contrato, curaduría, migración e integrida
      VALUES($1,'artist','qa','biography','"Banda venezolana"','"Banda venezolana"',repeat('a',64),'qa','1',$2) RETURNING id`, [source,id])).rows[0].id);
    evidence = Number((await p.query("INSERT INTO ingest.claim_evidence(claim_id,url,excerpt,evidence_hash) VALUES($1,'https://example.org/qa','Banda venezolana formada en Caracas en 1980',repeat('b',64)) RETURNING id", [claim])).rows[0].id);
    app = await buildApp();
+   // buildApp lanza en segundo plano la carga del índice de búsqueda (varias consultas en paralelo). Si sigue en
+   // curso cuando la primera prueba hace DROP/CREATE de las tablas de la 0052, ambas se bloquean entre sí
+   // (40P01 «deadlock detected», CI 41696752473). Se espera a que termine antes de empezar.
+   await warmSearchIndex();
  });
  afterAll(async () => { await app?.close(); await closeDb(); delete process.env["CRV_DISCOVERY_ENABLED"]; delete process.env["CRV_CURATION_AUTOSCAN"]; resetEnvCache(); await pg?.stop(); });
  it("migración SQL repetible; runner idempotente; rollback específico conserva public", async () => {
