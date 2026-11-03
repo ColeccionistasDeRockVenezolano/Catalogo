@@ -425,7 +425,9 @@ atrás o la Fase 3. Si el panel falla, se vuelve atrás.
 
 ---
 
-**Árbol vigente del gateway desde el 2026-11-02:** `449158c3` (solo la corrección de `/landing/<sin archivo>`). Para volver atrás: `775457e7`.
+**Árbol vigente de API y gateway desde el 2026-11-02 14:56 UTC:** `511bb437`, con la radio ya en CRV ([FASE3.md](FASE3.md) §8). Para volver atrás: API `810fa51a`, gateway `449158c3`.
+
+**Gateway vigente desde el 2026-11-02:** `4b2a3b4f` (`Referer` igual a Herra, cuña `audio/wav` con rangos y 271 banderas; [FASE3.md](FASE3.md) §8). La API sigue en `511bb437`. Para volver atrás el gateway: `511bb437`.
 
 ## 14. Observación (72 h)
 

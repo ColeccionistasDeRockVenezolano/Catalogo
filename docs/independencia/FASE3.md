@@ -302,13 +302,14 @@ ni los demás experimentos.
 - **Ensayo con la forma del corte (`:3152`, API dueña con estado propio y catálogo de staging):** `radio-crv-browser.mjs`
   48/48 y lista blanca 101/101. El primer intento dio 45/48: `crv-web-staging` seguía con la CSP anterior y bloqueaba la
   copia de la cuña dentro del iframe; pasó al reiniciarlo. **Al publicar el catálogo, `crv-web` debe tomar esta CSP y este cliente.**
-- **Fallo por el dominio tras publicar (2026-11-03, Brave Android, sesiones `dbe98c2bf33c` y `5966bc2789ac`):** la radio se paró en la
+- **Fallo por el dominio tras publicar (2026-11-03, ~03:38–03:40 UTC, Brave Android, sesiones `dbe98c2bf33c` y `5966bc2789ac`):** la radio se paró en la
   siguiente música y solo volvió al encender la pantalla (hasta 479 s de silencio). La aprobación anterior («quedó perfecto»,
   sesión `rnjvpnjf`) usó piezas de 60 s: la preparación ocurría con la página visible y ocultó el fallo. Con canciones reales ocurre
   ya oculta, y Brave no deja arrancar con la página oculta un reproductor que nunca sonó (se queda en `unstarted`).
 - **Arreglo `everPlayed`:** la primera preparación del segundo reproductor se hace mientras la página se ve, sin esperar al final de
   la canción; uno que ya sonó sí prepara oculto. **Aprobado por Brian** («Funcionó perfectamente», sesión `1lvlhlbj`, canciones reales,
-  página de prueba): 21 min 17 s oculta, 5 relevos, 2 cuñas, sin `stuck_reload`; preparaciones ocultas cada ~5 min, con 41 s en pausa. Evidencia:
+  página de prueba): 21 min 17 s oculta, 5 relevos, 2 cuñas, sin `stuck_reload`; preparaciones ocultas cada ~5 min, con 41 s en pausa. Esa aprobación no cubrió una pausa larga
+  del segundo reproductor: `98773c06` falló después por el dominio (ver el tramo final de esta sección). Evidencia:
   `reports/radio-solape-largo-2026-11-03`. La preparación tarda unos 4 s desde que empieza a sonar y en esta sesión terminó 1 s antes de apagar la pantalla; apagarla antes de eso está sin probar.
 - **En staging con cliente `crv-2026-11-03b`:** `radio-crv-browser.mjs` 48/48 (`reports/radio-publicacion-b`), lista blanca 101/101 y
   `landing-base-check.mjs` 32/32. Esa comprobación dejó de esperar `networkidle`, que YouTube impide llegar a veces, también en producción. Un aviso
@@ -316,11 +317,66 @@ ni los demás experimentos.
 - **Publicado en producción con autorización de Brian (2026-11-03 03:4x UTC, release `98773c06`, API y gateway):** `/mnt/datos/crv-release/98773c06`,
   sin cambios en la configuración y sin salto de canción. Por el dominio: cliente `?v=crv-2026-11-03b` con el arreglo, `media-src 'self' blob:` y lista blanca 101/101.
 - **Error 153 en iPad: descartado por Brian (2026-11-03):** el error que había mostrado ya no aparece y la radio suena con normalidad en su iPad.
-- **Sin comprobar en el dominio:** escucha de Brian en Brave con la pantalla apagada.
+- **Escucha de Brian por el dominio:** falló; ver «Del fallo de `98773c06` a `6cf055b8`».
 - **Vuelta atrás a `8233db48`:** copiar `~/apps/crv-landing/unidades-antes-98773c06/*` sobre `~/.config/systemd/user/`, `daemon-reload` y reiniciar
   `crv-api-landing` y `crv-landing`. La base no cambió.
 - **Vuelta atrás:** copiar `~/apps/crv-landing/unidades-antes-8233db48/*` sobre `~/.config/systemd/user/`,
   `daemon-reload`, reiniciar `crv-api-landing` y `crv-landing`, y restaurar en la base los tres valores anteriores.
+
+### Del fallo de `98773c06` a `6cf055b8` (2026-11-03)
+
+**Fallo de `98773c06` (sesión `8a5b6d579ebb`, 03:47 UTC, Brave Android por el dominio):** con el reproductor en pausa 4 min 22 s,
+`playVideo` no lo arrancó y hubo silencio.
+
+**`610c95b4` (cliente `crv-2026-11-03c`, publicado con autorización de Brian):** `warmStandby` (1 s de reproducción muda cada 60 s para
+el reproductor en espera), comprobación del relevo oculto con recarga (`confirmSwap`, `swap_reload`) e informes `hidden_relay` y
+`report.gesture`. **No lo resolvió:** en la sesión `a5a16ccdecbf` falló tras solo 54 s en pausa y con calentamiento, sin gesto
+(`gesture: false`). Eso descartó la pausa larga como explicación general y apuntó a la falta de gesto.
+
+**Causa: permiso de sonido.** Una pestaña nueva sin gesto completo no puede sonar: al quitarle el silencio, el navegador pausa el
+video, y un `<audio>` propio da `NotAllowedError`. Deslizar no era gesto completo, porque el desplazamiento nativo acaba en
+`pointercancel`. Con `touch-action` restringido el mismo deslizamiento acaba en `pointerup` con `userActivation.isActive`
+(comprobado por CDP y en el teléfono).
+
+**Lección de método, conclusión probable y no demostrada:** una recarga en una pestaña ya tocada hereda el permiso, y eso explicaría
+por qué las pruebas parecían demostrar que Brave deja sonar sin gesto. La sesión `x54d9934`, la que falló, fue a la vez la primera en
+pestaña nueva y la primera con el CSS `is-sweeper`, así que la prueba no separa ambos factores. **Regla:** las pruebas de sonido se
+hacen en pestaña o navegador nuevos.
+
+**`6cf055b8` (cliente `crv-2026-11-03e`):**
+- `src/landing/client/first-touch.js` (`/landing/radio-first-touch.js`, archivo externo por la CSP): solo Android, ventana superior y
+  sin activación previa. Hasta el primer gesto desplaza la página con el dedo y con inercia; después vuelve el desplazamiento nativo.
+  Desktop y iPhone no pasan por él. El iframe `/radio-embed` no lo lleva.
+- El sonido se abre al terminar el gesto y no en `pointerdown`, que pausaba la música (sesión `386vw64y`); un repaso por segundo lo
+  abre si la activación llegó por otra vía.
+- Con el permiso heredado, la música suena sin gesto (`quiet_unmute`) y la cuña va por un tercer reproductor de YouTube
+  (`sweeper.videoId`, `videoStartSeconds`). Video: `MPIwJFKsjVE`.
+- La clave de la pieza tolera 1 ms: el error recargaba el reproductor correcto con la pantalla apagada.
+- `scripts/checks/radio-sin-gesto-check.mjs`: un navegador nuevo por escenario. `radio-prueba-solape.mts?bloqueado` imita el bloqueo del
+  teléfono, porque Brave sin pantalla bloquea el `<audio>` pero no quitar el silencio al iframe de YouTube.
+
+**Aprobación en la página de prueba:** sesión `v6zz5o2r`, pestaña nueva, silencio antes de deslizar, `sound_unlock pointerup active:1`,
+cuñas con y sin pantalla, y todos los relevos con `early:0`. Brian: «Todo salió bien». Evidencia: `reports/radio-sin-gesto-2026-11-03`.
+
+**Publicado en producción con autorización de Brian (2026-11-03 ~16:16 UTC, API y gateway en `/mnt/datos/crv-release/6cf055b8`):**
+`sweeper.videoId` añadido a `auth.project_features` a las 16:17 UTC; staging tiene el mismo ID. Por el dominio: lista blanca 102/102,
+`landing-base-check` 32/32 y `radio-reproductor-dominio` 15/15 con una cuña (Chromium, no prueba Android). Evidencia:
+`reports/radio-publicada-6cf055b8`.
+
+**Escucha de Brian por el dominio, Brave en Android (sesión `7a2e7373f4cf`, 16:21–16:53 UTC, ~31 min):** «hasta el momento quedó muy bien» y
+después «Doy esto como cerrado y superado». En los informes enviados: `sound_unlock pointerup active:1`, 3 cuñas (2 ocultas con `bg_sweeper_on`,
+1 visible con `sweeper_start`), 9 relevos (5 ocultos) con `early:0`, pausas previas de 35–44 s y ninguna recarga, `warm_fail` ni corte de red.
+Esta medición no cubre Brave de desktop: Brian no detalló esa parte y sin relevos ocultos no hay informes.
+
+**Cerrado:** página de prueba y túnel `:8443` retirados; evidencia publicada en el almacén.
+
+**Sigue sin probar o sin decidir:** iPhone/iPad y otros navegadores de Android con este cliente; control desde la pantalla de bloqueo
+dentro del iframe del catálogo; origen del aviso `compute-pressure`. Una pestaña nueva sigue en silencio hasta el primer gesto: es la
+regla del navegador.
+
+**Vuelta atrás a `610c95b4`:** copiar `~/apps/crv-landing/unidades-antes-6cf055b8/*.service` sobre `~/.config/systemd/user/`,
+`daemon-reload` y reiniciar `crv-api-landing` y `crv-landing`. La configuración anterior está en
+`~/apps/crv-landing/unidades-antes-6cf055b8/radio-config-antes-videoId.json`. Sin `videoId` la cuña por el tercer reproductor no se usa.
 
 **Vuelta atrás del gateway `4b2a3b4f` (ya sustituido por `8233db48`):** cambiar `4b2a3b4f` por `511bb437` en `WorkingDirectory` de
 `~/.config/systemd/user/crv-landing.service`, `systemctl --user daemon-reload` y reiniciar `crv-landing`.
