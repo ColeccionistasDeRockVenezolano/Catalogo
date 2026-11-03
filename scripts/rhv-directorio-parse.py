@@ -52,12 +52,19 @@ def strip_end(text: str) -> str:
 def split_list(value: str) -> list[str]:
     """Separa por comas fuera de paréntesis/comillas; el último «y X» también separa."""
     out, depth, buf = [], 0, []
-    for ch in value:
-        if ch in "(«[":
+    quoted = False
+    for i, ch in enumerate(value):
+        # Una comilla angular sin cierre aparece en algunas fichas. No debe
+        # tragarse todos los intérpretes posteriores de la lista.
+        if ch == "«" and not quoted and "»" in value[i + 1:]:
+            quoted = True
+        elif ch == "»" and quoted:
+            quoted = False
+        elif ch in "([":
             depth += 1
-        elif ch in ")»]":
+        elif ch in ")]":
             depth = max(0, depth - 1)
-        if ch == "," and depth == 0:
+        if ch == "," and depth == 0 and not quoted:
             out.append("".join(buf)); buf = []
             continue
         buf.append(ch)

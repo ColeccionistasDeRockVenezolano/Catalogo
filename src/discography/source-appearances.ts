@@ -14,6 +14,19 @@ export function matchingAppearanceTracks<T extends { title: string }>(rows: read
   return rows.filter(row => sourceTitleKey(appearanceTrackTitle(row.title, names)) === key);
 }
 
+/** Use the most complete documented list; a release title is not a tracklist. */
+export function documentedReleaseTracks<T>(entries: ReadonlyArray<{ tracks: T[] }>): T[] {
+  return [...entries].sort((a, b) => b.tracks.length - a.tracks.length)[0]?.tracks ?? [];
+}
+
+/** Match a documented name, allowing a leading article or a trailing explicit guest. */
+export function sourcePerformerIsArtist(performer: string, names: readonly string[]): boolean {
+  const withoutGuest = performer.replace(/\s*\(\s*(?:con|feat\.?|ft\.?)\s+[^()]+\)\s*$/iu, "");
+  const withoutArticle = (value: string): string => value.replace(/^\s*(?:el|la|los|las)\s+/iu, "");
+  const candidates = [performer, withoutGuest].map(value => sourceTitleKey(withoutArticle(value)));
+  return names.some(name => candidates.includes(sourceTitleKey(withoutArticle(name))));
+}
+
 /** Prefer the catalog track spelling; keep documented songs without inventing positions. */
 export function combineAppearanceTitles(tracks: readonly string[], documented: readonly string[], names: readonly string[]): string[] {
   const result: string[] = [];

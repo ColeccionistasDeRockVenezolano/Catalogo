@@ -41,8 +41,8 @@ import { liveTitleVerdict } from "../src/normalization/live-title.js";
 import { excludedArtist } from "../src/catalog/editorial-scope.js";
 import { audiovisualAlbumConflict } from "../src/youtube/audiovisuals.js";
 import { instrumentsOf } from "../src/discography/instruments.js";
-import { matchingAppearanceTracks } from "../src/discography/source-appearances.js";
-import { proposeImageCandidate } from "../src/merge/image-candidates.js";
+import { documentedReleaseTracks, matchingAppearanceTracks } from "../src/discography/source-appearances.js";
+import { isPlaceholderImageUrl, proposeImageCandidate } from "../src/merge/image-candidates.js";
 
 const TAG = "rhv-directorio-2026-10-25";
 const SLUG = "rock-hecho-en-venezuela";
@@ -585,7 +585,7 @@ async function apply(client: PoolClient, runId: number, sourceId: number): Promi
         await client.query("UPDATE public.artists SET artist_type=$2::artist_type WHERE id=$1 AND artist_type='other'", [artistId, type]);
         bump(report.artists.filled, "artist_type");
       }
-      if (ficha.picture) {
+      if (ficha.picture && !isPlaceholderImageUrl(absolute(ficha.picture))) {
         const picture = absolute(ficha.picture);
         if (!row.picture_url) {
           await client.query("UPDATE public.artists SET picture_url=$2 WHERE id=$1 AND picture_url IS NULL", [artistId, picture]);
@@ -600,7 +600,7 @@ async function apply(client: PoolClient, runId: number, sourceId: number): Promi
       const key = titleKey(ficha.name);
       const near = createAs ? [] : compactIndex.filter((row) => key.length >= 4 && similarity(key, row.key) >= 0.88);
       if (near.length) { report.artists.similarSkipped.push({ url: ficha.url, name: ficha.name, near: near.map((row) => artistById.get(row.id)?.name) }); continue; }
-      const picture = ficha.picture ? absolute(ficha.picture) : null;
+      const picture = ficha.picture && !isPlaceholderImageUrl(absolute(ficha.picture)) ? absolute(ficha.picture) : null;
       artistId = Number((await q<{ id: string }>(`
         INSERT INTO public.artists(name,artist_type,biography,picture_url,origin_city,origin_country,notes)
         VALUES($1,$2::artist_type,$3,$4,$5,'Venezuela',$6) RETURNING id::text`,
@@ -702,11 +702,7 @@ async function apply(client: PoolClient, runId: number, sourceId: number): Promi
       }
       const lineup = group.entries.flatMap((entry) => entry.lineup);
       const guests = group.entries.flatMap((entry) => entry.guests);
-      const best = [...group.entries].sort((a, b) => b.tracks.length - a.tracks.length)[0]!;
-      let tracks = best.tracks;
-      if (tracks.length === 0 && group.cls === "single") {
-        tracks = title.includes(" / ") ? title.split(" / ").map((part) => ({ title: part, disc: 1 })) : [{ title, disc: 1 }];
-      }
+      const tracks = documentedReleaseTracks(group.entries);
       let albumId = 0;
       let created = false;
       if (!target) {

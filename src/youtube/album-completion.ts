@@ -150,7 +150,17 @@ export async function albumArtistGenres(albumId: number): Promise<ArtistGenres[]
       UNION
       SELECT tc.artist_id FROM public.track_credits tc JOIN public.tracks t ON t.id = tc.track_id
        WHERE t.album_id = $1 AND tc.artist_id IS NOT NULL AND tc.credit_type = 'musician'
-         AND (tc.role ILIKE 'int_rprete%' OR tc.role ILIKE 'performer%' OR tc.role ILIKE 'artist%')
+         AND (tc.role ILIKE 'intérprete%' OR tc.role ILIKE 'interprete%' OR tc.role ILIKE 'performer%' OR tc.role ILIKE 'artist%')
+      UNION
+      -- Las participaciones parciales de un compilado pueden conservar los
+      -- títulos como claim, sin inventar números de pista. Solo cuentan los
+      -- intérpretes cuyo crédito tiene canciones documentadas y aceptadas.
+      SELECT ac.artist_id FROM public.album_credits ac
+       WHERE ac.album_id = $1 AND ac.artist_id IS NOT NULL AND ac.credit_type = 'musician'
+         AND (ac.role ILIKE 'intérprete%' OR ac.role ILIKE 'interprete%' OR ac.role ILIKE 'performer%' OR ac.role ILIKE 'artist%')
+         AND EXISTS (SELECT 1 FROM ingest.claims c WHERE c.album_credit_id=ac.id AND c.field='documented_tracks'
+                       AND c.status='accepted' AND jsonb_typeof(c.normalized_value)='array'
+                       AND c.normalized_value <> '[]'::jsonb)
     )
     SELECT ar.id::text AS artist_id, ar.name, g.slug, x.role, (g.family_id IS NOT NULL) AS specific
       FROM artists a JOIN public.artists ar ON ar.id = a.artist_id
