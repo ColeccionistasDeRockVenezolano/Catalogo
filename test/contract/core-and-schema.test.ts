@@ -43,11 +43,14 @@ async function pgDumpPublic(containerName: string): Promise<string> {
   // tests/run_all.sh.
   // Los disparadores `crv_journal` del diario de cambios (0028) son la primera
   // excepción aprobada al core: solo registran, no cambian columnas ni datos.
-  return stdout
+  const bloques = stdout
     .split("\n")
     .filter((line) => !/^\\(un)?restrict/.test(line))
     .join("\n")
     .replace(/--\n-- Name: \S+ crv_journal; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_journal [^\n]*\n\n\n/gu, "")
+    // El alcance editorial (0096, Brian 2026-10-21): `crv_editorial_scope` impide altas/conversiones
+    // de referencias extranjeras; es un disparador, no cambia columnas ni datos.
+    .replace(/--\n-- Name: \S+ crv_editorial_scope; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_editorial_scope [^\n]*\n\n\n/gu, "")
     // La quinta (0036): el disparador que anota al artista cuando un disco se
     // borra o cambia de artista (géneros que el artista recibe de sus discos).
     .replace(/--\n-- Name: \S+ crv_artist_genres_from_albums; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_artist_genres_from_albums [^\n]*\n\n\n/gu, "")
@@ -65,6 +68,8 @@ async function pgDumpPublic(containerName: string): Promise<string> {
     // (ubicación actual del artista, campo «Currently» de RYM).
     // La duodécima (0094): `artists.email` (correo de contacto del artista).
     .replace(/^ {4}(birth_date_value|death_date_value|status|themes|years_active|logo_url|current_city|current_country|email|real_name|birth_city|death_cause|trivia|gender|release_date_text|catalog_id|media_format|lyrics) (?:character varying\(\d+\)|text),?\n/gmu, "")
+    // La decimotercera (0095, Brian 2026-10-20): `albums.rym_rating` / `albums.rym_ratings_count`.
+    .replace(/^ {4}(rym_rating numeric\(3,2\)|rym_ratings_count integer),?\n/gmu, "")
     // …y si las columnas quitadas eran las últimas (albums), la columna previa
     // queda con una coma colgando antes de `);`: se normaliza igual en ambos dumps.
     .replace(/,(\n\);)/gu, "$1")
@@ -77,8 +82,13 @@ async function pgDumpPublic(containerName: string): Promise<string> {
     // filtro genérico de arriba) para que «antes» y «después» de migrar sigan
     // coincidiendo.
     .split("--\n-- Name: ")
-    .filter((bloque, i) => i === 0 || !/^((streaming|social)_links|album_disc(s|_links)|entity_(metrics|user_tags|shouts|emotions))/u.test(bloque))
-    .join("--\n-- Name: ");
+    .filter((bloque, i) => i === 0 || !/^((streaming|social)_links|album_disc(s|_links)|entity_(metrics|user_tags|shouts|emotions))/u.test(bloque));
+  // pg_dump no fija el orden de los objetos independientes entre dos volcados del mismo catálogo
+  // (el 2026-11-03 artists/albums/tracks/track_credits salían antes o después con contenido idéntico):
+  // se compara el contenido de cada objeto, no su posición.
+  const footer = "--\n-- PostgreSQL database dump complete\n--\n";
+  const [head, ...objects] = bloques;
+  return [head, ...objects.map((bloque) => bloque.replace(footer, "")).sort()].join("--\n-- Name: ") + footer;
 }
 
 describe("contrato del core + migraciones (Drizzle/TS)", () => {
