@@ -1,0 +1,15 @@
+[Unit]
+Description=CRV redirección www al dominio principal, sin Herra
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/apps/crv-radio-catalogo
+ExecStart=/home/brian/.local/node-v24.20.0-linux-x64/bin/node ops/www-redirect/server.mjs
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

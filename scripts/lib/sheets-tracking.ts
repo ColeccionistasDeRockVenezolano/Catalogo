@@ -564,6 +564,8 @@ export interface TrackingSheetSyncResult {
   // Cuantas filas quedan en cada estado tras el barrido (null si la hoja no
   // tiene filas).
   statusCounts: Record<TrackingStatus, number> | null;
+  // Solo en dry-run: qué filas cambiarían, para revisarlas antes de escribir.
+  statusDetails?: Array<{ videoId: string | null; artist: unknown; album: unknown; from: string; to: TrackingStatus }>;
 }
 
 // Las fechas son dias de Sheets, nunca texto interpretado segun el locale.
@@ -700,8 +702,12 @@ export async function syncTrackingSheet(
 
   if (dryRun) {
     const simulated = [...existingRows, ...rows];
-    const { orderChanges, statusChanges, unlistedDateChanges, statusCounts } = await sweep(simulated);
-    return { added: rows.length, rows: reportRows, possibleDuplicates, orderChanges, statusChanges, unlistedDateChanges, statusCounts };
+    const { newStatuses, orderChanges, statusChanges, unlistedDateChanges, statusCounts } = await sweep(simulated);
+    const statusDetails = simulated.flatMap((row, index) => {
+      const from = typeof row[columns.status] === 'string' ? String(row[columns.status]) : '';
+      return from === newStatuses[index] ? [] : [{ videoId: rowVideoId(row, columns), artist: row[columns.artist], album: row[columns.album], from, to: newStatuses[index] as TrackingStatus }];
+    });
+    return { added: rows.length, rows: reportRows, possibleDuplicates, orderChanges, statusChanges, unlistedDateChanges, statusCounts, statusDetails };
   }
 
   if (rows.length > 0) await appendRows(spreadsheetId, accessToken, sheetTitle, rows, columns);

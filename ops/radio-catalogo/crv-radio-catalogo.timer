@@ -1,0 +1,9 @@
+[Unit]
+Description=CRV hoja YT Master y catálogo de la radio, cada día
+
+[Timer]
+OnCalendar=*-*-* 04:00:00 America/Caracas
+Persistent=true
+
+[Install]
+WantedBy=timers.target

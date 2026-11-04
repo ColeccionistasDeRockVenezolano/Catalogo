@@ -1,3 +1,4 @@
+import { execFileSync } from "node:child_process";
 // CRV · Videos del canal, solos (Brian, 2026-10-13). Punto de entrada de los
 // temporizadores de ops/youtube-canal/systemd:
 //
@@ -87,6 +88,7 @@ async function main(): Promise<number> {
     }
     // El timer horario completa también tipo y géneros de lo que haya quedado sin ellos.
     const failed = await complete(undefined, dryRun);
+    if (!dryRun) execFileSync("systemctl", ["--user", "start", "crv-radio-catalogo.service"], { stdio: "inherit" });
     return sweep.results.some((result) => result.status === "failed") || failed ? 1 : 0;
   }
   if (command === "complete") {
@@ -104,6 +106,7 @@ async function main(): Promise<number> {
     for (const notice of result.notices) {
       console.log(`  aviso ${notice.videoId}: ${notice.label}${notice.albums.length ? ` — ${notice.albums.map((album) => `«${album.title}» (${album.id})`).join(", ")}` : ""}`);
     }
+    if (!dryRun) execFileSync("systemctl", ["--user", "start", "crv-radio-catalogo.service"], { stdio: "inherit" });
     return result.batchesFailed > 0 ? 1 : 0;
   }
   console.error("uso: canal.ts watch|availability|intake|complete [--dry-run] [--video=<id>] [--limit=N]");

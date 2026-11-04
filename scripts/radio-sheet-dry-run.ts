@@ -33,7 +33,7 @@ if (!realSheet) {
   process.exit(2);
 }
 const credentials = getEnv().CRV_RADIO_SHEET_CREDENTIALS
-  ?? "/home/brian/apps/herra-instances/herra-crv/secrets/service-account-radio-sheet.json";
+  ?? "/home/brian/apps/crv-radio/secrets/service-account-radio-sheet.json";
 if (!fs.existsSync(credentials)) {
   console.error(`radio: no existe la credencial de la hoja: ${credentials}`);
   process.exit(2);

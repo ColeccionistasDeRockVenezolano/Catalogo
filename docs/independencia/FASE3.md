@@ -388,3 +388,12 @@ servicios, builds raíz y `/crv`), `pg_dump`, medios, reportes, claves y secreto
 reproducible en un host limpio con ensayo real de restauración; runbook del go-live (orden de
 switches, ventana, rollback, dominio, Cloudflare, credencial de Sheets y llaves); procedimiento de
 congelación y delta entre paquete y corte; paquete cifrado con hashes e inventario.
+
+## 10. Dependencias de Herra retiradas (2026-11-04 UTC)
+
+La radio, el export diario y sus ganchos, YT Master y la redirección de www ya funcionan sin
+el motor Herra. `herra-crv` está detenido y retirado del arranque y de su cron; el túnel sigue
+activo. Catálogo, estado y credencial tienen ubicaciones propias de CRV. Evidencia, alcance,
+pruebas y vuelta atrás: [CIERRE-HERRA-RADIO.md](CIERRE-HERRA-RADIO.md).
+Los pendientes históricos de §5 y §8 sobre esas dependencias quedan sustituidos por ese registro.
+La Fase 4 (paquete y ensayo de restauración en host limpio) sigue pendiente.

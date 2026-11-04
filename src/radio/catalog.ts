@@ -126,7 +126,8 @@ export function buildRadioTracks(
     // La hoja manda sobre el título: un concierto subido como "Full Album"
     // sigue siendo un concierto.
     if (excludedFromRadio(head.sheet_types)) continue;
-    const parsed = parseYouTubeTitle(head.video_title);
+    // Algunos títulos del canal llevan una sola barra antes de «Full Album».
+    const parsed = parseYouTubeTitle(head.video_title.replace(/(?<!\|)\|\s*full\s+album\s*\|\|/i, "|| Full Album ||"));
     if (!parsed.isFullAlbum || head.video_duration_seconds < MIN_TRACK_SECONDS) continue;
 
     // Las descripciones reales contienen unos pocos relojes duplicados o fuera
@@ -139,9 +140,11 @@ export function buildRadioTracks(
         && !byStart.has(row.start_seconds)) byStart.set(row.start_seconds, row);
     }
     const tracks = [...byStart.values()].sort((a, b) => a.start_seconds - b.start_seconds);
-    // Un único timestamp no demuestra dónde termina la canción: podría ser el
-    // álbum entero. La radio solo acepta videos realmente capitulados.
-    if (tracks.length < 2) continue;
+    // Con varios capítulos, uno solo válido indica marcas rotas: se descarta.
+    // Un video con un único capítulo desde el inicio es una canción completa
+    // (sencillos, B-Sides); el tope de duración deja fuera un álbum entero.
+    const wholeVideo = group.length === 1 && tracks[0]?.start_seconds === 0;
+    if (tracks.length < 2 && !wholeVideo) continue;
 
     for (let index = 0; index < tracks.length; index += 1) {
       const track = tracks[index]!;

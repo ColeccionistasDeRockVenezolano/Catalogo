@@ -53,14 +53,28 @@ describe("catalogo de radio por canciones", () => {
     expect(items.every(item => item.available)).toBe(true);
   });
 
-  it("descarta videos no verificados, capítulos rotos y videos sin capítulos", () => {
+  it("descarta videos no verificados y capítulos rotos", () => {
     const rows = [
       row(), row({ position: 1, start_seconds: 180 }),
-      row({ video_id: "BBBBBBBBBBB", position: 0 }),
       row({ video_id: "CCCCCCCCCCC", position: 0 }),
       row({ video_id: "CCCCCCCCCCC", position: 1, start_seconds: 9999 }),
     ];
-    expect(buildRadioTracks(rows, new Set(["BBBBBBBBBBB", "CCCCCCCCCCC"]))).toEqual([]);
+    expect(buildRadioTracks(rows, new Set(["CCCCCCCCCCC"]))).toEqual([]);
+  });
+
+  it("un único capítulo desde el inicio es una canción, salvo si dura como un álbum", () => {
+    const single = row({ video_id: "BBBBBBBBBBB", video_duration_seconds: 228 });
+    expect(buildRadioTracks([single], new Set(["BBBBBBBBBBB"]))).toMatchObject([
+      { videoId: "BBBBBBBBBBB", startSeconds: 0, durationSeconds: 228, trackNumber: 1 },
+    ]);
+    expect(buildRadioTracks([{ ...single, video_duration_seconds: 2400 }], new Set(["BBBBBBBBBBB"]))).toEqual([]);
+    expect(buildRadioTracks([{ ...single, start_seconds: 30 }], new Set(["BBBBBBBBBBB"]))).toEqual([]);
+  });
+
+  it("limpia el álbum cuando el título lleva una sola barra antes de Full Album", () => {
+    const video_title = "Cunaguaro Soul - Cunaguaro Soul (2008) | Full Album ||";
+    const items = buildRadioTracks([row({ video_title }), row({ video_title, position: 1, start_seconds: 180 })], new Set(["AAAAAAAAAAA"]));
+    expect(items[0]).toMatchObject({ artist: "Cunaguaro Soul", album: "Cunaguaro Soul", year: 2008 });
   });
 
   it("omite videoclips, conciertos y documentales según la hoja, aunque tengan otro tipo", () => {
