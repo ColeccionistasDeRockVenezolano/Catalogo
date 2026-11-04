@@ -108,6 +108,16 @@ esa salida parcial.
 - Contenido: la base entera (incluye `auth`, por eso se cifra), **sin `data/raw`**.
   El crudo sigue el camino manual de `db:backup`.
 - Aborta si `/mnt/1tb` o `/mnt/datos` no están montados, o si quedan menos de 10 GB.
+- **El paso `doctor` de la prueba de restauración no está en verde por deuda de la
+  base viva** (12 FK sin índice, `merge_audit.coverage`, géneros desfasados), no
+  por el respaldo. Mientras siga así, la prueba de restauración se ejecuta con
+  `CRV_RESTORE_DOCTOR=no`; los pasos 1–4 (sumas, encoding/locale, 207 tablas y
+  23,5 M filas idénticas, migraciones) son la prueba válida. Cuando el doctor de
+  producción esté verde, quitar esa variable.
+- Para ejecutar el `doctor` desde el árbol fijado hacen falta dependencias y datos:
+  `node_modules` (enlazar al del checkout principal) y `data/research` (enlazar a
+  `/mnt/1tb/Shared/coleccionistas-rock-venezolano/data/research`). Sin ellos el
+  doctor falla por `tsx` o por el inventario de fuentes, no por la restauración.
 
 ## 2. Probar un respaldo (sin tocar nada)
 
