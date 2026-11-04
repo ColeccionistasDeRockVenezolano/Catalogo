@@ -15,6 +15,13 @@ pierde la evidencia que los respalda.
 Los tres usan `docker exec` contra el contenedor (no hace falta `psql` ni
 `pg_dump` en el host).
 
+El respaldo **programado** es otro script: `~/apps/crv-respaldo-catalogo/scripts/catalogo-respaldo.sh`,
+con el timer `crv-respaldo-catalogo.timer` (01:30 America/Caracas). Ejecuta
+`db-backup.sh` con `CRV_BACKUP_RAW=no`, cifra el resultado con AES-256 y lo
+publica en el disco de 1 TB, con retención de 7 diarios y 4 semanales. **No
+incluye `data/raw`**: la base se respalda a diario; el crudo se respalda aparte
+con `db:backup` cuando se decida. Detalle en §1.1.
+
 ## 1. Hacer un respaldo
 
 ```bash
@@ -82,6 +89,25 @@ Mientras corre se usa `<destino>/.crv-<UTC>.partial`. Solo después de crear y
 comprobar el TOC, el crudo, el manifest y las sumas se renombra al directorio
 final visible. Si el proceso falla o recibe una interrupción, el trap elimina
 esa salida parcial.
+
+### 1.1 Respaldo programado del catálogo (cifrado, sin crudo)
+
+```bash
+~/apps/crv-respaldo-catalogo/scripts/catalogo-respaldo.sh crear       # dump → cifra → verifica → publica → retención
+~/apps/crv-respaldo-catalogo/scripts/catalogo-respaldo.sh verificar   # restaura el último en PostgreSQL desechable
+~/apps/crv-respaldo-catalogo/scripts/catalogo-respaldo.sh estado      # falla si el último tiene más de 36 h
+```
+
+- Timer: `crv-respaldo-catalogo.timer` (usuario, 01:30 America/Caracas, `Persistent=true`).
+- Destino: `/mnt/1tb/Shared/coleccionistas-rock-venezolano/respaldos-catalogo` (`crv-<UTC>.tar.gpg` + `.sha256` + `.manifest.txt`).
+- Cifrado: AES-256 simétrico con la clave `~/.config/crv/respaldo-catalogo.key` (0600).
+  **Sin esa clave los respaldos no se pueden abrir.** Debe conservarse una copia
+  fuera de esta máquina y fuera del disco de 1 TB.
+- Retención: 7 diarios + 4 semanales (~1,5 GB por copia). El script nunca borra
+  archivos que no sigan el patrón `crv-YYYYMMDDTHHMMSSZ.tar.gpg`.
+- Contenido: la base entera (incluye `auth`, por eso se cifra), **sin `data/raw`**.
+  El crudo sigue el camino manual de `db:backup`.
+- Aborta si `/mnt/1tb` o `/mnt/datos` no están montados, o si quedan menos de 10 GB.
 
 ## 2. Probar un respaldo (sin tocar nada)
 
@@ -154,8 +180,9 @@ crudo apartados se pueden eliminar a mano (`DROP DATABASE crv_antes_20260915`).
 ## 4. Límites conocidos
 
 - No hay respaldo incremental ni recuperación a un instante (PITR): cada
-  respaldo es completo. La programación periódica (cron) queda en manos del
-  operador.
+  respaldo es completo. La base se respalda a diario con
+  `crv-respaldo-catalogo.timer`; el crudo (`data/raw`) **no** está en esa copia y
+  se respalda aparte con `db:backup`.
 - La prueba de restauración crea temporalmente una segunda base completa en un
   volumen Docker desechable; hay que reservar espacio equivalente a la base
   original, además del dump.
