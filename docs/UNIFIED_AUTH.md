@@ -7,8 +7,11 @@ multimedia, chat y cuentas. El esquema `auth` contiene las tablas de Herra
 (proyecto, personas, usuarios, administradores y permisos), las cuentas que
 antes estaban en `CRV_COLLABORATORS_JSON`, y las sesiones.
 
-Herra administra las cuentas compartidas. CRV y la Mesa consultan esas mismas
-filas: no se sincronizan bases ni se mantienen copias activas en SQLite.
+CRV administra las cuentas compartidas. Desde el 2026-11-04 la instancia Herra
+de CRV está retirada: su motor no se reinicia y la administración se hace desde
+el panel de CRV (`/curaduria/roadmap`), no desde una puerta de Herra. CRV y la
+Mesa consultan esas mismas filas: no se sincronizan bases ni se mantienen copias
+activas en SQLite.
 `auth.local_accounts` conserva las credenciales locales de CRV por separado
 para respetar su prioridad y su codificación scrypt anterior. Se administran
 con `npm run auth:set-collaborator`; en modo PostgreSQL el comando actualiza
@@ -29,11 +32,16 @@ Las cuentas se revalidan en cada petición; los cambios de credencial, estado,
 rol o alcance incrementan versiones desde PostgreSQL. Borrar al usuario
 elimina la credencial administrativa nacida de su promoción.
 
-Herra usa el rol `crv_herra`, limitado a `auth`: no tiene permisos sobre el
-catálogo ni privilegios de superusuario, creación de bases o creación de roles.
-Su conexión vive en `secrets/instance.env`, con permisos 0600.
+[Histórico] Herra usaba el rol `crv_herra`, limitado a `auth`: no tenía permisos
+sobre el catálogo ni privilegios de superusuario, creación de bases o creación de
+roles. Su conexión vivía en `secrets/instance.env`, con permisos 0600. El rol se
+conserva por si se restaura un respaldo, pero ningún proceso de CRV lo usa.
 
 ## Migración
+
+Procedimiento histórico, ejecutado el 2026-11-02. Se conserva como registro; no
+es una operación vigente. Para administrar cuentas hoy no se reinicia Herra: se
+usa el panel de CRV.
 
 1. Ejecutar `python3 scripts/shared-storage.py status` y respaldar configuración,
    cron, PostgreSQL y una instantánea SQLite consistente. Los secretos y las
@@ -57,9 +65,11 @@ Su conexión vive en `secrets/instance.env`, con permisos 0600.
 4. Configurar `CRV_AUTH_BACKEND=postgres`, retirar del entorno las cuentas
    migradas y la ruta SQLite. Instalar la conexión privada de Herra y definir
    `HERRA_PG_TOOLS_CONTAINER=crv-postgres` para las herramientas de respaldo.
-5. Actualizar el motor fijado y el bloque cron de **herra-crv**, reiniciar Herra,
-   API, chat y Mesa, y verificar autenticación, permisos, radio y salud.
-   Las sesiones anteriores al cambio requieren un nuevo inicio de sesión;
+5. [Histórico, ya no aplica] Actualizar el motor fijado y el bloque cron de
+   **herra-crv**, reiniciar Herra, API, chat y Mesa, y verificar autenticación,
+   permisos, radio y salud. Hoy Herra está retirada: solo se reinician los
+   servicios de CRV (`crv-api`, `crv-chat`, `crv-landing`, `crv-api-landing`,
+   Mesa). Las sesiones anteriores al cambio requieren un nuevo inicio de sesión;
    las sesiones PostgreSQL sobreviven a reinicios posteriores.
 
 El motor adaptado vive en `/home/brian/apps/herra-postgres`, una copia de trabajo
@@ -72,14 +82,26 @@ automáticamente tras una respuesta ambigua.
 
 ## Respaldo y recuperación
 
-`npm run db:backup` incluye la base completa. El inventario de filas incluye
-`public`, `ingest`, `media`, `chat` y `auth`; los nuevos respaldos son privados.
-El job de Herra produce `herra-crv-<fecha>.pgdump.gpg`: incluye todo `auth` y
-citext, cifra el archivo y compara el descifrado con el original. Mantiene el
-espejo cifrado y su retención sin eliminar los respaldos SQLite históricos.
+`npm run db:backup` incluye la base completa y el crudo `data/raw`. El inventario
+de filas incluye `public`, `ingest`, `media`, `chat` y `auth`; los nuevos
+respaldos son privados.
 
-La restauración de Herra requiere detener su servidor y aportar una conexión
-administradora a **la misma base** mediante `HERRA_RESTORE_DATABASE_URL`.
+El respaldo programado del catálogo es
+`~/apps/crv-respaldo-catalogo/scripts/catalogo-respaldo.sh` (timer
+`crv-respaldo-catalogo.timer`, 01:30 America/Caracas): base entera, **sin crudo**,
+cifrada con AES-256 en
+`/mnt/1tb/Shared/coleccionistas-rock-venezolano/respaldos-catalogo`, retención de
+7 diarios y 4 semanales. La clave vive en `~/.config/crv/respaldo-catalogo.key`
+(0600) y **debe conservarse fuera de la máquina**: sin ella los respaldos no se
+pueden abrir. `catalogo-respaldo.sh verificar` restaura en un PostgreSQL
+desechable; `estado` falla si el último tiene más de 36 h.
+
+[Histórico] El job de Herra producía `herra-crv-<fecha>.pgdump.gpg` con todo
+`auth` y citext, cifrado y con espejo. Dejó de ejecutarse el 2026-11-04; sus
+archivos anteriores se conservan en `herra-instances/herra-crv/backups/`.
+
+La restauración de Herra (histórica) requería detener su servidor y aportar una
+conexión administradora a **la misma base** mediante `HERRA_RESTORE_DATABASE_URL`.
 La cuenta limitada de la aplicación no puede restaurar.
 
 ```sh
