@@ -150,7 +150,9 @@ El catálogo anterior fue eliminado por Brian; no resembrar efectos antiguos.
 # Cuentas y sesiones
 
 CRV y la instancia Herra de CRV usan la misma base PostgreSQL, esquema `auth`.
-Herra administra las cuentas; API, chat y Mesa de Cotejo consultan esas mismas
-filas. No sincronizar ni reactivar la SQLite histórica como fuente de cuentas.
+CRV administra las cuentas desde su panel (`/curaduria/roadmap`); la instancia
+Herra de CRV está retirada desde el 2026-11-04 y su motor no se reinicia. API,
+chat y Mesa de Cotejo consultan esas mismas filas. No sincronizar ni reactivar la
+SQLite histórica como fuente de cuentas.
 Las sesiones son persistentes y las versiones se revocan desde PostgreSQL.
 Ver [docs/UNIFIED_AUTH.md](docs/UNIFIED_AUTH.md) para operación y recuperación.
