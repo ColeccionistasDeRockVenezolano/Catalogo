@@ -211,11 +211,11 @@ Resultado medido: **660 MB**, `users=5`, `admins=3`, `tasks=61`, `albums=649`,
 
 | Secreto | Dónde está | Dueño | Acción |
 |---|---|---|---|
-| Credencial Google Sheets | instancia `herra-crv` (`secrets/service-account-radio-sheet.json`) | compartida con la central | Se queda (decisión 5); rotar y transferir en la entrega |
+| Credencial Google Sheets | `apps/crv-radio/secrets/service-account-radio-sheet.json` (600) | CRV | Transferida el 2026-11-04; queda rotarla |
 | Clave del archivo de retención | `/mnt/datos/backups/crv/retention-2026-10-key/` (600) | CRV | Separada del archivo; falta copia fuera del servidor |
 | Contraseña de PostgreSQL | `.env` del repo y `staging.env` (600) | CRV | La de staging no se versiona |
 | Claves de YouTube/DeepSeek | `.env` del repo | CRV | **No** se copian al staging; el staging no gasta cuota |
-| Tokens de túnel | `herra-instances/herra-crv/secrets/` | Herra hasta la entrega | Se transfieren con el dominio |
+| Tokens de túnel | `apps/crv-landing/secrets/cloudflared-tunnel.token` (600) | CRV | Transferido el 2026-11-04; el dominio ya no lee de la instancia |
 
 Nada de esto se versionó ni se imprimió en la sesión.
 

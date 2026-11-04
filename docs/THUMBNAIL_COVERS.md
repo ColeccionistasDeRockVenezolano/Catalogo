@@ -24,7 +24,7 @@ python3 scripts/thumbnails-covers.py --images ~/Desktop/Thumbnails --out ~/crv-t
 python3 scripts/thumbnails-covers.py --images ~/Desktop/Thumbnails --out ~/crv-thumbnail-covers
 
 # escribir la columna D (cuenta de servicio; ya compartida como Editor en la hoja)
-export GOOGLE_APPLICATION_CREDENTIALS=/home/brian/apps/herra-instances/herra-crv/secrets/service-account-radio-sheet.json
+export GOOGLE_APPLICATION_CREDENTIALS=/home/brian/apps/crv-radio/secrets/service-account-radio-sheet.json
 ~/.venvs/crv-thumbs/bin/python scripts/thumbnails-covers.py \
   --images ~/Desktop/Thumbnails --out ~/crv-thumbnail-covers --write
 
