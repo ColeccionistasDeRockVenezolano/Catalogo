@@ -118,6 +118,10 @@ esa salida parcial.
   `node_modules` (enlazar al del checkout principal) y `data/research` (enlazar a
   `/mnt/1tb/Shared/coleccionistas-rock-venezolano/data/research`). Sin ellos el
   doctor falla por `tsx` o por el inventario de fuentes, no por la restauración.
+- **Prueba real del 2026-11-04** sobre `crv-20261104T140530Z.tar.gpg`:
+  `RESTORE VERIFICADO`, 211 tablas y 23.546.634 filas idénticas al manifest,
+  `SQL_ASCII` / `C` / `C`, migraciones 0001–0125, `raw_included=no`, sin
+  contenedor residual. El `doctor` se omitió por la deuda descrita arriba.
 
 ## 2. Probar un respaldo (sin tocar nada)
 
