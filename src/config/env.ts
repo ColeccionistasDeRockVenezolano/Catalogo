@@ -27,6 +27,8 @@ const envSchema = z.object({
 
   PORT: z.coerce.number().int().positive().default(8080),
   HOST: z.string().default("127.0.0.1"),
+  // La API del dominio registra solo portada, comunidad, cuentas y radio.
+  CRV_API_MODE: z.enum(["catalog", "landing"]).default("catalog"),
   // El bearer histórico queda disponible solo para scripts internos. La web
   // usa cuentas scrypt y sesiones HttpOnly configuradas en el JSON siguiente.
   CRV_OPERATOR_TOKEN: z.preprocess(
@@ -81,6 +83,8 @@ const envSchema = z.object({
   // Diagnósticos de escucha (radio-diagnostics.jsonl).
   CRV_RADIO_LOG_DIR: z.string().optional(),
   CRV_RADIO_SHEET_CREDENTIALS: z.string().optional(),
+  CRV_LAUNCH_SHEET_CREDENTIALS: z.string().optional(),
+  CRV_LAUNCH_SHEET_ID: z.string().regex(/^[A-Za-z0-9_-]+$/u).default('1esSl_5HZeobiPYRA_1VrtiZtes81OeT4RSfkIqVSeEA'),
   CRV_RADIO_TEST_SHEET_ID: z.string().optional(),
   // Proceso propio del chat (src/chat/server.ts): no comparte event loop con
   // las consultas del catálogo.

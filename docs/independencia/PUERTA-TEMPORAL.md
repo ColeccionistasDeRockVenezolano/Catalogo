@@ -23,7 +23,7 @@ la ventana ([FASE2B.md](FASE2B.md)).
 La radio (`/api/radio/now`, `listener`, `unavailable`, `diagnostic`) la atiende Herra o CRV según
 `CRV_RADIO_SOURCE`; ver [FASE3.md](FASE3.md) §8. `/radio-embed` es del catálogo y en la portada da 404.
 
-Todo lo demás responde 404: `/cuenta`, `/curaduria`, fichas, buscador, chat y cualquier API fuera de
+Todo lo demás responde 404: `/cuenta`, `/curaduria`, fichas, buscador y cualquier API fuera de
 la lista blanca. La única barrera es la lista blanca de `web/server.mjs`, porque la API que hay detrás
 también sabe servir el catálogo. Por eso `scripts/checks/fase2b-whitelist.mjs` debe pasar antes y
 después de cada cambio en la portada.
@@ -76,3 +76,67 @@ queda al retirar la puerta. Prueba: `node scripts/checks/clave-unica.mjs`, solo 
 - **Mientras Herra siga activa:** cambiar la clave en su puerta de administración toca solo esa fila
   (`updateAdminPassword` no sincroniza hacia el colaborador) y las puede volver a separar.
 - **`community` no gestiona cuentas de administradores** en ninguna ruta: su clave también abre la administración.
+
+## Aviso de lanzamiento (2026-11-04)
+
+- `GET /api/roadmap/launch` consulta solo si la cookie de este navegador corresponde a una inscripción guardada. `POST` recibe nombre, tipo, correo y, opcionalmente, teléfono/redes; fija Origen = Roadmap y recibe `utm_campaign` de la URL. Exige origen confiable y limita intentos por IP.
+- El modal de `/` y `/roadmap` aparece en cada entrada hasta enviar correctamente. Cerrar no equivale a inscribirse. Cookie HttpOnly de un año y marcador local recuerdan el envío; no almacena datos personales en el navegador.
+- `auth.launch_contacts` conserva las inscripciones y la cola hacia la hoja Contactos (`gid=0`). Correo único; reintentos cada minuto con espera creciente y comprobación de correos antes de repetir un append ambiguo. Columnas verificadas y escritura RAW.
+- Estáticos `landing/launch-modal.css` y `landing/launch-modal.js`; plantilla `partials/launch-modal.ejs`. Al publicar el catálogo, trasladar el modal al inicio React y conservar tabla/API y la cola. Configuración: `CRV_LAUNCH_SHEET_CREDENTIALS`, `CRV_LAUNCH_SHEET_ID`.
+
+## Procedencia y campañas (2026-11-04)
+
+- `POST /api/traffic/event`: aviso público limitado por IP y origen, solo para páginas de la portada y clics de colaborar/radio. No permite registrar candidaturas; estas las confirma el servidor.
+- `/api/community/admin/panel/metrics/links` (GET/POST) y `/:id` (PATCH): mapa de enlaces privado, con sesión; crear/archivar requiere administración total y CSRF.
+- Estáticos `landing/acquisition.js`, `landing/acquisition-panel.js` y `landing/acquisition.css`. El primero se carga en páginas públicas; los otros solo en el panel.
+- Al publicar el catálogo, conservar el módulo de atribución y adaptar sus páginas permitidas; no abrir rutas del catálogo a través de esta puerta.
+- Operación, semántica y retención: `docs/TRAFFIC_ATTRIBUTION.md`.
+
+### API de portada aislada (seguridad, 2026-11-04)
+
+La instancia del dominio usa `CRV_API_MODE=landing`: registra comunidad, cuentas,
+roadmap (incluido el lanzamiento), radio y health. No registra rutas ni
+trabajadores del catálogo. La lista blanca del gateway sigue siendo obligatoria.
+Para retirar la puerta y publicar el catálogo hay que usar una API de catálogo
+con su configuración y permisos correspondientes; la cuenta SQL limitada de la
+portada tiene lectura del catálogo, pero solo escribe comunidad y sesiones.
+Ver `docs/SECURITY_AUDIT_2026-11-04.md` antes de cambiar de modo o de credenciales.
+
+## La Rockola flotante (2026-11-05)
+
+TEMPORAL-PORTADA: `/` y `/roadmap` integran el chat en el lugar del contador.
+No se sirve `/chat` ni la SPA del catálogo. El cliente independiente reutiliza
+`useChat`, sesión, WebSocket, tienda y reloj editorial. El contador conserva
+su API, cifras y países reales, sin datos del HTML de demostración.
+
+Rutas permitidas: `/api/chat/{challenge,session,profile,rooms,effects,wallet,inventory,equip,daily-cover}`,
+`/api/chat/rooms/:slug/messages`, `/api/chat/effects/:code/buy`,
+`/api/chat/messages/:id/report` y upgrade `/api/chat/ws`. No se abre `/api/chat/admin/*`.
+`GET /api/daily-cycle` reenvía exclusivamente al reloj del servidor del catálogo
+(:8080), porque la API limitada de portada no registra ese reloj; ninguna otra
+ruta se reenvía a ese proceso. Recursos: `/landing/rockola.js` y `rockola.css`.
+
+Build: `node web/scripts/build-rockola.mjs`. Al retirar la puerta, quitar la
+inyección del gateway y decidir si se conserva el cliente flotante en el catálogo.
+
+### Fidelidad de La Rockola a la maqueta
+
+El cliente se renderiza dentro de Shadow DOM para que el CSS de la portada
+no altere las medidas, iconos, texto ni controles del HTML entregado por Brian.
+El contador original se conserva oculto como fuente actualizada de cifras y
+países; el widget reproduce el carrusel continuo y las tres categorías de la
+maqueta con esos datos. Las ventanas superpuestas de conectados, nombre y
+tienda permanecen dentro del chat, con foco atrapado, Escape y cierre exterior.
+La tienda reutiliza compras, inventario y equipamiento reales en diseño compacto.
+Los estilos se incluyen dentro del bundle; `rockola.css` solo oculta el contador
+original. No se añade ninguna ruta pública ni acceso al catálogo.
+
+### Correcciones del chat flotante (2026-11-05)
+
+Los modales se muestran sobre la ventana completa, fuera del panel del chat:
+la tienda usa un espacio amplio en escritorio y se adapta al móvil. El cliente
+incluye los estilos de nombres, Nox y filtros SVG, texturas incrustadas y los
+escenarios compartidos de partículas/materiales dentro del Shadow DOM.
+Las listas de países que caben completas no se duplican ni se desplazan;
+solo las listas que desbordan usan una copia visual para el bucle continuo.
+No se añaden rutas ni se cambia la puerta del catálogo.

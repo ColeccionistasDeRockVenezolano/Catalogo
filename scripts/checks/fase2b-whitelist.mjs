@@ -135,6 +135,18 @@ for (const ruta of ["/api/community/admin/panel/%2e%2e/metrics", "/api/community
 
 // --- Estáticos y metadatos ---------------------------------------------------
 await debe("/landing/roadmap-public.min.css", 200);
+await debe('/landing/launch-modal.css', 200);
+await debe('/landing/launch-modal.js', 200);
+{
+  const state = await pedir('/api/roadmap/launch', { accept: 'application/json' });
+  if (state.status === 200 && JSON.parse(state.texto).completed === false) ok.push('Estado anónimo del aviso de lanzamiento');
+  else fallos.push('El estado del aviso de lanzamiento no responde correctamente');
+  const foreign = await pedir('/api/roadmap/launch', { method: 'POST', accept: 'application/json',
+    headers: { origin: 'https://evil.example', 'content-type': 'application/json' },
+    body: JSON.stringify({ name: 'Prueba', email: 'qa@example.invalid', type: 'Oyente' }) });
+  if (foreign.status === 403) ok.push('Inscripción desde otro origen bloqueada');
+  else fallos.push(`Inscripción desde otro origen dio ${foreign.status}`);
+}
 await debe("/landing/radio.js", 200);
 await debe("/landing/radio-first-touch.js", 200);
 {
@@ -172,6 +184,11 @@ for (const ruta of ["/api/roadmap", "/api/roadmap/visits", "/api/site-config", "
   else fallos.push(`${ruta}: ${respuesta.status}`);
 }
 
+await debe("/landing/rockola.js", 200);
+await debe("/landing/rockola.css", 200);
+await debe("/api/chat/challenge", 200);
+await debe("/api/daily-cycle", 200);
+
 // --- Prohibidas: todo 404 ----------------------------------------------------
 const prohibidas = [
   "/crv", "/crv/", "/crv/roadmap", "/curaduria", "/curaduria/roadmap", "/curaduria/visitas",
@@ -179,7 +196,7 @@ const prohibidas = [
   "/sitemap.xml", "/sitemap-catalogo.xml", "/sitemap-personas.xml", "/sitemap-otro.xml", "/llms.txt",
   "/api/community/admin/roadmap", "/api/community/admin/metrics", "/api/community/admin/collaborators",
   "/api/community/admin/applications", "/api/community/admin/invites", "/api/curation/emotions/tags",
-  "/api/catalog", "/api/chat/session", "/api/account/profile", "/api/review-queue",
+  "/api/catalog", "/api/chat/admin/effects", "/api/chat/unknown", "/api/account/profile", "/api/review-queue",
   // Bajo un prefijo de estáticos, lo que no es un archivo no puede caer en la SPA.
   "/radio-embed", "/landing/radio-embed", "/landing/nada", "/landing/curaduria", "/media/favicon-nada", "/favicon.ico/x",
 ];
@@ -199,6 +216,16 @@ for (const ruta of ["/%63rv", "/%63uraduria", "/%43RV", "/%2Fcuraduria", "/%2f%2
 // las convertiría en host (`//curaduria`) y serviría la portada.
 for (const ruta of ["//curaduria", "///curaduria", "/\\curaduria", "//artistas", "//crv", "//docs", "/roadmap//", "//sitemap.xml"]) {
   await debeCrudo(ruta, 404);
+}
+
+// Procedencia: esquema público validado, escritura de campañas privada.
+{
+  const response = await fetch(`${BASE}/api/traffic/event`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{}' });
+  if ([400, 403].includes(response.status)) ok.push('/api/traffic/event exige esquema y origen');
+  else fallos.push(`/api/traffic/event: esperaba 400/403, dio ${response.status}`);
+  const links = await fetch(`${BASE}/api/community/admin/panel/metrics/links`);
+  if ([401, 403].includes(links.status)) ok.push('mapa de enlaces privado');
+  else fallos.push(`mapa de enlaces: esperaba 401/403, dio ${links.status}`);
 }
 
 console.log(JSON.stringify({ base: BASE, comprobaciones: ok.length + fallos.length, ok: ok.length, fallos: fallos.length }));
