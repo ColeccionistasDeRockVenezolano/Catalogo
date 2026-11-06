@@ -23,6 +23,7 @@ describe('procedencia: PostgreSQL real, permisos y deduplicación', () => {
   const pool = () => getPool();
   const path = '/community/admin/panel/metrics/links';
   const browserHeaders = { 'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130.0.0.0 Safari/537.36',
+    origin: 'http://crv.test',
     'accept-language': 'es-VE', 'sec-fetch-mode': 'cors', 'sec-fetch-site': 'same-origin', accept: 'application/json' };
   const input = (overrides: Partial<AcquisitionInput> = {}): AcquisitionInput => ({ projectId: project,
     ip: '203.0.113.11', country: 've', page: 'roadmap', kind: 'navigation',
@@ -37,6 +38,8 @@ describe('procedencia: PostgreSQL real, permisos y deduplicación', () => {
     process.env['DATABASE_URL'] = container.databaseUrl;
     process.env['CRV_AUTH_BACKEND'] = 'postgres'; process.env['CRV_HERRA_PROJECT_SLUG'] = 'acquisition-test';
     process.env['CRV_TRAFFIC_ENABLED'] = 'true'; process.env['CRV_TRAFFIC_TOKEN'] = 'test-internal-acquisition-token';
+    // El endurecimiento CSRF exige Origin en las escrituras: el navegador de prueba lo envía.
+    process.env['CRV_ALLOWED_ORIGINS'] = 'http://crv.test';
     delete process.env['CRV_OPERATOR_TOKEN']; delete process.env['CRV_COLLABORATORS_JSON']; resetEnvCache();
     await pool().query(readFileSync('migrations/0112_unified_auth.up.sql', 'utf8'));
     await pool().query(readFileSync('migrations/pending/0124_community_roles.up.sql', 'utf8'));
@@ -115,8 +118,8 @@ describe('procedencia: PostgreSQL real, permisos y deduplicación', () => {
     const payload = { page: 'roadmap', kind: 'page', eventId: 'public-event-1', webdriver: false, attribution: {} };
     expect((await app.inject({ method: 'POST', url: '/traffic/event', headers: browserHeaders, payload })).statusCode).toBe(204);
     expect((await app.inject({ method: 'POST', url: '/traffic/event', headers: { ...browserHeaders, origin: 'https://evil.example' }, payload })).statusCode).toBe(403);
-    expect((await app.inject({ method: 'POST', url: '/traffic/event', payload: { ...payload, kind: 'application' } })).statusCode).toBe(400);
-    expect((await app.inject({ method: 'POST', url: '/traffic/event', payload: { ...payload, page: 'admin' } })).statusCode).toBe(400);
+    expect((await app.inject({ method: 'POST', url: '/traffic/event', headers: browserHeaders, payload: { ...payload, kind: 'application' } })).statusCode).toBe(400);
+    expect((await app.inject({ method: 'POST', url: '/traffic/event', headers: browserHeaders, payload: { ...payload, page: 'admin' } })).statusCode).toBe(400);
     expect((await app.inject({ method: 'POST', url: '/traffic/page', payload: { page: 'roadmap' } })).statusCode).toBe(403);
     await flushAcquisitions();
   });
