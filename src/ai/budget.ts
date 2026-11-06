@@ -2,7 +2,7 @@ import {randomUUID} from "node:crypto";
 import {z} from "zod";
 import {getPool} from "../db/client.js";
 
-export const budgetPricesSchema=z.object({sourceUrl:z.string().url(),capturedAt:z.string().datetime(),sourceHash:z.string().regex(/^[a-f0-9]{64}$/u),requestTokenOverhead:z.number().int().positive(),models:z.record(z.object({inputUsdPerMillion:z.number().nonnegative(),outputUsdPerMillion:z.number().nonnegative()}))});
+export const budgetPricesSchema=z.object({sourceUrl:z.string().url(),capturedAt:z.string().datetime(),sourceHash:z.string().regex(/^[a-f0-9]{64}$/u),requestTokenOverhead:z.number().int().positive(),models:z.record(z.string(), z.object({inputUsdPerMillion:z.number().nonnegative(),outputUsdPerMillion:z.number().nonnegative()}))});
 export type BudgetPrices=z.infer<typeof budgetPricesSchema>;
 export class DeepSeekBudgetExceeded extends Error{}
 interface Reservation{id:string;prices:BudgetPrices;model:string;reservedMicroUsd:number;reservedTokens:number;}

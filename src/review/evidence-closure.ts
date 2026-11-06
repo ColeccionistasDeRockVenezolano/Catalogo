@@ -13,7 +13,7 @@ export const closureSchema = z.object({
   research: z.array(z.object({ query: z.string().min(3), status: z.number().int(), receipt: z.string().min(1) })).default([]),
   sourceFingerprint: z.string().regex(/^[a-f0-9]{64}$/u),
   identityClaim: z.boolean().default(false),
-  target: z.record(z.unknown()).optional(),
+  target: z.record(z.string(), z.unknown()).optional(),
 }).superRefine((value, context) => {
   if (value.verdict === "unverifiable") {
     const searches = new Set(value.research.filter(r => r.status === 200).map(r => r.query));

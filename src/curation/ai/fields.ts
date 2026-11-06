@@ -3,16 +3,16 @@ import type { CatalogField } from "./types.js";
 export function describeFields(shape: z.ZodRawShape): CatalogField[] {
   return Object.entries(shape).map(([key, schema]) => {
     let inner = schema;
-    const nullable = inner.isNullable();
+    const nullable = z.safeParse(schema, null).success;
     while (
       inner instanceof z.ZodNullable ||
       inner instanceof z.ZodOptional ||
       inner instanceof z.ZodDefault ||
-      inner instanceof z.ZodEffects
+      inner instanceof z.ZodPipe
     ) {
       inner =
-        inner instanceof z.ZodEffects
-          ? inner.innerType()
+        inner instanceof z.ZodPipe
+          ? inner.in
           : inner instanceof z.ZodDefault
             ? inner.removeDefault()
             : inner.unwrap();

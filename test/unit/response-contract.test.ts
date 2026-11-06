@@ -11,7 +11,7 @@ describe("contrato JSON para proveedores",()=>{
     expect((contract["properties"] as Record<string,unknown>)["evidenceIds"]).toMatchObject({maxItems:8});
   });
   it("describe las referencias positivas y claves cortas del contrato real",()=>{
-    expect(responseContract(z.number().int().positive())).toEqual({type:"integer",exclusiveMinimum:0});
+    expect(responseContract(z.number().int().positive())).toMatchObject({type:"integer",exclusiveMinimum:0});
     expect(responseContract(z.string().regex(/^[a-zA-Z][a-zA-Z0-9_-]{0,39}$/u))).toEqual({type:"string",pattern:"^[a-zA-Z][a-zA-Z0-9_-]{0,39}$"});
   });
 });

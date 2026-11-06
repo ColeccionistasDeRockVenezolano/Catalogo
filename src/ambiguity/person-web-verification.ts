@@ -62,7 +62,7 @@ export const webVerdictSchema = z.object({
   // Solo para fichas mezcladas: cada persona con los proyectos de la ficha que le tocan.
   groups: lenient(groupSchema, 4).optional(),
   // Dudas en cualquier forma (texto, lista de textos o de objetos): solo se muestran, no deciden nada.
-  uncertainties: z.unknown().transform((value) => (Array.isArray(value) ? value : value === null || value === undefined ? [] : [value])
+  uncertainties: z.unknown().optional().transform((value) => (Array.isArray(value) ? value : value === null || value === undefined ? [] : [value])
     .slice(0, 8).map((item) => (typeof item === "string" ? item : JSON.stringify(item) ?? "").slice(0, 300))),
 }).strict();
 export type WebVerdict = z.infer<typeof webVerdictSchema>;

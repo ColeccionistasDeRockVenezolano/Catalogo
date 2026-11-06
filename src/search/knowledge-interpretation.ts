@@ -15,9 +15,9 @@ const execFileAsync = promisify(execFile);
 const metadataSchema = z.object({ model: z.literal("multilingual"), modelRevision: z.string().regex(/^[a-f0-9]{40}$/), sdkVersion: z.string().min(1),
   questionVersion: z.string().min(1), questionHash: z.string().regex(/^[a-f0-9]{64}$/) }).strict();
 export type InterpretationMetadata = z.infer<typeof metadataSchema>;
-const answerSchema = z.object({ choice: z.string(), probabilities: z.record(z.number().min(0).max(1)) }).passthrough();
+const answerSchema = z.object({ choice: z.string(), probabilities: z.record(z.string(), z.number().min(0).max(1)) }).passthrough();
 export const modelInterpretationSchema = metadataSchema.extend({ unitKey: z.string().regex(/^[a-f0-9]{64}$/), inputHash: z.string().regex(/^[a-f0-9]{64}$/),
-  decisions: z.record(answerSchema), routing: z.record(z.unknown()) }).strict();
+  decisions: z.record(z.string(), answerSchema), routing: z.record(z.string(), z.unknown()) }).strict();
 
 export function knowledgeModelState(a: KnowledgeAnnotation) {
   return { object: { kind: a.object.kind, name: a.object.name, version: a.object.version, segment: a.object.segment },

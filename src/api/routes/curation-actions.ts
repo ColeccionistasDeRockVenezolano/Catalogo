@@ -26,7 +26,7 @@ const entityKeySchema = z.object({ kind: z.string(), id: z.number().int() });
 const blockedSchema = z.object({ code: z.string(), message: z.string() });
 const preconditionSchema = z.object({ key: z.string(), ok: z.boolean(), code: z.string().optional(), message: z.string().optional() });
 const collisionSchema = z.object({ kind: z.string(), id: z.number().int(), label: z.string(), exact: z.boolean() });
-const proposalSchema = z.object({ actionKey: z.string(), params: z.record(z.unknown()), reason: z.string() });
+const proposalSchema = z.object({ actionKey: z.string(), params: z.record(z.string(), z.unknown()), reason: z.string() });
 const editorialInputSchema = z.object({ key: z.string(), label: z.string(), type: z.enum(["text", "number"]), explanation: z.string() });
 
 export const fixItemSchema = z.object({
@@ -41,10 +41,10 @@ export const fixItemSchema = z.object({
   actionKey: z.string().nullable(),
   actionLabel: z.string().nullable(),
   level: z.number().int().nullable(),
-  params: z.record(z.unknown()),
+  params: z.record(z.string(), z.unknown()),
   status: z.enum(ITEM_STATUSES),
-  before: z.record(z.unknown()).nullable(),
-  after: z.record(z.unknown()).nullable(),
+  before: z.record(z.string(), z.unknown()).nullable(),
+  after: z.record(z.string(), z.unknown()).nullable(),
   touched: z.array(entityKeySchema),
   blocked: blockedSchema.nullable(),
   noop: z.object({ coveredBy: z.number().int().nullable() }).nullable(),
@@ -62,15 +62,15 @@ export const fixItemSchema = z.object({
 export const fixBatchSchema = z.object({
   id: z.number().int(),
   mode: z.enum(["individual", "selected", "group", "auto", "undo"]),
-  filter: z.record(z.unknown()),
+  filter: z.record(z.string(), z.unknown()),
   actionKey: z.string().nullable(),
   requestedBy: z.string(),
   appliedBy: z.string().nullable(),
   note: z.string().nullable(),
   previewHash: z.string(),
   status: z.enum(BATCH_STATUSES),
-  counts: z.record(z.unknown()),
-  verification: z.record(z.unknown()).nullable(),
+  counts: z.record(z.string(), z.unknown()),
+  verification: z.record(z.string(), z.unknown()).nullable(),
   createdAt: z.string(),
   startedAt: z.string().nullable(),
   finishedAt: z.string().nullable(),
@@ -86,14 +86,14 @@ const BATCH_MODES = ["individual", "selected", "group", "auto", "undo"] as const
 export const fixBatchSummarySchema = z.object({
   id: z.number().int(),
   mode: z.enum(BATCH_MODES),
-  filter: z.record(z.unknown()),
+  filter: z.record(z.string(), z.unknown()),
   actionKey: z.string().nullable(),
   requestedBy: z.string(),
   appliedBy: z.string().nullable(),
   note: z.string().nullable(),
   status: z.enum(BATCH_STATUSES),
-  counts: z.record(z.unknown()),
-  verification: z.record(z.unknown()).nullable(),
+  counts: z.record(z.string(), z.unknown()),
+  verification: z.record(z.string(), z.unknown()).nullable(),
   createdAt: z.string(),
   startedAt: z.string().nullable(),
   finishedAt: z.string().nullable(),
@@ -108,7 +108,7 @@ const findingActionsSchema = z.object({
   actions: z.array(z.object({
     editorialInputs: z.array(editorialInputSchema),
     key: z.string(), label: z.string(), description: z.string(), level: z.number().int(), inverse: z.string().nullable(),
-    recommended: z.boolean(), params: z.record(z.unknown()).nullable(), preconditions: z.array(preconditionSchema), available: z.boolean(),
+    recommended: z.boolean(), params: z.record(z.string(), z.unknown()).nullable(), preconditions: z.array(preconditionSchema), available: z.boolean(),
   })),
 });
 
@@ -116,7 +116,7 @@ const noteSchema = z.string().trim().min(1).max(2000);
 const batchParamsSchema = z.object({ batchId: z.coerce.number().int().positive() });
 const itemPageQuerySchema = paginationQuerySchema.extend({ status: z.enum(ITEM_STATUSES).optional() });
 const actionKeySchema = z.string().min(1).max(60);
-const paramsOverrideSchema = z.record(z.unknown());
+const paramsOverrideSchema = z.record(z.string(), z.unknown());
 
 export async function registerCurationActionRoutes(app: FastifyInstance): Promise<void> {
   const server = app.withTypeProvider<ZodTypeProvider>();

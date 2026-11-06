@@ -31,11 +31,11 @@ export async function registerCatalogEditorRoutes(app:FastifyInstance) {
  for(const resource of Object.keys(EDITOR_RESOURCES) as EditorResource[]) {
   const path=`/catalog-editor/${EDITOR_RESOURCES[resource].owner}/:ownerId/${resource}`;
   const params=z.object({ownerId:id});const itemParams=params.extend({id});
-  server.get(path,{schema:{security:OPERATOR_SECURITY,params,response:{200:z.array(z.record(z.unknown())),...writeErrorResponses}}},async(req,reply)=>{
+  server.get(path,{schema:{security:OPERATOR_SECURITY,params,response:{200:z.array(z.record(z.string(), z.unknown())),...writeErrorResponses}}},async(req,reply)=>{
    reply.header('cache-control','private, no-store');return readEditorResource(resource,req.params.ownerId);
   });
   for(const method of ['POST','PATCH','DELETE'] as const) {
-   const shape:z.AnyZodObject=shapes[resource];
+   const shape:z.ZodObject=shapes[resource];
    const schema={security:OPERATOR_SECURITY,params:method==='POST'?params:itemParams,
     ...(method==='DELETE'?{querystring:z.object({note:noteSchema})}:{body:(method==='PATCH'?shape.partial():shape).extend({note:noteSchema}).strict()}),
     response:{200:z.object({id:positive,runId:positive}),...writeErrorResponses}};

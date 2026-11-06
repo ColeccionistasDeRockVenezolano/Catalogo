@@ -31,7 +31,7 @@ export async function registerCatalogModelRoutes(app: FastifyInstance): Promise<
       response: { 200: z.unknown(), ...writeErrorResponses } },
   }, request => readModel(getPool(), request.params.kind, request.params.id));
   for (const kind of Object.keys(MODEL_TABLES) as Array<keyof typeof MODEL_TABLES>) {
-    const shape: z.AnyZodObject = fields[kind];
+    const shape: z.ZodObject = fields[kind];
     server.post(`/catalog-model/${kind}`, {
       schema: { tags: ["catalog-model"], security: OPERATOR_SECURITY, body: shape.extend({ note: noteSchema }).strict(),
         response: { 201: z.object({ id: positive, runId: positive }), ...writeErrorResponses } },

@@ -26,7 +26,7 @@ const projectBody = z.object({
   visitorCounter: z.boolean(),
 }).strict();
 
-const collaborateBody = z.object({ form: z.record(z.unknown()) }).strict();
+const collaborateBody = z.object({ form: z.record(z.string(), z.unknown()) }).strict();
 
 const termBody = z.object({
   type: z.enum(["skill", "contribution_area", "link_type"]),
@@ -117,7 +117,7 @@ export async function registerProjectConfigRoutes(app: FastifyInstance): Promise
   });
 
   api.put("/community/admin/branding", {
-    schema: { tags: ["Configuración"], body: z.object({ branding: z.record(z.unknown()) }).strict() },
+    schema: { tags: ["Configuración"], body: z.object({ branding: z.record(z.string(), z.unknown()) }).strict() },
   }, async (request, reply) => {
     requireAdmin(request);
     const data = await saveBranding(request.body.branding);
@@ -126,7 +126,7 @@ export async function registerProjectConfigRoutes(app: FastifyInstance): Promise
   });
 
   api.put("/community/admin/theme", {
-    schema: { tags: ["Configuración"], body: z.object({ theme: z.record(z.unknown()) }).strict() },
+    schema: { tags: ["Configuración"], body: z.object({ theme: z.record(z.string(), z.unknown()) }).strict() },
   }, async (request, reply) => {
     requireAdmin(request);
     const data = await saveTheme(request.body.theme);
@@ -135,7 +135,7 @@ export async function registerProjectConfigRoutes(app: FastifyInstance): Promise
   });
 
   api.put("/community/admin/i18n", {
-    schema: { tags: ["Configuración"], body: z.object({ i18n: z.record(z.unknown()) }).strict() },
+    schema: { tags: ["Configuración"], body: z.object({ i18n: z.record(z.string(), z.unknown()) }).strict() },
   }, async (request, reply) => {
     requireAdmin(request);
     const data = await saveProjectI18n(request.body.i18n);

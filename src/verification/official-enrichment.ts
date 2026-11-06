@@ -16,7 +16,7 @@ export const musicalExtractionSchema = z.object({ facts: z.array(musicalFactSche
 export type MusicalFact = z.infer<typeof musicalFactSchema>;
 /** Older paid responses used descriptive category names; keep their facts and literal citations. */
 export function recoverMusicalExtraction(output: unknown): z.infer<typeof musicalExtractionSchema> {
-  const envelope = z.object({ facts: z.array(z.record(z.unknown())), unreadable: z.array(z.string()) }).strict().parse(output);
+  const envelope = z.object({ facts: z.array(z.record(z.string(), z.unknown())), unreadable: z.array(z.string()) }).strict().parse(output);
   const aliases: Record<string, MusicalFact["kind"]> = { band_member: "membership", band_formation: "formation", band_name_origin: "biographical_event", departure: "member_left", join: "member_joined", separation: "biographical_event", event: "biographical_event", invitation: "collaboration", personnel_change: "biographical_event", performance: "biographical_event", media_appearance: "biographical_event", contract_termination: "biographical_event" };
   return musicalExtractionSchema.parse({ ...envelope, facts: envelope.facts.map(fact => ({ ...fact,
     kind: musicalFactSchema.shape.kind.options.includes(fact["kind"] as MusicalFact["kind"]) ? fact["kind"] : aliases[String(fact["kind"])] ?? "biographical_event",

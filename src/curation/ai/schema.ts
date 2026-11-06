@@ -26,7 +26,7 @@ const value = z.union([
   z.null(),
 ]);
 const values = z
-  .record(value)
+  .record(z.string(), value)
   .refine((v) => Object.keys(v).length > 0, "indica al menos un campo");
 /** Platforms accepted by public.social_links (0040). */
 export const SOCIAL_PLATFORMS = ["instagram", "facebook", "x", "tiktok", "threads", "bluesky", "website", "store", "linktree"] as const;
@@ -183,7 +183,7 @@ export const operationSchema = z.discriminatedUnion("op", [
       ...base,
       op: z.literal("create_relation"),
       kind: relation,
-      endpoints: z.record(refSchema),
+      endpoints: z.record(z.string(), refSchema),
       values,
     })
     .strict(),
@@ -246,7 +246,7 @@ export const operationSchema = z.discriminatedUnion("op", [
       op: z.literal("merge_entities"),
       keep: refSchema,
       drop: refSchema,
-      fieldChoices: z.record(z.enum(["keep", "drop"])).default({}),
+      fieldChoices: z.record(z.string(), z.enum(["keep", "drop"])).default({}),
     })
     .strict(),
   z

@@ -126,7 +126,7 @@ export interface FixActionDefinition<P extends Record<string, unknown> = Record<
   level: ActionLevel;
   inverse?: ActionInverse;
   editorialInputs?: Array<{ key: string; label: string; type: "text" | "number"; explanation: string }>;
-  paramsSchema: z.ZodType<P, z.ZodTypeDef, unknown>;
+  paramsSchema: z.ZodType<P, unknown>;
   /** ¿La ofrece el detector de este hallazgo? (síncrono: alimenta el listado). */
   appliesTo(finding: ActionFinding): boolean;
   /**

@@ -42,7 +42,7 @@ const changeSchema = z.object({
   startedAt: z.string(),
   finishedAt: z.string().nullable(),
   journaled: z.boolean(),
-  counts: z.record(z.object({ created: z.number().int(), changed: z.number().int(), removed: z.number().int() })),
+  counts: z.record(z.string(), z.object({ created: z.number().int(), changed: z.number().int(), removed: z.number().int() })),
   total: z.number().int(),
   entities: z.array(z.object({ kind: z.enum(entityKinds), id: z.number().int(), label: z.string().nullable(), op: z.enum(["created", "removed", "changed"]) })),
   entityTotal: z.number().int(),
@@ -53,7 +53,7 @@ const changeSchema = z.object({
 
 const conflictSchema = z.object({
   table: z.string(),
-  pk: z.record(z.unknown()),
+  pk: z.record(z.string(), z.unknown()),
   reason: z.enum(["changed", "missing", "exists"]),
   columns: z.array(z.string()),
   laterRunId: z.number().int().nullable(),
@@ -64,7 +64,7 @@ const planSchema = z.object({
   runId: z.number().int(),
   changes: z.number().int(),
   steps: stepCountsSchema,
-  byTable: z.record(stepCountsSchema),
+  byTable: z.record(z.string(), stepCountsSchema),
   entities: z.array(z.object({ kind: z.string(), id: z.number().int(), label: z.string().nullable(), step: z.enum(["restore", "revert", "remove"]) })),
   conflicts: z.array(conflictSchema),
   skipped: z.array(conflictSchema),

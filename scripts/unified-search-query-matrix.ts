@@ -9,7 +9,7 @@ const states=z.enum(["supported","contradicted","conflicted","unknown"]);
 const matrixSchema=z.object({
   version:z.literal("crv-query-matrix-0.3.0"),authoredBy:z.string().min(1),scope:z.string().min(1),sourceReadingsVersion:z.string().min(1),engineFieldMeaning:z.string().min(1),
   cases:z.array(z.object({id:z.string().min(1),needAnnotationIds:z.array(z.string()).min(1),input:z.string().min(1),synonyms:z.array(z.string()),request:evidenceQuerySchema,
-    expected:z.object({status:z.enum(["supported_as_attributed","not_supported","conflicted","unresolved","preference_only","direct_lookup"]),conditionStates:z.record(states),supportingIds:z.record(z.array(z.string()))}).strict(),
+    expected:z.object({status:z.enum(["supported_as_attributed","not_supported","conflicted","unresolved","preference_only","direct_lookup"]),conditionStates:z.record(z.string(), states),supportingIds:z.record(z.string(), z.array(z.string()))}).strict(),
     allowedExplanation:z.string().min(1),forbiddenExplanation:z.string().min(1),
   }).strict()).min(1),
 }).strict();

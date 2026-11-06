@@ -59,7 +59,7 @@ export const loteArtistSchema = z.object({
   labels: z.array(z.string()).nullable().optional(),
   bio: z.string().nullable().optional(),
   artist_image: z.object({ url: z.string().nullable().optional(), source_page_url: z.string().nullable().optional() }).passthrough().nullable().optional(),
-  links: z.record(z.string().nullable()).nullable().optional(),
+  links: z.record(z.string(), z.string().nullable()).nullable().optional(),
   discography: z.array(releaseSchema).nullable().optional(),
   selected_works: z.array(z.string()).nullable().optional(),
   sources: z.array(z.object({ url: z.string(), note: z.string().nullable().optional() })).nullable().optional(),

@@ -51,8 +51,8 @@ export function explicitRequestSpans(text:string): Span[] | null {
   }
   return spans.length ? spans : null;
 }
-const answerSchema=z.object({choice:z.string(),probabilities:z.record(z.number().min(0).max(1))}).passthrough();
-const resultSchema=z.object({model:z.string().min(1),answers:z.record(answerSchema),routing:z.unknown().optional()}).passthrough();
+const answerSchema=z.object({choice:z.string(),probabilities:z.record(z.string(), z.number().min(0).max(1))}).passthrough();
+const resultSchema=z.object({model:z.string().min(1),answers:z.record(z.string(), answerSchema),routing:z.unknown().optional()}).passthrough();
 export interface Interpretation {
   intent:RecommendationIntent|null; status:"interpreted"|"unsupported"|"uncertain"|"unavailable";
   model:string|null; version:string; decisions?:unknown; routing?:unknown;

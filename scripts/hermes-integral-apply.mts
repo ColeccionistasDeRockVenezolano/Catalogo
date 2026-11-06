@@ -17,10 +17,10 @@ const norm=(s:string)=>s.normalize('NFKD').replace(/\p{M}/gu,'').toLowerCase().r
 const parse=<T,>(file:string):T[]=>existsSync(file)?readFileSync(file,'utf8').split('\n').filter(Boolean).map(l=>JSON.parse(l)as T):[];
 const trackSchema=z.object({n:z.number().int().positive(),disc:z.number().int().positive(),title:z.string().min(1),duration:z.number().nullable().optional(),performer:z.string().nullable().optional(),notes:z.string().optional()}).passthrough();
 const opSchema=z.object({key:z.string(),personId:z.number().nullable().optional(),role:z.string().optional(),artistRef:z.string().nullable().optional(),captureKey:z.string().optional(),name:z.string().optional(),title:z.preprocess(v=>v===null?undefined:v,z.string().optional()),
- decision:z.string().optional(),existingId:z.number().nullable().optional(),values:z.record(z.unknown()).optional(),biography:z.string().nullable().optional(),sourceRecord:z.record(z.unknown()).optional(),
+ decision:z.string().optional(),existingId:z.number().nullable().optional(),values:z.record(z.string(), z.unknown()).optional(),biography:z.string().nullable().optional(),sourceRecord:z.record(z.string(), z.unknown()).optional(),
  year:z.number().nullable().optional(),type:z.string().optional(),tracks:z.array(trackSchema).optional(),label:z.string().nullable().optional(),mediaFormat:z.string().nullable().optional(),catalogId:z.string().nullable().optional(),
- category:z.string().optional(),content:z.string().optional(),hidden:z.boolean().optional(),metadata:z.record(z.unknown()).optional(),
- videoId:z.string().optional(),payload:z.record(z.unknown()).optional(),kind:z.string().optional(),description:z.string().optional(),proofs:z.array(z.unknown()).optional(),sources:z.array(z.unknown()).optional(),
+ category:z.string().optional(),content:z.string().optional(),hidden:z.boolean().optional(),metadata:z.record(z.string(), z.unknown()).optional(),
+ videoId:z.string().optional(),payload:z.record(z.string(), z.unknown()).optional(),kind:z.string().optional(),description:z.string().optional(),proofs:z.array(z.unknown()).optional(),sources:z.array(z.unknown()).optional(),
  field:z.string().optional(),value:z.unknown().optional(),quote:z.string().optional(),apply:z.boolean().optional(),data:z.unknown().optional(),reason:z.string().optional(),artistId:z.number().nullable().optional(),
  imageUrl:z.string().optional(),sha256:z.string().optional(),sourceUrl:z.string().optional(),sourceFile:z.string().optional(),primary:z.boolean().optional(),
  }).passthrough();type Op=z.infer<typeof opSchema>;

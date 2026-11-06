@@ -54,7 +54,7 @@
     "test:watch": "./scripts/with-node22.sh vitest",
     "test:unit": "./scripts/with-node22.sh vitest run test/unit",
     "test:coverage": "./scripts/with-node22.sh vitest run test/unit --coverage",
-    "test:contract": "./scripts/with-node22.sh vitest run test/contract --pool=forks --poolOptions.forks.singleFork",
+    "test:contract": "./scripts/with-node22.sh vitest run test/contract --pool=forks",
     "test:deepseek:real": "RUN_DEEPSEEK_INTEGRATION=1 ./scripts/with-node22.sh vitest run test/integration/deepseek-real.optional.test.ts",
     "adapters:fixtures": "./scripts/with-node22.sh tsx scripts/show-adapter-fixtures.ts",
     "test:matrix": "./scripts/test-pg-matrix.sh",
@@ -115,7 +115,7 @@
     "entities": "^4.5.0",
     "exceljs": "^4.4.0",
     "fastify": "^5.1.0",
-    "fastify-type-provider-zod": "^4.0.2",
+    "fastify-type-provider-zod": "^6.1.0",
     "isbot": "^5.2.2",
     "pg": "^8.13.1",
     "pino": "^9.5.0",
@@ -123,20 +123,27 @@
     "playwright": "1.63.0",
     "sharp": "^0.35.5",
     "tesseract.js": "7.0.0",
-    "zod": "^3.23.8"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^22.10.1",
     "@types/pg": "^8.11.10",
     "@types/ws": "^8.18.1",
-    "@vitest/coverage-v8": "^3.2.7",
+    "@vitest/coverage-v8": "^4.1.12",
     "eslint": "^10.10.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.12.0",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.70.0",
-    "vitest": "^3.2.5"
+    "vitest": "^4.1.12"
+  },
+  "overrides": {
+    "minimatch@>=7 <11.0.1": "^11.0.4",
+    "glob@>=9 <14.0.2": "^14.0.3",
+    "exceljs": {
+      "uuid": "^11.1.1"
+    }
   }
 }

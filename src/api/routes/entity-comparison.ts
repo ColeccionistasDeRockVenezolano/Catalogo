@@ -8,7 +8,7 @@ import { comparisonHistory, activeComparisonJob, getComparison, getComparisonJob
 const kind=z.enum(["artist","person","album","organization","track"]);
 const ref=z.object({kind,id:z.number().int().positive()});
 const album=z.object({id:z.number().int(),title:z.string(),artist:z.string(),year:z.number().nullable()});
-const side=ref.extend({name:z.string(),hash:z.string(),artistType:z.string().nullable(),facts:z.record(z.array(z.string())),verification:verificationReportSchema,
+const side=ref.extend({name:z.string(),hash:z.string(),artistType:z.string().nullable(),facts:z.record(z.string(), z.array(z.string())),verification:verificationReportSchema,
  snapshot:ref.extend({name:z.string(),identity:z.array(z.string()),sourceUrls:z.array(z.string()),albums:z.array(album),catalogAlbums:z.array(album),units:z.array(verificationReportSchema.shape.findings.element.omit({status:true,observed:true,explanation:true,coverage:true,evidence:true}))})});
 export const comparisonReportSchema=z.object({version:z.literal(1),left:side,right:side,createdAt:z.string(),researched:z.boolean(),stale:z.boolean(),score:z.number().min(0).max(100).nullable(),catalogPoints:z.number(),webPoints:z.number(),
  rows:z.array(z.object({key:z.string(),label:z.string(),left:z.array(z.string()),right:z.array(z.string()),status:z.enum(["match","partial","different","missing"]),coverage:z.number().min(0).max(1),points:z.number(),maximum:z.number(),explanation:z.string()})),

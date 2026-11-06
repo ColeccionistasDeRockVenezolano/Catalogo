@@ -59,7 +59,7 @@ export const autofixReportSchema = z.object({
 const autofixEventSchema = z.object({
   id: z.number().int(), ruleId: z.number().int().nullable(), detector: z.string(), signature: z.string().nullable(),
   actionKey: z.string(), event: z.string(), operator: z.string(), note: z.string().nullable(),
-  batchId: z.number().int().nullable(), detail: z.record(z.unknown()), at: z.string(),
+  batchId: z.number().int().nullable(), detail: z.record(z.string(), z.unknown()), at: z.string(),
 });
 
 const autofixOptionSchema = z.object({

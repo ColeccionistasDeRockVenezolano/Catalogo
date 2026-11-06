@@ -41,7 +41,7 @@ const entityRefSchema = z.object({ kind: z.string(), id: z.number().int().nullab
 
 const scanSchema = z.object({
   id: z.number().int(), status: z.string(), scope: z.string(), trigger: z.string(), requestedBy: z.string().nullable(),
-  startedAt: z.string(), finishedAt: z.string().nullable(), error: z.string().nullable(), counters: z.record(z.unknown()),
+  startedAt: z.string(), finishedAt: z.string().nullable(), error: z.string().nullable(), counters: z.record(z.string(), z.unknown()),
 });
 
 /** Autocorrección en el panorama (PLAN_CURADURIA E10.4): lo de hoy y los avisos. */
@@ -100,7 +100,7 @@ const summarySchema = z.object({
       key: z.string(), label: z.string(), description: z.string(),
       open: z.number(), ignored: z.number(), resolved: z.number(), newInLastScan: z.number(),
       signatures: z.array(z.object({ key: z.string(), label: z.string(), open: z.number() })),
-      actions: z.record(z.array(z.string())).optional(),
+      actions: z.record(z.string(), z.array(z.string())).optional(),
     })),
   })),
 });
@@ -110,7 +110,7 @@ const findingSchema = z.object({
   signature: z.string(), signatureLabel: z.string(), severity: severitySchema,
   entity: entityRefSchema, field: z.string().nullable(), value: z.string().nullable(),
   title: z.string(), suggestion: z.string().nullable(), suggestedValue: z.string().nullable(),
-  related: z.array(entityRefSchema), evidence: z.record(z.unknown()),
+  related: z.array(entityRefSchema), evidence: z.record(z.string(), z.unknown()),
   status: z.enum(["open", "ignored", "resolved"]), isNew: z.boolean(),
   triggeredBy: z.array(z.object({ id: z.number(), title: z.string(), entityKind: z.string(), entityId: z.number().nullable() })),
   firstSeenAt: z.string(), lastSeenAt: z.string(), resolvedAt: z.string().nullable(),
@@ -124,7 +124,7 @@ const findingSchema = z.object({
 const scanResultSchema = z.object({
   scanId: z.number().int().nullable(), status: z.enum(["ok", "partial", "skipped", "failed"]), scope: z.enum(["completo", "dirigido"]), trigger: z.string(), dryRun: z.boolean(),
   durationMs: z.number(), catalogSignature: z.string(), total: z.number(), inserted: z.number(), reopened: z.number(),
-  resolved: z.number(), chained: z.number(), byCategory: z.record(z.number()),
+  resolved: z.number(), chained: z.number(), byCategory: z.record(z.string(), z.number()),
   failures: z.array(z.object({ detector: z.string(), error: z.string() })), error: z.string().optional(),
 });
 
