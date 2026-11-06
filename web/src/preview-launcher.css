@@ -1,0 +1,17 @@
+:root { color-scheme: dark; }
+body { margin: 0; background: #0b0f13; color: #e8e9ec; font: 14px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; }
+.pv-wrap { display: grid; gap: 22px; padding: 28px; }
+.pv-wrap h1 { margin: 0 0 4px; font-size: 16px; font-weight: 700; }
+.pv-note { margin: 0; max-width: 720px; color: #8f949d; font-size: 12.5px; }
+.pv-row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px; }
+.pv-col { display: grid; gap: 8px; }
+.pv-col h2 { margin: 0; color: #8f949d; font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.pv-frame { width: 250px; height: 55px; border: 1px dashed #3a3d44; border-radius: 30px; }
+.pv-frame .rv-launcher { position: static; right: auto; bottom: auto; }
+.pv-reference { display: block; width: 278px; height: 82px; border-radius: 8px; }
+.pv-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 14px; border: 1px solid #24262b; border-radius: 12px; background: #14171c; }
+.pv-controls label { display: flex; align-items: center; gap: 6px; color: #b9bcc4; font-size: 12px; }
+.pv-controls input[type="number"], .pv-controls input[type="text"] { width: 88px; padding: 6px 8px; border: 1px solid #34373d; border-radius: 8px; background: #0f1216; color: #fff; font: inherit; }
+.pv-controls button { padding: 7px 12px; border: 1px solid #3a3d44; border-radius: 8px; background: #1d2026; color: #e8e9ec; font: inherit; }
+.pv-controls button:hover { background: #23262d; }
+.pv-size { color: #9aa0aa; font-size: 12px; font-variant-numeric: tabular-nums; }

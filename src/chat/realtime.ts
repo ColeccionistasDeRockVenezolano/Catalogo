@@ -445,6 +445,11 @@ export class ChatHub {
     this.broadcast(roomSlug, { type: "deleted", messageId });
   }
 
+  /** Vacía la conversación en todas las pantallas de la sala. */
+  clearRoom(roomSlug: string, count: number): void {
+    this.broadcast(roomSlug, { type: "cleared", count });
+  }
+
   /** Aplica un silencio a las conexiones abiertas (la base ya lo guardó). */
   applyMute(actorId: string, until: Date | null, reason: string): void {
     for (const [socket, connection] of this.connections) {

@@ -436,6 +436,11 @@ export function reduceEvent(current: ChatState, event: Record<string, unknown>):
           : current.effects,
       };
     }
+    case "cleared": {
+      // La administración vació la sala: todas las pantallas arrancan de cero.
+      return { ...current, messages: [], recentMessages: [], freshMessageIds: [], newerCursors: [],
+        hasMore: false, recentHasMore: false, followingLatest: true, unreadMessages: 0 };
+    }
     case "deleted": {
       const messageId = Number(event["messageId"]);
       return { ...current, messages: current.messages.filter((item) => item.id !== messageId),

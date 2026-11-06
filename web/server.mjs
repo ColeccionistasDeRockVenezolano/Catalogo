@@ -16,8 +16,9 @@
 // reducida (media-variants.mjs). Si aún no existe se entrega el original y la
 // copia se encarga en segundo plano al optimizador de BrandForge.
 import net from "node:net";
+import { createHash } from "node:crypto";
 import http from "node:http";
-import { createReadStream, existsSync } from "node:fs";
+import { createReadStream, existsSync, statSync } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -31,9 +32,21 @@ if (webMode !== "catalog" && webMode !== "landing") {
 const redirectUnprefixed = process.env.CRV_WEB_REDIRECT_UNPREFIXED === "1"
   || process.env.CRV_WEB_REDIRECT_UNPREFIXED === "true";
 const dist = path.join(directory, process.env.CRV_WEB_DIST ?? "dist-public");
+
+// Widget de La Rockola: se compila aparte (scripts/build-rockola.mjs) y se sirve
+// como bundle estático. La versión de la URL sale de su mtime: al recompilar
+// cambia sola y el navegador no puede quedarse con la copia anterior.
+const liveReload = process.env.CRV_LIVE_RELOAD === "1";
+function rockolaVersion() {
+  for (const candidate of [path.join(dist, "landing", "rockola.js"), path.join(directory, "public", "landing", "rockola.js")]) {
+    try { return Math.round(statSync(candidate).mtimeMs).toString(36); } catch { /* prueba la siguiente ruta */ }
+  }
+  return "0";
+}
 const media = path.join(directory, "public", "media");
 const host = process.env.CRV_WEB_HOST ?? "127.0.0.1";
 const port = Number(process.env.CRV_WEB_PORT ?? "3120");
+const trustCfHeaders = process.env.CRV_WEB_TRUST_CF_HEADERS === "true";
 const apiHost = process.env.CRV_API_HOST ?? "127.0.0.1";
 const apiPort = Number(process.env.CRV_API_PORT ?? "8080");
 // El chat corre en su propio proceso: /api/chat/* y su WebSocket van allí.
@@ -170,12 +183,22 @@ async function serveLanding(req, res, page, lang, searchParams) {
   // Con <base>, un ancla relativa saldría del panel.
   if (page === "admin") html = html.replaceAll('href="#', `href="${prefix}/${adminDocPath}${lang === "en" ? "?lang=en" : ""}#`);
   html = html.replace(/<li><a(?: class="[^"]*")? href="\/kanban">[\s\S]*?<\/a><\/li>/g, "");
-  const scripts = page === "radio-embed" ? ["radio-embed.js"] : page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "admin" ? ["landing-session.js"] : page === "account" ? ["account.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js", "visits-mobile.js"] : ["registro-activar.js"];
+  if (page === "roadmap") html = html.replace("</head>", `<link rel="stylesheet" href="${prefix}/landing/rockola.css?v=${rockolaVersion()}"></head>`);
+  const scripts = page === "radio-embed" ? ["radio-embed.js"] : page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "admin" ? ["landing-session.js"] : page === "account" ? ["account.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js", `rockola.js?v=${rockolaVersion()}`, ...(liveReload ? ["dev-reload.js"] : [])] : ["registro-activar.js"];
   html = html.replace("</body>", `${scripts.map((src) => `<script src="${prefix}/landing/${src}" defer></script>`).join("")}</body>`);
   const body = Buffer.from(html);
   const remember = webMode === "landing" && queryLang(searchParams) && queryLang(searchParams) !== cookieLang(req)
     ? { "set-cookie": langSetCookie(req, lang) } : {};
-  res.writeHead(200, { "content-type": MIME_TYPES[".html"], "content-length": body.length, "cache-control": privateResponse ? "no-store" : "no-cache", ...remember, ...(page === "radio-embed" ? EMBED_HEADERS : SECURITY_HEADERS) });
+  const headers = { ...(page === "radio-embed" ? EMBED_HEADERS : SECURITY_HEADERS) };
+  const hotjarScript = html.match(/<script id="crv-hotjar-init">([\s\S]*?)<\/script>/);
+  if (webMode === "landing" && ["roadmap", "colaborar"].includes(page) && hotjarScript) {
+    const hash = createHash("sha256").update(hotjarScript[1]).digest("base64");
+    headers["content-security-policy"] = headers["content-security-policy"]
+      .replace("script-src 'self'", `script-src 'self' 'sha256-${hash}' https://static.hotjar.com https://script.hotjar.com https://www.googletagmanager.com`)
+      .replace("connect-src 'self'", "connect-src 'self' https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com")
+      .replace("frame-src ", "frame-src https://vars.hotjar.com ");
+  }
+  res.writeHead(200, { "content-type": MIME_TYPES[".html"], "content-length": body.length, "cache-control": privateResponse ? "no-store" : "no-cache", ...remember, ...headers });
   return res.end(req.method === "HEAD" ? undefined : body);
 }
 
@@ -216,6 +239,7 @@ const SECURITY_HEADERS = {
   "referrer-policy": webMode === "landing" ? REFERRER_FOR_YOUTUBE : "no-referrer",
   "x-content-type-options": "nosniff",
   "x-frame-options": "DENY",
+  "strict-transport-security": "max-age=31536000",
 };
 // La tarjeta de radio dentro del catálogo es lo único que se deja enmarcar, y solo
 // por este mismo sitio. La portada no la sirve.
@@ -293,11 +317,15 @@ function publicPath(sub) {
  * previas; la última la escribe el hop de confianza y no se puede falsear.
  */
 function clientIp(req) {
+  const peer = (req.socket.remoteAddress ?? "").replace(/^::ffff:/, "");
+  if (!isLoopbackPeer(req)) return peer;
+  const cf = req.headers["cf-connecting-ip"];
+  if (trustCfHeaders && typeof cf === "string" && net.isIP(cf)) return cf;
   const forwarded = req.headers["x-forwarded-for"];
   if (typeof forwarded === "string" && forwarded.length > 0) {
     const parts = forwarded.split(",");
     const last = parts[parts.length - 1].trim();
-    if (last.length > 0) return last;
+    if (net.isIP(last)) return last;
   }
   return (req.socket.remoteAddress ?? "").replace(/^::ffff:/, "");
 }
@@ -308,9 +336,7 @@ function clientIp(req) {
  * elemento —el que leen API y chat— es siempre la IP real del cliente.
  */
 function forwardedFor(req) {
-  const forwarded = req.headers["x-forwarded-for"];
-  if (typeof forwarded === "string" && forwarded.length > 0) return forwarded;
-  return (req.socket.remoteAddress ?? "").replace(/^::ffff:/, "");
+  return clientIp(req);
 }
 
 /** Tráfico local de pruebas (sin proxy delante): fuera del techo. */
@@ -435,6 +461,7 @@ function proxyApi(req, res, requestUrl) {
     host: `${apiHost}:${upstreamPort}`,
     "x-forwarded-host": req.headers.host,
     "x-forwarded-proto": "https",
+    "x-forwarded-for": forwardedFor(req),
     // El panel construye con esto las direcciones de invitación y activación.
     "x-crv-base-path": basePath === "/" ? "" : basePath,
   };
@@ -480,7 +507,7 @@ function proxyChatUpgrade(req, socket, head) {
   let url;
   try { url = new URL(req.url ?? "/", `http://${req.headers.host ?? host}`); }
   catch { socket.destroy(); return; }
-  const virtualPath = url.pathname === basePath || url.pathname.startsWith(`${basePath}/`)
+  const virtualPath = basePath === "/" || url.pathname === basePath || url.pathname.startsWith(`${basePath}/`)
     ? url.pathname
     : `${basePath}${url.pathname}`;
   if (virtualPath !== `${apiPath}/chat/ws`) { socket.destroy(); return; }
@@ -546,6 +573,7 @@ async function serveFile(req, res, pathname, searchParams) {
   try { relativePath = decodeURIComponent(pathname.slice(basePath.length)).replace(/^\/+/, ""); }
   catch { return reply(res, 400, "Ruta inválida."); }
   if (relativePath.split("/").includes("..")) return reply(res, 403, "Ruta no permitida.");
+  if (relativePath.includes("\0") || relativePath.split("/").some((part) => part.startsWith("."))) return reply(res, 404, "Archivo no encontrado.");
 
   // Las imágenes canónicas viven en public/media. Vite vacía y reconstruye
   // dist-public en cada publicación; servirlas desde ese build deja solicitudes
@@ -684,6 +712,11 @@ function reportTraffic(req, literalPath) {
   if (typeof req.headers["cf-connecting-ip"] === "string" && isLoopbackPeer(req)) {
     headers["cf-connecting-ip"] = req.headers["cf-connecting-ip"];
   }
+  // El ensayo y Funnel usan X-Forwarded-For en vez de Cloudflare. Mantener la
+  // misma huella entre documentos y avisos JS; aceptar la cadena solo del proxy local.
+  if (typeof req.headers['x-forwarded-for'] === 'string' && isLoopbackPeer(req)) {
+    headers['x-forwarded-for'] = req.headers['x-forwarded-for'];
+  }
   fetch(`http://${apiHost}:${apiPort}/traffic/page`, {
     method: "POST",
     headers,
@@ -696,6 +729,8 @@ function reportTraffic(req, literalPath) {
       secFetchSite: String(req.headers["sec-fetch-site"] ?? ""),
       signatureAgent: String(req.headers["signature-agent"] ?? ""),
       country: String(req.headers["cf-ipcountry"] ?? ""),
+      url: String(req.url ?? '/').slice(0, 4096),
+      referrer: String(req.headers.referer ?? '').slice(0, 2048),
     }),
   }).catch(() => undefined);
 }
@@ -743,7 +778,22 @@ const LANDING_DOCS = ["/", "/roadmap", "/colaborar", "/login", "/registro", "/ac
 // Direcciones de Herra que ya circulan (invitaciones enviadas, marcadores).
 const LANDING_LEGACY = { "/register": "/registro", "/admin/login": "/login" };
 const LANDING_API = [
+  // TEMPORAL-PORTADA: only the public chat endpoints, never the catalog router.
+  /^\/chat\/(challenge|session|profile|rooms|effects|wallet|inventory|equip|daily-cover)$/u,
+  /^\/chat\/rooms\/[a-z0-9-]+\/messages$/u,
+  /^\/chat\/effects\/[a-z0-9-]+\/buy$/u,
+  /^\/chat\/messages\/\d+\/report$/u,
+  // Moderación desde el widget de la portada: mismas rutas que /crv/chat.
+  // Todas exigen cuenta administradora de CRV y CSRF en el proceso del chat;
+  // la lista blanca solo las deja llegar.
+  /^\/chat\/admin\/(reports|log)$/u,
+  /^\/chat\/admin\/reports\/\d+\/resolve$/u,
+  /^\/chat\/admin\/messages\/\d+\/delete$/u,
+  /^\/chat\/admin\/actors\/[A-Za-z0-9_-]+\/(mute|unmute|kick|ban)$/u,
+  /^\/chat\/admin\/rooms\/[a-z0-9-]+\/(clear|slow-mode)$/u,
+  /^\/traffic\/event$/u,
   /^\/roadmap$/u,
+  /^\/roadmap\/launch$/u,
   /^\/roadmap\/(visit|visits|me)$/u,
   /^\/roadmap\/tasks\/\d+\/status$/u,
   /^\/community\/(form-options|applications)$/u,
@@ -759,6 +809,21 @@ const LANDING_API = [
 const LANDING_RADIO = /^\/radio\/(now|listener|unavailable|diagnostic)$/u;
 const LANDING_STATICS = ["/landing/", "/favicon.ico", "/favicon.png", "/theme.css", "/media/favicon", "/media/share"];
 
+// Desarrollo: recarga la portada cuando esbuild reescribe el bundle. Solo se
+// sirve con CRV_LIVE_RELOAD=1; en producción no existe la ruta.
+const DEV_RELOAD_JS = `(() => {
+  const target = new URL("rockola.js", document.currentScript?.src || location.href).href;
+  let stamp = null;
+  setInterval(async () => {
+    try {
+      const res = await fetch(target, { method: "HEAD", cache: "no-store" });
+      const next = res.headers.get("last-modified");
+      if (stamp === null) stamp = next;
+      else if (next !== stamp) location.reload();
+    } catch {}
+  }, 1200);
+})();`;
+
 /** Proxy a otro proceso local (la radio de Herra en la 2B). */
 function proxyTo(req, res, target, upstreamPath, extraHeaders = {}) {
   const destino = new URL(target);
@@ -767,6 +832,7 @@ function proxyTo(req, res, target, upstreamPath, extraHeaders = {}) {
     host: destino.host,
     "x-forwarded-host": req.headers.host,
     "x-forwarded-proto": "https",
+    "x-forwarded-for": forwardedFor(req),
     // El panel construye con esto las direcciones de invitación y activación.
     "x-crv-base-path": basePath === "/" ? "" : basePath,
     ...extraHeaders,
@@ -814,6 +880,10 @@ function landingWhitelist(req, res, virtualUrl, acceptsHtml) {
       // Herra sirve la radio bajo /api/radio/*: se reenvía con su prefijo.
       if (metodo === "POST") void proxyRadioPost(req, res, `/api${dentro}${virtualUrl.search}`);
       else proxyTo(req, res, radioProxyUrl, `/api${dentro}${virtualUrl.search}`);
+      return true;
+    }
+    if (dentro === "/daily-cycle" && esLectura) {
+      proxyTo(req, res, `http://${apiHost}:8080`, "/daily-cycle");
       return true;
     }
     if (LANDING_API.some((patron) => patron.test(dentro))) {
@@ -864,7 +934,7 @@ function landingWhitelist(req, res, virtualUrl, acceptsHtml) {
   return true;
 }
 
-const server = http.createServer(async (req, res) => {
+async function handleRequest(req, res) {
   const ip = clientIp(req);
   if (ip.length > 0 && !isLocalRequest(req) && rateLimited(ip)) {
     res.writeHead(429, { "content-type": "text/plain; charset=utf-8", "retry-after": "60", ...SECURITY_HEADERS });
@@ -886,7 +956,9 @@ const server = http.createServer(async (req, res) => {
       return;
     }
   }
-  const requestUrl = new URL(req.url ?? "/", `http://${req.headers.host ?? host}`);
+  let requestUrl;
+  try { requestUrl = new URL(req.url ?? "/", `http://${req.headers.host ?? host}`); }
+  catch { return reply(res, 400, "Petición inválida."); }
   // En staging la app vive bajo /crv. Si alguien entra por una ruta de la app
   // sin el prefijo (/roadmap, /curaduria/...), el gateway sirve el índice pero
   // el basename del router no coincide y la página queda en blanco. Las
@@ -929,7 +1001,7 @@ const server = http.createServer(async (req, res) => {
       return res.end();
     }
     const lang = requestLang(req, virtualUrl.searchParams);
-    reportTraffic(req, virtualUrl.pathname.slice(basePath.length) || "/");
+    reportTraffic(req, virtualUrl.pathname.slice(landingPrefix.length) || "/");
     return serveLanding(req, res, landingPage, lang, virtualUrl.searchParams);
   }
   // robots.txt y sitemap los sirve el gateway, no el build: responden con el
@@ -937,6 +1009,9 @@ const server = http.createServer(async (req, res) => {
   const literalPath = basePath === "/"
     ? virtualUrl.pathname
     : (virtualUrl.pathname === basePath ? "/" : virtualUrl.pathname.slice(basePath.length));
+  if (liveReload && literalPath === "/landing/dev-reload.js" && (req.method === "GET" || req.method === "HEAD")) {
+    return sendText(req, res, 200, "text/javascript; charset=utf-8", DEV_RELOAD_JS, "no-store");
+  }
   if (req.method === "GET" || req.method === "HEAD") {
     if (literalPath === "/robots.txt") {
       reportTraffic(req, literalPath);
@@ -962,7 +1037,19 @@ const server = http.createServer(async (req, res) => {
     return res.end();
   }
   return serveFile(req, res, virtualUrl.pathname, virtualUrl.searchParams);
+}
+
+const server = http.createServer((req, res) => {
+  for (const [name, value] of Object.entries(SECURITY_HEADERS)) res.setHeader(name, value);
+  void handleRequest(req, res).catch(() => {
+    // Un URL o archivo malformado no puede terminar el proceso ni revelar rutas.
+    if (res.headersSent) res.destroy();
+    else reply(res, 503, "El sitio no está disponible en este momento.");
+  });
 });
+server.requestTimeout = 30_000;
+server.headersTimeout = 15_000;
+server.keepAliveTimeout = 5_000;
 
 server.on("upgrade", proxyChatUpgrade);
 server.listen(port, host, () => console.log(`CRV público local: http://${host}:${port}${basePath}/`));

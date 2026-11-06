@@ -90,6 +90,30 @@ export async function hideMessage(input: {
   return ref;
 }
 
+/**
+ * Limpia la conversación de una sala: oculta (soft delete) todos los mensajes
+ * vivos de una vez y deja UNA fila de auditoría con el total. No borra filas:
+ * la moderación puede restaurarlas una a una si hizo falta.
+ */
+export async function clearRoom(input: { roomSlug: string; moderator: string; reason: string }): Promise<number> {
+  const { rows } = await getPool().query<{ id: number }>("SELECT id FROM chat.rooms WHERE slug = $1", [input.roomSlug]);
+  const room = rows[0];
+  if (!room) throw new ChatError("room_not_found", "Esa sala no existe.", 404);
+  return inTransaction(async (client) => {
+    const updated = await client.query(
+      `UPDATE chat.messages SET deleted_at = COALESCE(deleted_at, now()), deleted_by = $2, moderation = 'hidden'
+       WHERE room_id = $1 AND deleted_at IS NULL`,
+      [room.id, input.moderator],
+    );
+    const cleared = updated.rowCount ?? 0;
+    await log(client, {
+      action: "delete", moderator: input.moderator, reason: input.reason,
+      details: { scope: "room", room: input.roomSlug, messages: cleared },
+    });
+    return cleared;
+  });
+}
+
 export async function restoreMessage(messageId: number, moderator: string, reason: string): Promise<MessageRef> {
   const ref = await messageRef(messageId);
   if (!ref) throw new ChatError("message_not_found", "Ese mensaje no existe.", 404);

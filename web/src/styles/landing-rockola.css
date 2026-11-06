@@ -1,0 +1,429 @@
+
+    :host {
+      color-scheme: dark;
+      --rv-red: #b91d30;
+      --rv-bg: #151516;
+      --rv-surface: #1b1b1d;
+      --rv-muted: #89898f;
+      --rv-line: #37373b;
+    }
+    * { box-sizing: border-box; }
+    #rockola-widget { margin: 0; min-height: 0; background: #0b0b0c; color: #ededee; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible { outline: 2px solid #e75e70; outline-offset: 2px; }
+    [hidden] { display: none !important; }
+
+    /* El widget es independiente y está fijado en la esquina inferior derecha. */
+    .rv-chat {
+      position: fixed;
+      z-index: 1000;
+      right: 16px;
+      bottom: 16px;
+      width: 375px;
+      max-width: calc(100% - 32px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid #414145;
+      border-radius: 14px;
+      background: var(--rv-bg);
+      box-shadow: 0 18px 55px rgb(0 0 0 / 65%);
+      transition: width 200ms ease;
+    }
+    .rv-chat.is-expanded { width: 635px; }
+    .rv-header {
+      min-height: 58px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      padding: 9px 10px 9px 14px;
+      border-bottom: 1px solid var(--rv-line);
+      background: var(--rv-surface);
+    }
+    .rv-title strong { display: block; font-size: 13px; font-weight: 800; white-space: nowrap; }
+    .rv-title small { display: block; margin-top: 5px; color: #bcbcc0; font-size: 10px; white-space: nowrap; }
+    .rv-live-dot {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 5px;
+      vertical-align: 1px;
+      border-radius: 50%;
+      background: #39d6bd;
+      box-shadow: 0 0 0 3px rgb(57 214 189 / 12%);
+    }
+    .rv-header-actions { display: flex; gap: 4px; flex-shrink: 0; }
+    .rv-icon-button {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      padding: 5px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      background: transparent;
+      color: #bcbcc1;
+      align-content: center;
+      justify-content: center;
+    }
+    .rv-icon-button:hover, .rv-icon-button.is-active { background: #353538; color: white; border-color: #49494e; }
+    /* Solo administración: escudo de moderación en la cabecera. */
+    .rv-icon-button--mod:hover { background: #2a1a1d; color: #ff8f9b; border-color: #6b2a30; }
+    .rv-icon-button.rv-icon-button--mod svg { width: 22px; height: 22px; fill: currentColor; stroke: none; }
+    .rv-icon-button svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+
+    .rv-feed {
+      height: 315px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+      padding: 17px 13px;
+      background: #111112;
+      scrollbar-color: #515156 transparent;
+      scrollbar-width: thin;
+    }
+    .rv-chat.is-expanded .rv-feed { height: min(52vh, 470px); min-height: 300px; }
+    .rv-message { position: relative; display: flex; gap: 9px; align-items: flex-start; padding-right: 20px; }
+    /* Menú «⋮» de cada mensaje: reportar para cualquiera, moderar con sesión. */
+    .rv-msg-menu { position: absolute; top: 0; right: 0; opacity: .35; transition: opacity .15s ease; }
+    .rv-message:hover .rv-msg-menu, .rv-msg-menu:focus-within, .rv-msg-menu.is-open { opacity: 1; }
+    @media (hover: none) { .rv-msg-menu { opacity: .8; } }
+    .rv-msg-menu-toggle { display: grid; place-items: center; width: 20px; height: 20px; padding: 0; border: 0; border-radius: 6px; background: transparent; color: #a8a8ad; }
+    .rv-msg-menu-toggle:hover { background: #2a2a2e; color: #fff; }
+    .rv-msg-menu-toggle svg { width: 16px; height: 16px; }
+    .rv-msg-menu-list { position: absolute; right: 0; top: 22px; z-index: 12; min-width: 192px; padding: 6px; display: flex; flex-direction: column; gap: 2px; background: #232326; border: 1px solid #45454b; border-radius: 10px; box-shadow: 0 12px 30px rgb(0 0 0 / 55%); }
+    .rv-msg-menu-list.is-up { top: auto; bottom: 22px; }
+    .rv-msg-menu-list button { padding: 7px 9px; border: 0; border-radius: 7px; background: transparent; color: #e6e6e8; font-size: 11.5px; font-weight: 600; text-align: left; }
+    .rv-msg-menu-list button:hover { background: #33333a; }
+    .rv-msg-menu-list button.is-danger { color: #ff9aa4; }
+    .rv-msg-menu-list button.is-danger:hover { background: #2a1a1d; }
+    .rv-msg-menu-title { margin: 2px 6px 4px; color: #a8a8ad; font-size: 11px; font-weight: 700; }
+    .rv-notice { margin: 0 13px 8px; padding: 7px 10px; border-radius: 8px; background: #1e2b24; color: #9fe6c0; font-size: 11px; }
+    .rv-avatar {
+      width: 27px;
+      height: 27px;
+      display: grid;
+      flex-shrink: 0;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(140deg, #3788ba, #261568);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .rv-avatar.is-pink { background: linear-gradient(120deg, #b62e6b, #73143b); }
+    .rv-avatar.is-red { background: linear-gradient(120deg, #c22435, #68121f); }
+    .rv-message-main { min-width: 0; flex: 1; }
+    .rv-message-main b { font-size: 11px; }
+    .rv-timestamp { margin-left: 5px; font-size: 9px; color: #808085; }
+    .rv-message-main p { margin: 6px 0 0; font-size: 11.5px; line-height: 1.5; color: #d4d4d6; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+    .rv-compose {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin: 0;
+      padding: 9px 11px;
+      border-top: 1px solid #303033;
+      background: #19191a;
+    }
+    .rv-compose input {
+      flex: 1;
+      min-width: 0;
+      height: 34px;
+      padding: 0 10px;
+      border: 1px solid #38383b;
+      border-radius: 8px;
+      background: #242426;
+      color: #fff;
+      font-size: 11px;
+    }
+    .rv-compose input::placeholder { color: #85858b; }
+    .rv-send {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      border: none;
+      border-radius: 8px;
+      background: var(--rv-red);
+      color: white;
+    }
+    .rv-send svg { width: 15px; height: 15px; }
+    .rv-identity {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 13px 10px;
+      background: #19191a;
+      font-size: 10px;
+    }
+    .rv-alias { font-weight: 800; color: #fff; }
+    .rv-rename { padding: 2px 3px; border: 0; background: none; color: #f36b7a; font-size: 10px; }
+    .rv-demo-label { margin-left: auto; color: #85858a; font-size: 9px; }
+
+    /* Carrusel doble: cambian las categorías y las banderas avanzan de manera continua. */
+    .rv-stats { border-top: 1px solid #38383a; padding: 11px 12px 10px; background: #202022; }
+    .rv-stat-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 10px; }
+    .rv-stat-title { font-size: 9px; font-weight: 850; letter-spacing: 1px; color: #b6b6ba; }
+    .rv-stat-number { font-size: 13px; font-weight: 900; color: #4bdbcb; font-variant-numeric: tabular-nums; }
+    .rv-flag-viewport {
+      position: relative;
+      height: 42px;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, #000 0%, #000 89%, transparent 100%);
+      mask-image: linear-gradient(to right, #000 0%, #000 89%, transparent 100%);
+    }
+    .rv-flag-track {
+      display: flex;
+      width: max-content;
+      transform: translate3d(0, 0, 0);
+      animation: rv-marquee var(--rv-duration, 16s) linear infinite;
+      will-change: transform;
+    }
+    .rv-flag-viewport:hover .rv-flag-track,
+    .rv-flag-viewport:focus-within .rv-flag-track { animation-play-state: paused; }
+    .rv-flag-group { display: flex; align-items: stretch; width: max-content; gap: 7px; padding-right: 7px; }
+    .rv-flag-chip {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 10px;
+      border: 1px solid #3a3a3d;
+      border-radius: 7px;
+      background: #303033;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .rv-flag-chip .rv-flag { font-size: 16px; }
+    .rv-flag-chip .rv-country { font-size: 10px; color: #b7b7bd; }
+    .rv-flag-chip b { color: #f3f3f4; font-size: 11px; font-variant-numeric: tabular-nums; }
+    @keyframes rv-marquee {
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(var(--rv-travel, -500px), 0, 0); }
+    }
+    .rv-dots { display: flex; justify-content: center; gap: 7px; margin-top: 9px; }
+    .rv-dots button {
+      width: 25px;
+      height: 4px;
+      padding: 0;
+      border: 0;
+      border-radius: 6px;
+      background: #58585c;
+    }
+    .rv-dots button.is-active { background: #e0243b; }
+
+    /* Píldora de «Mensajes» (328×73): la vista minimizada del chat. */
+    .rv-launcher {
+      position: fixed;
+      z-index: 1000;
+      right: 31px;
+      bottom: 31px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      width: 250px;
+      height: 55px;
+      max-width: calc(100vw - 18px);
+      padding: 0 0px 0 20px;
+      border: 1px solid #2c2e33;
+      border-radius: 27.5px;
+      background: #232222;
+      color: #f2f3f5;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -1.5px;
+      line-height: 1;
+      box-shadow: 0 14px 34px #000000e6;
+      transition: background .18s ease, border-color .18s ease;
+    }
+    .rv-launcher:hover { background: #232222; border-color: #3a3c43; }
+    .rv-launcher:active { background: #232222; }
+    .rv-launcher-icon { position: relative; display: grid; flex: none; place-items: center; width: 30px; height: 30px; }
+    .rv-launcher-icon svg { display: block; width: 30px; height: 30px; }
+.rv-launcher-count {
+    position: absolute;
+    right: -5px;
+    bottom: -3px;
+    display: grid;
+    place-items: center;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: #ff3040;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 0px;
+    outline: 2px solid #232222;
+}
+    .rv-launcher-label { flex: 0 1 auto; min-width: 0; overflow: hidden; text-align: left; text-overflow: ellipsis; white-space: nowrap;margin-left: 5px;}
+    .rv-launcher-people { display: flex; flex: none; align-items: center; gap:5px;}
+    .rv-launcher-avatar, .rv-launcher-more { display: grid; flex: none; place-items: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid #232222; color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0; }
+    .rv-launcher-people > * + * { margin-left: -13px; }
+    .rv-launcher-more { padding-bottom: 3px; background: #676767; color: #d3d4d8; font-size: 15px; letter-spacing: 0.5px; }
+    .rv-overlay {
+      position: absolute;
+      z-index: 2;
+      inset: 58px 0 0;
+      display: none;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 18px 13px;
+      background: #000b;
+    }
+    .rv-overlay.is-visible { display: flex; }
+    .rv-dialog { width: 100%; max-width: 330px; overflow: hidden; border: 1px solid #4b4b50; border-radius: 12px; background: #222225; box-shadow: 0 20px 40px #0009; }
+    .rv-dialog-header { display: flex; justify-content: space-between; align-items: center; padding: 14px; border-bottom: 1px solid #38383c; }
+    .rv-dialog-header strong { font-size: 13px; }
+    .rv-dialog-close { padding: 0 4px; border: 0; background: transparent; color: #b7b7bc; font-size: 19px; }
+    .rv-dialog-content { padding: 14px; font-size: 11px; color: #c4c4c7; }
+    .rv-user-card { display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 11px; border-radius: 8px; background: #2c2c2f; color: white; }
+    .rv-user-card small { display: block; margin-top: 5px; color: #7ddbc9; }
+    .rv-dialog-input { width: 100%; margin-top: 11px; padding: 11px; border: 1px solid #55555c; border-radius: 8px; background: #161618; color: white; font-size: 12px; }
+    .rv-primary { margin-top: 12px; padding: 11px 13px; border: 0; border-radius: 8px; background: var(--rv-red); color: white; font-size: 11px; font-weight: 800; }
+    .rv-shop-choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 13px; }
+    .rv-shop-choices button { min-height: 64px; padding: 7px 5px; border: 1px solid #47474a; border-radius: 8px; background: #2b2b2e; color: #dcdce0; font-size: 10px; }
+    .rv-shop-choices button.is-selected { border-color: #e34b5f; background: #431b23; }
+    .rv-shop-choices .rv-shop-emoji { display: block; margin-bottom: 6px; font-size: 20px; }
+    .rv-note { margin-top: 10px; color: #98989c; font-size: 10px; line-height: 1.5; }
+    @media (max-width: 570px) {
+      .rv-chat, .rv-launcher { right: 9px; bottom: 9px; }
+      .rv-chat { max-width: calc(100% - 18px); }
+      .rv-chat.is-expanded { width: calc(100% - 18px); }
+      .rv-feed { height: min(43vh, 315px); min-height: 170px; }
+      .rv-chat.is-expanded .rv-feed { height: min(55vh, 460px); min-height: 170px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .rv-chat { transition: none; }
+      .rv-flag-viewport { overflow-x: auto; -webkit-mask-image: none; mask-image: none; scrollbar-width: thin; }
+      .rv-flag-track { animation: none !important; }
+      .rv-flag-group:nth-child(2) { display: none; }
+    }
+  /* Preserve the supplied mockup while constraining long live content. */
+#rockola-widget { --bg:#151516; --surface:#222225; --text:#ededee; --text-secondary:#b7b7bd; --border:#38383c; }
+.rv-chat { max-height:calc(100dvh - 32px); }
+.rv-feed { flex:0 1 315px; min-height:100px; }
+.rv-chat.is-expanded .rv-feed { flex-basis:min(52vh,470px); }
+.rv-header, .rv-compose, .rv-identity, .rv-stats { flex-shrink:0; }
+.rv-message { flex-shrink:0; }
+.rv-message-main .crv-named-user, .rv-message-main .crv-name { font-size:11px; font-weight:700; }
+.rv-message-main .crv-named-user { display:inline-flex; vertical-align:baseline; }
+.rv-error { margin:0; padding:8px 13px; color:#ffadb7; background:#19191a; font-size:11px; }
+.rv-history { align-self:center; padding:5px 10px; border:1px solid #38383b; border-radius:6px; color:#bcbcc0; background:#202022; font-size:10px; }
+button:disabled { cursor:default; opacity:.5; }
+.rv-overlay { overflow:auto; overscroll-behavior:contain; }
+.rv-dialog { flex-shrink:0; }
+.rv-dialog-content > p:first-child { margin-top:0; }
+.rv-dialog-content form { margin:0; }
+.rv-dialog-close { min-width:24px; min-height:24px; }
+.rv-dialog-close:hover { color:white; }
+.rv-dialog-content label { color:#d4d4d6; font-size:11px; }
+.rv-dialog-input:focus { border-color:#e75e70; }
+.rv-primary:hover { background:#d32a40; }
+.rv-user-card strong { font-size:12px; }
+.rv-user-card small { font-size:10px; }
+.rv-stats .rv-flag { flex-shrink:0; object-fit:contain; }
+.rv-dialog--shop .rv-dialog-content { padding:12px; }
+@media(max-width:570px) {
+ .rv-chat { max-height:calc(100dvh - 18px); }
+ .rv-feed { flex-basis:min(43vh,315px); min-height:100px; }
+ .rv-chat.is-expanded .rv-feed { flex-basis:min(55vh,460px); min-height:100px; }
+}
+#rockola-widget { --text-muted:#b7b7bd; --surface-2:#2c2c2f; --surface-3:#38383c; --amber:#e8bd70; --red:#b91d30; }
+.rv-dialog { max-height:100%; display:flex; flex-direction:column; }
+.rv-dialog-header { flex-shrink:0; }
+.rv-dialog-content { overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#515156 transparent; }
+
+.rv-message-main .crv-name { font-size:11px!important; }
+.rv-message-main .crv-name [style] { font-size:inherit; }
+.rv-dialog--shop .crv-shop-fitting { background:#222225; }
+.rv-dialog--shop .crv-shop .crv-probador { background:#1b1b1d; }
+.rv-dialog--shop .chat-effect-preview .crv-name { font-size:14px!important; }
+.rv-dialog--shop .crv-shop-intro { display:flex; }
+
+.rv-send:disabled { opacity:1; }
+#rockola-widget { font-size:16px; line-height:normal; font-weight:400; letter-spacing:normal; text-align:left; }
+
+/* Dialogs use the viewport, independently of the floating chat panel. */
+.rv-overlay { position:fixed; inset:0; z-index:1100; align-items:center; padding:24px; background:#000b; backdrop-filter:blur(5px); }
+.rv-dialog { max-width:460px; max-height:calc(100dvh - 48px); border-radius:16px; }
+.rv-dialog-header { padding:18px 22px; }
+.rv-dialog-header strong { font-size:17px; }
+.rv-dialog-close { width:36px; height:36px; border-radius:8px; font-size:26px; }
+.rv-dialog-close:hover { background:#ffffff0c; }
+.rv-dialog-content { padding:22px; font-size:14px; line-height:1.5; }
+.rv-dialog-content label, .rv-user-card strong { font-size:14px; }
+.rv-dialog-input { padding:13px; font-size:16px; }
+.rv-note, .rv-user-card small { font-size:12px; }
+.rv-primary { min-height:44px; font-size:14px; padding:11px 18px; }
+.rv-dialog--shop { max-width:1080px; height:min(820px, calc(100dvh - 48px)); }
+.rv-dialog--shop .rv-dialog-content { display:flex; flex-direction:column; min-height:0; padding:20px 0 0; overflow:hidden; }
+.rv-dialog--shop .crv-shop-workspace { min-height:0; }
+.rv-dialog--shop .crv-shop-fitting { background:#1b1b1d; }
+.crv-particle-stage, .crv-material-stage { z-index:1101; }
+.rv-flag-track { animation:none; }
+.rv-flag-track.is-scrolling { animation:rv-marquee var(--rv-duration,16s) linear infinite; }
+.rv-flag-viewport:not(.is-scrolling) { mask-image:none; -webkit-mask-image:none; }
+@media(max-width:700px) {
+ .rv-overlay { padding:12px; }
+ .rv-dialog { max-height:calc(100dvh - 24px); }
+ .rv-dialog--shop { height:calc(100dvh - 24px); }
+ .rv-dialog-header { padding:12px 16px; }
+ .rv-dialog-content { padding:18px; }
+ .rv-dialog--shop .rv-dialog-content { overflow-y:auto; }
+ .rv-dialog--shop .crv-shop-workspace { display:flex; flex-direction:column; flex:none; }
+ .rv-dialog--shop .crv-shop-fitting, .rv-dialog--shop .crv-shop-catalog { overflow:visible; }
+ .rv-dialog--shop .crv-shop-fitting { border-right:0; border-bottom:1px solid var(--border); }
+ .rv-dialog--shop .crv-shop-intro { padding:0 16px 16px; flex-wrap:wrap; gap:12px; }
+ .rv-dialog--shop .crv-shop-intro h3 { font-size:20px; }
+ .rv-dialog--shop .crv-shop-catalog { padding:16px; }
+ .rv-dialog--shop .crv-shop .chat-effect-grid { gap:10px; }
+ .rv-dialog--shop .crv-shop .chat-effect-card { padding:10px; min-height:190px; }
+}
+
+    /* Moderación del chat (solo con sesión admin): la misma ventana que /crv/chat. */
+    .rv-mod { display: flex; flex-direction: column; gap: 10px; }
+    .rv-mod-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+    .rv-mod-tabs button { padding: 7px 10px; border: 1px solid #414145; border-radius: 8px; background: #232326; color: #c9c9cd; font-size: 11px; font-weight: 700; }
+    .rv-mod-tabs button[aria-selected="true"] { background: #33333a; border-color: #5a5a62; color: #fff; }
+    .rv-mod-tabs span { margin-left: 6px; padding: 0 6px; border-radius: 999px; background: #d92b3d; color: #fff; font-size: 10px; }
+    .rv-mod-notice { margin: 0; padding: 8px 10px; border-radius: 8px; background: #1e2b24; color: #9fe6c0; font-size: 11.5px; }
+    .rv-mod-error { margin: 0; padding: 8px 10px; border-radius: 8px; background: #2a1a1d; color: #ff9aa4; font-size: 11.5px; }
+    .rv-mod-empty { margin: 6px 0; color: var(--rv-muted); font-size: 12px; }
+    .rv-mod-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; max-height: 46vh; overflow-y: auto; }
+    .rv-mod-list > li { padding: 10px 11px; border-radius: 10px; background: #202023; border: 1px solid #303034; }
+    .rv-mod-list.is-log > li { padding: 8px 10px; }
+    .rv-mod-meta { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; margin: 0; font-size: 12.5px; }
+    .rv-mod-meta span { color: #a8a8ad; }
+    .rv-mod-sub { margin: 4px 0 0; color: #8a8a90; font-size: 11px; overflow-wrap: anywhere; }
+    .rv-mod-list blockquote { margin: 6px 0 0; padding: 6px 9px; border-left: 2px solid #4a4a50; background: #1a1a1d; color: #d6d6d9; font-size: 12px; overflow-wrap: anywhere; }
+    .rv-mod-list blockquote.is-hidden { opacity: .6; }
+    .rv-mod-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .rv-mod-actions button { padding: 7px 10px; border: 1px solid #414145; border-radius: 8px; background: #2a2a2e; color: #e6e6e8; font-size: 11px; font-weight: 700; }
+    .rv-mod-actions button:hover { background: #34343a; }
+    .rv-mod-actions button[aria-pressed="true"] { background: #3a3a42; border-color: #6a6a74; color: #fff; }
+    .rv-mod-actions button.is-danger { border-color: #6b2a30; background: #2a1a1d; color: #ff9aa4; }
+    .rv-mod-actions button.is-danger:hover { background: #341f23; }
+    .rv-mod-actions button:disabled { opacity: .55; }
+    .rv-mod-hint { margin: 0; color: #a8a8ad; font-size: 12px; line-height: 1.45; }
+    .rv-mod-title { margin: 12px 0 0; font-size: 12px; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; color: #c9c9cd; }
+    .rv-mod-room { display: flex; flex-direction: column; gap: 8px; }
+    .rv-mod-clear { display: flex; flex-direction: column; gap: 6px; }
+    .rv-mod-clear-toggle { align-self: flex-start; padding: 8px 12px; border: 1px solid #6b2a30; border-radius: 8px; background: #2a1a1d; color: #ff9aa4; font-size: 11.5px; font-weight: 700; }
+    .rv-mod-clear-toggle:hover { background: #341f23; }
+    .rv-mod-footer { display: flex; justify-content: flex-end; margin-top: 4px; }
+    .rv-mod-close { padding: 8px 14px; border: 1px solid #414145; border-radius: 8px; background: transparent; color: #d4d4d6; font-size: 11.5px; font-weight: 600; }
+
+    /* CRV · medida exacta del panel abierto (#rockola-widget > section), Brian 2026-11-06.
+       El alto lo absorbe el feed; «Ampliar» conserva su alto propio. */
+    .rv-chat { width: 360px; height: 521px; }
+    .rv-feed { flex: 1 1 auto; min-height: 0; }
+    .rv-chat.is-expanded { height: auto; }
+

@@ -13,7 +13,7 @@ import { ApiError } from "../http-errors.js";
 import { ChatError } from "../../chat/repository.js";
 import type { ChatHub } from "../../chat/realtime.js";
 import {
-  banActor, hideMessage, listModerationLog, listReports, logKick, muteActor, resolveReport, restoreMessage,
+  banActor, clearRoom, hideMessage, listModerationLog, listReports, logKick, muteActor, resolveReport, restoreMessage,
   setSlowMode, unbanActor, unbanIp, unmuteActor,
 } from "../../chat/moderation/store.js";
 
@@ -68,6 +68,20 @@ export async function registerChatModerationRoutes(app: FastifyInstance, hub: Ch
       const ref = await hideMessage({ messageId: request.params.id, moderator: request.operator, reason: request.body.reason });
       hub.removeMessage(ref.roomSlug, ref.id);
       return { ok: true };
+    } catch (error) { rethrow(error); }
+  });
+
+  // Limpia la conversación completa de una sala (soft delete + auditoría).
+  server.post("/chat/admin/rooms/:slug/clear", {
+    schema: { ...schema, params: z.object({ slug: z.string().trim().min(1).max(64) }), body: reasonBody },
+  }, async (request) => {
+    try {
+      const cleared = await clearRoom({
+        roomSlug: request.params.slug, moderator: request.operator,
+        reason: request.body.reason || "Limpieza de la conversación",
+      });
+      hub.clearRoom(request.params.slug, cleared);
+      return { ok: true, cleared };
     } catch (error) { rethrow(error); }
   });
 

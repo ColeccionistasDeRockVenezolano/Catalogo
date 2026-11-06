@@ -1,0 +1,2 @@
+/* Rockola styles are isolated inside its Shadow DOM. */
+#visitCounter[hidden]{display:none!important}

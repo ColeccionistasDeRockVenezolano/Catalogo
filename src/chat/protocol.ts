@@ -57,7 +57,7 @@ export const chatRoomSchema = z.object({
   slug: z.string(),
   name: z.string(),
   description: z.string(),
-  theme: z.record(z.unknown()),
+  theme: z.record(z.string(), z.unknown()),
   /** Segundos mínimos entre dos mensajes de un mismo usuario (0 = sin modo lento). */
   slowModeSeconds: z.number().int(),
 });
@@ -68,7 +68,7 @@ export const chatEffectSchema = z.object({
   name: z.string(),
   kind: z.enum(EFFECT_KINDS),
   description: z.string(),
-  manifest: z.record(z.unknown()),
+  manifest: z.record(z.string(), z.unknown()),
   priceCoins: z.number().int(),
   priceCredits: z.number().int(),
   durationDays: z.number().int().nullable(),
@@ -107,6 +107,7 @@ export type ServerEvent =
   | { type: "wallet"; coins: number; credits: number }
   | { type: "equipped"; actorId: string; equipped: Equipped }
   | { type: "deleted"; messageId: number }
+  | { type: "cleared"; count: number }
   | { type: "muted"; until: string | null; reason: string }
   | { type: "room"; room: ChatRoom }
   | { type: "mod_alert"; alert: ModerationAlert }
