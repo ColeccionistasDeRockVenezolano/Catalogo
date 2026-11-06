@@ -24,10 +24,15 @@ describe("límite de ráfaga por ventana", () => {
     for (let i = 0; i < 50; i += 1) expect(unlimited.take("x")).toBe(true);
   });
 
-  it("el mapa de claves está acotado: la más vieja se poda", () => {
-    const bounded = createWindowLimiter({ max: 5, windowMs: 60_000, maxKeys: 2 });
+  it("rotar claves no borra un límite activo y las ventanas vencidas liberan espacio", () => {
+    vi.useFakeTimers();
+    const bounded = createWindowLimiter({ max: 1, windowMs: 60_000, maxKeys: 2 });
     expect(bounded.take("k1")).toBe(true);
     expect(bounded.take("k2")).toBe(true);
+    expect(bounded.take("k3")).toBe(false);
+    expect(bounded.take("k1")).toBe(false);
+    expect(bounded.remaining("k3")).toBe(0);
+    vi.advanceTimersByTime(60_001);
     expect(bounded.take("k3")).toBe(true);
     expect(bounded.take("k1")).toBe(true);
   });

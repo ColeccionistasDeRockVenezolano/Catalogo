@@ -92,13 +92,26 @@ describe("cuentas unificadas: importación y sesiones PostgreSQL", () => {
 
   it("mantiene contraseñas, roles y alcance del proyecto",async () => {
     expect((await login("BRIAN")).json().user.role).toBe("admin");
-    expect((await login("pedro")).json().user.role).toBe("reader");
+    // Pedro tiene una administración vinculada: también entra con ese rol
+    // desde su nombre de colaborador (la cuenta y sus claves son compartidas).
+    expect((await login("pedro")).json().user.role).toBe("admin");
     expect((await login("local")).json().user.role).toBe("admin");
     expect((await login("jefe")).json().user.role).toBe("admin");
     expect((await login("pendiente")).statusCode).toBe(401);
     expect((await login("ajeno")).statusCode).toBe(401);
-    const reader = await login("pedro");
+    const ordinary = (await getPool().query<{id:number}>("INSERT INTO auth.users(project_id,name,status,access_code_hash) VALUES(1,'lector','approved',$1) RETURNING id", [migratedHash])).rows[0]!;
+    const reader = await login("lector");
     expect((await app.inject({method:"POST",url:"/edit",headers:{cookie:cookie(reader),"x-crv-csrf":reader.json().csrf}})).statusCode).toBe(403);
+    await getPool().query('DELETE FROM auth.users WHERE id=$1', [ordinary.id]);
+  });
+
+  it("otra administración de un proyecto distinto no conserva una sesión privilegiada", async () => {
+    const promoted = await login('pedro');
+    expect(promoted.json().user.role).toBe('admin');
+    try {
+      await getPool().query('UPDATE auth.admins SET project_id=2 WHERE id=3');
+      expect((await app.inject({url:'/auth/me',headers:{cookie:cookie(promoted)}})).statusCode).toBe(401);
+    } finally { await getPool().query('UPDATE auth.admins SET project_id=1 WHERE id=3'); }
   });
 
   it("una sesión sobrevive a otra aplicación/pool y logout la revoca",async () => {

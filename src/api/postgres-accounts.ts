@@ -47,12 +47,12 @@ export class PostgresAccounts {
       ? `SELECT 1 FROM auth.users u JOIN auth.projects p ON p.id=u.project_id
            WHERE u.id=$1 AND u.session_version=$2 AND p.slug=$3 AND u.status='approved' AND u.access_code_hash IS NOT NULL
              -- Retirarle la administración cierra la sesión que entró con ese rol.
-             AND (coalesce($4,'reader')='reader' OR EXISTS (SELECT 1 FROM auth.admins a WHERE a.user_id=u.id AND CASE a.role WHEN 'curator' THEN 'curator' WHEN 'community' THEN 'community' ELSE 'admin' END=$4))`
+             AND (coalesce($4,'reader')='reader' OR EXISTS (SELECT 1 FROM auth.admins a WHERE a.user_id=u.id AND (a.role='superadmin' OR a.project_id=u.project_id) AND CASE a.role WHEN 'curator' THEN 'curator' WHEN 'community' THEN 'community' ELSE 'admin' END=$4))`
       : `SELECT 1 FROM auth.admins a LEFT JOIN auth.projects p ON p.id=a.project_id
            WHERE a.id=$1 AND a.session_version=$2 AND (a.role='superadmin' OR p.slug=$3)
+           AND CASE a.role WHEN 'curator' THEN 'curator' WHEN 'community' THEN 'community' ELSE 'admin' END=coalesce($4,'admin')
            AND (a.user_id IS NULL OR EXISTS (SELECT 1 FROM auth.users linked WHERE linked.id=a.user_id AND linked.status='approved' AND linked.access_code_hash IS NOT NULL))`;
-    const params: unknown[] = [ref.id, ref.sessionVersion, this.projectSlug];
-    if (ref.kind === "user") params.push(ref.role ?? null);
+    const params: unknown[] = [ref.id, ref.sessionVersion, this.projectSlug, ref.role ?? null];
     const { rows } = await this.pool.query(query, params);
     return rows.length === 1;
   }

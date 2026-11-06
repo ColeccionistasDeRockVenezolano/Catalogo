@@ -90,7 +90,7 @@ describe("sesiones de colaboradores", () => {
 
     const me = await app.inject({ method: "GET", url: "/auth/me", headers: { cookie } });
     expect(me.statusCode).toBe(200);
-    expect(me.headers["cache-control"]).toBe("no-store");
+    expect(me.headers["cache-control"]).toBe("private, no-store");
   });
 
   it("solo una cuenta admin escribe, revisa y compara; el catálogo sigue público", async () => {
@@ -136,7 +136,7 @@ describe("sesiones de colaboradores", () => {
         expect((await app.inject({ method, url, headers: { cookie: reader } })).statusCode).toBe(403);
         const response = await app.inject({ method, url, headers: { cookie: admin } });
         expect(response.statusCode).toBe(200);
-        expect(response.headers["cache-control"]).toBe("no-store");
+        expect(response.headers["cache-control"]).toBe("private, no-store");
       }
     }
   });

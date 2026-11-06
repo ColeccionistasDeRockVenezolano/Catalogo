@@ -186,9 +186,12 @@ export async function buildApp(): Promise<FastifyInstance> {
     await registerTrafficRoutes(app);
   }
   if (env.CRV_RADIO_ENABLED) await registerRadioRoutes(app);
+  await registerHealthRoutes(app);
+  // La portada tiene una API propia. No registra editores ni trabajadores
+  // del catálogo: tampoco puede reiniciar sus investigaciones al arrancar.
+  if (env.CRV_API_MODE === "landing") return app;
   await registerImageUploadRoutes(app);
   await registerImageUploadRoutes(app, undefined, true);
-  await registerHealthRoutes(app);
   await registerSiteAppearanceRoutes(app);
   await registerSitemapRoutes(app);
   await registerSearchRoutes(app);

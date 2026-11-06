@@ -36,9 +36,9 @@ describe("clientIp detrás del túnel", () => {
     expect(clientIp(fake("::1", { "cf-connecting-ip": "2a00:1450:4001:800::200e" }))).toBe("2a00:1450:4001:800::200e");
   });
 
-  it("ignora CF-Connecting-IP si el peer NO es local (cliente directo)", () => {
+  it("ignora CF-Connecting-IP y XFF si el peer NO es local (cliente directo)", () => {
     withTrust(true);
-    expect(clientIp(fake("190.45.12.7", { "cf-connecting-ip": "1.2.3.4", "x-forwarded-for": "8.8.8.8" }))).toBe("8.8.8.8");
+    expect(clientIp(fake("190.45.12.7", { "cf-connecting-ip": "1.2.3.4", "x-forwarded-for": "8.8.8.8" }))).toBe("190.45.12.7");
   });
 
   it("con el interruptor apagado usa el último X-Forwarded-For", () => {

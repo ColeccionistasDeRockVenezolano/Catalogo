@@ -37,8 +37,8 @@ const OPERATOR_STATUS: Readonly<Record<OperatorError["code"], number>> = {
 };
 
 // Restricciones del DDL que una escritura puede tocar. La API no las esquiva:
-// las devuelve como error del cliente, con el mensaje de PostgreSQL (no
-// contiene datos sensibles, solo la restricción y los valores de la fila).
+// las devuelve como error del cliente sin el DETAIL de PostgreSQL: puede incluir
+// la fila completa, contraseñas cifradas, correos u otros datos personales.
 const PG_STATUS: Readonly<Record<string, { status: number; code: string }>> = {
   "PCE01": { status: 409, code: "editorial_exclusion" },
   "PCE02": { status: 409, code: "editorial_admission" },
@@ -57,12 +57,21 @@ const PG_STATUS: Readonly<Record<string, { status: number; code: string }>> = {
 export function toApiError(error: unknown): ApiError | undefined {
   if (error instanceof ApiError) return error;
   if (error instanceof OperatorError) return new ApiError(OPERATOR_STATUS[error.code], error.code, error.message, error.details);
+  if (!error || typeof error !== "object") return undefined;
   const pg = error as { code?: unknown; detail?: unknown; constraint?: unknown; message?: unknown };
   if (typeof pg.code === "string" && PG_STATUS[pg.code]) {
     const mapped = PG_STATUS[pg.code]!;
-    const message = typeof pg.detail === "string" && pg.detail ? pg.detail : String(pg.message);
-    return new ApiError(mapped.status, mapped.code, message,
-      typeof pg.constraint === "string" ? { constraint: pg.constraint } : undefined);
+    const messages: Record<string, string> = {
+      unique_violation: "Ya existe un registro con esos datos.",
+      foreign_key_violation: "El registro está relacionado con otros datos. Revisa la selección.",
+      check_violation: "Los datos no cumplen los requisitos del registro.",
+      not_null_violation: "Falta un dato obligatorio.",
+      invalid_value: "Alguno de los valores no es válido.",
+      value_too_long: "Alguno de los campos supera el tamaño permitido.",
+      editorial_exclusion: "El registro tiene una exclusión editorial vigente.",
+      editorial_admission: "El registro no cumple los requisitos de admisión editorial.",
+    };
+    return new ApiError(mapped.status, mapped.code, messages[mapped.code] ?? "No se pudo guardar el registro.");
   }
   return undefined;
 }

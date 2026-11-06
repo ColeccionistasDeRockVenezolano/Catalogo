@@ -225,6 +225,7 @@ async function sessionFor(request: FastifyRequest, sessions: SessionStore<Sessio
 }
 
 function cookieSecurity(request: FastifyRequest): string {
+  if (getEnv().CRV_DEPLOYMENT === "production" || getEnv().NODE_ENV === "production") return "; Secure";
   const forwarded = request.headers["x-forwarded-proto"];
   return forwarded === "https" || request.protocol === "https" ? "; Secure" : "";
 }
@@ -305,7 +306,12 @@ export async function passwordMatches(password: string, encoded: string): Promis
 
 function assertBelowLimit(key: string, max: number): void {
   const failure = loginFailures.get(key);
-  if (!failure) return;
+  if (!failure) {
+    if (loginFailures.size >= MAX_TRACKED_LOGIN_KEYS) {
+      throw new ApiError(429, "too_many_attempts", "Demasiados intentos. Espera unos minutos antes de probar de nuevo.");
+    }
+    return;
+  }
   if (failure.resetAt <= Date.now()) {
     loginFailures.delete(key);
     return;
@@ -374,10 +380,14 @@ export function isTrustedOrigin(request: FastifyRequest): boolean {
   const origin = request.headers.origin;
   if (!origin) return true;
   if (getEnv().CRV_ALLOWED_ORIGINS.split(",").map((item) => item.trim()).filter(Boolean).includes(origin)) return true;
+  // En el dominio solo decide la lista configurada, nunca un Host enviado por el cliente.
+  if (getEnv().CRV_DEPLOYMENT === "production") return false;
   try {
     const originUrl = new URL(origin);
+    if (!["http:", "https:"].includes(originUrl.protocol) || originUrl.origin !== origin) return false;
     const forwardedHost = request.headers["x-forwarded-host"];
-    const requestHost = typeof forwardedHost === "string" ? forwardedHost : request.headers.host;
+    const peer = normalizeIp(request.raw.socket?.remoteAddress ?? request.ip);
+    const requestHost = (peer === "127.0.0.1" || peer === "::1") && typeof forwardedHost === "string" ? forwardedHost : request.headers.host;
     return originUrl.host === requestHost;
   } catch {
     return false;
@@ -441,10 +451,10 @@ export function clientIp(request: FastifyRequest): string {
     if (candidate && isIp(candidate)) return candidate;
   }
   const forwarded = request.headers["x-forwarded-for"];
-  if (typeof forwarded === "string" && forwarded.length > 0) {
+  if (isLoopback && typeof forwarded === "string" && forwarded.length > 0) {
     const parts = forwarded.split(",");
     const last = parts[parts.length - 1]!.trim();
-    if (last.length > 0) return last;
+    if (isIp(last)) return last;
   }
   return request.ip;
 }
@@ -512,6 +522,19 @@ export async function registerOperatorAuth(
     });
   });
   app.addHook("onClose", async () => herra?.close());
+  // Una respuesta que depende de la sesión nunca pertenece a una caché compartida,
+  // incluidas lecturas públicas con datos distintos para colaboradores y /account.
+  app.addHook("onSend", async (request, reply, payload) => {
+    const rawPath = request.url.split("?", 1)[0] ?? "/";
+    let path = rawPath;
+    try { path = decodeURIComponent(rawPath); } catch { /* una ruta inválida tampoco se almacena */ }
+    if (request.viewer || request.headers.cookie || /^\/(?:auth|account)(?:\/|$)/u.test(path)
+      || /^\/community\/(?:invite|activate)(?:\/|$)/u.test(path)) {
+      reply.header("cache-control", "private, no-store");
+      reply.header("vary", [reply.getHeader("vary"), "Cookie"].filter(Boolean).join(", "));
+    }
+    return payload;
+  });
 
   /** Sesión activa, descartando las de cuentas que herra ya no habilita. */
   const activeSession = async (request: FastifyRequest): Promise<{ key: string; value: Session } | undefined> => {
@@ -560,13 +583,14 @@ export async function registerOperatorAuth(
     // límites por IP viven en la ruta correspondiente.
     const isCommunityPublicWrite = request.method === "POST" && (
       path === "/community/applications" || path === "/community/register"
-      || path === "/community/activate" || path === "/roadmap/visit" || path === "/radio/listener"
+      || path === "/community/activate" || path === "/roadmap/visit" || path === "/roadmap/launch" || path === "/radio/listener"
       || path === "/radio/unavailable" || path === "/radio/diagnostic"
       // Aviso interno del gateway para las métricas: exige token propio en la
       // ruta y solo llega desde loopback.
-      || path === "/traffic/page");
+      || path === "/traffic/page" || path === '/traffic/event');
     if (isCommunityPublicWrite) {
-      assertTrustedOrigin(request);
+      if (path === "/traffic/page") assertTrustedOrigin(request); // canal interno con token propio
+      else assertChatOrigin(request);
       return;
     }
     if (isMetricEvent) assertTrustedOrigin(request);

@@ -26,8 +26,9 @@ export function createWindowLimiter(options: { max: number; windowMs: number; ma
       const entry = entries.get(key);
       if (!entry || entry.resetAt <= now) {
         if (!entry && entries.size >= maxKeys) {
-          const oldest = entries.keys().next().value;
-          if (oldest !== undefined) entries.delete(oldest);
+          // Rotar claves no debe borrar el cupo de un atacante todavía activo.
+          for (const [tracked, value] of entries) if (value.resetAt <= now) entries.delete(tracked);
+          if (entries.size >= maxKeys) return false;
         }
         entries.set(key, { count: 1, resetAt: now + options.windowMs });
         return true;
@@ -38,7 +39,8 @@ export function createWindowLimiter(options: { max: number; windowMs: number; ma
     },
     remaining(key: string): number {
       const entry = entries.get(key);
-      if (!entry || entry.resetAt <= Date.now()) return max;
+      if (!entry) return entries.size >= maxKeys ? 0 : max;
+      if (entry.resetAt <= Date.now()) return max;
       return Math.max(0, max - entry.count);
     },
   };

@@ -69,7 +69,7 @@ describe("subida de imágenes exclusiva de administración", () => {
     const payload = await image().toFormat(format).toBuffer();
     const response = await upload(payload, await login(), `image/${format}`);
     expect(response.statusCode, response.body).toBe(201);
-    expect(response.headers["cache-control"]).toBe("no-store");
+    expect(response.headers["cache-control"]).toBe("private, no-store");
     const result = response.json();
     expect(result).toMatchObject({ url: expect.stringMatching(/^\/crv\/media\/uploads\/[a-f0-9]{64}\.webp$/), width: 24, height: 16, bytes: expect.any(Number) });
     const stored = await readFile(path.join(directory, "uploads", path.basename(result.url)));
