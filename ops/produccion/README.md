@@ -304,20 +304,28 @@ lienzos de efectos presentes; móvil y escritorio sin errores JavaScript.
 ## Radio en rojo · 2026-11-06
 
 API: `/mnt/datos/crv-release/radio-roja-api-20261106`, copia aislada de
-`roadmap-volume-api-20261105` cuyo único cambio es
-`src/landing/roadmap-critical.min.css` (md5 `57c982c7`):
+`roadmap-volume-api-20261105`. Cambios:
 
-- El punto de «En vivo» usa `--red` y parpadea (`radio-pulse`, 1,6 s) solo con
+- `src/landing/roadmap-critical.min.css` (md5 `57c982c7`): el punto de «En vivo»
+  usa `--red` y parpadea (`radio-pulse`, 1,6 s) solo con
   `data-radio-state=live`. En `ready`, `loading`, `sound`, `error`, `restricted`
-  y `unavailable` es gris (`--gray`) y queda quieto.
-- El botón de sincronización perdió su variante verde en vivo (`#0e9d8f`) y usa
-  el rojo base con su hover; el texto de estado en vivo y la etiqueta «EN VIVO»
-  del panel pasan al rojo de texto de la UI.
-- Se mantiene `prefers-reduced-motion` (sin parpadeo).
+  y `unavailable` es gris (`--gray`) y queda quieto. El botón de sincronización
+  perdió su variante verde en vivo (`#0e9d8f`) y usa el rojo base; el texto de
+  estado en vivo pasa al rojo de texto de la UI. Se mantiene
+  `prefers-reduced-motion`.
+- `src/landing/render.ts`: `assetVersion` del roadmap pasa de
+  `roadmap-20261105c` a `roadmap-20261106a` para invalidar la caché del CSS.
+- `web/public/landing/roadmap-public.min.css` (hoja completa, que el HTML carga
+  **después** del CSS crítico y por eso imponía el teal): mismas reglas que el
+  crítico —punto gris salvo `live`, keyframe rojo con opacidad, sin verde en el
+  botón—. También copiada al `dist/landing/` del gateway vivo
+  (`/mnt/datos/crv-release/rockola-efectos-web-20261105`), editado in situ.
 
 Drop-in nuevo: `zzzzzzzzz-radio-roja.conf` (solo WorkingDirectory).
-Verificado: ensayo en 127.0.0.1:8086 (200 y CSS nuevo), `crv-api-landing`
-activo con el nuevo WorkingDirectory, gateway del dominio y
-https://coleccionistasderockvenezolano.com sirviendo el CSS nuevo.
-Revertir: borrar el drop-in, `systemctl --user daemon-reload` y reiniciar
-`crv-api-landing`.
+Verificado: ensayo en 127.0.0.1:8086; `crv-api-landing` activo con el nuevo
+WorkingDirectory; en el gateway del dominio (127.0.0.1:3140) y en
+https://coleccionistasderockvenezolano.com el CSS externo sirve el rojo, y con
+las hojas reales cargadas el punto computa gris en `ready`/`error` y
+`rgb(181,34,42)` + `radio-pulse` 1,6 s en `live`.
+Revertir: borrar el drop-in, restaurar ambos CSS y el `assetVersion`,
+`systemctl --user daemon-reload` y reiniciar `crv-api-landing`.
