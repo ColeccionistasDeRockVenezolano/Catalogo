@@ -82,7 +82,15 @@ usa el verificador diario (`ops/youtube-canal/canal.ts availability`, timer
 `crv-youtube-availability`) para elegir otro principal cuando uno cae y para
 abrir un aviso `manual_review` (`payload.via = youtube-disponibilidad`,
 «no se puede reproducir en el sitio») por video vinculado; lo cierra si vuelve
-y no reabre los descartados.
+y no reabre los descartados. Ese mismo verificador diario (04:30
+`America/Caracas`) compara la descripción recibida con la guardada y rehidrata
+los videos del canal que cambiaron, en un run `youtube-descripciones`: las
+marcas corregidas en YouTube Studio llegan así al catálogo (que lee la base) y,
+tras la exportación que el paso dispara, a la radio (decisión de Brian,
+2026-11-06). Si una corrección humana registrada deja de coincidir con una
+descripción que cambió y esta trae otro tiempo válido para el mismo capítulo,
+el claim se retira solo (`superseded`) y queda un aviso
+`youtube-descripcion-cambio` en revisión: manda la edición más reciente.
 
 # Tipos y características de discos
 

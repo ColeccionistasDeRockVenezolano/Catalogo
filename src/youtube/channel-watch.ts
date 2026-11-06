@@ -41,6 +41,7 @@ import { persistVideoPayload } from "./pipeline.js";
 import { audiovisualAlbumException, audiovisualKind } from "./audiovisual-rules.js";
 import { syncArtistAudiovisuals } from "./audiovisuals.js";
 import { syncAlbumVideoTrackTimes } from "./track-playback.js";
+import { retireOvertakenChapterCorrections } from "./timestamp-corrections.js";
 import { matchTracklist, reconcileYouTubeChannel, type SnapshotTrack } from "./reconcile.js";
 import {
   applyMusicianPlan, applyOtherPlan, planMusicianSections, planOtherCredits, readMusicianSectionInputs, readOtherCreditInputs,
@@ -623,6 +624,13 @@ export interface AvailabilityResult {
   albums: Array<{ albumId: number; title: string; action: "status" | "promoted"; status?: string; videoId?: string }>;
   /** Respuestas de YouTube guardadas o renovadas en `media.youtube_videos.metadata`. */
   refreshed: number;
+  /** Descripciones del canal que cambiaron y se volvieron a hidratar (marcas, pistas, créditos). */
+  descriptions: {
+    checked: number; changed: string[];
+    /** Correcciones humanas retiradas porque la descripción ya trae otro tiempo válido. */
+    retired: Array<{ videoId: string; claimId: number; position: number; title: string; from: number; to: number }>;
+    runId?: number;
+  };
   /** Avisos abiertos en la cola de revisión por videos vinculados que no se pueden mostrar. */
   notices: AvailabilityNotice[];
   /** Avisos cerrados porque el video vuelve a poder mostrarse. */
@@ -647,7 +655,7 @@ export async function checkChannelAvailability(options: { dryRun?: boolean; api?
   const dryRun = options.dryRun ?? false;
   const api = options.api ?? new YouTubeDataApi();
   const pool = getPool();
-  const rows = await pool.query<{ video_id: string; status: string | null }>(`
+  const rows = await pool.query<{ video_id: string; status: string | null; description: string | null; channel_id: string | null; db_id: string | null }>(`
     WITH ids AS (
       SELECT v.video_id FROM media.youtube_videos v
        WHERE v.channel_id=$1 OR EXISTS (SELECT 1 FROM media.video_albums va WHERE va.video_id=v.id)
@@ -656,10 +664,10 @@ export async function checkChannelAvailability(options: { dryRun?: boolean; api?
       UNION SELECT substring(youtube_url FROM '(?:v=|youtu\\.be/)([A-Za-z0-9_-]{11})') FROM public.albums WHERE youtube_url IS NOT NULL
       UNION SELECT substring(url FROM '(?:v=|youtu\\.be/)([A-Za-z0-9_-]{11})') FROM public.album_disc_links WHERE platform='youtube'
     )
-    SELECT ids.video_id, v.publication_status::text AS status
+    SELECT ids.video_id, v.publication_status::text AS status, v.description, v.channel_id, v.id::text AS db_id
       FROM ids LEFT JOIN media.youtube_videos v ON v.video_id = ids.video_id
      WHERE ids.video_id IS NOT NULL`, [CRV_CHANNEL_ID]);
-  const current = new Map(rows.rows.map((row) => [row.video_id, row.status]));
+  const current = new Map(rows.rows.map((row) => [row.video_id, row]));
   const ids = [...current.keys()];
   const seen = new Map<string, string>();
   const payloads = new Map<string, YouTubeVideoPayload>();
@@ -679,7 +687,7 @@ export async function checkChannelAvailability(options: { dryRun?: boolean; api?
   const changes: AvailabilityChange[] = [];
   for (const id of answered) {
     const to = seen.get(id) ?? "unpublished";
-    const from = current.get(id) ?? "(sin espejo)";
+    const from = current.get(id)?.status ?? "(sin espejo)";
     if (from !== to) changes.push({ videoId: id, from, to });
   }
 
@@ -705,7 +713,8 @@ export async function checkChannelAvailability(options: { dryRun?: boolean; api?
              SET metadata = coalesce(v.metadata, '{}'::jsonb)
                    || jsonb_build_object('status', $2::jsonb->'status', 'contentDetails', $2::jsonb->'contentDetails',
                         -- Del snippet solo se renuevan canal y estado de emisión (un estreno
-                        -- deja de ser «upcoming»); título y descripción siguen su propio flujo.
+                        -- deja de ser «upcoming»); título y descripción siguen su propio flujo:
+                        -- las descripciones cambiadas se rehidratan abajo, en su propio run.
                         'snippet', CASE WHEN jsonb_typeof(v.metadata->'snippet') = 'object'
                           THEN (v.metadata->'snippet') || jsonb_strip_nulls(jsonb_build_object(
                                  'channelId', $2::jsonb#>'{snippet,channelId}',
@@ -761,8 +770,53 @@ export async function checkChannelAvailability(options: { dryRun?: boolean; api?
     },
     { rollbackOnly: dryRun },
   );
-  const result: AvailabilityResult = { dryRun, checked: ids.length, batchesFailed, changes, albums: albumsChanged, refreshed, notices, noticesClosed, ...(dryRun ? {} : { runId }) };
-  if (!dryRun && (changes.length > 0 || albumsChanged.length > 0 || batchesFailed > 0 || notices.length > 0 || noticesClosed > 0)) await writeLog("disponibilidad.jsonl", result);
+  // Un tiempo corregido en YouTube Studio solo llega al catálogo si la
+  // descripción vuelve a entrar a la base. La pasada diaria ya pide todos los
+  // videos: compara la descripción recibida con la guardada y rehidrata los
+  // del canal que cambiaron, en su propio run (marcas, pistas y créditos).
+  // El catálogo lo ve al instante y la radio en la exportación que sigue.
+  // Si una corrección humana ya no coincide con la descripción nueva, se retira
+  // antes de rehidratar: manda la edición más reciente (decisión de Brian,
+  // 2026-11-06) y queda un aviso en revisión.
+  const channelChecked = [...payloads.keys()].filter((videoId) => answered.has(videoId) && payloads.get(videoId)?.snippet?.["channelId"] === CRV_CHANNEL_ID).length;
+  const descriptionChanges = [...payloads].flatMap(([videoId, payload]) => {
+    const stored = current.get(videoId);
+    if (!answered.has(videoId) || !stored || payload.snippet?.["channelId"] !== CRV_CHANNEL_ID) return [];
+    const raw = payload.snippet?.["description"];
+    if (typeof raw !== "string") return [];
+    const next = raw.trim() ? raw : null;
+    return (stored.description ?? null) === next ? [] : [{ videoId, payload, ...(stored.db_id ? { dbId: Number(stored.db_id) } : {}) }];
+  });
+  let descriptionRunId: number | undefined;
+  const retiredCorrections: AvailabilityResult["descriptions"]["retired"] = [];
+  if (!dryRun && descriptionChanges.length > 0) {
+    const applied = await withOperatorRun({
+      name: "youtube-descripciones", operator: WATCH_OPERATOR,
+      note: "descripciones cambiadas del canal: se rederivan marcas, pistas y créditos (decisión de Brian, 2026-11-06)",
+      params: { videos: descriptionChanges.map((item) => item.videoId) },
+    }, async (context) => {
+      for (const item of descriptionChanges) {
+        const raw = item.payload.snippet?.["description"];
+        if (item.dbId !== undefined) {
+          for (const retired of await retireOvertakenChapterCorrections(context.client, item.dbId, typeof raw === "string" ? raw : null)) {
+            retiredCorrections.push({ videoId: item.videoId, ...retired });
+          }
+        }
+        await persistVideoPayload(context.client, item.payload);
+      }
+      return { hydrated: descriptionChanges.length };
+    });
+    descriptionRunId = applied.runId;
+  }
+  const result: AvailabilityResult = {
+    dryRun, checked: ids.length, batchesFailed, changes, albums: albumsChanged, refreshed,
+    descriptions: {
+      checked: channelChecked, changed: descriptionChanges.map((item) => item.videoId), retired: retiredCorrections,
+      ...(descriptionRunId === undefined ? {} : { runId: descriptionRunId }),
+    },
+    notices, noticesClosed, ...(dryRun ? {} : { runId }),
+  };
+  if (!dryRun && (changes.length > 0 || albumsChanged.length > 0 || batchesFailed > 0 || notices.length > 0 || noticesClosed > 0 || descriptionChanges.length > 0 || retiredCorrections.length > 0)) await writeLog("disponibilidad.jsonl", result);
   return result;
 }
 

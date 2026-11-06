@@ -103,6 +103,11 @@ async function main(): Promise<number> {
       console.log(`  disco ${album.albumId} «${album.title}»: ${album.action === "promoted" ? `nuevo video principal ${album.videoId}` : `youtube_status → ${album.status}`}`);
     }
     console.log(`  ${result.refreshed} respuestas de YouTube guardadas, ${result.notices.length} avisos nuevos, ${result.noticesClosed} avisos cerrados`);
+    console.log(`  descripciones del canal: ${result.descriptions.checked} miradas, ${result.descriptions.changed.length} cambiadas`
+      + (result.descriptions.runId ? ` (rehidratadas [run ${result.descriptions.runId}])` : result.descriptions.changed.length ? " (dry-run: sin rehidratar)" : ""));
+    for (const retired of result.descriptions.retired) {
+      console.log(`  corrección humana retirada: ${retired.videoId} «${retired.title}» ${retired.from} s → ${retired.to} s (claim ${retired.claimId}, aviso en revisión)`);
+    }
     for (const notice of result.notices) {
       console.log(`  aviso ${notice.videoId}: ${notice.label}${notice.albums.length ? ` — ${notice.albums.map((album) => `«${album.title}» (${album.id})`).join(", ")}` : ""}`);
     }

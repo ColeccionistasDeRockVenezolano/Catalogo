@@ -9,7 +9,7 @@ import { canonicalVideoUrl, classifySheetRow, extractYouTubeVideoId, sheetTypeIs
 import { parseYouTubeDescription, parseYouTubeTitle } from "./parsers.js";
 import { syncArtistAudiovisuals } from "./audiovisuals.js";
 import { syncAlbumVideoTrackTimes } from "./track-playback.js";
-import { applyConfirmedChapterTimes } from "./timestamp-corrections.js";
+import { applyConfirmedChapterTimes, retireOvertakenChapterCorrections } from "./timestamp-corrections.js";
 
 type Json = Record<string, unknown>;
 export interface SeedImportResult { inserted: number; updated: number; unchanged: number; videos: number; reviews: number; /** Filas de la base que ya no están en la hoja: pierden su número. */ unlisted: number; }
@@ -260,7 +260,19 @@ export async function syncYouTubeVideo(videoId: string, api = new YouTubeDataApi
   const payload = response.items?.[0];
   if (!payload) return { synced: false, videoId };
   const client = await getPool().connect();
-  try { await client.query("BEGIN"); await persistVideoPayload(client, payload); await client.query("COMMIT"); return { synced: true, videoId }; }
+  try {
+    await client.query("BEGIN");
+    // Releer un video a mano es una acción deliberada: si su descripción ya
+    // trae otro tiempo válido para un capítulo corregido, manda la descripción
+    // (igual que en la pasada diaria de descripciones).
+    const stored = await client.query<{ id: string }>("SELECT id::text FROM media.youtube_videos WHERE video_id=$1", [videoId]);
+    if (stored.rows[0]) {
+      await retireOvertakenChapterCorrections(client, Number(stored.rows[0].id), text(payload.snippet?.["description"]));
+    }
+    await persistVideoPayload(client, payload);
+    await client.query("COMMIT");
+    return { synced: true, videoId };
+  }
   catch (error) { await client.query("ROLLBACK"); throw error; } finally { client.release(); }
 }
 
