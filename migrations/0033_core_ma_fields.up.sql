@@ -14,7 +14,7 @@
 --
 -- DECISIONES:
 --   * CUARTA EXCEPCIÓN AL CORE (Brian, 2026-10-01, «debes modificar el core
---     de la base de datos para que metas las nuevas informaciones en nuevos
+--     de la base de datos para que metas las nuevas Información en nuevos
 --     campos»), tras 0028, 0029 y 0032: se AÑADEN columnas a `public.artists`,
 --     `public.persons` y `public.albums`. `crv_simple_v1.sql` queda verbatim;
 --     el diff de `pg_dump --schema=public` (tests/run_all.sh,

@@ -303,29 +303,181 @@ lienzos de efectos presentes; móvil y escritorio sin errores JavaScript.
 
 ## Radio en rojo · 2026-11-06
 
-API: `/mnt/datos/crv-release/radio-roja-api-20261106`, copia aislada de
-`roadmap-volume-api-20261105`. Cambios:
+API viva: `/mnt/datos/crv-release/chat-limpieza-api-20261106` (drop-in
+`zzzzzzzzzz-chat-limpieza.conf`, posterior a `zzzzzzzzz-radio-roja.conf`). Al
+publicarse esa release revirtió el pulso a teal; se le aplicaron otra vez los
+dos cambios de esta sección. Cambios:
 
-- `src/landing/roadmap-critical.min.css` (md5 `57c982c7`): el punto de «En vivo»
-  usa `--red` y parpadea (`radio-pulse`, 1,6 s) solo con
+- `src/landing/roadmap-critical.min.css` (md5 `b382e0e2`): el punto de «En vivo»
+  usa `--red` y parpadea (`radio-dot-pulse`, 1,6 s) solo con
   `data-radio-state=live`. En `ready`, `loading`, `sound`, `error`, `restricted`
-  y `unavailable` es gris (`--gray`) y queda quieto. El botón de sincronización
-  perdió su variante verde en vivo (`#0e9d8f`) y usa el rojo base; el texto de
-  estado en vivo pasa al rojo de texto de la UI. Se mantiene
+  y `unavailable` es gris (`--gray`) y queda quieto. Botón de sincronización sin
+  variante verde; texto de estado en vivo en rojo de texto. Se mantiene
   `prefers-reduced-motion`.
+  Las reglas del punto llevan prefijo `#radio` y el keyframe se llama
+  `radio-dot-pulse` a propósito: el HTML carga el CSS crítico inline **antes**
+  que `roadmap-public.min.css`, y con `radio-pulse` la hoja externa (o su copia
+  cacheada en el navegador) imponía el teal. Con ID y keyframe propio, el inline
+  gana siempre.
 - `src/landing/render.ts`: `assetVersion` del roadmap pasa de
   `roadmap-20261105c` a `roadmap-20261106a` para invalidar la caché del CSS.
-- `web/public/landing/roadmap-public.min.css` (hoja completa, que el HTML carga
-  **después** del CSS crítico y por eso imponía el teal): mismas reglas que el
-  crítico —punto gris salvo `live`, keyframe rojo con opacidad, sin verde en el
-  botón—. También copiada al `dist/landing/` del gateway vivo
-  (`/mnt/datos/crv-release/rockola-efectos-web-20261105`), editado in situ.
+- `web/public/landing/roadmap-public.min.css` (hoja completa): mismas reglas que
+  el crítico. Copiada también a `dist/landing/` y `public/landing/` del gateway
+  vivo (`/mnt/datos/crv-release/rockola-limpieza-web-20261106`, drop-in
+  `zzzzzzzzzz-launcher-limpieza.conf`). Cloudflare cachea los estáticos 4 h
+  (`max-age=14400`): con el origen corregido el borde revalidó y sirve el CSS
+  nuevo.
 
-Drop-in nuevo: `zzzzzzzzz-radio-roja.conf` (solo WorkingDirectory).
-Verificado: ensayo en 127.0.0.1:8086; `crv-api-landing` activo con el nuevo
-WorkingDirectory; en el gateway del dominio (127.0.0.1:3140) y en
-https://coleccionistasderockvenezolano.com el CSS externo sirve el rojo, y con
-las hojas reales cargadas el punto computa gris en `ready`/`error` y
-`rgb(181,34,42)` + `radio-pulse` 1,6 s en `live`.
-Revertir: borrar el drop-in, restaurar ambos CSS y el `assetVersion`,
-`systemctl --user daemon-reload` y reiniciar `crv-api-landing`.
+Verificado: ensayo en 127.0.0.1:8086; `crv-api-landing` activo; en el gateway del
+dominio (127.0.0.1:3140) el HTML pide `v=roadmap-20261106a` y con las hojas
+reales cargadas el punto computa gris en `ready`/`error` y `rgb(181,34,42)` +
+`radio-dot-pulse` 1,6 s en `live`.
+Revertir: restaurar ambos CSS y el `assetVersion` en la release viva y
+reiniciar `crv-api-landing`.
+
+## Launcher del chat, aviso de lanzamiento y limpieza de sala · 2026-11-06
+
+API: `/mnt/datos/crv-release/chat-limpieza-api-20261106`, copia aislada de
+`radio-roja-api-20261106`. Cambios: `src/api/routes/chat-moderation.ts` (ruta
+`POST /chat/admin/rooms/:slug/clear`, con sesión admin/community y CSRF),
+`src/chat/moderation/store.ts` (`clearRoom`: baja lógica + auditoría),
+`src/chat/protocol.ts` y `src/chat/realtime.ts` (evento `cleared`),
+`src/landing/render.ts` (origen del iframe por `CRV_PUBLIC_ORIGIN`, sin cambio
+en producción), `src/landing/views/roadmap.ejs` (`launch-modal.js?v=2026-11-06b`)
+y `src/landing/views/partials/launch-modal.ejs` (texto resumido ES/EN).
+La versión de `render.ts` publicada solo añade el origen configurable: no
+incluye `trackLine` ni el cambio de `radioClientVersion`, que siguen pendientes
+de otra etapa.
+
+Gateway: `/mnt/datos/crv-release/rockola-limpieza-web-20261106`, copia de
+`rockola-efectos-web-20261105`. Cambios: `server.mjs` (versión de `rockola.js`
+por mtime, recarga de desarrollo y lista blanca de la ruta de limpieza),
+`public/landing/rockola.js` y `dist/landing/rockola.js` (bundle nuevo; píldora
+250×55 en `#rockola-host`), `public/landing/launch-modal.js` (aviso a los 120 s,
+sin abrir antes y sin repetir si ya se registró) y las copias estáticas
+`roadmap-es.html` / `roadmap-en.html` con `?v=2026-11-06b`.
+El chat (`crv-chat`) sigue sirviendo desde el repositorio: se reinició para
+cargar `clearRoom` y el evento `cleared`.
+
+Drop-ins: `zzzzzzzzzz-chat-limpieza.conf` (crv-api-landing) y
+`zzzzzzzzzz-launcher-limpieza.conf` (crv-landing). Respaldos de los drop-ins
+anteriores en `/home/brian/apps/crv-landing/respaldos/2026-11-06-chat-limpieza/`.
+
+Verificado: API 200, ruta de limpieza 401 sin sesión y disponible con el mismo
+guard que la moderación; gateway sirviendo `rockola.js?v=mw5fmqwl` con
+«Limpiar conversación»; aviso sin abrirse a los 4 s y `OPEN_DELAY=120000` en el
+JS servido; píldora visible a 250×55 con fondo `#232222`; `/roadmap` 200 en
+https://coleccionistasderockvenezolano.com.
+
+Revertir: borrar ambos drop-ins, `systemctl --user daemon-reload` y reiniciar
+`crv-api-landing` y `crv-landing`; `crv-chat` no necesita cambios (su código
+vive en el repositorio).
+
+## «A continuación» con artista y resto pendiente · 2026-11-06
+
+Cierra la deuda que dejó anotada la sección anterior (`trackLine` y
+`radioClientVersion` pendientes) y publica lo que el árbol tenía sin release.
+
+API: `/mnt/datos/crv-release/radio-next-api-20261106`, copia de
+`chat-limpieza-api-20261106` con `src/` sincronizado desde el repositorio:
+`trackLine` en `src/shared/radio/credits.ts`, `radio-card.ejs`
+(`data-radio-next` = artista + nombre), `render.ts` (`radioClientVersion`
+`crv-2026-11-06a`) y los cambios pendientes de catálogo/YouTube
+(`radio/catalog*`, `youtube/*`, `merge/*`, `discography/source-appearances`).
+Drop-in: `zzzzzzzzzzz-radio-next.conf` (11 zetas, posterior a
+`zzzzzzzzzz-chat-limpieza.conf`).
+
+Gateway: `/mnt/datos/crv-release/radio-next-web-20261106`, copia de
+`rockola-limpieza-web-20261106` con `public/landing` y `dist/landing`
+sincronizados desde `web/public/landing`: `radio.js` recompilado (cliente
+`crv-2026-11-06a`), `rockola.css` y `rockola.js` pendientes. Mismo drop-in.
+
+Verificado: API `/health` 200 y `/radio/now` 200; ensayo en `:8086` con
+`CRV_API_MODE=landing`; en `127.0.0.1:3140` y en el dominio, `data-radio-next`
+sale «Luz Verde - Ranchera», `radio.js?v=crv-2026-11-06a`, DOM real con el
+formato artista + tema y cero errores JS; `/crv` 404, `/api/radio/now` 200,
+`www` 308; `roadmap-public.min.css` servida igual al repo.
+
+**Trampa:** cualquier ensayo manual de la API debe exportar
+`CRV_API_MODE=landing` (vive en el drop-in `zzzzzz-security.conf`, no en
+`api.env`). Sin él, `app.ts` registra los editores del catálogo y muere en
+`recoverResearchJobs` con «permission denied for table
+ingest.person_identity_research_jobs»: el rol `crv_landing_runtime` solo tiene
+SELECT en `ingest`.
+
+Vuelta atrás: retirar ambos `zzzzzzzzzzz-radio-next.conf`,
+`systemctl --user daemon-reload`, reiniciar `crv-api-landing`, esperar
+`/health` en `:8083` y reiniciar `crv-landing`. Los árboles anteriores siguen
+intactos.
+
+### Moderación en la cabecera del chat
+
+Sustituye el botón «Limpiar conversación» del release anterior por el escudo de
+moderación de `/crv/chat`, con la limpieza dentro de las acciones del moderador.
+
+Gateway: `/mnt/datos/crv-release/menu-moderacion-web-20261106`, copia de
+`moderacion-web-20261106` con el bundle que añade el menú de cada mensaje;
+drop-in `zzzzzzzzzzzzzz-menu-moderacion.conf` (14 zetas). El árbol anterior
+queda intacto para volver atrás.
+
+- `web/src/landing-rockola.tsx`: botón escudo (solo administración,
+  `body[data-can-manage-all-tasks="true"]`) entre «Ver conectados» y
+  «Minimizar chat»; abre la ventana «Moderación». Se retiró el bloque de
+  limpieza de la ventana «Conectados»: la única entrada es el escudo.
+- `web/src/components/chat/RockolaModeration.tsx`: las tres pestañas de
+  `/crv/chat` —Reportes (borrar, silenciar 1 h, banear, descartar), Auditoría y
+  Sala (modo lento y avisos de la sesión)— más «Limpiar conversación» dentro de
+  las acciones del moderador, con confirmación. Usa la API del mismo origen y
+  la cabecera CSRF del documento.
+- `web/src/components/chat/RockolaMessageMenu.tsx`: menú «⋮» en cada mensaje,
+  como en `/crv/chat`. Cualquiera reporta un mensaje ajeno (cinco motivos); la
+  cuenta administradora además borra, silencia 10 min / 24 h, expulsa y banea
+  (cuenta e IP). Los mensajes propios de un visitante no llevan menú; los de la
+  administración sí, con las acciones de moderación. Avisos en `.rv-notice` y
+  el mensaje borrado desaparece con el evento `deleted` del WebSocket.
+- `web/server.mjs`: la lista blanca de la portada deja pasar
+  `/chat/admin/{reports,log}`, `reports/:id/resolve`, `messages/:id/delete`,
+  `actors/:id/{mute,unmute,kick,ban}` y `rooms/:slug/{clear,slow-mode}`. Quien
+  autoriza sigue siendo el proceso del chat (sesión admin + CSRF).
+
+Verificado: typecheck web; harness local con el bundle publicado, snapshot por
+WebSocket simulado y `data-can-manage-all-tasks="true"` → menú con Reportar,
+Borrar, Silenciar 10 min/24 h, Expulsar y Banear; «Borrar mensaje» → POST
+`/messages/1/delete`; «Reportar» → cinco motivos → POST `/report`; el mensaje
+propio no ofrece Reportar. Con `"false"`, solo «Reportar» en mensajes ajenos y
+ningún menú en los propios. En el dominio: rutas de moderación 401 sin sesión,
+`admin/effects` 404, lista blanca 113/113 y bundle servido idéntico al release.
+
+Vuelta atrás: retirar `zzzzzzzzzzzzzz-menu-moderacion.conf`, `systemctl --user
+daemon-reload` y reiniciar `crv-landing`.
+
+## Colores de la radio y del chat · 2026-11-06
+
+API: `/mnt/datos/crv-release/radio-colores-api-20261106` (drop-in
+`zzzzzzzzzzzzzzz-colores.conf`). Gateway:
+`/mnt/datos/crv-release/radio-colores-web-20261106` (mismo drop-in).
+`assetVersion` pasa a `roadmap-20261106b` y `radioClientVersion` a
+`crv-2026-11-06b` para renovar la caché del navegador y del borde.
+
+- `src/landing/client/radio.js`: `refreshLabels` marca el botón de
+  sincronización con `data-radio-action` (`join`, `sound`, `synced`, `retry`,
+  `resync`), y `setStatus` acepta un tono (`data-radio-tone="shared"`) que no
+  toca el estado en vivo de la tarjeta.
+- `web/public/landing/roadmap-public.min.css` (la que se sirve) y
+  `roadmap.css`: `#radio .radio-card__sync[data-radio-action="resync"]` en gris
+  neutro `#4b4b52` (texto `#f4f4f5`, borde `#5f5f68`, hover `#585863`) y
+  `#radio .radio-card__status[data-radio-tone="shared"]` en `#ff878d`. El
+  prefijo `#radio` gana al CSS crítico en línea y a la hoja externa.
+- `web/src/styles/landing-rockola.css`: `.rv-icon-button` con
+  `align-content:center` y `justify-content:center` (bundle del chat
+  republicado, `rockola.js?v=mw5iimus`).
+
+Verificado en el dominio: con sonido activo el estado real es «Una sola
+transmisión para todos» y computa `rgb(255,135,141)` con
+`data-radio-tone="shared"`; con `data-radio-action="resync"` el botón computa
+fondo `rgb(75,75,82)`, borde `rgb(95,95,104)` y texto `rgb(244,244,245)`
+(«Entrar al aire» sigue en rojo). Sin errores JS.
+
+Vuelta atrás: retirar los dos `zzzzzzzzzzzzzzz-colores.conf`,
+`systemctl --user daemon-reload`, reiniciar `crv-api-landing`, esperar
+`/health` y reiniciar `crv-landing`.
