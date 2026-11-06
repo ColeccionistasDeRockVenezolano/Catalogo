@@ -332,7 +332,7 @@ forma temporal en staging para igualar la portada viva (staging tiene 1; se rest
 |---|---|
 | Contadores de visitas, países, «Colaboradores 5/6», fecha de «Última actualización» | Dato de staging o dinámico |
 | Posición de «Lanzamiento y consolidación del canal de YouTube» | Dato de staging: se confirma contra la foto en la ventana |
-| «Buscando la emisión…» frente a «El vivo sigue en marcha» | Dinámico: YouTube estaba bloqueado en la prueba |
+| «Buscando la emisión…» frente a «La transmisión sigue en marcha» | Dinámico: YouTube estaba bloqueado en la prueba |
 | `/login` | Sin diferencias |
 
 **Inglés, 2026-11-02** (`reports/paridad-en-2026-11-02` y `-b`). El dominio cambia de idioma con `GET /lang/en`, que deja la cookie `herra-crv_lang`. Comparados `/`, `/colaborar` y `/login` en 1440 y 390, con los POST bloqueados para no contar visitas. Para la última pasada, staging se igualó a producción (`collaborate_json` nulo, `show_login=0`, `heroSubPublic` en inglés) y se restauró (md5 igual).

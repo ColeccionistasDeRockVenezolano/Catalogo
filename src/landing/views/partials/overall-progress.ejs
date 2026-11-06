@@ -1,18 +1,29 @@
+<%
+  // El resumen del proyecto es el panel que acompaña al título del mapa: el
+  // avance en grande, su barra y las seis cifras que lo explican. Las tres
+  // primeras y las actividades en progreso se repintan en vivo (ids que
+  // usa roadmap.js); etapas y colaboradores vienen del servidor.
+%>
 <aside class="overall<%= typeof compact !== 'undefined' && compact ? ' overall--roadmap' : '' %>" aria-label="<%= t('roadmap.summaryAria') %>">
-  <div class="overall-head">
-    <span><i data-lucide="activity"></i> <%= t('roadmap.summary') %></span>
-    <span class="overall-live"><i aria-hidden="true"></i> <%= t('roadmap.upToDate') %></span>
-  </div>
-  <div class="overall-num"><strong id="overallPct"><%= pctText(view.overall.percentage) %></strong><span><%= t('roadmap.completedWord') %></span></div>
-  <div class="overall-meta">
-    <p><%= t('roadmap.completedAndPending', { done: view.overall.completed, left: view.overall.total - view.overall.completed }) %></p>
-    <div class="pbar pbar-overall" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= Math.round(view.overall.percentage) %>" aria-label="<%= t('roadmap.overallProgress') %>">
-      <div class="pbar-fill pbar-fill--overall" style="--fill: <%= pctBar(view.overall.percentage) %>"></div>
+  <div class="overall-board__head">
+    <div class="overall-board__identity">
+      <span class="overall-board__eyebrow"><%= lang === 'es' ? 'El archivo en cifras' : 'The archive in figures' %></span>
+      <span class="overall-board__title"><%= t('roadmap.summary') %></span>
+    </div>
+    <div class="overall-board__advance">
+      <strong class="overall-board__pct" id="overallPct"><%= pctText(view.overall.percentage) %></strong>
+      <span class="overall-board__caption"><%= t('roadmap.completedWord') %></span>
     </div>
   </div>
-  <dl class="overall-stats">
-    <div><dt><%= t('roadmap.statTotal') %></dt><dd id="overallTotal"><%= view.overall.total %></dd></div>
+  <div class="pbar pbar-overall overall-board__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<%= Math.round(view.overall.percentage) %>" aria-label="<%= t('roadmap.overallProgress') %>">
+    <div class="pbar-fill pbar-fill--overall" style="--fill: <%= pctBar(view.overall.percentage) %>"></div>
+  </div>
+  <dl class="overall-stats" aria-label="<%= t('roadmap.dimensions') %>">
+    <div><dt><%= t('roadmap.activities') %></dt><dd id="overallTotal"><%= view.overall.total %></dd></div>
     <div><dt><%= t('roadmap.statCompleted') %></dt><dd id="overallCompleted"><%= view.overall.completed %></dd></div>
     <div><dt><%= t('roadmap.statRemaining') %></dt><dd id="overallRemaining"><%= view.overall.total - view.overall.completed %></dd></div>
+    <div><dt><%= lang === 'es' ? 'Etapas' : 'Stages' %></dt><dd><%= view.categories.length %></dd></div>
+    <div><dt><%= t('status.in_progress') %></dt><dd id="overallInProgress"><%= view.categories.reduce(function (sum, category) { return sum + category.tasks.filter(function (task) { return task.status === 'in_progress'; }).length; }, 0) %></dd></div>
+    <div><dt><%= t('roadmap.collaborators') %></dt><dd><%= collaboratorCount %></dd></div>
   </dl>
 </aside>

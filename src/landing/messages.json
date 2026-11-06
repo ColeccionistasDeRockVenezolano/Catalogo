@@ -388,7 +388,7 @@
     "en": "Project progress — {project}"
   },
   "nav.aboutProject": {
-    "es": "Informaciones",
+    "es": "Información",
     "en": "Information"
   },
   "nav.adminPanel": {
@@ -402,6 +402,18 @@
   "nav.collaborateCta": {
     "es": "Quiero colaborar",
     "en": "I want to help"
+  },
+  "nav.contact": {
+    "es": "Contáctanos",
+    "en": "Contact us"
+  },
+  "nav.readOnly": {
+    "es": "Solo lectura",
+    "en": "Read only"
+  },
+  "nav.readOnlyHint": {
+    "es": "Ahora mismo solo puedes leer. Entra para editar.",
+    "en": "You can only read right now. Sign in to edit."
   },
   "nav.greeting": {
     "es": "Hola, {name}",
@@ -539,12 +551,16 @@
     "es": "Ahora suena",
     "en": "Now playing"
   },
+  "radio.onAir": {
+    "es": "En vivo",
+    "en": "On air"
+  },
   "radio.paused": {
     "es": "Radio en pausa: vuelve al vivo cuando quieras.",
     "en": "Radio paused: return to live whenever you want."
   },
   "radio.ready": {
-    "es": "El vivo sigue en marcha: pulsa para entrar.",
+    "es": "La transmisión sigue en marcha: pulsa para entrar.",
     "en": "The broadcast is still on: press to join."
   },
   "radio.reconnecting": {

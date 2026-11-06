@@ -152,8 +152,8 @@ ul { list-style: none; }
 /* Enlaces en pastilla, como el catálogo: 40 px de alto, 8 px de radio y el
    activo teñido de rojo. El conmutador de idioma, el CTA y «Administrar»
    conservan su forma propia; solo comparten la altura de la barra. */
-.nav-links { display: flex; align-items: center; gap: 4px; }
-.nav-links > li > a:not(.lang-switch):not(.nav-cta):not(.nav-admin-link),
+.nav-links { display: flex; align-items: center; gap: 10px; }
+.nav-links > li > a:not(.lang-switch):not(.nav-cta):not(.nav-admin-link):not(.nav-readonly__link),
 .nav-links .navlink-btn,
 .nav-links .nav-dropdown__trigger {
   display: inline-flex; align-items: center; gap: 7px; min-height: 40px;
@@ -162,14 +162,14 @@ ul { list-style: none; }
   white-space: nowrap; cursor: pointer;
   transition: color .15s ease, background .15s ease;
 }
-.nav-links > li > a:not(.lang-switch):not(.nav-cta):not(.nav-admin-link):hover,
+.nav-links > li > a:not(.lang-switch):not(.nav-cta):not(.nav-admin-link):not(.nav-readonly__link):hover,
 .nav-links .navlink-btn:hover,
 .nav-links .nav-dropdown:hover .nav-dropdown__trigger,
 .nav-links .nav-dropdown:focus-within .nav-dropdown__trigger { color: var(--white); }
-.nav-links > li > a:not(.lang-switch):not(.nav-cta):not(.nav-admin-link):hover,
+.nav-links > li > a:not(.lang-switch):not(.nav-cta):not(.nav-admin-link):not(.nav-readonly__link):hover,
 .nav-links .navlink-btn:hover { background: var(--surface); }
-.nav-links > li > a:not(.lang-switch):not(.nav-cta):not(.nav-admin-link).active { color: #fff; background: var(--red-soft); }
-.nav-links > li > a:not(.lang-switch):not(.nav-cta):not(.nav-admin-link):focus-visible,
+.nav-links > li > a:not(.lang-switch):not(.nav-cta):not(.nav-admin-link):not(.nav-readonly__link).active { color: #fff; background: var(--red-soft); }
+.nav-links > li > a:not(.lang-switch):not(.nav-cta):not(.nav-admin-link):not(.nav-readonly__link):focus-visible,
 .nav-links .navlink-btn:focus-visible,
 .nav-links .nav-dropdown__trigger:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 .nav-links .nav-admin-link {
@@ -250,6 +250,48 @@ ul { list-style: none; }
   border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .6px; color: var(--gray);
 }
 .nav-menu__panel .lang-switch__opt.is-active { color: #fff; background: var(--red); }
+
+/* ---------- Estado de lectura ---------- */
+/* Quien todavía no ha entrado ve el proyecto en modo lectura. La pastilla lo
+   dice con un punto de estado y, con la flecha de entrar, es la puerta a
+   /login: es el único acceso de la barra para el visitante sin cuenta. */
+.nav-readonly { margin-left: 36px; }
+.nav-readonly__link {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 38px;
+  padding: 7px 15px 7px 13px;
+  border: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 85%, transparent);
+  font: 600 12.5px/1 var(--font-body);
+  color: color-mix(in srgb, var(--white) 84%, var(--gray));
+  white-space: nowrap;
+  transition: color .15s ease, background .15s ease, border-color .15s ease;
+}
+.nav-readonly__dot {
+  width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%;
+  background: color-mix(in srgb, var(--gray) 85%, transparent);
+}
+.nav-readonly__link .lucide {
+  width: 15px; height: 15px; color: var(--gray);
+  transition: color .15s ease;
+}
+.nav-readonly__link:hover {
+  color: var(--white);
+  background: var(--surface-2);
+  border-color: color-mix(in srgb, var(--border) 80%, var(--white));
+}
+.nav-readonly__link:hover .lucide { color: var(--white); }
+.nav-readonly__link:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+/* Dentro del panel móvil ocupa su fila, como el resto de accesos. */
+.nav-menu__panel .nav-readonly { margin-left: 0; padding: 10px 12px; }
+.nav-menu__panel .nav-readonly__link { display: inline-flex; width: auto; min-height: 38px; }
+/* Entre 721 y 1100 px la barra se queda sin sitio: el estado de lectura se
+   queda en el punto y la flecha, que siguen siendo el acceso a /login. */
+@media (max-width: 1100px) and (min-width: 721px) {
+  .nav-readonly { margin-left: 20px; }
+  .nav-readonly__link { padding: 7px 11px; gap: 7px; }
+  .nav-readonly__label { display: none; }
+}
 
 /* ---------- Desplegable «Herramientas» ---------- */
 /* El disparador agrupa, no navega: se abre al pasar el cursor o al enfocar
@@ -3267,3 +3309,354 @@ body.radio-cinema-open { overflow: hidden; }
 /* CRV: en un teléfono, el texto largo del selector de Visibilidad ensanchaba «Mi perfil». */
 .account-form .field { min-width: 0; }
 .account-form .field select { width: 100%; min-width: 0; max-width: 100%; }
+
+/* ---------- CRV · portada de la propuesta 1 ----------
+   Tres piezas mandan en esta portada: el texto de entrada, la radio y el
+   resumen del proyecto. La radio gana ancho y alto; el texto se estrecha y
+   deja solo la invitación a colaborar; el resumen se convierte en un panel
+   destacado junto al título del mapa. */
+
+/* Una misma grilla alinea portada, resumen y fases de trabajo. */
+.public-roadmap {
+  --roadmap-grid-gap: clamp(16px, 2vw, 28px);
+}
+.public-roadmap .container { width: min(1320px, 88%); }
+.public-roadmap .hero-roadmap {
+  min-height: auto;
+  padding: 112px 0 72px;
+}
+.public-roadmap .hero-layout,
+.public-roadmap .roadmap-heading,
+.public-roadmap .roadmap-category-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--roadmap-grid-gap);
+}
+.public-roadmap .hero-layout { align-items: stretch; }
+.public-roadmap .hero-column {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  min-width: 0;
+}
+.public-roadmap .hero-layout > .radio-card,
+.public-roadmap .hero-layout > .overall { grid-column: 2; grid-row: 1; align-self: start; }
+.public-roadmap .hero h1 {
+  max-width: 100%;
+  margin: 16px 0;
+  font-size: clamp(46px, 7.3vw, 96px);
+  line-height: .98;
+  letter-spacing: -.02em;
+  text-wrap: initial;
+  overflow-wrap: break-word;
+}
+.public-roadmap .hero-sub {
+  max-width: 52ch;
+  margin: 0;
+  font-size: clamp(15px, 1.4vw, 18px);
+  line-height: 1.7;
+}
+.public-roadmap .hero-account {
+  grid-template-columns: minmax(0, 1fr);
+  width: min(100%, 320px);
+  margin-top: auto;
+}
+.public-roadmap #roadmap { padding-top: 32px; }
+.public-roadmap .roadmap-heading {
+  align-items: center;
+  margin-bottom: 32px;
+}
+.public-roadmap .roadmap-heading__copy { min-width: 0; max-width: 520px; }
+.public-roadmap .roadmap-heading__copy p {
+  max-width: 34ch;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.7;
+}
+.public-roadmap .roadmap-heading h2 {
+  max-width: 9ch;
+  margin: 0 0 24px;
+  font-size: clamp(46px, 5.3vw, 76px);
+  line-height: 1;
+  text-wrap: balance;
+}
+
+/* Una ficha editorial del archivo: cifra protagonista y registro pautado. */
+.public-roadmap .overall,
+.public-roadmap .overall--roadmap {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 7px 1fr;
+  align-content: stretch;
+  gap: clamp(10px, 1.2vw, 18px);
+  aspect-ratio: 1.48;
+  min-width: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: clamp(16px, 2vw, 30px);
+  background: #171616;
+  border: 1px solid #383232;
+  border-radius: 18px;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.overall-board__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 0;
+}
+.overall-board__identity { min-width: 0; padding-bottom: 2px; }
+.overall-board__eyebrow {
+  display: block;
+  margin-bottom: clamp(6px, 2cqi, 12px);
+  color: #aaa09d;
+  font: 500 clamp(9px, 2cqi, 11px)/1.4 var(--font-body);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.overall-board__title {
+  display: block;
+  max-width: 9ch;
+  color: var(--white);
+  font: 400 clamp(22px, 7cqi, 42px)/1.02 var(--font-title);
+  letter-spacing: -.015em;
+  text-wrap: balance;
+}
+.overall-board__advance { flex: 0 0 auto; text-align: right; }
+.overall-board__pct {
+  display: block;
+  color: var(--red);
+  font: 400 clamp(56px, 21cqi, 128px)/.95 var(--font-title);
+  letter-spacing: -.035em;
+  font-variant-numeric: tabular-nums;
+}
+.overall-board__caption {
+  display: block;
+  margin-top: 4px;
+  color: #aaa09d;
+  font-size: clamp(9px, 2cqi, 11px);
+  line-height: 1.2;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.public-roadmap .overall-board__bar {
+  position: relative;
+  height: 7px;
+  margin: 0;
+  background: color-mix(in srgb, var(--surface-2) 80%, var(--bg));
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.public-roadmap .overall-board__bar .pbar-fill {
+  background: var(--accent-red);
+  box-shadow: none;
+  border-radius: 999px;
+}
+.public-roadmap .overall .overall-stats {
+  display: grid;
+  grid-column: 1;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, 1fr);
+  align-content: stretch;
+  gap: 0;
+  margin: 0;
+  border: 0;
+}
+.public-roadmap .overall .overall-stats > div {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 4px;
+  min-width: 0;
+  padding: clamp(8px, 2cqi, 14px) 0;
+  text-align: left;
+  border: 0;
+}
+.public-roadmap .overall .overall-stats > div:nth-child(3n + 2),
+.public-roadmap .overall .overall-stats > div:nth-child(3n + 3) {
+  padding-left: clamp(12px, 3cqi, 20px);
+  border-left: 1px solid #383232;
+}
+.public-roadmap .overall .overall-stats > div:nth-child(n + 4) {
+  padding-bottom: 0;
+  border-top: 1px solid #383232;
+}
+.public-roadmap .overall .overall-stats > div:nth-child(-n + 3) { padding-top: 0; }
+.public-roadmap .overall-stats dd {
+  margin: 0;
+  color: var(--white);
+  font: 400 clamp(24px, 6.5cqi, 40px)/1 var(--font-title);
+  font-variant-numeric: tabular-nums;
+}
+.public-roadmap .overall-stats dt {
+  max-width: 14ch;
+  color: #bcb3b0;
+  font-size: clamp(10px, 2.3cqi, 12px);
+  line-height: 1.35;
+  letter-spacing: .01em;
+  text-transform: none;
+  overflow-wrap: break-word;
+}
+
+/* --- Radio: etiqueta y estado arriba, barra junto al volumen --- */
+.radio-card__headline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 42px;
+}
+.radio-card__headline .radio-card__label { margin: 0; }
+.radio-card__headline .radio-card__sync { border-radius: 12px; }
+.radio-card__transport {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 16px 0 14px;
+}
+.radio-card__transport .radio-card__timeline {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 4px;
+  margin: 0;
+  border-radius: 999px;
+}
+.radio-card__transport .radio-card__mute {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+}
+.radio-card__content > .radio-card__status { margin: 0 0 14px; font-size: 11.5px; }
+.radio-card__next {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.radio-card__next strong { text-align: right; }
+
+/* El volumen se abre hacia arriba al pasar el cursor o al llegar con el
+   teclado; el clic del boton sigue silenciando. */
+.radio-card__volume {
+  position: relative;
+  order: 2;
+  display: none;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0;
+  margin-top: 0;
+}
+@media (min-width: 721px) {
+  .radio-card__volume { display: flex; }
+}
+.radio-card__vol-pop {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 132px;
+  background: color-mix(in srgb, var(--surface-2) 96%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .48);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition: opacity .16s ease, transform .16s ease, visibility .16s;
+}
+/* Mantiene el área interactiva entre el botón y el panel al mover el cursor. */
+.radio-card__vol-pop::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 12px;
+}
+.radio-card__volume:hover .radio-card__vol-pop,
+.radio-card__volume:focus-within .radio-card__vol-pop {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+.radio-card__vol-pop .radio-card__range {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 96px;
+  height: 22px;
+  margin: 0;
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+/* Tablet conserva los mismos ejes. Móvil sigue el orden de lectura. */
+@media (max-width: 1199px) {
+  .public-roadmap .nav-links--desktop { display: none; }
+  .public-roadmap .nav-menu { display: block; margin-left: auto; }
+  .public-roadmap .brand { min-width: 0; }
+}
+@media (min-width: 768px) {
+  .public-roadmap .hero-copy { max-width: none; }
+  .public-roadmap .hero-layout--radio .hero-account { grid-column: auto; grid-row: auto; }
+  .public-roadmap #roadmap .section-head { min-height: 90px; }
+  .public-roadmap .hero-layout--radio > .radio-card { grid-column: 2; grid-row: 1; max-width: none; }
+  .public-roadmap .hero-layout:not(.hero-layout--radio) > .overall { grid-column: 2; grid-row: 1; }
+  .public-roadmap .hero-layout:not(.hero-layout--radio) .hero-account { grid-column: auto; grid-row: auto; }
+}
+@media (max-width: 767px) {
+  .public-roadmap .container { width: calc(100% - 40px); }
+  .public-roadmap .hero-roadmap { padding: 104px 0 40px; }
+  .public-roadmap .hero-layout,
+  .public-roadmap .roadmap-heading,
+  .public-roadmap .roadmap-category-list { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .public-roadmap .hero-column { grid-column: 1; grid-row: 1; gap: 24px; }
+  .public-roadmap .hero-layout > .radio-card,
+  .public-roadmap .hero-layout > .overall,
+  .public-roadmap .hero-layout--radio > .radio-card,
+  .public-roadmap .hero-layout:not(.hero-layout--radio) > .overall { grid-column: 1; grid-row: 2; }
+  .public-roadmap .hero h1 { font-size: clamp(40px, 10.8vw, 76px); }
+  .public-roadmap .hero-sub { font-size: 16px; }
+  .public-roadmap .hero-account { width: min(100%, 360px); }
+  .public-roadmap .roadmap-heading h2 { max-width: none; margin-bottom: 16px; font-size: clamp(40px, 10vw, 56px); }
+  .public-roadmap .roadmap-heading__copy p { max-width: 52ch; font-size: 16px; }
+  .public-roadmap .overall,
+  .public-roadmap .overall--roadmap { padding: 20px; border-radius: 18px; gap: 16px; }
+  .radio-card__headline { flex-wrap: wrap; row-gap: 10px; }
+  .radio-card__headline .radio-card__sync { width: auto; min-height: 44px; padding: 8px 12px; }
+  .radio-card__next { flex-wrap: wrap; row-gap: 4px; }
+  .radio-card__next strong { text-align: left; }
+}
+@media (max-width: 374px) {
+  .public-roadmap .container { width: calc(100% - 32px); }
+  .public-roadmap .overall,
+  .public-roadmap .overall--roadmap { padding: 18px 16px; gap: 16px; }
+  .overall-board__head { gap: 10px; }
+}
+
+/* CRV · Radio: «Volver al vivo» es una acción secundaria y va en gris neutro,
+   que contrasta con el rojo de la casa; el mensaje de la emisión compartida
+   lleva su propio color sin cambiar el estado en vivo de la tarjeta. */
+#radio .radio-card__sync[data-radio-action="resync"] {
+  color: #f4f4f5;
+  background: #4b4b52;
+  border-color: #5f5f68;
+}
+#radio .radio-card__sync[data-radio-action="resync"]:hover {
+  background: #585863;
+  border-color: #6c6c76;
+}
+#radio .radio-card__status[data-radio-tone="shared"] { color: #ff878d; }

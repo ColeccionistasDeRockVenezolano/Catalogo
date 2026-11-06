@@ -22,6 +22,11 @@
   const showPublicContext = Boolean(typeof showContextLinks !== 'undefined' && showContextLinks) && !isSignedIn;
   const showRadioLink = Boolean(typeof showRadio !== 'undefined' && showRadio) && !isSignedIn;
   const showCrvLogo = typeof project !== 'undefined' && project && project.slug === 'coleccionistas-rock-venezolano';
+  // «Contáctanos» lleva a la sección de apoyo, que es donde el proyecto reúne
+  // sus canales (redes y correo). Solo aparece si esa sección se va a dibujar.
+  const showContactLink = showPublicContext
+    && typeof branding !== 'undefined' && branding
+    && typeof hasSocialPresence === 'function' && hasSocialPresence(branding);
 %>
 <header class="site-header" id="siteHeader">
   <nav class="nav container" aria-label="<%= t('nav.main') %>">
@@ -48,8 +53,8 @@
       <% if (showPublicContext) { %>
         <li><a href="#proyecto"><%= t('nav.aboutProject') %></a></li>
       <% } %>
-      <% if (!currentUser && !isAdmin && !hasProjectAdminAccess && showLogin) { %>
-        <li><a href="<%= projectBase %>/login"><%= t('nav.login') %></a></li>
+      <% if (showContactLink) { %>
+        <li><a href="#apoyo"><%= t('nav.contact') %></a></li>
       <% } %>
     </ul>
     <ul class="nav-links nav-links--desktop nav-links--actions">
@@ -76,6 +81,9 @@
         <li><a href="<%= projectBase %>/account"><%= t('nav.profile') %></a></li>
       <% } %>
       <%- include('lang-switch') %>
+      <% if (!currentUser && !isAdmin && !hasProjectAdminAccess && showLogin) { %>
+        <%- include('readonly-chip') %>
+      <% } %>
       <% if (currentUser || isAdmin || hasProjectAdminAccess) { %>
         <li>
           <form method="post" action="<%= projectBase %>/logout" class="inline-form">
@@ -104,8 +112,8 @@
         <% } %>
         <% if (currentUser && !isAdmin) { %>
           <%- include('nav-tools', { variant: 'mobile' }) %>
-        <% } else if (!currentUser && !isAdmin && !hasProjectAdminAccess && showLogin) { %>
-          <li><a href="<%= projectBase %>/login"><%= t('nav.login') %></a></li>
+        <% } else if (showContactLink) { %>
+          <li><a href="#apoyo"><%= t('nav.contact') %></a></li>
         <% } %>
         <% if (showCollaborateCta) { %>
           <li><a class="nav-cta" href="<%= projectBase %>/colaborar"><%= t('nav.collaborateCta') %></a></li>
@@ -122,6 +130,9 @@
           <li><a href="<%= projectBase %>/account"><%= t('nav.profile') %></a></li>
         <% } %>
         <%- include('lang-switch') %>
+        <% if (!currentUser && !isAdmin && !hasProjectAdminAccess && showLogin) { %>
+          <%- include('readonly-chip') %>
+        <% } %>
         <% if (currentUser || isAdmin || hasProjectAdminAccess) { %>
           <li>
           <form method="post" action="<%= projectBase %>/logout">

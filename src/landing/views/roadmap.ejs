@@ -62,6 +62,7 @@
   <link rel="stylesheet" href="<%= basePath %>/static/roadmap-public.min.css?v=<%= assetVersion %>">
   <link rel="stylesheet" href="<%= basePath %>/static/roadmap-nojs.css?v=<%= assetVersion %>">
 </noscript>
+<link rel="stylesheet" href="<%= basePath %>/static/launch-modal.css?v=2026-11-04a">
 <script type="application/ld+json"><%- jsonLd({ '@context': 'https://schema.org', '@graph': structuredGraph }) %></script>
 <% if (radio) { %><script src="<%= basePath %>/static/radio-first-touch.js?v=<%= radioClientVersion %>"></script><% } %>
 </head>
@@ -72,26 +73,20 @@
 <section class="hero hero-roadmap" id="inicio">
   <div class="hero-glow"></div>
   <div class="container hero-inner hero-layout<%= radio ? ' hero-layout--radio' : '' %>">
+    <%# El texto y la invitación a colaborar viajan juntos en una sola columna:
+        así la tarjeta queda pegada al párrafo y no la empuja la altura de la
+        radio. %>
+    <div class="hero-column">
     <div class="hero-copy">
       <span class="badge"><i data-lucide="<%= radio ? 'radio-tower' : 'chart-no-axes-column-increasing' %>"></i> <%= t(radio ? 'radio.badge' : 'roadmap.badge') %></span>
-      <h1><%- theme.heroTitleHtml %><span class="accent">.</span></h1>
+      <% const heroTitleHtml = theme.heroTitleHtml.replace(/CONSTRUYENDO\s+EL\s*<br\s*\/?>\s*ARCHIVO DEL ROCK NACIONAL/i, 'CONSTRUYENDO<br>EL ARCHIVO<br>DEL ROCK<br>NACIONAL'); %>
+      <h1><%- heroTitleHtml %><span class="accent">.</span></h1>
       <p class="hero-sub"><%= theme.heroSubPublic %></p>
     </div>
 
-    <% if (radio) { %>
-    <%- include('partials/radio-card') %>
-    <% } else { %>
-      <%- include('partials/overall-progress', { compact: false }) %>
-    <% } %>
-
     <div class="hero-account" id="account-actions" aria-label="<%= t('roadmap.accountArea') %>">
-        <% if (!currentUser && showLoginLinks) { %>
-        <a class="hero-account__action hero-account__action--primary" href="<%= projectBase %>/login">
-          <span class="hero-account__icon"><i data-lucide="log-in"></i></span>
-          <span><strong><%= t('roadmap.signInTitle') %></strong><small><%= t('roadmap.signInSub') %></small></span>
-          <i data-lucide="arrow-right" class="hero-account__arrow"></i>
-        </a>
-        <% } %>
+        <%# Entrar vive en la barra («Solo lectura»); aquí queda la invitación a
+            colaborar, que es lo único que se le ofrece a quien aún no entró. %>
         <% if (project.accepts_applications === 1 && !currentUser && !projectAdmin) { %>
         <a class="hero-account__action" href="<%= projectBase %>/colaborar">
           <span class="hero-account__icon"><i data-lucide="hand-heart"></i></span>
@@ -100,6 +95,13 @@
         </a>
         <% } %>
     </div>
+    </div>
+
+    <% if (radio) { %>
+    <%- include('partials/radio-card') %>
+    <% } else { %>
+      <%- include('partials/overall-progress', { compact: false }) %>
+    <% } %>
   </div>
 </section>
 
@@ -121,15 +123,10 @@
           <p><%= t('roadmap.sub') %></p>
         <% } %>
       </div>
-      <dl class="roadmap-heading__stats" aria-label="<%= t('roadmap.dimensions') %>">
-        <div><dt><%= t('roadmap.activeStages') %></dt><dd><%= view.categories.length %></dd></div>
-        <div><dt><%= t('roadmap.activities') %></dt><dd><%= view.overall.total %></dd></div>
-        <div><dt><%= t('roadmap.collaborators') %></dt><dd><%= collaboratorCount %></dd></div>
-      </dl>
+      <% if (radio) { %>
+        <%- include('partials/overall-progress', { compact: true }) %>
+      <% } %>
     </header>
-    <% if (radio) { %>
-      <%- include('partials/overall-progress', { compact: true }) %>
-    <% } %>
     <% const hasCategoryPages = view.categories.length > 5; %>
     <% if (currentUser) { %>
     <div class="roadmap-filter">
@@ -339,6 +336,8 @@
 </main>
 
 <%- include('partials/footer', { showVisitCounter, publicAssets: true }) %>
+<%- include('partials/launch-modal') %>
+<script src="<%= basePath %>/static/launch-modal.js?v=2026-11-06b" defer></script>
 <script src="<%= basePath %>/static/public-loader.js?v=<%= assetVersion %>"
         data-i18n-client="<%= basePath %>/static/i18n-client.js?v=<%= assetVersion %>"
         data-lucide-client="<%= basePath %>/static/vendor/lucide-public.min.js?v=<%= assetVersion %>"

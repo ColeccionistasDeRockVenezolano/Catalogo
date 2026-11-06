@@ -1,0 +1,12 @@
+<%
+  // Quien todavía no ha entrado ve el proyecto en modo lectura: la pastilla lo
+  // dice y, con la flecha, es también la puerta a /login. Es el único acceso de
+  // la barra para el visitante sin cuenta.
+%>
+<li class="nav-readonly">
+  <a class="nav-readonly__link" href="<%= projectBase %>/login" title="<%= t('nav.readOnlyHint') %>" aria-label="<%= t('nav.readOnlyHint') %>">
+    <span class="nav-readonly__dot" aria-hidden="true"></span>
+    <i data-lucide="log-in" aria-hidden="true"></i>
+    <span class="nav-readonly__label"><%= t('nav.readOnly') %></span>
+  </a>
+</li>
