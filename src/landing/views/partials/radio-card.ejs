@@ -27,9 +27,9 @@
       data-radio-queue-id="<%= radio.queueId %>"
       data-radio-starts-at="<%= radio.startsAt %>">
       <header class="radio-card__head">
-        <span class="radio-card__live"><i aria-hidden="true"></i><%= t('radio.live', { station: radioTexts.stationName }) %></span>
+        <span class="radio-card__live"><i aria-hidden="true"></i><%= t('radio.onAir') %></span>
         <div class="radio-card__head-actions">
-          <span class="radio-card__listeners" data-radio-listeners><%= radio.listeners > 1 ? t('radio.listenerMany', { n: radio.listeners }) : t('radio.listenerQuiet') %></span>
+          <span class="radio-card__listeners" data-radio-listeners><%= radio.listeners > 1 ? t('radio.listenerMany', { n: radio.listeners }) : (radio.listeners === 1 ? t('radio.listenerOne') : t('radio.listenerQuiet')) %></span>
           <button class="radio-card__cinema" type="button" data-radio-cinema aria-pressed="false"
             aria-label="<%= t('radio.cinemaEnter') %>" title="<%= t('radio.cinemaEnter') %>"
             data-enter-label="<%= t('radio.cinemaEnter') %>" data-exit-label="<%= t('radio.cinemaExit') %>">
@@ -92,26 +92,33 @@
           referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
       <div class="radio-card__content">
-        <p class="radio-card__label"><%= t('radio.now') %></p>
-        <h2 data-radio-title><%= radio.phase === 'sweeper' ? t('radio.identifier') : radio.current.title %></h2>
-        <p class="radio-card__artist" data-radio-artist><%= [radio.current.artist, radio.current.album, radio.current.year].filter(Boolean).join(' · ') %></p>
-        <div class="radio-card__timeline" aria-hidden="true"><i data-radio-progress style="--radio-progress-scale: <%= radioProgress.toFixed(4) %>"></i></div>
-        <div class="radio-card__status-row">
-          <p class="radio-card__status" data-radio-status aria-live="polite"><%= t('radio.ready') %></p>
+        <div class="radio-card__headline">
+          <p class="radio-card__label"><%= t('radio.now') %></p>
           <button class="radio-card__sync" type="button" data-radio-sync><i data-lucide="radio"></i><span><%= t('radio.join') %></span></button>
         </div>
-        <div class="radio-card__volume" data-radio-volume hidden>
-          <button class="radio-card__mute" type="button" data-radio-mute
-            aria-label="<%= t('radio.mute') %>" title="<%= t('radio.mute') %>" aria-pressed="false">
-            <i data-lucide="volume-2" data-radio-volume-on-icon></i>
-            <i data-lucide="volume-x" data-radio-volume-off-icon hidden></i>
-          </button>
-          <input class="radio-card__range" type="range" min="0" max="100" step="1" value="100"
-            data-radio-range aria-label="<%= t('radio.volume') %>">
+        <h2 data-radio-title><%= radio.phase === 'sweeper' ? t('radio.identifier') : trackTitle(radio.current) %></h2>
+        <p class="radio-card__artist" data-radio-artist><%= trackCredits(radio.current) %></p>
+        <%# El mando de volumen y la barra comparten fila: la barra ocupa todo el
+            ancho que deja el botón. El deslizador vive en un globo que se abre
+            hacia arriba al pasar el cursor; el clic del botón silencia. %>
+        <div class="radio-card__transport">
+          <div class="radio-card__volume" data-radio-volume hidden>
+            <button class="radio-card__mute" type="button" data-radio-mute
+              aria-label="<%= t('radio.mute') %>" title="<%= t('radio.mute') %>" aria-pressed="false">
+              <i data-lucide="volume-2" data-radio-volume-on-icon></i>
+              <i data-lucide="volume-x" data-radio-volume-off-icon hidden></i>
+            </button>
+            <div class="radio-card__vol-pop">
+              <input class="radio-card__range" type="range" min="0" max="100" step="1" value="100"
+                data-radio-range aria-label="<%= t('radio.volume') %>">
+            </div>
+          </div>
+          <div class="radio-card__timeline" aria-hidden="true"><i data-radio-progress style="--radio-progress-scale: <%= radioProgress.toFixed(4) %>"></i></div>
         </div>
+        <p class="radio-card__status" data-radio-status aria-live="polite"><%= t('radio.ready') %></p>
         <div class="radio-card__next">
           <span><%= t('radio.next') %></span>
-          <strong data-radio-next><%= [radio.next.artist, radio.next.title].filter(Boolean).join(' — ') %></strong>
+          <strong data-radio-next><%= trackLine(radio.next) %></strong>
         </div>
       </div>
       <noscript><p class="radio-card__noscript"><a href="https://www.youtube.com/watch?v=<%= radio.current.videoId %>&amp;t=<%= radio.current.startSeconds %>s" rel="noopener noreferrer">YouTube · <%= radio.current.title %></a></p></noscript>

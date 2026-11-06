@@ -558,8 +558,8 @@
     }
     var nextTitle = root.querySelector('[data-radio-identifier-next]');
     var nextArtist = root.querySelector('[data-radio-identifier-artist]');
-    if (nextTitle) nextTitle.textContent = snapshot.next ? snapshot.next.title : '';
-    if (nextArtist) nextArtist.textContent = snapshot.next ? snapshot.next.artist || '' : '';
+    if (nextTitle) nextTitle.textContent = snapshot.next ? trackTitle(snapshot.next) : '';
+    if (nextArtist) nextArtist.textContent = snapshot.next ? trackDisplay(snapshot.next).artist : '';
     buildSweeperBars();
     scaleSweeper();
     paintSweeper();
@@ -1219,8 +1219,8 @@
       if (snapshot && mediaSessionKey !== currentKey() && typeof window.MediaMetadata === 'function') {
         mediaSessionKey = currentKey();
         navigator.mediaSession.metadata = new window.MediaMetadata({
-          title: isSweeper() ? t('radio.identifier') : snapshot.current.title || liveLabel,
-          artist: snapshot.current.artist || projectName,
+          title: isSweeper() ? t('radio.identifier') : trackTitle(snapshot.current) || liveLabel,
+          artist: trackDisplay(snapshot.current).artist || projectName,
           album: snapshot.current.album || liveLabel
         });
       }
@@ -1384,22 +1384,59 @@
     return !playerMuted() && (state === PLAYING || state === BUFFERING);
   }
 
+  // Un recopilatorio no firma la pista: «Various Artists», «Varios artistas» y
+  // sus abreviaturas no se enseñan nunca. Cuando el campo de artista no sirve,
+  // el autor viaja dentro del título («7 Balazos - Paranoia») y de ahí se toma.
+  var COMPILATION_ARTIST = /^(various artists|varios artistas|v\.?\s*a\.?)$/i;
+
+  function displayArtist(value) {
+    var artist = value == null ? '' : String(value).trim();
+    return COMPILATION_ARTIST.test(artist) ? '' : artist;
+  }
+
+  function trackDisplay(item) {
+    var raw = item && item.title != null ? String(item.title).trim() : '';
+    var known = displayArtist(item && item.artist);
+    if (known) {
+      var prefix = known + ' - ';
+      if (raw.toLowerCase().indexOf(prefix.toLowerCase()) === 0) {
+        return { artist: known, title: raw.slice(prefix.length).trim() };
+      }
+      return { artist: known, title: raw };
+    }
+    var match = /^(.{1,120}?)\s+-\s+(.+)$/.exec(raw);
+    if (!match) return { artist: '', title: raw };
+    return { artist: match[1].trim(), title: match[2].trim() };
+  }
+
+  function trackTitle(item) {
+    return trackDisplay(item).title;
+  }
+
   function itemLine(item) {
     if (!item) return '';
     var parts = [];
-    if (item.artist) parts.push(item.artist);
+    var artist = trackDisplay(item).artist;
+    if (artist) parts.push(artist);
     if (item.album) parts.push(item.album);
     if (item.year) parts.push(String(item.year));
-    return parts.join(' · ');
+    return parts.join(' - ');
   }
 
   function nextLine(item) {
     if (!item) return '';
-    return item.artist ? item.artist + ' — ' + item.title : item.title || '';
+    var track = trackDisplay(item);
+    return [track.artist, track.title].filter(Boolean).join(' - ');
   }
 
-  function setStatus(text, state) {
+  // `tone` pinta el texto sin tocar el estado de la tarjeta: la emisión
+  // compartida va en su propio color y el punto sigue en vivo.
+  function setStatus(text, state, tone) {
     if (statusEl && statusEl.textContent !== text) statusEl.textContent = text;
+    if (statusEl) {
+      if (tone) statusEl.setAttribute('data-radio-tone', tone);
+      else statusEl.removeAttribute('data-radio-tone');
+    }
     var next = state || 'ready';
     if (root.getAttribute('data-radio-state') !== next) root.setAttribute('data-radio-state', next);
     updateMediaSession();
@@ -1410,13 +1447,16 @@
   function refreshLabels() {
     if (!syncLabel) return;
     var text;
-    if (currentRestricted()) text = t('radio.retry');
-    else if (userPaused) text = t('radio.resync');
-    else if (soundPending || userMuted) text = t('radio.sound');
-    else if (audible()) text = t('radio.synced');
-    else if (started) text = t('radio.resync');
-    else text = t('radio.join');
+    var action;
+    if (currentRestricted()) { text = t('radio.retry'); action = 'retry'; }
+    else if (userPaused) { text = t('radio.resync'); action = 'resync'; }
+    else if (soundPending || userMuted) { text = t('radio.sound'); action = 'sound'; }
+    else if (audible()) { text = t('radio.synced'); action = 'synced'; }
+    else if (started) { text = t('radio.resync'); action = 'resync'; }
+    else { text = t('radio.join'); action = 'join'; }
     if (syncLabel.textContent !== text) syncLabel.textContent = text;
+    // «Volver al vivo» es una acción secundaria: la hoja la pinta en gris.
+    if (syncButton && syncButton.getAttribute('data-radio-action') !== action) syncButton.setAttribute('data-radio-action', action);
   }
 
   // La linea de estado solo declara el vivo con sonido real; en el resto de
@@ -1439,7 +1479,7 @@
       // envio otra para el mismo tramo y la emision sigue sincronizada.
       var replaced = snapshot && snapshot.current && snapshot.current.regionSubstituteFor;
       if (replaced) { setStatus(t('radio.regionSubstitute', { title: itemLine(replaced) }), 'live'); return; }
-      setStatus(t('radio.shared'), 'live');
+      setStatus(t('radio.shared'), 'live', 'shared');
       return;
     }
     setStatus(t('radio.ready'), 'ready');
@@ -1482,7 +1522,7 @@
     root.setAttribute('data-radio-start-seconds', String(data.current.startSeconds));
     root.setAttribute('data-radio-starts-at', data.startsAt);
     if (data.queueId) root.setAttribute('data-radio-queue-id', data.queueId);
-    if (titleEl) titleEl.textContent = isSweeper() ? t('radio.identifier') : data.current.title;
+    if (titleEl) titleEl.textContent = isSweeper() ? t('radio.identifier') : trackTitle(data.current);
     if (artistEl) artistEl.textContent = isSweeper() ? projectName : itemLine(data.current);
     if (nextEl) nextEl.textContent = nextLine(data.next || (data.upcoming && data.upcoming[0]));
     listenerCopy(Number(data.listeners) || 0);
