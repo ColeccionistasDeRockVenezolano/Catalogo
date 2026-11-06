@@ -276,6 +276,7 @@
       meta.textContent = parts.join(' · ');
 
       content.textContent = '';
+      if (report.acquisition && window.CRVAcquisitionPanel) content.appendChild(window.CRVAcquisitionPanel(root, report.acquisition));
       if (!report.since) {
         var empty = el('div', 'metrics-card');
         empty.appendChild(el('p', 'metrics-empty', T('metrics.noDataYet')));

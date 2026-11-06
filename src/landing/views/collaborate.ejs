@@ -46,7 +46,7 @@
       <% }) %>
     </ol>
 
-    <form method="post" action="<%= projectBase %>/colaborar" class="collab-form" id="collaborateForm">
+    <form data-hj-suppress method="post" action="<%= projectBase %>/colaborar" class="collab-form" id="collaborateForm">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
       <fieldset class="collab-panel" data-collab-step="<%= stepNumber.about %>">

@@ -18,6 +18,8 @@ import {
 } from "../roadmap/store.js";
 import { parseMetricsRange, trafficReport } from "../../traffic/report.js";
 import { getPool } from "../../db/client.js";
+import { campaignLinks, createCampaignLink } from '../../traffic/acquisition.js';
+import { settleTraffic } from '../../traffic/record.js';
 import {
   applicationDetail, brandingPayload, catalogGroups, countOpenApplications, getPersonProfile, getRoadmap, getUsers,
   i18nPayload, listApplicationRows, listPendingUsers, listProjectCollaborations, personOfProject, projectAssets, projectRow,
@@ -456,7 +458,21 @@ export async function registerAdminPanelRoutes(app: FastifyInstance): Promise<vo
     return { ok: true };
   });
   route("GET", "/metrics", async (request, _reply, project) => {
+    await settleTraffic();
     return trafficReport(project, parseMetricsRange((request.query as { days?: unknown }).days), langOf(request));
+  });
+  route('GET', '/metrics/links', async (_request, _reply, project) => ({ links: await campaignLinks(project) }));
+  route('POST', '/metrics/links', async (request, reply, project, body) => {
+    requireFullAdmin(request);
+    return reply.status(201).send({ link: await createCampaignLink(project, body) });
+  }, 4096);
+  route('PATCH', '/metrics/links/:id', async (request, _reply, project, body) => {
+    requireFullAdmin(request);
+    if (typeof body['archived'] !== 'boolean' || Object.keys(body).some(key => key !== 'archived')) throw fail(400, 'Solo se puede cambiar el archivo del enlace.');
+    const result = await getPool().query('UPDATE auth.traffic_links SET archived=$1 WHERE id=$2 AND project_id=$3 RETURNING id',
+      [body['archived'], idOf(request), project]);
+    if (!result.rowCount) throw fail(404, 'Ese enlace no existe.');
+    return { ok: true };
   });
 
   // ------------------------------------------------------------ clave propia

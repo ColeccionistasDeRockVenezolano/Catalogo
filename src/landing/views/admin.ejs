@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<%= lang %>">
 <head>
-<%- include('partials/head', { pageTitle: t('admin.pageTitle') + ' — ' + theme.projectName, noindex: true, extraStylesheets: [basePath + '/static/metrics.css?v=' + assetVersion] }) %>
+<%- include('partials/head', { pageTitle: t('admin.pageTitle') + ' — ' + theme.projectName, noindex: true, extraStylesheets: [basePath + '/static/metrics.css?v=' + assetVersion, basePath + '/static/acquisition.css?v=2026-11-04a'] }) %>
 </head>
 <body data-project-base="<%= projectBase %>" data-admin-api-base="/api/community/admin/panel/" data-messages="<%= JSON.stringify(clientMessages(lang, 'admin')) %>">
 <%- include('partials/header', { isAdmin: true, currentUser }) %>
@@ -83,6 +83,8 @@
               no al cargar el panel, que ya tiene bastante que dibujar. %>
           <div data-metrics-root data-metrics-lazy="metrics-form"
                data-metrics-url="/api/community/admin/panel/metrics"
+               data-links-edit="<%= currentAdmin ? 'true' : 'false' %>"
+               data-public-origin="<%= branding.siteUrl %>"
                data-flag-base="<%= basePath %>/static/flags/"
                data-messages="<%= JSON.stringify(clientMessages(lang, 'metrics')) %>"></div>
         </div>
@@ -1759,6 +1761,7 @@
 
 <%- include('partials/footer', { showVisitCounter: false }) %>
 <script src="<%= basePath %>/static/admin.js?v=<%= assetVersion %>" defer></script>
-<script src="<%= basePath %>/static/metrics.js?v=<%= assetVersion %>" defer></script>
+<script src="<%= basePath %>/static/acquisition-panel.js?v=2026-11-04a" defer></script>
+<script src="<%= basePath %>/static/metrics.js?v=2026-11-04a" defer></script>
 </body>
 </html>

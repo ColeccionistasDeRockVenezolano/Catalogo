@@ -1,0 +1,34 @@
+.acquisition { min-width: 0; }
+.acquisition h3, .acquisition h4 { font-family: var(--font-body); text-transform: none; letter-spacing: normal; }
+.acquisition h4 { font-size: 16px; margin: 0 0 6px; }
+.acquisition-controls, .acquisition-form { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 18px 0; }
+.acquisition-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; font-size: 13px; color: var(--gray); }
+.acquisition input:not([type="checkbox"]), .acquisition select { width: 100%; min-width: 0; box-sizing: border-box; min-height: 44px; padding: 9px 11px; background: var(--surface-2); color: var(--white); border: 1px solid var(--border); border-radius: 8px; font: inherit; font-size: 14px; }
+.acquisition input::placeholder { color: var(--gray); opacity: 1; }
+.acquisition input:focus-visible, .acquisition select:focus-visible, .acquisition summary:focus-visible, .acquisition-table:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+.acquisition-summary { margin: 12px 0; color: var(--white); font-size: 14px; font-variant-numeric: tabular-nums; }
+.acquisition-table { max-width: 100%; margin-bottom: 14px; }
+.acquisition-table th[scope="row"] { white-space: normal; overflow-wrap: anywhere; min-width: 150px; max-width: 280px; font-weight: 500; }
+.acquisition-table .metrics-table { font-variant-numeric: tabular-nums; }
+.acquisition-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0; color: var(--gray); font-size: 13px; }
+.acquisition-pagination[hidden], .acquisition [hidden] { display: none; }
+.acquisition .metrics-icon-btn { min-height: 44px; }
+.acquisition button:disabled { opacity: .5; cursor: default; }
+.acquisition-help { margin-top: 22px; color: var(--gray); font-size: 13px; line-height: 1.65; max-width: 75ch; }
+.acquisition summary { min-height: 44px; padding: 10px 0; box-sizing: border-box; color: var(--white); cursor: pointer; font-size: 14px; }
+.acquisition-help p { margin: 8px 0 14px; }
+.acquisition-links { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+.acquisition-archived { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 10px; color: var(--gray); font-size: 13px; }
+.acquisition-archived input { accent-color: var(--red); width: 18px; height: 18px; }
+.acquisition-link-list { list-style: none; margin: 0; padding: 0; }
+.acquisition-link-list > li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+.acquisition-link-info { display: grid; flex: 1 1 320px; gap: 7px; min-width: 0; }
+.acquisition-link-info strong { color: var(--white); font-size: 14px; overflow-wrap: anywhere; }
+.acquisition-link-info span { color: var(--gray); font-size: 13px; overflow-wrap: anywhere; }
+.acquisition-link-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.acquisition-status:empty { display: none; }
+.acquisition-status { color: var(--white); font-size: 14px; margin: 12px 0; }
+.acquisition-preview { grid-column: 1 / -1; overflow-wrap: anywhere; color: var(--gray); font-size: 13px; }
+.acquisition-form-error { grid-column: 1 / -1; color: #ffb3b6; font-size: 14px; margin: 0; }
+.acquisition-form .btn { justify-self: start; min-height: 44px; }
+@media (max-width: 680px) { .acquisition-controls, .acquisition-form { grid-template-columns: 1fr; } }

@@ -19,6 +19,7 @@ import { agentInfo } from "./agents.js";
 import type { Classification } from "./classify.js";
 import { verifyAgent, type Verification } from "./verify.js";
 import { moduleLogger } from "../logger/index.js";
+import { flushAcquisitions } from './acquisition.js';
 
 const log = moduleLogger("traffic");
 
@@ -169,6 +170,7 @@ export async function flushTrafficQueue(): Promise<void> {
       client.release();
     }
   }
+  await flushAcquisitions().catch(error => log.error({ err: error }, 'falló el registro de procedencia'));
   await pruneOldTraffic().catch(() => undefined);
 }
 

@@ -10,6 +10,7 @@ import { countryName, localDay, normalizeCountry } from "../api/roadmap/visits.j
 import { agentInfo } from "./agents.js";
 import { ALL_PAGES, TRAFFIC_PAGES } from "./record.js";
 import { rangeListStatus } from "./verify.js";
+import { acquisitionReport } from './acquisition.js';
 
 export const METRICS_RANGES = [7, 30, 90] as const;
 export type MetricsRange = typeof METRICS_RANGES[number];
@@ -52,6 +53,7 @@ function shiftDay(day: string, offset: number): string {
 }
 
 export interface MetricsReport {
+  acquisition: Awaited<ReturnType<typeof acquisitionReport>>;
   days: MetricsRange;
   from: string;
   to: string;
@@ -214,6 +216,7 @@ export async function trafficReport(projectId: number, days: MetricsRange, lang:
   }));
 
   return {
+    acquisition: await acquisitionReport(projectId, from, to),
     days,
     from,
     to,

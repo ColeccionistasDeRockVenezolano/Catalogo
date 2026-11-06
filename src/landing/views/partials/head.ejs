@@ -43,6 +43,9 @@
 <% if (!hideFromRobots && canonical) { %><link rel="canonical" href="<%= canonical %>"><% } %>
 <meta name="theme-color" content="<%= theme.colors.bg %>">
 <meta name="csrf-token" content="<%= csrfToken %>">
+<% if (typeof acquisitionPage !== 'undefined' && acquisitionPage) { %>
+<script src="<%= basePath %>/static/acquisition.js?v=2026-11-04a" data-acquisition-page="<%= acquisitionPage %>" defer></script>
+<% } %>
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="<%= ogLocale %>">

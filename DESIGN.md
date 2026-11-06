@@ -401,6 +401,20 @@ Los controles aparecen en orden anterior, reproducir/pausar y próxima pista, co
 
 Los saltos usan las marcas de tiempo registradas y pueden cambiar al video de otro lado o disco. La lista y la página de origen permanecen en la sesión del reproductor al navegar. Se omiten las pistas sin marca; anterior y próxima se desactivan en los extremos y mientras no hay reproducción conectada. En el canal recorren los videos de la lista. Un salto dentro del mismo video conserva el iframe. «Ampliar video» abre de nuevo el modal y «Cerrar» detiene la reproducción. El modal añade volumen, silencio, búsqueda de diez segundos y lista de pistas; los errores incluyen reintento. Ver docs/MEDIA_PLAYER.md.
 
+### Procedencia de visitas en Métricas
+
+«De dónde vienen» amplía el diálogo de Métricas de `/admin`, servido por las plantillas EJS de la portada. Conserva sus superficies oscuras, Inter, bordes y controles; el rojo señala acción y foco. Los filtros de agrupación, tipo de tráfico y búsqueda ocupan tres columnas con separación de 14px; hasta 680px pasan a una columna, igual que el formulario de enlaces.
+
+La tabla conserva sus columnas numéricas alineadas a la derecha y cifras tabulares dentro de una región con desplazamiento horizontal, nombre accesible y acceso por Tab. El foco de la región, campos y desplegables usa un contorno rojo de 2px. Las etiquetas largas admiten salto y corte seguro; los resultados se paginan de 15 en 15. Campos, selectores, botones y mandos de los desplegables mantienen una altura mínima de 44px.
+
+Las fuentes registradas se nombran explícitamente; sin etiquetas ni referente externo, el origen se muestra como «Directo / desconocido». El selector distingue «Personas probables», «Bots, IA y buscadores», «Sospechosos» y «Todo el tráfico». La ayuda desplegable explica que los conteos diarios y la ejecución de JS no identifican personas únicas. «Enlaces de campaña» usa filas planas con URL seleccionable, copiar y archivo reversible; crear un enlace se abre mediante un desplegable nativo solo para administración total. Los avisos usan estado accesible y los errores del formulario, alerta. Referencia: `docs/TRAFFIC_ATTRIBUTION.md`.
+
+### Aviso de lanzamiento de la biblioteca
+
+Extensión local de la portada EJS: diálogo nativo centrado, superficie oscura mate, título Anton y cuerpo y controles Inter; el rojo CRV identifica la acción principal y el foco. Su ancho máximo es 520px, con radio de 16px y desplazamiento vertical propio. En móvil conserva 12px de margen exterior; los campos usan texto de 16px y altura mínima de 48px, reducida a 44px en escritorio de hasta 780px de alto. Estas medidas pertenecen a este componente y no alteran los tokens del catálogo.
+
+Nombre, correo y perfil musical son obligatorios; teléfono y redes se despliegan en un `details` opcional. La entrada dura 240ms y se elimina con movimiento reducido. El cierre recibe el foco inicial; el diálogo mantiene el recorrido por teclado, permite salir con Escape y restaura el foco anterior. Los errores aparecen junto al campo y el éxito sustituye el formulario con una confirmación accesible. Cerrar permite seguir explorando y el aviso vuelve en cada entrada; solo un registro guardado activa el recuerdo mediante cookie HttpOnly y marcador local sin datos personales. Implementación: `src/landing/views/partials/launch-modal.ejs` y `web/public/landing/launch-modal.{css,js}`.
+
 ## Do's and Don'ts
 
 ### Do:

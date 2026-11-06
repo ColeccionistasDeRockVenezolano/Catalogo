@@ -22,6 +22,10 @@ import {
   createApplication, listApplications, getApplication, setApplicationStatus, acceptApplication,
 } from "../community/applications.js";
 import { applicationsOpen } from "../project/config.js";
+import { recordAcquisition } from '../../traffic/acquisition.js';
+import { attributionFromUrl } from '../../traffic/attribution.js';
+import { classifyRequest } from '../../traffic/classify.js';
+import { clientCountry } from '../auth.js';
 import {
   createActivation, listActivations, revokeActivation, activationInfo, activateUser,
   createInvite, listInvites, revokeInvite, inviteInfo, registerWithInvite,
@@ -156,6 +160,7 @@ export async function registerCommunityRoutes(app: FastifyInstance): Promise<voi
   });
 
   api.post("/community/applications", {
+    bodyLimit: 32 * 1024,
     schema: { tags: ["Comunidad"], body: applicationBody },
   }, async (request) => {
     if (!applicationLimiter.take(clientIp(request))) {
@@ -166,6 +171,9 @@ export async function registerCommunityRoutes(app: FastifyInstance): Promise<voi
     }
     const project = await projectId();
     const { id } = await createApplication(project, request.body, clientIp(request));
+    recordAcquisition({ projectId: project, ip: clientIp(request), country: clientCountry(request), page: 'collaborate',
+      kind: 'application', eventId: `application-${id}`, classification: classifyRequest(request.headers, 'beacon'),
+      attribution: attributionFromUrl(typeof request.headers.referer === 'string' ? request.headers.referer : '/', '') });
     return { ok: true as const, id };
   });
 
@@ -177,6 +185,7 @@ export async function registerCommunityRoutes(app: FastifyInstance): Promise<voi
     });
 
   api.post("/community/register", {
+    bodyLimit: 4096,
     schema: { tags: ["Comunidad"], body: registerBody },
   }, async (request) => {
     if (!registerLimiter.take(clientIp(request))) {
@@ -202,6 +211,7 @@ export async function registerCommunityRoutes(app: FastifyInstance): Promise<voi
     });
 
   api.post("/community/activate", {
+    bodyLimit: 4096,
     schema: { tags: ["Comunidad"], body: activateBody },
   }, async (request) => {
     if (!activateLimiter.take(clientIp(request))) {

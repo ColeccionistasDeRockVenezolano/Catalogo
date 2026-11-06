@@ -7,12 +7,14 @@ import { withFontFallbacks } from "./theme.js";
 import { defaultPageMeta, hasSocialPresence, pageMeta } from "./branding.js";
 import { getPlatform, platformLabel, socialIcon, socialLinkLabel } from "./social-icons.js";
 import { faviconDataUri, formatDateTime, formatNumber, isoDateTime, jsonLd, pctBar, pctText, phaseLabel, statusLabel } from "./view-helpers.js";
+import { trackCredits, trackLine, trackTitle } from "../shared/radio/credits.js";
 import { activationInfo, inviteInfo } from "../api/community/tokens.js";
 import { ApiError } from "../api/http-errors.js";
 import { adminViewLocals, catalogGroups, collaborationGaps, displayName, getPersonProfile, projectRow, shortDisplayName } from "./admin-panel.js";
 import { clientMessages as herraClientMessages, translate as herraTranslate } from "./herra/i18n.js";
 import { getPool } from "../db/client.js";
 import { ACTIVATION_TTL_DAYS } from "../api/community/validation.js";
+import { analyticsInit } from "./hotjar.js";
 
 export type LandingPage = "roadmap" | "colaborar" | "login" | "registro" | "activar" | "admin" | "account" | "radio-embed";
 export type AccountSaved = "profile" | "password" | "both";
@@ -88,7 +90,9 @@ export async function renderLanding(page: LandingPage, lang: LandingLanguage, to
   }
   const root = path.join(process.cwd(), "src", "landing");
   const publicCriticalCss = (await readFile(path.join(root, "roadmap-critical.min.css"), "utf8")).replaceAll("__HERRA_STATIC__", "/static");
-  const origin = data.branding.siteUrl.replace(/\/$/u, "") || "http://localhost";
+  // El origen del iframe de YouTube debe coincidir con el de la página; si no,
+  // el reproductor ignora setVolume/mute (visto en la vista previa local).
+  const origin = (process.env["CRV_PUBLIC_ORIGIN"] || data.branding.siteUrl || "http://localhost").replace(/\/$/u, "");
   const t = (key: string, vars?: Record<string, string | number>) => {
     const safe = vars && rawTranslatedKeys.has(key)
       ? Object.fromEntries(Object.entries(vars).map(([name, value]) => [name, typeof value === "string" ? escapeHtml(value) : value]))
@@ -97,8 +101,9 @@ export async function renderLanding(page: LandingPage, lang: LandingLanguage, to
   };
   const langOptions = (["es", "en"] as const).map((code) => ({ code, label: code.toUpperCase(), name: code === "es" ? "Español" : "English", current: code === lang, url: `/${page === "admin" ? (landingMode ? "admin" : "curaduria/roadmap") : page}?lang=${code}${token ? `&token=${encodeURIComponent(token)}` : ""}` }));
   const locals = {
+    acquisitionPage: ({ roadmap: 'roadmap', colaborar: 'collaborate', login: 'login', registro: 'register', activar: 'activate' } as Partial<Record<LandingPage, string>>)[page] ?? '',
     ...data, lang, t, langOptions, ogLocale: lang === "es" ? "es_ES" : "en_US", publicCriticalCss,
-    assetVersion: "1.1.39", radioClientVersion: "crv-2026-11-03e", basePath: "", projectBase: "", pageOrigin: origin, canonicalUrl: `${origin}/${page === "roadmap" ? "" : page}`,
+    assetVersion: "roadmap-20261106b", radioClientVersion: "crv-2026-11-06b", basePath: "", projectBase: "", pageOrigin: origin, canonicalUrl: `${origin}/${page === "roadmap" ? "" : page}`,
     showLoginLinks: data.project.show_login === 1, showVisitCounter: data.project.visitor_counter === 1,
     visibilityMode: session ? "full" : data.project.visibility_mode, isAdmin: false, projectAdmin, currentUser,
     landingMode,
@@ -108,6 +113,7 @@ export async function renderLanding(page: LandingPage, lang: LandingLanguage, to
     visitStats: () => data.visits, clientMessages, defaultPageMeta, pageMeta, hasSocialPresence,
     getPlatform, socialPlatform: getPlatform, platformLabel, socialIcon, socialLinkLabel, withFontFallbacks,
     statusLabel, phaseLabel, pctText, pctBar, formatDateTime, formatNumber, isoDateTime, jsonLd, faviconDataUri,
+    trackCredits, trackTitle, trackLine,
     shortDisplayName: (person: { name: string }) => person.name,
     appName: "Herra", registrationTokenTtlMin: 30,
   };
@@ -117,5 +123,8 @@ export async function renderLanding(page: LandingPage, lang: LandingLanguage, to
   const html = await ejs.renderFile(path.join(root, "views", `${templates[page]}.ejs`), viewLocals) as string;
   const c = data.theme.colors;
   const css = `:root{--bg:${c.bg};--surface:${c.surface};--surface-2:${c.surface2};--red:${c.red};--red-dark:${c.redDark};--white:${c.white};--gray:${c.gray};--border:${c.border};--accent-red:${c.accentRed};--accent-amber:${c.accentAmber};--accent-violet:${c.accentViolet};--accent-teal:${c.accentTeal};--font-title:${withFontFallbacks(data.theme.fontTitle)};--font-body:${withFontFallbacks(data.theme.fontBody)}}`;
-  return html.replace("</head>", `<style>${css}</style></head>`);
+  const publicHtml = page === "roadmap" || page === "colaborar"
+    ? html.replace("</body>", `${analyticsInit}</body>`)
+    : html;
+  return publicHtml.replace("</head>", `<style>${css}</style></head>`);
 }

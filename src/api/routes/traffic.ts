@@ -18,6 +18,9 @@ import { projectId } from "../community/store.js";
 import { classifyRequest, type RequestHeaders } from "../../traffic/classify.js";
 import { recordTraffic, resetTraffic, TRAFFIC_PAGES, settleTraffic, type TrafficPage } from "../../traffic/record.js";
 import { parseMetricsRange, trafficReport } from "../../traffic/report.js";
+import { ACQUISITION_PAGES, attributionFromUrl } from '../../traffic/attribution.js';
+import { recordAcquisition } from '../../traffic/acquisition.js';
+import { createWindowLimiter } from '../rate-limit.js';
 
 const pageBody = z.object({
   page: z.enum(TRAFFIC_PAGES),
@@ -28,6 +31,17 @@ const pageBody = z.object({
   secFetchSite: z.string().max(64).optional(),
   signatureAgent: z.string().max(512).optional(),
   country: z.string().max(8).optional(),
+  url: z.string().max(4096).optional(),
+  referrer: z.string().max(2048).optional(),
+}).strict();
+
+const attributionBody = z.object({
+  ref: z.string().max(80).optional(), source: z.string().max(80).optional(), medium: z.string().max(80).optional(),
+  campaign: z.string().max(80).optional(), content: z.string().max(80).optional(), referrer: z.string().max(2048).optional(),
+}).strict();
+const eventBody = z.object({
+  page: z.enum(ACQUISITION_PAGES), kind: z.enum(['page', 'collaborate', 'radio']),
+  eventId: z.string().regex(/^[a-zA-Z0-9_-]{8,100}$/u), webdriver: z.boolean(), attribution: attributionBody,
 }).strict();
 
 function sameToken(request: FastifyRequest): boolean {
@@ -46,6 +60,17 @@ function requestCountry(request: FastifyRequest): string | null {
 export async function registerTrafficRoutes(app: FastifyInstance): Promise<void> {
   const api = app.withTypeProvider<ZodTypeProvider>();
   const env = getEnv();
+  const eventLimiter = createWindowLimiter({ max: 120, windowMs: 60_000, maxKeys: 10_000 });
+
+  if (env.CRV_TRAFFIC_ENABLED) {
+    api.post('/traffic/event', { schema: { tags: ['Tráfico'], body: eventBody }, bodyLimit: 4096 }, async (request, reply) => {
+      if (!eventLimiter.take(clientIp(request))) throw new ApiError(429, 'rate_limited', 'Demasiados avisos de tráfico.');
+      recordAcquisition({ projectId: await projectId(), ip: clientIp(request), country: requestCountry(request),
+        page: request.body.page, kind: request.body.kind, eventId: request.body.eventId,
+        attribution: request.body.attribution, classification: classifyRequest(request.headers, 'beacon', request.body.webdriver) });
+      return reply.header('Cache-Control', 'no-store').status(204).send();
+    });
+  }
 
   // El gateway reenvía la visita de cada documento público. Sin token, la ruta
   // no existe: el aviso es entre procesos de esta máquina, no una API pública.
@@ -68,6 +93,12 @@ export async function registerTrafficRoutes(app: FastifyInstance): Promise<void>
         country: request.body.country ?? requestCountry(request),
         classification: classifyRequest(headers, "navigation"),
       });
+      if ((ACQUISITION_PAGES as readonly string[]).includes(request.body.page)) {
+        recordAcquisition({ projectId: project, ip: clientIp(request), country: request.body.country ?? requestCountry(request),
+          page: request.body.page as typeof ACQUISITION_PAGES[number], kind: 'navigation',
+          classification: classifyRequest(headers, 'navigation'),
+          attribution: attributionFromUrl(request.body.url ?? '/', request.body.referrer ?? '') });
+      }
       return reply.status(204).send();
     });
   }

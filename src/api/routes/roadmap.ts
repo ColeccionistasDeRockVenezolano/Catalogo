@@ -21,6 +21,7 @@ import { projectId } from "../community/store.js";
 import { getEnv } from "../../config/env.js";
 import { classifyRequest } from "../../traffic/classify.js";
 import { recordTraffic } from "../../traffic/record.js";
+import { registerLaunchRoutes } from "./launch.js";
 
 const langQuery = z.object({ lang: z.enum(["es", "en"]).optional() });
 const translations = z.object({ en: z.string().max(600).optional() }).strict();
@@ -69,6 +70,7 @@ function requestCountry(request: { headers: Record<string, string | string[] | u
 }
 
 export async function registerRoadmapRoutes(app: FastifyInstance): Promise<void> {
+  await registerLaunchRoutes(app);
   const api = app.withTypeProvider<ZodTypeProvider>();
   const visitLimiter = createWindowLimiter({ max: 40, windowMs: 60_000, maxKeys: 5_000 });
 
@@ -121,7 +123,8 @@ export async function registerRoadmapRoutes(app: FastifyInstance): Promise<void>
     const userAgent = request.headers["user-agent"];
     const ip = clientIp(request);
     const country = normalizeCountry(requestCountry(request));
-    await recordVisit(project, {
+    const classification = classifyRequest(request.headers, 'beacon', request.body?.webdriver === true);
+    if (classification.category === 'human') await recordVisit(project, {
       ip,
       country,
       userAgent: typeof userAgent === "string" ? userAgent : undefined,
@@ -134,7 +137,7 @@ export async function registerRoadmapRoutes(app: FastifyInstance): Promise<void>
         page: "js",
         ip,
         country,
-        classification: classifyRequest(request.headers, "beacon", request.body?.webdriver === true),
+        classification,
       });
     }
     return visitStats(project, (request.query as { lang?: string }).lang === "en" ? "en" : "es");
