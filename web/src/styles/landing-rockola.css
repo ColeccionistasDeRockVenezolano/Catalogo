@@ -427,3 +427,54 @@ button:disabled { cursor:default; opacity:.5; }
     .rv-feed { flex: 1 1 auto; min-height: 0; }
     .rv-chat.is-expanded { height: auto; }
 
+    /* CRV · pestañas del panel (Brian, 2026-11-06): visitas hoy, históricas y chat.
+       La lista de países replica el contador de la portada 1:1. */
+    .rv-chat-body { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+    .rv-visits {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 14px 13px 12px;
+      background: #111112;
+      scrollbar-color: #515156 transparent;
+      scrollbar-width: thin;
+    }
+    .rv-visit-total {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-bottom: 12px;
+      padding: 9px 12px 10px;
+      border: 1px solid #2c2c30;
+      border-radius: 10px;
+      background: #1c1c1f;
+    }
+    .rv-visit-label { font-size: 9px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #8f8f95; }
+    .rv-visit-number { font-size: 24px; font-weight: 900; line-height: 1; color: #31c3b6; font-variant-numeric: tabular-nums; }
+    .rv-visits-list { display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 0; list-style: none; }
+    .rv-visits-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 6px;
+      border-radius: 7px;
+      background: color-mix(in srgb, #1c1c1c 60%, transparent);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .rv-visits-flag { width: 21px; height: 15px; flex: 0 0 auto; border-radius: 2px; object-fit: cover; box-shadow: 0 0 0 1px rgb(0 0 0 / 35%); }
+    .rv-visits-flag--unknown {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 30%, rgb(255 255 255 / 34%), transparent 60%),
+        #1c1c1c;
+      box-shadow: inset 0 0 0 1px #38383c;
+    }
+    .rv-visits-country { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: color-mix(in srgb, #ededee 86%, transparent); }
+    .rv-visits-count { font-variant-numeric: tabular-nums; font-weight: 600; color: #b7b7bd; }
+    .rv-visits-empty { margin: 0; padding: 10px 2px; color: #8f8f95; font-size: 11px; }
+    .rv-dots { margin-top: 0; padding: 9px 13px 11px; border-top: 1px solid #2f2f33; background: #19191a; flex-shrink: 0; }
+
+

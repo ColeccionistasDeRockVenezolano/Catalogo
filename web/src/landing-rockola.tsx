@@ -28,10 +28,21 @@ import widgetStyles from './styles/landing-rockola.css?inline';
 const CHAT_ECONOMY = false;
 
 const counter = document.getElementById('visitCounter');
-interface VisitPage { title: string; total: string; countries: Array<{ name: string; count: string; flag: string }> }
+type VisitKey = 'today' | 'total';
+interface VisitPage { key: VisitKey; title: string; label: string; total: string; countries: Array<{ name: string; count: string; flag: string }> }
+// Tabs del panel: dos páginas de visitas y el chat, en ese orden (Brian, 2026-11-06).
+const TABS: ReadonlyArray<{ id: VisitKey | 'chat'; title: string }> = [
+  { id: 'today', title: 'VISITANTES HOY' },
+  { id: 'total', title: 'VISITANTES HISTÓRICOS' },
+  { id: 'chat', title: 'La Rockola' },
+];
+const VISIT_PAGES: ReadonlyArray<{ key: VisitKey; title: string; label: string }> = [
+  { key: 'today', title: 'VISITANTES HOY', label: 'HOY' },
+  { key: 'total', title: 'VISITANTES HISTÓRICOS', label: 'TOTAL' },
+];
 function readVisits(): VisitPage[] {
-  return ['online', 'today', 'total'].map(key => ({
-    title: key === 'online' ? 'EN LÍNEA' : key === 'today' ? 'VISITANTES HOY' : 'VISITANTES HISTÓRICOS',
+  return VISIT_PAGES.map(({ key, title, label }) => ({
+    key, title, label,
     total: counter?.querySelector(`[data-visits-${key}]`)?.textContent?.trim() || '0',
     countries: [...(counter?.querySelectorAll(`[data-visits-page="${key}"] .visits__row`) ?? [])].map(row => ({
       name: row.querySelector('.visits__country')?.textContent || '',
@@ -40,69 +51,20 @@ function readVisits(): VisitPage[] {
     })),
   }));
 }
-function VisitStats({open, paused}: {open:boolean; paused:boolean}) {
-  const [pages, setPages] = useState(readVisits);
-  const [selected, setSelected] = useState(2);
-  const [hovered, setHovered] = useState(false);
-  const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
-  const [visible, setVisible] = useState(!document.hidden);
-  const viewport = useRef<HTMLDivElement>(null);
-  const track = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!counter) return;
-    const update = () => { const next = readVisits(); setPages(old => JSON.stringify(old) === JSON.stringify(next) ? old : next); };
-    const observer = new MutationObserver(update);
-    observer.observe(counter, {subtree:true, childList:true, characterData:true});
-    update(); return () => observer.disconnect();
-  }, []);
-  useEffect(() => {
-    const mq = matchMedia('(prefers-reduced-motion: reduce)');
-    const change = () => setReduced(mq.matches);
-    const visibility = () => setVisible(!document.hidden);
-    mq.addEventListener('change',change); document.addEventListener('visibilitychange',visibility);
-    return () => { mq.removeEventListener('change',change); document.removeEventListener('visibilitychange',visibility); };
-  }, []);
-  useEffect(() => {
-    if (!open || paused || hovered || reduced || !visible) return;
-    const timer = setTimeout(() => setSelected(i => (i + 1) % 3), selected === 2 ? 22000 : 6000);
-    return () => clearTimeout(timer);
-  }, [selected, open, paused, hovered, reduced, visible]);
-  useEffect(() => {
-    const el = track.current, view = viewport.current;
-    if (!el || !view || !open) return;
-    const fill = () => {
-      el.replaceChildren(); el.classList.remove('is-scrolling'); view.classList.remove('is-scrolling');
-      const first = document.createElement('div'); first.className = 'rv-flag-group';
-      const countries = pages[selected]!.countries;
-      const append = () => countries.forEach(country => {
-        const chip = document.createElement('div'); chip.className = 'rv-flag-chip';
-        const flag = document.createElement(country.flag ? 'img' : 'span'); flag.className = 'rv-flag';
-        if (flag instanceof HTMLImageElement) { flag.src = country.flag; flag.alt = ''; flag.width = 21; flag.height = 15; } else flag.textContent = '🌐';
-        const name = document.createElement('span'); name.className = 'rv-country'; name.textContent = country.name;
-        const count = document.createElement('b'); count.textContent = country.count;
-        chip.append(flag,name,count); first.append(chip);
-      });
-      append(); el.append(first);
-      if (!countries.length) { first.textContent = 'Aún no hay visitas registradas.'; return; }
-      // Only overflowing lists need a seamless duplicate. Short lists stay unique.
-      const scrolling = !reduced && first.getBoundingClientRect().width > view.clientWidth;
-      el.classList.toggle('is-scrolling', scrolling);
-      view.classList.toggle('is-scrolling', scrolling);
-      if (scrolling) {
-        const duplicate = first.cloneNode(true) as HTMLElement; duplicate.setAttribute('aria-hidden','true');
-        el.append(duplicate);
-      }
-      el.style.setProperty('--rv-travel', `-${first.getBoundingClientRect().width}px`);
-      el.style.setProperty('--rv-duration', `${Math.max(8, first.getBoundingClientRect().width / 33)}s`);
-      el.getAnimations().forEach(animation => { animation.currentTime = 0; });
-    };
-    fill(); const observer = new ResizeObserver(fill); observer.observe(view);
-    return () => observer.disconnect();
-  }, [pages, selected, open, reduced]);
-  return <div className="rv-stats" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)} onFocus={() => setHovered(true)} onBlur={e => { if (!e.currentTarget.contains(e.relatedTarget)) setHovered(false); }}>
-    <div className="rv-stat-top"><span className="rv-stat-title">{pages[selected]!.title}</span><span className="rv-stat-number">{pages[selected]!.total}</span></div>
-    <div className="rv-flag-viewport" ref={viewport} tabIndex={0} aria-label="Visitas por país"><div className="rv-flag-track" ref={track}/></div>
-    <div className="rv-dots" role="group" aria-label="Seleccionar tipo de visitas">{pages.map((page,i) => <button key={page.title} type="button" aria-label={page.title} title={page.title} aria-pressed={selected === i} className={selected === i ? 'is-active' : ''} onClick={() => setSelected(i)}/>)}</div>
+// Lista de países con banderas, con la medida del contador de la portada
+// (12 px, bandera 21×15, cifra tabular a la derecha) y scroll propio.
+function VisitsPanel({ page }: { page: VisitPage }) {
+  return <div className="rv-visits" role="tabpanel" aria-label={page.title}>
+    <div className="rv-visit-total"><span className="rv-visit-label">{page.label}</span><span className="rv-visit-number">{page.total}</span></div>
+    {page.countries.length === 0
+      ? <p className="rv-visits-empty">Aún no hay visitas registradas.</p>
+      : <ul className="rv-visits-list">{page.countries.map(country => <li className="rv-visits-row" key={country.name}>
+          {country.flag
+            ? <img className="rv-visits-flag" src={country.flag} alt="" width={21} height={15} loading="lazy" decoding="async"/>
+            : <span className="rv-visits-flag rv-visits-flag--unknown" aria-hidden="true"/>}
+          <span className="rv-visits-country">{country.name}</span>
+          <span className="rv-visits-count">{country.count}</span>
+        </li>)}</ul>}
   </div>;
 }
 
@@ -111,6 +73,10 @@ function Rockola() {
   const quality = useChatQuality();
   const [open, setOpen] = useState(() => { try { const saved = localStorage.getItem('crv-rockola-open'); return saved === null ? true : saved === 'true'; } catch { return false; } });
   const [expanded, setExpanded] = useState(false);
+  // Tab activo: el launcher abre siempre el chat (tercera barra).
+  const [tab, setTab] = useState<VisitKey | 'chat'>('chat');
+  const [visits, setVisits] = useState(readVisits);
+  const visitPage = visits.find(page => page.key === tab);
   const [sheet, setSheet] = useState('');
   const [draft, setDraft] = useState('');
   const [name, setName] = useState('');
@@ -159,7 +125,16 @@ function Rockola() {
       requestAnimationFrame(() => lastFocus.current?.focus());
     };
   }, [sheet]);
-  useEffect(() => { if (feed.current && nearBottom.current && !loadingEarlier.current) feed.current.scrollTop = feed.current.scrollHeight; }, [chat.messages, open]);
+  useEffect(() => { if (feed.current && nearBottom.current && !loadingEarlier.current) feed.current.scrollTop = feed.current.scrollHeight; }, [chat.messages, open, tab]);
+  // El contador de la portada se refresca solo; el panel copia sus cifras.
+  useEffect(() => {
+    if (!counter) return;
+    const update = () => setVisits(old => { const next = readVisits(); return JSON.stringify(old) === JSON.stringify(next) ? old : next; });
+    const observer = new MutationObserver(update);
+    observer.observe(counter, { subtree: true, childList: true, characterData: true });
+    update();
+    return () => observer.disconnect();
+  }, []);
   useEffect(() => { if (!notice) return; const timer = setTimeout(() => setNotice(''), 5000); return () => clearTimeout(timer); }, [notice]);
   useEffect(() => { try { localStorage.setItem('crv-rockola-open', String(open)); } catch {} }, [open]);
   // Contador de la píldora: mensajes llegados desde la última apertura. La
@@ -200,17 +175,26 @@ function Rockola() {
     return [...latest.values()].sort((a, b) => b.at - a.at).map(({ id, name }) => ({ id, name }));
   }, [chat.messages]);
   const effects = CHAT_ECONOMY ? chat.effects : [];
-  const status = chat.status === 'online' ? `${chat.users.length} en línea` : chat.status === 'connecting' ? 'Conectando…' : 'Sin conexión · reconectando…';
+  const status = chat.status === 'online' ? `Online (${chat.users.length})` : chat.status === 'connecting' ? 'Conectando…' : 'Sin conexión · reconectando…';
   return <>
-    <LauncherPill hidden={open} count={unread} people={recentPeople} onOpen={() => setOpen(true)} />
+    <LauncherPill hidden={open} count={unread} people={recentPeople} onOpen={() => { setTab('chat'); setOpen(true); }} />
     <section className={'rv-chat' + (expanded ? ' is-expanded' : '')} hidden={!open} aria-label="Chat La Rockola">
-      <header className="rv-header"><div className="rv-title"><strong>La Rockola</strong><small><span className="rv-live-dot"/>{status}</small></div><div className="rv-header-actions">
-        <button className="rv-icon-button" aria-label={expanded ? "Restaurar tamaño" : "Ampliar chat"} title={expanded ? "Restaurar tamaño" : "Ampliar chat"} aria-pressed={expanded} onClick={() => setExpanded(!expanded)}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/><path d="M3 3l7 7m11-7-7 7M3 21l7-7m11 7-7-7"/></svg></button>
-        <button className="rv-icon-button" title="Ver conectados" aria-label="Ver conectados" onClick={() => openSheet('users')}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M17 14c3 0 4 2 4 5"/></svg></button>
-        {isAdmin && <button type="button" className="rv-icon-button rv-icon-button--mod" title="Moderación" aria-label="Moderación" onClick={() => openSheet('mod')}><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"></path><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"></path></svg></button>}
-        {CHAT_ECONOMY && <button className="rv-icon-button" title="Tienda de efectos" aria-label="Tienda de efectos" onClick={() => openSheet('shop')}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 9l1-5h14l1 5M4 9h16v11H4zM3 9c0 4 5 4 6 1 1 3 5 3 6 0 1 3 6 3 6-1"/></svg></button>}
-        <button className="rv-icon-button" title="Minimizar chat" aria-label="Minimizar chat" onClick={() => { closeSheet(); setOpen(false); }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14"/></svg></button>
-      </div></header>
+      <header className="rv-header">
+        <div className="rv-title">
+          <strong>{tab === 'chat' ? 'La Rockola' : visitPage?.title}</strong>
+          {tab === 'chat' && <small><span className="rv-live-dot"/>{status}</small>}
+        </div>
+        <div className="rv-header-actions">
+          {tab === 'chat' && <>
+          <button className="rv-icon-button" aria-label={expanded ? "Restaurar tamaño" : "Ampliar chat"} title={expanded ? "Restaurar tamaño" : "Ampliar chat"} aria-pressed={expanded} onClick={() => setExpanded(!expanded)}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/><path d="M3 3l7 7m11-7-7 7M3 21l7-7m11 7-7-7"/></svg></button>
+          <button className="rv-icon-button" title="Ver conectados" aria-label="Ver conectados" onClick={() => openSheet('users')}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2M17 5a3 3 0 0 1 0 6M17 14c3 0 4 2 4 5"/></svg></button>
+          {isAdmin && <button type="button" className="rv-icon-button rv-icon-button--mod" title="Moderación" aria-label="Moderación" onClick={() => openSheet('mod')}><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 256 256" aria-hidden="true"><path d="M216,56v56c0,96-88,120-88,120S40,208,40,112V56a8,8,0,0,1,8-8H208A8,8,0,0,1,216,56Z" opacity="0.2"></path><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"></path></svg></button>}
+          {CHAT_ECONOMY && <button className="rv-icon-button" title="Tienda de efectos" aria-label="Tienda de efectos" onClick={() => openSheet('shop')}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M4 9l1-5h14l1 5M4 9h16v11H4zM3 9c0 4 5 4 6 1 1 3 5 3 6 0 1 3 6 3 6-1"/></svg></button>}
+          </>}
+          <button className="rv-icon-button" title="Minimizar chat" aria-label="Minimizar chat" onClick={() => { closeSheet(); setOpen(false); }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+        </div>
+      </header>
+      <div className="rv-chat-body" hidden={tab !== 'chat'}>
       <div className="rv-feed" ref={feed} onScroll={() => { const el = feed.current; if (el) nearBottom.current = el.scrollHeight - el.scrollTop - el.clientHeight < 70; }} role="log" aria-label="Mensajes de La Rockola" aria-live="polite">
         {chat.hasMore && <button className="rv-history" onClick={async () => { const el = feed.current; if (!el) return; loadingEarlier.current = true; const height = el.scrollHeight; const top = el.scrollTop; await chat.loadEarlier(); requestAnimationFrame(() => { el.scrollTop = top + el.scrollHeight - height; loadingEarlier.current = false; }); }} disabled={chat.loadingHistory}>Mensajes anteriores</button>}
         {chat.messages.length === 0 && <p>{chat.status === 'online' ? 'Todavía no hay mensajes. ¡Saluda!' : status}</p>}
@@ -225,7 +209,11 @@ function Rockola() {
       {notice && <p className="rv-notice" role="status">{notice}</p>}
       <form className="rv-compose" onSubmit={e => { e.preventDefault(); if (draft.trim() && chat.status === 'online') { chat.sendMessage(draft); setDraft(''); } }}><input aria-label="Escribir mensaje" placeholder="Escribe en La Rockola…" maxLength={2000} value={draft} onChange={e => { setDraft(e.target.value); chat.notifyTyping(); }} disabled={chat.status !== 'online' || chat.banned}/><button className="rv-send" disabled={chat.status !== 'online' || !draft.trim()} aria-label="Enviar mensaje"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M21 3L9 15M21 3l-6 18-5-7-7-5z"/></svg></button></form>
       <div className="rv-identity"><span className="rv-alias">{chat.actor?.displayName || 'Conectando…'}</span><button className="rv-rename" disabled={!chat.actor} onClick={() => { setName(chat.actor?.displayName || ''); openSheet('name'); }}>✎ Editar nombre</button></div>
-      <VisitStats open={open} paused={!!sheet}/>
+      </div>
+      {tab !== 'chat' && visitPage && <VisitsPanel page={visitPage}/>}
+      <div className="rv-dots" role="tablist" aria-label="Secciones de La Rockola">
+        {TABS.map(({ id, title }) => <button key={id} type="button" role="tab" aria-selected={tab === id} aria-label={title} title={title} className={tab === id ? 'is-active' : ''} onClick={() => { if (id !== 'chat') setExpanded(false); setTab(id); }}/>)}
+      </div>
     </section>
       {sheet && <div className="rv-overlay is-visible" onClick={e => { if (e.target === e.currentTarget) closeSheet(); }}>
       <div className={'rv-dialog' + (sheet === 'shop' ? ' rv-dialog--shop' : '')} ref={dialog} role="dialog" aria-modal="true" aria-labelledby="rv-dialog-title" onKeyDown={trapKeys}><div className="rv-dialog-header"><strong id="rv-dialog-title">{sheet === 'shop' ? 'Tienda de efectos' : sheet === 'users' ? 'Conectados al chat' : sheet === 'mod' ? 'Moderación' : 'Editar nombre'}</strong><button className="rv-dialog-close" aria-label="Cerrar ventana" onClick={closeSheet}>×</button></div><div className="rv-dialog-content">
