@@ -1,8 +1,8 @@
 # Almacén de datos scrapeados en el disco de 1 TB
 
 Decisión de Brian del 2026-10-20: trasladar todos los datos scrapeados al
-disco de 1 TB, incluidos los resultados versionados. Confirmación expresa:
-«quiero que muevas esos 24GB no importa git».
+disco de 1 TB, incluidos los resultados versionados. Brian autorizó expresamente estos
+cambios de almacenamiento y su reflejo en Git.
 
 Traslado completado el **2026-10-21 a las 02:01:24 UTC** (2026-10-20 en
 Caracas): 377.290 archivos, 23.866.481.707 bytes, con inventario y SHA-256

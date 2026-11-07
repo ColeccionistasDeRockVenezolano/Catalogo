@@ -1437,6 +1437,7 @@
       if (tone) statusEl.setAttribute('data-radio-tone', tone);
       else statusEl.removeAttribute('data-radio-tone');
     }
+    root.setAttribute('data-radio-inactive', String(isSweeper() && sweeperFailed));
     var next = state || 'ready';
     if (root.getAttribute('data-radio-state') !== next) root.setAttribute('data-radio-state', next);
     updateMediaSession();
@@ -1455,7 +1456,8 @@
     else if (started) { text = t('radio.resync'); action = 'resync'; }
     else { text = t('radio.join'); action = 'join'; }
     if (syncLabel.textContent !== text) syncLabel.textContent = text;
-    // «Volver al vivo» es una acción secundaria: la hoja la pinta en gris.
+    // La acción gobierna juntos el botón, su pulse y el tono de la explicación.
+    if (root.getAttribute('data-radio-action') !== action) root.setAttribute('data-radio-action', action);
     if (syncButton && syncButton.getAttribute('data-radio-action') !== action) syncButton.setAttribute('data-radio-action', action);
   }
 
@@ -1464,14 +1466,14 @@
   // de la emision compartida, porque «Estas al dia» ya vive en el boton.
   function refreshStatus() {
     if (isSweeper()) {
-      if (userPaused) { setStatus(t('radio.paused'), 'ready'); return; }
-      setStatus(sweeperFailed ? t('radio.identifierError') : soundPending ? t('radio.muted') : userMuted ? t('radio.silenced') : audible() ? t('radio.identifier') : t('radio.ready'), audible() ? 'live' : soundPending || userMuted ? 'sound' : 'ready'); return;
+      if (userPaused) { setStatus(t('radio.ready'), 'ready'); return; }
+      setStatus(sweeperFailed ? t('radio.identifierError') : soundPending ? t('radio.silenced') : userMuted ? t('radio.silenced') : audible() ? t('radio.shared') : t('radio.ready'), audible() ? 'live' : soundPending || userMuted ? 'sound' : 'ready', audible() ? 'shared' : undefined); return;
     }
     if (bootFailed && !ready) { setStatus(t('radio.error'), 'error'); return; }
     if (currentBlocked()) { setStatus(t('radio.unavailable'), 'unavailable'); return; }
     if (currentRestricted()) { setStatus(t('radio.restricted'), 'restricted'); return; }
-    if (userPaused) { setStatus(t('radio.paused'), 'ready'); return; }
-    if (soundPending) { setStatus(t('radio.muted'), 'sound'); return; }
+    if (userPaused) { setStatus(t('radio.ready'), 'ready'); return; }
+    if (soundPending) { setStatus(t('radio.silenced'), 'sound'); return; }
     if (userMuted) { setStatus(t('radio.silenced'), 'sound'); return; }
     if (listening && playerStuck(STUCK_NOTICE_MS)) { setStatus(t('radio.reconnecting'), 'ready'); return; }
     if (audible()) {

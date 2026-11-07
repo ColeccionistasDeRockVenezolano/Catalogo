@@ -17,8 +17,8 @@ Antes de capturar o iniciar procesos que escriben datos, ejecutar
 `python3 scripts/shared-storage.py status`. Si falla, detenerse y resolver el
 montaje/enlace; no recrear las carpetas en el SSD ni eliminar sus enlaces.
 Toda campaña nueva debe terminar publicada en el disco de 1 TB.
-Brian autorizó expresamente trasladar **también los informes versionados**
-(«quiero que muevas esos 24GB no importa git»). Las bajas de `reports/*` en
+Brian autorizó expresamente los cambios de almacenamiento, incluido el
+traslado de **los informes versionados** y su reflejo en Git. Las bajas de `reports/*` en
 Git son consecuencia del traslado; no restaurar esos archivos encima del
 enlace ni interpretar las bajas como pérdida de las capturas.
 No mover PostgreSQL, secretos ni dependencias a este almacén.

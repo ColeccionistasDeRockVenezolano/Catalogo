@@ -59,7 +59,7 @@
   publicAssets: true,
 }) %>
 <noscript>
-  <link rel="stylesheet" href="<%= basePath %>/static/roadmap-public.min.css?v=<%= assetVersion %>">
+  <link rel="stylesheet" href="<%= basePath %>/static/roadmap-public.min.css?v=<%= assetVersion %>-hero-pulse-20261107d">
   <link rel="stylesheet" href="<%= basePath %>/static/roadmap-nojs.css?v=<%= assetVersion %>">
 </noscript>
 <link rel="stylesheet" href="<%= basePath %>/static/launch-modal.css?v=2026-11-04a">
@@ -344,9 +344,9 @@
         data-icons-client="<%= basePath %>/static/icons.js?v=<%= assetVersion %>"
         data-nav-client="<%= basePath %>/static/nav.js?v=<%= assetVersion %>"
         data-visits-client="<%= basePath %>/static/visit-counter.js?v=<%= assetVersion %>"
-        data-full-style="<%= basePath %>/static/roadmap-public.min.css?v=<%= assetVersion %>"
+        data-full-style="<%= basePath %>/static/roadmap-public.min.css?v=<%= assetVersion %>-hero-pulse-20261107d"
         data-roadmap-client="<%= basePath %>/static/roadmap.js?v=<%= assetVersion %>"
         <% if (!showVisitCounter) { %>data-presence-url="<%= projectBase %>/api/presence"<% } %>
-        <%- radio ? `data-radio-client="${basePath}/static/radio.js?v=${radioClientVersion}"` : '' %> async></script>
+        <%- radio ? `data-radio-client="${basePath}/static/radio.js?v=${radioClientVersion}-states-20261107c"` : '' %> async></script>
 </body>
 </html>

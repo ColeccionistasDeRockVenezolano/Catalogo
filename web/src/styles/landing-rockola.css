@@ -43,7 +43,7 @@
       border-bottom: 1px solid var(--rv-line);
       background: var(--rv-surface);
     }
-    .rv-title strong { display: block; font-size: 13px; font-weight: 800; white-space: nowrap; }
+    .rv-title strong { display: block; font-size: 13px; font-weight: 800; white-space: nowrap;margin-left: 5px; }
     .rv-title small { display: block; margin-top: 5px; color: #bcbcc0; font-size: 10px; white-space: nowrap; }
     .rv-live-dot {
       display: inline-block;
@@ -127,7 +127,7 @@
       gap: 7px;
       margin: 0;
       padding: 9px 11px;
-      border-top: 1px solid #303033;
+
       background: #19191a;
     }
     .rv-compose input {
@@ -158,7 +158,8 @@
       display: flex;
       align-items: center;
       gap: 7px;
-      padding: 0 13px 10px;
+      padding: 10px 13px 0;
+      border-top: 1px solid #303033;
       background: #19191a;
       font-size: 10px;
     }
@@ -226,10 +227,10 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      width: 250px;
+      width: max-content;
       height: 55px;
       max-width: calc(100vw - 18px);
-      padding: 0 0px 0 20px;
+      padding: 0 20px;
       border: 1px solid #2c2e33;
       border-radius: 27.5px;
       background: #232222;
@@ -439,18 +440,20 @@ button:disabled { cursor:default; opacity:.5; }
       scrollbar-color: #515156 transparent;
       scrollbar-width: thin;
     }
+    .rv-visit-summary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-bottom:12px; }
     .rv-visit-total {
+      min-width:0;
       display: flex;
       flex-direction: column;
       gap: 2px;
-      margin-bottom: 12px;
+      margin-bottom: 0;
       padding: 9px 12px 10px;
       border: 1px solid #2c2c30;
       border-radius: 10px;
       background: #1c1c1f;
     }
-    .rv-visit-label { font-size: 9px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #8f8f95; }
-    .rv-visit-number { font-size: 24px; font-weight: 900; line-height: 1; color: #31c3b6; font-variant-numeric: tabular-nums; }
+    .rv-visit-label { font-size: 9px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: #e1e1e1; }
+    .rv-visit-number { font-size: 24px; font-weight: 900; line-height: 1; color: #fff; font-variant-numeric: tabular-nums; }
     .rv-visits-list { display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 0; list-style: none; }
     .rv-visits-row {
       display: flex;
@@ -478,3 +481,39 @@ button:disabled { cursor:default; opacity:.5; }
     .rv-dots { margin-top: 0; padding: 9px 13px 11px; border-top: 1px solid #2f2f33; background: #19191a; flex-shrink: 0; }
 
 
+
+/* El conteo de presencia también abre la lista de conectados. */
+.rv-online { display:flex; align-items:center; min-height:28px; margin-top:2px;padding: 5px 7px; border:0; border-radius:5px; background:transparent; color:#bcbcc0; font-size:10px; text-align:left; }
+.rv-online:hover { color:#fff; background:#ffffff0c; }
+@media (max-width:720px) {
+  .rv-launcher { right:max(18px, env(safe-area-inset-right)); bottom:calc(18px + env(safe-area-inset-bottom)); width:60px; height:60px; max-width:none; padding:0; border-radius:50%; justify-content:center; }
+  .rv-launcher-label, .rv-launcher-people { display:none; }
+  .rv-chat, .rv-chat.is-expanded { inset:0; width:100%; max-width:none; height:100dvh; max-height:100dvh; border:0; border-radius:0; padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); transition:none; }
+  .rv-chat .rv-feed, .rv-chat.is-expanded .rv-feed { flex:1 1 0; height:auto; min-height:0; }
+  .rv-header { min-height:72px; }
+  .rv-icon-button { width:44px; height:44px; }
+  .rv-icon-button[aria-pressed] { display:none; }
+  .rv-online { min-height:32px; font-size:12px; }
+  .rv-compose input { height:44px; font-size:16px; }
+  .rv-send { width:44px; height:44px; }
+  .rv-identity { font-size:12px; }
+  .rv-rename { min-height:36px; font-size:12px; }
+}
+
+/* El acceso móvil al chat late con el rojo de la portada. */
+@keyframes rv-launcher-pulse {
+  0% { box-shadow:0 14px 34px #000000a6, 0 0 0 0 rgb(185 29 48 / 55%); }
+  75%, 100% { box-shadow:0 14px 34px #000000a6, 0 0 0 14px rgb(185 29 48 / 0%); }
+}
+@media (max-width:720px) and (prefers-reduced-motion:no-preference) {
+  .rv-launcher { animation:rv-launcher-pulse 2.2s ease-out infinite; }
+}
+
+/* Presencia de visitantes: comparte el ancho con HOY o TOTAL. */
+.rv-visit-online { background:color-mix(in srgb,var(--accent-teal,#2ec4b6) 10%,transparent); }
+.rv-visit-online-label { display:flex; align-items:center; gap:6px; min-height:11px; color:#cdcdcd; font-size:9px; font-weight:700; line-height:normal; }
+.rv-visit-online .rv-visit-number { color:var(--accent-teal,#2ec4b6); }
+.rv-visit-summary .rv-visit-number { overflow-wrap:anywhere; }
+.visits__pulse { width:6px; height:6px; flex:0 0 auto; border-radius:50%; background:var(--accent-teal,#2ec4b6); animation:visits-pulse 2s ease-out infinite; }
+@keyframes visits-pulse { 0% { box-shadow:0 0 0 0 color-mix(in srgb,var(--accent-teal,#2ec4b6) 50%,transparent); } 100% { box-shadow:0 0 0 6px transparent; } }
+@media(prefers-reduced-motion:reduce) { .visits__pulse { animation:none; } }
