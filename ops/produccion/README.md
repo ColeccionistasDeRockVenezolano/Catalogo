@@ -543,3 +543,34 @@ Volver atrás (API): copiar `fijado.conf` y `zz-cpu-fix.conf` de
 mv web/dist-public.prev-20261108 web/dist-public` (sin reiniciar `crv-web`). La web
 nueva pide `/discovery/search-examples`: si se vuelve a la API anterior, volver
 también la web.
+
+### Prueba de carga · 2026-11-08 (ensayo contra staging)
+
+Release de arriba (API en :8086 con `staging.env` y gateway en :3199, mismas
+variantes WebP) contra `crv-postgres-staging` limitado a **4 núcleos** (producción
+tiene 6). 100 usuarios anónimos que navegan como personas: 40 % listados (+
+ejemplos, facetas y 24 imágenes de 320 px), 30 % ficha de artista (+ hasta 19
+imágenes), 15 % ficha de disco (+ portada de 640 px), 10 % búsqueda, 5 % portada.
+Script: plain `fetch` de Node, sin instalar nada. Tiempos en ms.
+
+| Corrida | Páginas/s | Imágenes/s | Ficha artista p50/p95 | Ficha disco p50/p95 | Listados p95 | Errores |
+|---|---|---|---|---|---|---|
+| Caché fría, pausa 1–4 s | 22 | 98 | 1.153 / 17.214 | 966 / 16.156 | 4.500–10.000 | 0 |
+| Caché tibia, pausa 1–4 s | 40 | 196 | 130 / 2.509 | 58 / 1.650 | 45–1.082 | 0 |
+| Estrés sin pausa (techo) | 45 | 314 | 2.990 / 6.225 | 2.446 / 4.292 | 386–505 | 0 |
+
+- **Cuello de botella: PostgreSQL** (400 % de CPU, el tope, en todas las corridas). La
+  API y el gateway casi no consumen; las imágenes (WebP desde el SSD) nunca
+  pasaron de 1,1 s. Una ficha de artista en frío son ~15 consultas de 25–150 ms:
+  ~25 fichas nuevas por segundo con 4 núcleos.
+- 100 personas *reales* (una página cada 10–20 s) son 5–10 páginas/s: holgado.
+  Lo que aprieta es el arranque en frío (caché vacía tras reiniciar `crv-api` o
+  tras una edición que invalida la revisión del catálogo).
+- **Hallazgo:** `crv_staging` tenía **JIT activado** (producción lo tiene apagado con
+  `ALTER DATABASE crv SET jit = off`). Cada `count(*)` del listado de discos
+  pagaba ~1,5 s de compilación (1.594 ms → 134 ms sin JIT) y la primera corrida
+  dio 5 errores 500 por espera de conexión (15 s, el límite nuevo, que cortó en
+  vez de colgar). Se aplicó `ALTER DATABASE crv_staging SET jit = off`: el
+  staging vuelve a medir como producción.
+- Al terminar: procesos del ensayo detenidos y `crv-postgres-staging` con `--cpus 8`
+  (toda la máquina; `docker update --cpus 0` no quita el límite).
