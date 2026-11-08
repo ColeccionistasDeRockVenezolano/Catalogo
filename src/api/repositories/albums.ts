@@ -9,6 +9,7 @@ import { B_SIDES_TITLE_SQL_PATTERN } from "../../normalization/b-sides-title.js"
 // de YouTube en una sola consulta.
 import { genreStatusOf, type GenreStatus } from "../../merge/genre-projection.js";
 import { getPool } from "../../db/client.js";
+import { sharedCatalogRead } from "../shared-catalog-read.js";
 import { genreFilterSql, genreMissingSql, publicGenresFor, relatedGenreFilterSql, type PublicGenre } from "../../genres/public.js";
 import type { PaginationQuery } from "../pagination.js";
 import type { CatalogSort } from "../catalog-sort.js";
@@ -132,10 +133,13 @@ export async function listAlbums(query: AlbumListQuery): Promise<{ rows: AlbumLi
         LIMIT $10 OFFSET $11`,
       [...params, query.limit, query.offset],
     ),
-    getPool().query<{ count: string }>(
+    // El total no depende de la página: se calcula una vez por combinación de
+    // filtros y revisión del catálogo (la caché compartida se vacía con cada
+    // revisión, igual que la de rutas) y no en cada página (~130 ms cada vez).
+    sharedCatalogRead(`albums-total:${JSON.stringify(params)}`, 600_000, () => getPool().query<{ count: string }>(
       `SELECT count(*)::text AS count FROM ingest.catalog_albums al WHERE ${filters}`,
       params,
-    ),
+    )),
   ]);
   const genres = await publicGenresFor("album", rows.rows.map((row) => Number(row.id)),
     new Map(rows.rows.map((row) => [Number(row.id), row.genre])));
