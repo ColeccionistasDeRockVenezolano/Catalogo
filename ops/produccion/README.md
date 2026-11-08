@@ -539,8 +539,8 @@ en su próximo release.
 Volver atrás (API): copiar `fijado.conf` y `zz-cpu-fix.conf` de
 `crv-api-2026-11-08-rendimiento/.deploy-backup/` a
 `~/.config/systemd/user/crv-api.service.d/`, `systemctl --user daemon-reload` y
-`systemctl --user restart crv-api`. Web: `mv web/dist-public web/dist-public.rendimiento &&
-mv web/dist-public.prev-20261108 web/dist-public` (sin reiniciar `crv-web`). La web
+`systemctl --user restart crv-api`. Web: el build anterior (`web/dist-public.prev-20261108`) se borró el 2026-11-08 por
+decisión de Brian; volver atrás exige recompilar `web/dist-public` desde `09d40b28`. La web
 nueva pide `/discovery/search-examples`: si se vuelve a la API anterior, volver
 también la web.
 
@@ -601,3 +601,6 @@ Script: plain `fetch` de Node, sin instalar nada. Tiempos en ms.
   y el nombre principal del artista; ahora acepta palabras por tipo y alias
   documentados (`f1196538` / release `6e5eb3c8`). 9/9 y 138 pruebas de curaduría IA.
 - Conteos: Brian eligió dejarlos calculados por página (sin tabla ni disparadores en el core).
+- Brian (2026-11-08): timer diario de variantes WebP instalado; borrados
+  `web/dist-public.prev-20261108` y `crv-release/crv-api-cpu-fix-2026-11-08`; límites
+  por IP sin cambios (1.200/min gateway, 600/min API).

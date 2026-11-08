@@ -5,8 +5,7 @@ El gateway (`web/server.mjs`) sirve `/crv/media/…?w=160|320|640|1200` desde
 pesado, `max-age=300`) y la encarga al optimizador de BrandForge. Este timer
 genera cada día lo que falte, para que ninguna visita pague el original.
 
-**No está instalado** (2026-11-08): instalar un timer persistente requiere la
-aprobación de Brian. Para activarlo:
+**Instalado el 2026-11-08** con autorización de Brian (`systemctl --user list-timers crv-media-variants-diario.timer`). Se instaló así:
 
 ```bash
 cp ops/media-variantes/crv-media-variants-diario.{service,timer} ~/.config/systemd/user/
