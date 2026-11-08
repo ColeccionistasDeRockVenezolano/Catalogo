@@ -589,14 +589,15 @@ Script: plain `fetch` de Node, sin instalar nada. Tiempos en ms.
 - **Discos** (`1c3881ff` / `ba235865`): el total del listado se guarda por filtros y
   revisión del catálogo (130 ms menos en cada página después de la primera).
 - `crv-api` reiniciado con ambos (sin errores).
-- **`crv-api-landing`**: el oyente de `error` del pool quedó escrito en
-  `/mnt/datos/crv-release/security-20261104/src/db/client.ts` (copia previa en
-  `client.ts.antes-pool-20261108`; ese árbol corre con cambios sin commit). **Falta
-  reiniciarlo**: `systemctl --user restart crv-api-landing` (el reinicio no estaba
-  en la autorización de esta noche).
+- **`crv-api-landing`**: corre desde `/mnt/datos/crv-release/radio-colores-api-20261106`
+  (último drop-in `zzzzzzzzzzzzzzz-colores.conf`). El oyente de `error` del pool se
+  añadió en su `src/db/client.ts` (copia previa `client.ts.antes-pool-20261108`; ese
+  árbol corre con cambios sin commit) y se reinició con autorización de Brian:
+  `/health` 200.
 - `web/public/landing/rockola.css` restituido y `web/scripts/build-rockola.mjs`
   corregido (`4f365672`).
-- Fallo previo, no tocado: `test/contract/person-artist-resolution.test.ts` falla 6
-  de 9 también en el árbol principal (respaldo documental insuficiente en
-  `src/curation/ai/evidence.ts`, «Hay varios artistas compatibles»). Es lógica
-  editorial de la IA de curaduría: decidir qué evidencia basta es de Brian.
+- `test/contract/person-artist-resolution.test.ts` (fallaba 6 de 9 también en el
+  árbol principal): el verificador de evidencia exigía la clave «solo_artist» literal
+  y el nombre principal del artista; ahora acepta palabras por tipo y alias
+  documentados (`f1196538` / release `6e5eb3c8`). 9/9 y 138 pruebas de curaduría IA.
+- Conteos: Brian eligió dejarlos calculados por página (sin tabla ni disparadores en el core).
