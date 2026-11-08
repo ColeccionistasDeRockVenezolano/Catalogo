@@ -600,7 +600,16 @@ Script: plain `fetch` de Node, sin instalar nada. Tiempos en ms.
   árbol principal): el verificador de evidencia exigía la clave «solo_artist» literal
   y el nombre principal del artista; ahora acepta palabras por tipo y alias
   documentados (`f1196538` / release `6e5eb3c8`). 9/9 y 138 pruebas de curaduría IA.
-- Conteos: Brian eligió dejarlos calculados por página (sin tabla ni disparadores en el core).
+- **Conteos precalculados** (Brian aprobó los disparadores en el core): migraciones
+  `0128_person_counts` y `0129_fk_indexes_followup` aplicadas en producción a las
+  16:10 (`49cd87fa` / release `a93ae59b`). Producción: listado por rol 21 ms,
+  por créditos 69 ms, por nombre 21 ms, facetas 72 ms (antes 465–650 ms); salida
+  idéntica a la versión anterior en 18 combinaciones y en las facetas. La tabla se
+  recalcula (~0,7–1,1 s) solo cuando hay cambios y como mucho una vez por minuto;
+  entre medias se cuenta en vivo. Solo el rol `crv` escribe en las tablas vigiladas
+  (`crv_herra` y `crv_landing_runtime` no), así que ningún escritor se queda sin
+  permiso para anotar. Vuelta atrás: `npm run db:migrate down` hasta 0127 (quita
+  disparadores y tablas; el código vuelve solo a contar en vivo).
 - Brian (2026-11-08): timer diario de variantes WebP instalado; borrados
   `web/dist-public.prev-20261108` y `crv-release/crv-api-cpu-fix-2026-11-08`; límites
   por IP sin cambios (1.200/min gateway, 600/min API).
