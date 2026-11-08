@@ -40,6 +40,13 @@ const options = {
 
 const ctx = await context(options);
 
+// esbuild deja junto al bundle un rockola.css con el CSS que importa el widget
+// (chat, efectos de nombre…), que en realidad va dentro del Shadow DOM. La hoja
+// pública es solo esta; se reescribe después de CADA compilación: antes se
+// escribía una vez y, en --watch, la primera recompilación la pisaba.
+const PUBLIC_CSS = "/* Rockola styles are isolated inside its Shadow DOM. */\n#visitCounter[hidden]{display:none!important}\n";
+const writePublicCss = () => writeFile(new URL("../public/landing/rockola.css", import.meta.url), PUBLIC_CSS);
+
 if (watch) {
   // esbuild no vigila los CSS que resuelve el plugin (namespace propio), así
   // que el watch lo lleva Node sobre src/: cualquier .ts/.tsx/.css guardado
@@ -54,6 +61,7 @@ if (watch) {
     running = true;
     try {
       const result = await ctx.rebuild();
+      await writePublicCss();
       console.log(`rockola: recompilado ${clock()} · ${reason}`);
       if (result.warnings.length) console.warn(result.warnings.map(w => w.text).join('\n'));
     } catch (error) {
@@ -73,7 +81,8 @@ if (watch) {
   console.log('rockola: vigilando src/ (al guardar se recompila)');
 } else {
   const result = await ctx.rebuild();
+  await writePublicCss();
   if (result.warnings.length) console.warn(result.warnings.map(w => w.text).join('\n'));
+  await ctx.dispose();
 }
 
-await writeFile(new URL("../public/landing/rockola.css", import.meta.url), "/* Rockola styles are isolated inside its Shadow DOM. */\n#visitCounter[hidden]{display:none!important}\n");
