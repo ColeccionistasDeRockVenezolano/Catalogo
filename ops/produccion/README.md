@@ -481,3 +481,65 @@ fondo `rgb(75,75,82)`, borde `rgb(95,95,104)` y texto `rgb(244,244,245)`
 Vuelta atrás: retirar los dos `zzzzzzzzzzzzzzz-colores.conf`,
 `systemctl --user daemon-reload`, reiniciar `crv-api-landing`, esperar
 `/health` y reiniciar `crv-landing`.
+
+
+## CPU del catálogo · corrección 2026-11-08 (Codex, 03:39) — sustituida
+
+Codex publicó `crv-api-cpu-fix-2026-11-08` (copia de `crv-api-2026-11-02` con el
+listado de personas agregado una vez y `statement_timeout` de 5 s) mediante
+`zz-cpu-fix.conf`. Ese árbol enlazaba `node_modules`, `.env` y `data` al release
+anterior y no tenía commit. **Quedó sustituido a las 05:36 por el release de
+abajo**; el directorio se conserva solo como referencia y se puede borrar.
+
+## Rendimiento del catálogo · release 2026-11-08
+
+`crv-api` arranca desde `/home/brian/apps/crv-release/crv-api-2026-11-08-rendimiento`
+(worktree de la rama `release/crv-api-2026-11-08`): `09d40b28` (lo mismo que ya
+corría) + el arreglo de Codex + `0feaa06f` (rendimiento) + `56bf022d` (pool) y el
+`nuevo.sh` que ya corría en el árbol fijado. `fijado.conf` apunta aquí y
+`zz-cpu-fix.conf` se retiró. Las dependencias de la raíz son una copia con
+enlaces duros (`cp -al`) de las de `crv-api-2026-11-02` (mismo lockfile): no
+dependen de que ese árbol siga existiendo. `data`, `.env`, `logs`, `reports`,
+`tmp-analysis`, `web/public/media` y los dos scripts de almacén enlazan al árbol
+compartido o al almacén, como en la tabla de arriba.
+
+Causa del incidente: los ejemplos rotativos del buscador de Personas, Artistas,
+Discos y Organizaciones pedían 1 + 8 listados con `offset` aleatorio profundo
+por carga de página; con los conteos correlacionados cada uno tardaba minutos y,
+sin límite de consulta ni de espera de conexión, tres cargas dejaron ~24
+consultas colgadas, el pool de 10 lleno y toda la API parada (`/auth/me` a 30 s,
+`/persons` hasta 956 s). Ya había pasado el 01/11 y el 02/11.
+
+Qué cambió (detalle en los commits):
+
+| Pieza | Antes | Ahora |
+|---|---|---|
+| Ejemplos del buscador por tipo | 9 listados por carga | `GET /discovery/search-examples`, 1 consulta por tipo y día |
+| Pool de la API | 10, espera y consultas sin límite | 12 conexiones, espera 15 s, consulta 120 s, transacción inactiva 60 s (`CRV_DB_*`; CLI sin límite) |
+| `/changes/:id` tras cada escritura | vista previa de deshacer completa (23.000 s/semana) | `/changes/:id/summary` |
+| `/curation/summary` (cada 20 s por pestaña) | 4,2 s, leía 400 MB | 0,4 s |
+| `/persons/duplicate-candidates` | 7,8 s | 2,1 s |
+| Ficha de artista (la más pesada medida) | 531 ms | 330 ms (salida idéntica en 203 artistas) |
+| Caché con sesión | ninguna lectura | personas, organizaciones, lugares, series; listados de artistas/discos comparten la parte común |
+| `playable` sin metadata | 500 en la ficha del artista | `false` |
+| Pool sin oyente de `error` | un corte de PostgreSQL mataba el proceso | se descarta la conexión |
+
+La web pública (`web/dist-public`, servida por `crv-web`) se compiló desde el
+mismo release; el build anterior quedó en `web/dist-public.prev-20261108` (con
+sus `assets` copiados al nuevo para las pestañas abiertas).
+
+`crv-postgres` se recreó con `shm_size` 256 MB (VACUUM fallaba con 64 MB),
+`cpus: 6`, `mem_limit: 4g` y `restart: unless-stopped` (ver docker-compose.yml).
+Al recrearlo, `crv-api-landing` y `crv-chat` murieron por el error del pool y
+systemd los relanzó en segundos; `crv-chat` corre ahora el árbol compartido en
+`4d4cb751` (con el arreglo). `crv-api-landing` sigue en
+`/mnt/datos/crv-release/security-20261104`, **sin** el arreglo del pool: llevarlo
+en su próximo release.
+
+Volver atrás (API): copiar `fijado.conf` y `zz-cpu-fix.conf` de
+`crv-api-2026-11-08-rendimiento/.deploy-backup/` a
+`~/.config/systemd/user/crv-api.service.d/`, `systemctl --user daemon-reload` y
+`systemctl --user restart crv-api`. Web: `mv web/dist-public web/dist-public.rendimiento &&
+mv web/dist-public.prev-20261108 web/dist-public` (sin reiniciar `crv-web`). La web
+nueva pide `/discovery/search-examples`: si se vuelve a la API anterior, volver
+también la web.

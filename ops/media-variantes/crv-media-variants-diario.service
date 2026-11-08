@@ -1,0 +1,16 @@
+[Unit]
+Description=CRV variantes WebP de las imágenes nuevas del catálogo (baja prioridad)
+# Las imágenes que suben los scrapers o el editor reciben sus copias de 160/320/640/1200 px
+# sin esperar a la primera visita (que mientras tanto descarga el original pesado).
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano/web
+Environment=PATH=/home/brian/.local/node-v24.20.0-linux-x64/bin:/usr/bin:/bin
+# La máquina es compartida: máximo 2 núcleos, E/S ociosa y memoria acotada.
+Nice=19
+IOSchedulingClass=idle
+CPUQuota=200%
+MemoryHigh=1G
+MemoryMax=1536M
+ExecStart=/bin/bash -c 'for w in 320 160 640 1200; do node scripts/media-variants.mjs --widths $w --jobs 2 || exit 1; done'

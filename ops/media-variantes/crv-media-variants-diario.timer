@@ -1,0 +1,10 @@
+[Unit]
+Description=CRV variantes WebP de imágenes nuevas, cada día
+
+[Timer]
+OnCalendar=*-*-* 03:15:00 America/Caracas
+Persistent=true
+RandomizedDelaySec=10min
+
+[Install]
+WantedBy=timers.target
