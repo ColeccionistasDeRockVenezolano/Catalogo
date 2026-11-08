@@ -20,4 +20,12 @@ genera lo que falta o quedó más viejo que su original
 (`node web/scripts/media-variants.mjs --dry-run` cuenta lo pendiente).
 
 El 2026-11-08 se generaron a mano las ~66.000 copias que faltaban (16.500
-originales × 4 anchos) con estos mismos límites (`systemd-run --user`).
+originales × 4 anchos) con estos mismos límites (`systemd-run --user`), en ~1 h 45 min:
+51.021 copias al día y 0 pendientes en los cuatro anchos; `web/.media-variants`
+ocupa 4,0 GB en el SSD.
+
+Dos originales (`artist/4267.jpg` y uno de antologiavenezuela) fallaban con
+«No data found for frame»: son JPEG de cámara con varias imágenes (MPO) y el
+optimizador de BrandForge los trataba como animación. Se corrigió en
+`~/apps/brandforge/backend/app/optimize.py` (`_open` usa el primer cuadro como JPEG;
+copia previa en `optimize.py.antes-mpo-20261108`; BrandForge no está en Git).
