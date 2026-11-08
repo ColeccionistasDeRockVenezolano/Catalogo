@@ -1,6 +1,6 @@
-# CRV · PostgreSQL de desarrollo (PHASES F0 — "base crv desechable y
-# reproducible"). No es la base de producción: se puede borrar entera con
-# `npm run db:down` y reconstruir con `npm run db:bootstrap`.
+# CRV · PostgreSQL del catálogo. Desde la Fase 2B (2026-11-02) es también la
+# base de PRODUCCIÓN (crv-api, crv-api-landing, chat): NO usar `npm run db:down`
+# (borra el volumen) ni recrear el contenedor sin una ventana y un respaldo.
 #
 # Puerto 5433 a propósito: 5432 suele estar ocupado por otro PostgreSQL local
 # y una colisión silenciosa haría que las migraciones apunten a la base
@@ -9,6 +9,14 @@ services:
   crv-postgres:
     image: postgres:16-alpine
     container_name: crv-postgres
+    restart: unless-stopped
+    # 2026-11-08: el /dev/shm por defecto de Docker (64 MB) no alcanza para
+    # consultas paralelas ni para VACUUM («could not resize shared memory
+    # segment ... No space left on device»). Los límites evitan que una consulta
+    # mala deje sin CPU ni memoria al resto de la máquina (API, chat, agentes).
+    shm_size: 256mb
+    cpus: 6
+    mem_limit: 4g
     environment:
       POSTGRES_USER: crv
       POSTGRES_PASSWORD: crv

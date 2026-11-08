@@ -80,6 +80,20 @@ export class LayaScorer implements ModerationScorer {
   private ready: Promise<void> | null = null;
   private nextId = 1;
   private readonly waiting = new Map<number, { resolve: (value: LayaScores[]) => void; reject: (error: Error) => void }>();
+  private idleTimer: NodeJS.Timeout | null = null;
+
+  /**
+   * El modelo ocupa ~1,2 GB. Sin mensajes durante `idleMs` el trabajador se
+   * cierra y el siguiente lote lo vuelve a cargar (unos segundos): la máquina
+   * no retiene esa memoria con el chat en silencio.
+   */
+  constructor(private readonly idleMs = 15 * 60_000) {}
+
+  private touch(): void {
+    if (this.idleTimer) clearTimeout(this.idleTimer);
+    this.idleTimer = setTimeout(() => { if (this.waiting.size === 0) this.close(); else this.touch(); }, this.idleMs);
+    this.idleTimer.unref();
+  }
 
   private start(): Promise<void> {
     if (this.ready) return this.ready;
@@ -113,6 +127,7 @@ export class LayaScorer implements ModerationScorer {
   }
 
   async score(messages: Array<{ id: number; text: string }>): Promise<LayaScores[]> {
+    this.touch();
     await this.start();
     const child = this.child;
     if (!child) throw new Error("Laya no está disponible");
@@ -131,6 +146,8 @@ export class LayaScorer implements ModerationScorer {
   }
 
   close(): void {
+    if (this.idleTimer) clearTimeout(this.idleTimer);
+    this.idleTimer = null;
     this.child?.kill();
     this.child = null;
     this.ready = null;

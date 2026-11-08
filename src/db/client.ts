@@ -68,6 +68,13 @@ export function getPool(): pg.Pool {
       ...(env.CRV_DB_IDLE_TX_TIMEOUT_MS > 0 ? { idle_in_transaction_session_timeout: env.CRV_DB_IDLE_TX_TIMEOUT_MS } : {}),
       application_name: env.CRV_DB_APPLICATION_NAME,
     });
+    // Sin este oyente, un error en una conexión INACTIVA (PostgreSQL reiniciado,
+    // conexión cortada) se emite como 'error' sin manejar y termina el proceso:
+    // así cayeron crv-api-landing y crv-chat al recrear el contenedor (2026-11-08).
+    // El pool ya descarta ese cliente; la siguiente consulta abre otro.
+    pool.on("error", (error) => {
+      process.stderr.write(`[db] conexión inactiva descartada: ${error.message}\n`);
+    });
   }
   return pool;
 }
