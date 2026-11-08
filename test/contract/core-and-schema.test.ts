@@ -51,6 +51,12 @@ async function pgDumpPublic(containerName: string): Promise<string> {
     // La quinta (0036): el disparador que anota al artista cuando un disco se
     // borra o cambia de artista (géneros que el artista recibe de sus discos).
     .replace(/--\n-- Name: \S+ crv_artist_genres_from_albums; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_artist_genres_from_albums [^\n]*\n\n\n/gu, "")
+    // La decimocuarta (0128): disparadores por sentencia que anotan cambios para
+    // recalcular los conteos de personas (`ingest.person_counts`).
+    .replace(/--\n-- Name: \S+ crv_person_counts_dirty; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_person_counts_dirty [^\n]*\n\n\n/gu, "")
+    // Política editorial de Brian (0096, 2026-10-21): `crv_editorial_scope`
+    // impide altas/conversiones de referencias extranjeras; no cambia columnas.
+    .replace(/--\n-- Name: \S+ crv_editorial_scope; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_editorial_scope [^\n]*\n\n\n/gu, "")
     .replace(/--\n-- Name: persons crv_person_date_precision; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_person_date_precision [^\n]*\n\n\n/gu, "")
     .replace(/--\n-- Name: \S+ crv_catalog_model_parent_check; Type: TRIGGER;[^\n]*\n--\n\nCREATE CONSTRAINT TRIGGER crv_catalog_model_parent_check [^\n]*\n\n\n/gu, "")
     // La segunda excepción (0029): `persons.is_venezuelan` admite NULL (sin dato).
@@ -65,6 +71,8 @@ async function pgDumpPublic(containerName: string): Promise<string> {
     // (ubicación actual del artista, campo «Currently» de RYM).
     // La duodécima (0094): `artists.email` (correo de contacto del artista).
     .replace(/^ {4}(birth_date_value|death_date_value|status|themes|years_active|logo_url|current_city|current_country|email|real_name|birth_city|death_cause|trivia|gender|release_date_text|catalog_id|media_format|lyrics) (?:character varying\(\d+\)|text),?\n/gmu, "")
+    // La decimotercera (0095): `albums.rym_rating` / `albums.rym_ratings_count`.
+    .replace(/^ {4}(rym_rating numeric\(3,2\)|rym_ratings_count integer),?\n/gmu, "")
     // …y si las columnas quitadas eran las últimas (albums), la columna previa
     // queda con una coma colgando antes de `);`: se normaliza igual en ambos dumps.
     .replace(/,(\n\);)/gu, "$1")
@@ -78,6 +86,11 @@ async function pgDumpPublic(containerName: string): Promise<string> {
     // coincidiendo.
     .split("--\n-- Name: ")
     .filter((bloque, i) => i === 0 || !/^((streaming|social)_links|album_disc(s|_links)|entity_(metrics|user_tags|shouts|emotions))/u.test(bloque))
+    // pg_dump ordena por dependencias y ese orden cambia cuando las migraciones
+    // añaden funciones o vistas que leen el core: se compara el conjunto de
+    // objetos, no su posición.
+    .map((bloque, i) => (i === 0 ? bloque : bloque.replace(/\n+$/u, "\n")))
+    .sort((a, b) => (a.startsWith("--\n-- PostgreSQL") ? -1 : b.startsWith("--\n-- PostgreSQL") ? 1 : a < b ? -1 : a > b ? 1 : 0))
     .join("--\n-- Name: ");
 }
 

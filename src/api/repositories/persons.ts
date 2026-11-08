@@ -86,6 +86,94 @@ async function personRead<Row extends QueryResultRow>(sql: string, params: unkno
   }
 }
 
+// Conteos precalculados (migración 0128): `ingest.person_counts` guarda lo mismo
+// que la CTE `person_counts` y los disparadores `crv_person_counts_dirty` anotan
+// cada transacción que cambia sus fuentes. Está al día si no queda ninguna
+// anotación visible; recalcularla es una sola pasada en una foto consistente.
+const STORED_FROM = `FROM public.persons p LEFT JOIN ingest.person_counts c ON c.person_id=p.id`;
+const PERSON_COUNTS_LOCK = 1_280_000_128;
+const COUNTS_FRESH_SQL = `SELECT (SELECT built FROM ingest.person_counts_state)
+  AND NOT EXISTS (SELECT 1 FROM ingest.person_counts_changes) AS fresh`;
+// Recalcular la tabla cuesta ~1 s; contar en vivo un listado filtrado, ~0,5 s.
+// Con ediciones seguidas se recalcula como mucho una vez por minuto y, entre
+// medias, se cuenta en vivo: nunca se sirve un conteo atrasado.
+const COUNTS_REFRESH_GAP_SQL = `SELECT coalesce(refreshed_at > now() - interval '60 seconds', false) AS recent
+  FROM ingest.person_counts_state`;
+// Sin la migración (o con un rol sin permiso, como la API de la portada) se
+// cuenta en vivo, como antes.
+const COUNTS_UNAVAILABLE = new Set(["42P01", "42501", "42883", "25006"]);
+const countRefreshes = new WeakMap<Pool, Promise<void>>();
+
+async function personCountsFresh(): Promise<boolean | null> {
+  try {
+    const { rows } = await getPool().query<{ fresh: boolean | null }>(COUNTS_FRESH_SQL);
+    return rows[0]?.fresh === true;
+  } catch (error) {
+    if (COUNTS_UNAVAILABLE.has((error as { code?: string }).code ?? "")) return null;
+    throw error;
+  }
+}
+
+async function refreshPersonCounts(): Promise<void> {
+  const client = await getPool().connect();
+  let locked = false;
+  let broken: Error | undefined;
+  try {
+    // El candado va antes de la foto: quien esperó recalcula con datos que
+    // incluyen lo que el recálculo anterior ya vio.
+    await client.query("SELECT pg_advisory_lock($1)", [PERSON_COUNTS_LOCK]);
+    locked = true;
+    await client.query("BEGIN ISOLATION LEVEL REPEATABLE READ");
+    try {
+      await client.query("SET LOCAL statement_timeout = '60s'");
+      const { rows } = await client.query<{ fresh: boolean | null }>(COUNTS_FRESH_SQL);
+      if (rows[0]?.fresh !== true) {
+        await client.query("DELETE FROM ingest.person_counts");
+        await client.query(`${PERSON_PARTICIPATION}
+          INSERT INTO ingest.person_counts (person_id, credit_count, band_count, roles)
+          SELECT person_id, credit_count, band_count, roles FROM person_counts`);
+        // Solo las anotaciones que esta foto ve: las que confirman después quedan.
+        await client.query("DELETE FROM ingest.person_counts_changes");
+        await client.query("UPDATE ingest.person_counts_state SET built = true, refreshed_at = now()");
+      }
+      await client.query("COMMIT");
+    } catch (error) {
+      try { await client.query("ROLLBACK"); } catch (rollbackError) { broken = rollbackError as Error; }
+      throw error;
+    }
+  } finally {
+    if (locked && !broken) {
+      try { await client.query("SELECT pg_advisory_unlock($1)", [PERSON_COUNTS_LOCK]); }
+      catch (unlockError) { broken = unlockError as Error; }
+    }
+    client.release(broken);
+  }
+}
+
+/** Deja la tabla al día (recalcula si hace falta). false: no disponible, contar en vivo. */
+async function ensurePersonCounts(): Promise<boolean> {
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const fresh = await personCountsFresh();
+    if (fresh === null) return false;
+    if (fresh) return true;
+    const pool = getPool();
+    let running = countRefreshes.get(pool);
+    if (!running && (await pool.query<{ recent: boolean }>(COUNTS_REFRESH_GAP_SQL)).rows[0]?.recent) return false;
+    if (!running) {
+      running = refreshPersonCounts().finally(() => countRefreshes.delete(pool));
+      countRefreshes.set(pool, running);
+    }
+    try { await running; }
+    catch (error) {
+      if (COUNTS_UNAVAILABLE.has((error as { code?: string }).code ?? "")) return false;
+      throw error;
+    }
+  }
+  // Un recálculo compartido que empezó antes de la última escritura no la
+  // incluye: la segunda vuelta lo comprueba; si aún hay cambios, en vivo.
+  return (await personCountsFresh()) === true;
+}
+
 interface PersonRowShape {
   id: string; name: string; nationality: string | null; is_venezuelan: boolean | null; is_deceased: boolean; picture_url: string | null;
   credit_count: number; band_count: number;
@@ -133,10 +221,15 @@ async function loadPersons(query: PersonListQuery): Promise<PersonListResult> {
     conditions.push(`$${params.length}::text = ANY(c.roles)`);
   }
   const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
-  const base = `SELECT ${PERSON_COLUMNS} ${PERSON_FROM} ${where}`;
+  const pageOnly = query.hasCredits === undefined && !query.role && query.sort !== "credits" && !query.suspect;
+  // Por página bastan los conteos de 24 personas (~100 ms en vivo): se usa la
+  // tabla solo si ya está al día. Con filtros por participación, orden por
+  // créditos o `suspect` se necesitan todas: se recalcula si hace falta.
+  const stored = pageOnly ? (await personCountsFresh()) === true : await ensurePersonCounts();
+  const base = `SELECT ${PERSON_COLUMNS} ${stored ? STORED_FROM : PERSON_FROM} ${where}`;
   // Finish filtering before LIMIT: otherwise PostgreSQL underestimates the
   // materialized groups and can choose a nested anti join for hasCredits=false.
-  const filtered = `${PERSON_PARTICIPATION}, filtered AS MATERIALIZED (${base})`;
+  const filtered = stored ? `WITH filtered AS MATERIALIZED (${base})` : `${PERSON_PARTICIPATION}, filtered AS MATERIALIZED (${base})`;
 
   // Solo la búsqueda añade el array de relevancia; un rol añade un parámetro de texto.
   const order = query.q?.trim()
@@ -158,7 +251,7 @@ async function loadPersons(query: PersonListQuery): Promise<PersonListResult> {
   // búsqueda, lo que pide cualquier visita) no hace falta expandir los ~157.000
   // créditos y membresías de las ~34.000 personas: se pagina sobre `persons` y se
   // cuentan solo las de la página. Sigue leyendo la base en cada petición.
-  if (query.hasCredits === undefined && !query.role && query.sort !== "credits") {
+  if (pageOnly) {
     const pageOrder = query.q?.trim() ? "ORDER BY array_position($1::bigint[], p.id::bigint)" : "ORDER BY p.name, p.id::text";
     const [page, count] = await Promise.all([
       personRead<{ id: string }>(`SELECT p.id::text AS id FROM public.persons p ${where} ${pageOrder}
@@ -168,8 +261,9 @@ async function loadPersons(query: PersonListQuery): Promise<PersonListResult> {
     const total = Number(count.rows[0]?.count ?? 0);
     const ids = page.rows.map(row => row.id);
     if (ids.length === 0) return { rows: [], total };
-    const { rows } = await personRead<PersonRowShape>(
-      `${personParticipation("$1::bigint[]")} SELECT ${PERSON_COLUMNS} ${PERSON_FROM} WHERE p.id = ANY($1::bigint[])`, [ids]);
+    const { rows } = await personRead<PersonRowShape>(stored
+      ? `SELECT ${PERSON_COLUMNS} ${STORED_FROM} WHERE p.id = ANY($1::bigint[])`
+      : `${personParticipation("$1::bigint[]")} SELECT ${PERSON_COLUMNS} ${PERSON_FROM} WHERE p.id = ANY($1::bigint[])`, [ids]);
     const byId = new Map(rows.map(row => [row.id, row]));
     return {
       rows: ids.map(id => byId.get(id)).filter((row): row is PersonRowShape => row !== undefined).map(toPersonRow),
@@ -200,6 +294,16 @@ export async function getPersonFacets(): Promise<{
   withoutCredits: number;
   roles: Array<{ role: string; count: number }>;
 }> {
+  if (await ensurePersonCounts()) {
+    const { rows } = await personRead<{
+      total: number; without_credits: number; roles: Array<{ role: string; count: number }>;
+    }>(`WITH roles AS (SELECT role, count(*)::int AS count FROM ingest.person_counts c, unnest(c.roles) AS role GROUP BY role)
+      SELECT (SELECT count(*)::int FROM public.persons) AS total,
+             (SELECT count(*)::int FROM public.persons p WHERE NOT EXISTS (SELECT 1 FROM ingest.person_counts c WHERE c.person_id=p.id)) AS without_credits,
+             COALESCE((SELECT jsonb_agg(jsonb_build_object('role',role,'count',count) ORDER BY count DESC,role) FROM roles), '[]'::jsonb) AS roles`);
+    const row = rows[0]!;
+    return { total: row.total, withoutCredits: row.without_credits, roles: row.roles };
+  }
   const { rows } = await personRead<{
     total: number; without_credits: number; roles: Array<{ role: string; count: number }>;
   }>(`WITH participation AS MATERIALIZED (

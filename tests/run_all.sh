@@ -113,10 +113,13 @@ docker exec "$CTR" pg_dump -U postgres -d postgres --schema=public --schema-only
 # descartan sus bloques completos del dump. La décima (0081) son las cuatro
 # tablas de datos sociales (`entity_metrics`, `entity_user_tags`, `entity_shouts`,
 # `entity_emotions`): mismo tratamiento.
+# La decimocuarta (0128) son los disparadores `crv_person_counts_dirty`: solo
+# anotan la transacción para recalcular `ingest.person_counts`.
 core_filt() {
   grep -vE '^\\(un)?restrict' "$1" \
     | perl -0pe 's/--\n-- Name: \S+ crv_journal; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_journal [^\n]*\n\n\n//g' \
     | perl -0pe 's/--\n-- Name: \S+ crv_artist_genres_from_albums; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_artist_genres_from_albums [^\n]*\n\n\n//g' \
+    | perl -0pe 's/--\n-- Name: \S+ crv_person_counts_dirty; Type: TRIGGER;[^\n]*\n--\n\nCREATE TRIGGER crv_person_counts_dirty [^\n]*\n\n\n//g' \
     | sed -E 's/^    is_venezuelan boolean,$/    is_venezuelan boolean DEFAULT false NOT NULL,/' \
     | sed -E '/^    is_deceased boolean,$/d' \
     | sed -E '/^    (status|themes|years_active|logo_url|current_city|current_country|real_name|birth_city|death_cause|trivia|gender|release_date_text|catalog_id|media_format|lyrics) (character varying\([0-9]+\)|text),?$/d' \

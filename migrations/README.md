@@ -246,3 +246,20 @@ actores ya usan una misma clave; no elimina movimientos para forzarla.
 `0127_launch_contacts`: inscripciones al aviso de lanzamiento en `auth.launch_contacts`.
 Correo único, origen Roadmap y campaña de la URL, con cola durable a Google Sheets.
 No crea cuentas. El down se niega a borrar una tabla con inscripciones.
+
+`0128_person_counts`: conteos de participación de las personas precalculados
+(Brian, 2026-11-08, «Constrúyelo con triggers»). `ingest.person_counts` guarda
+créditos, membresías y roles con la regla de `catalog_album_credits` /
+`catalog_track_credits`. **Decimocuarta excepción aprobada al core**: disparadores
+por sentencia `crv_person_counts_dirty` en `public.album_credits`, `track_credits`,
+`artist_members`, `albums`, `tracks` y `artists` (y en las tres tablas editoriales
+de `ingest`) que solo anotan la transacción en `ingest.person_counts_changes`; no
+cambian columnas ni datos y el diff de `public` los filtra. El listado recalcula la
+tabla en una foto REPEATABLE READ cuando hay anotaciones (como mucho una vez por
+minuto; entre medias cuenta en vivo), así que nunca sirve un conteo atrasado.
+`crv doctor` (`persons.counts`) vigila los disparadores. El down los quita junto
+con las tablas.
+
+`0129_fk_indexes_followup`: los 12 índices de FK de `ingest` que faltaban desde
+0013 (holds de atribución, política editorial, efemérides, veredictos de IA,
+trabajos de imagen, activaciones del buscador, intake de YouTube).

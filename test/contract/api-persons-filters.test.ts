@@ -169,6 +169,54 @@ describe("búsqueda sin tildes y filtros de personas (E11.9)", () => {
     expect((await getPool().query("SHOW statement_timeout")).rows[0].statement_timeout).toBe("0");
   });
 
+  it("conteos precalculados (0128): una escritura directa se ve en el siguiente listado", async () => {
+    const pool = getPool();
+    // El primer listado filtrado construye la tabla y deja las anotaciones vacías.
+    await listPersons({ limit: 50, offset: 0, role: "composer" });
+    const state = await pool.query("SELECT built, (SELECT count(*)::int FROM ingest.person_counts_changes) AS pending FROM ingest.person_counts_state");
+    expect(state.rows[0]).toEqual({ built: true, pending: 0 });
+    const stored = await pool.query("SELECT credit_count, band_count FROM ingest.person_counts WHERE person_id=$1", [joseId]);
+    expect(stored.rows[0]).toEqual({ credit_count: 3, band_count: 1 });
+
+    // SQL directo, sin publicar revisión: el disparador anota la transacción.
+    const album = (await pool.query<{ album_id: string }>(
+      "SELECT album_id::text FROM public.album_credits WHERE person_id=$1 LIMIT 1", [joseId])).rows[0]!.album_id;
+    await pool.query("INSERT INTO public.album_credits(album_id,person_id,credit_type,role) VALUES($1,$2,'composer','Composición')", [album, josefinaId]);
+    expect((await pool.query("SELECT count(*)::int AS n FROM ingest.person_counts_changes")).rows[0].n).toBe(1);
+
+    // Dentro del minuto siguiente a un recálculo se cuenta en vivo: fresco, sin recalcular.
+    const live = await listPersons({ limit: 50, offset: 0, role: "composer" });
+    expect(live.rows.map(row => row.id)).toEqual([josefinaId]);
+    expect(live.rows[0]?.creditCount).toBe(2);
+    expect((await pool.query("SELECT count(*)::int AS n FROM ingest.person_counts_changes")).rows[0].n).toBe(1);
+
+    // Pasado el minuto, el listado filtrado recalcula la tabla y lee de ella.
+    await pool.query("UPDATE ingest.person_counts_state SET refreshed_at = now() - interval '2 minutes'");
+    const composers = await listPersons({ limit: 50, offset: 0, role: "composer" });
+    expect(composers).toEqual(live);
+    expect((await pool.query("SELECT count(*)::int AS n FROM ingest.person_counts_changes")).rows[0].n).toBe(0);
+
+    // La página por nombre cuenta en vivo si la tabla está atrasada, y lee la tabla si está al día.
+    await pool.query("DELETE FROM public.album_credits WHERE person_id=$1 AND credit_type='composer'", [josefinaId]);
+    const byName = await listPersons({ limit: 50, offset: 0 });
+    expect(byName.rows.find(row => row.id === josefinaId)?.creditCount).toBe(1);
+    expect((await pool.query("SELECT count(*)::int AS n FROM ingest.person_counts_changes")).rows[0].n).toBe(1);
+    await pool.query("UPDATE ingest.person_counts_state SET refreshed_at = now() - interval '2 minutes'");
+    expect((await listPersons({ limit: 50, offset: 0, role: "composer" })).rows).toEqual([]);
+    const fromTable = await listPersons({ limit: 50, offset: 0 });
+    expect(fromTable).toEqual(byName);
+  });
+
+  it("recálculos simultáneos: uno solo a la vez y el resultado es el mismo", async () => {
+    const pool = getPool();
+    await pool.query("UPDATE public.artists SET name = name WHERE name = 'Banda Filtros QA'");
+    await pool.query("UPDATE ingest.person_counts_state SET refreshed_at = now() - interval '2 minutes'");
+    const results = await Promise.all(Array.from({ length: 5 }, () => listPersons({ limit: 50, offset: 0, sort: "credits" })));
+    for (const result of results) expect(result).toEqual(results[0]);
+    expect(results[0]!.rows[0]?.id).toBe(joseId);
+    expect((await pool.query("SELECT count(*)::int AS n FROM ingest.person_counts_changes")).rows[0].n).toBe(0);
+  });
+
   it("valida el rol solicitado", async () => {
     const invalid = await app.inject("/persons?role=record_label");
     expect(invalid.statusCode).toBe(400);

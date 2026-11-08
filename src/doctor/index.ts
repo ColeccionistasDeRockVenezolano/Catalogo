@@ -267,6 +267,22 @@ async function checkChangeJournal(pool: Pool): Promise<DoctorCheck> {
  * están puestos y ninguna ficha se quedó desfasada (p. ej. tras mantenimiento
  * con la regla apagada). El arreglo es `crv genres derive-artists --confirm`.
  */
+/** Conteos precalculados de personas (0128): los disparadores deben estar en todas sus fuentes. */
+async function checkPersonCounts(pool: Pool): Promise<DoctorCheck> {
+  const exists = await pool.query<{ ok: boolean }>("SELECT to_regclass('ingest.person_counts') IS NOT NULL AS ok");
+  if (!exists.rows[0]?.ok) return check("persons.counts", "warn", "falta la migración 0128_person_counts (npm run db:migrate)");
+  const missing = await pool.query<{ table_name: string }>(`
+    SELECT t AS table_name FROM unnest(ARRAY['public.album_credits', 'public.track_credits', 'public.artist_members',
+      'public.albums', 'public.tracks', 'public.artists', 'ingest.album_attribution_holds',
+      'ingest.artist_editorial_persons', 'ingest.artist_editorial_policy']) AS t
+     WHERE NOT EXISTS (SELECT 1 FROM pg_trigger g WHERE g.tgrelid = to_regclass(t) AND g.tgname = 'crv_person_counts_dirty')`);
+  if (missing.rows.length) {
+    return check("persons.counts", "fail",
+      `sin disparador de conteos de personas en ${missing.rows.map((row) => row.table_name).join(", ")}: vuelve a aplicar 0128`);
+  }
+  return check("persons.counts", "ok", "conteos de personas precalculados con sus disparadores");
+}
+
 async function checkDerivedArtistGenres(pool: Pool): Promise<DoctorCheck> {
   const exists = await pool.query<{ ok: boolean }>(
     "SELECT to_regprocedure('ingest.crv_derive_artist_genres(bigint,boolean)') IS NOT NULL AS ok");
@@ -434,6 +450,7 @@ export async function runDoctor(): Promise<DoctorReport> {
   checks.push(await checkGenres(pool));
   checks.push(await checkExternalGenres(pool));
   checks.push(await checkDerivedArtistGenres(pool));
+  checks.push(await checkPersonCounts(pool));
   checks.push(await checkChangeJournal(pool));
 
   return finish();
