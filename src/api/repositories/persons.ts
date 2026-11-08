@@ -42,14 +42,15 @@ export interface PersonListQuery extends PaginationQuery {
 
 // Expand the editorial views once per request, never once per person.
 // UNION ALL preserves separate album/track credits and band memberships.
-const PERSON_PARTICIPATION = `WITH participation AS MATERIALIZED (
+// `only`: expresión SQL con los ids a contar (la página), o null para todas las personas.
+const personParticipation = (only: string | null) => `WITH participation AS MATERIALIZED (
   SELECT person_id, credit_type::text AS role, false AS membership
-    FROM ingest.catalog_album_credits WHERE person_id IS NOT NULL
+    FROM ingest.catalog_album_credits WHERE ${only ? `person_id = ANY(${only})` : "person_id IS NOT NULL"}
   UNION ALL
   SELECT person_id, credit_type::text AS role, false AS membership
-    FROM ingest.catalog_track_credits WHERE person_id IS NOT NULL
+    FROM ingest.catalog_track_credits WHERE ${only ? `person_id = ANY(${only})` : "person_id IS NOT NULL"}
   UNION ALL
-  SELECT person_id, 'band_member' AS role, true AS membership FROM public.artist_members
+  SELECT person_id, 'band_member' AS role, true AS membership FROM public.artist_members${only ? ` WHERE person_id = ANY(${only})` : ""}
 ), person_counts AS MATERIALIZED (
   SELECT person_id,
     count(*) FILTER (WHERE NOT membership)::int AS credit_count,
@@ -57,6 +58,7 @@ const PERSON_PARTICIPATION = `WITH participation AS MATERIALIZED (
     array_agg(DISTINCT role) AS roles
   FROM participation GROUP BY person_id
 )`;
+const PERSON_PARTICIPATION = personParticipation(null);
 
 const PERSON_FROM = `FROM public.persons p LEFT JOIN person_counts c ON c.person_id=p.id`;
 const PERSON_COLUMNS = `
@@ -152,16 +154,44 @@ async function loadPersons(query: PersonListQuery): Promise<PersonListResult> {
     };
   }
 
+  // Sin filtro por participación ni orden por créditos (el listado por nombre y la
+  // búsqueda, lo que pide cualquier visita) no hace falta expandir los ~157.000
+  // créditos y membresías de las ~34.000 personas: se pagina sobre `persons` y se
+  // cuentan solo las de la página. Sigue leyendo la base en cada petición.
+  if (query.hasCredits === undefined && !query.role && query.sort !== "credits") {
+    const pageOrder = query.q?.trim() ? "ORDER BY array_position($1::bigint[], p.id::bigint)" : "ORDER BY p.name, p.id::text";
+    const [page, count] = await Promise.all([
+      personRead<{ id: string }>(`SELECT p.id::text AS id FROM public.persons p ${where} ${pageOrder}
+        LIMIT $${params.length + 1} OFFSET $${params.length + 2}`, [...params, query.limit, query.offset]),
+      personRead<{ count: string }>(`SELECT count(*)::text AS count FROM public.persons p ${where}`, params),
+    ]);
+    const total = Number(count.rows[0]?.count ?? 0);
+    const ids = page.rows.map(row => row.id);
+    if (ids.length === 0) return { rows: [], total };
+    const { rows } = await personRead<PersonRowShape>(
+      `${personParticipation("$1::bigint[]")} SELECT ${PERSON_COLUMNS} ${PERSON_FROM} WHERE p.id = ANY($1::bigint[])`, [ids]);
+    const byId = new Map(rows.map(row => [row.id, row]));
+    return {
+      rows: ids.map(id => byId.get(id)).filter((row): row is PersonRowShape => row !== undefined).map(toPersonRow),
+      total,
+    };
+  }
+
+  // Con filtro por participación u orden por créditos: una sola expansión para
+  // la página y el total (antes eran dos consultas que la repetían).
   // El orden va en una consulta externa: PostgreSQL no admite expresiones
   // sobre los alias de salida (`ORDER BY credit_count + band_count` falla),
   // y con `q` el orden lo manda el índice (primero los que empiezan).
-  const [rows, count] = await Promise.all([
-    personRead<PersonRowShape>(
-      `${filtered} SELECT * FROM filtered x ${order} LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
-      [...params, query.limit, query.offset]),
-    personRead<{ count: string }>(`${PERSON_PARTICIPATION} SELECT count(*)::text AS count ${PERSON_FROM} ${where}`, params),
-  ]);
-  return { rows: rows.rows.map(toPersonRow), total: Number(count.rows[0]?.count ?? 0) };
+  const result = await personRead<PersonRowShape & { total: string }>(
+    `${filtered} SELECT x.*, count(*) OVER ()::text AS total FROM filtered x ${order} LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+    [...params, query.limit, query.offset]);
+  let total = Number(result.rows[0]?.total ?? 0);
+  // Una página más allá del final no trae filas con las que leer el total.
+  if (result.rows.length === 0 && query.offset > 0) {
+    const counted = await personRead<{ count: string }>(`${filtered} SELECT count(*)::text AS count FROM filtered`, params);
+    total = Number(counted.rows[0]?.count ?? 0);
+  }
+  return { rows: result.rows.map(({ total: _total, ...row }) => toPersonRow(row)), total };
 }
 
 /** Personas únicas por participación: varios créditos del mismo tipo cuentan una vez. */
