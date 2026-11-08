@@ -613,3 +613,21 @@ Script: plain `fetch` de Node, sin instalar nada. Tiempos en ms.
 - Brian (2026-11-08): timer diario de variantes WebP instalado; borrados
   `web/dist-public.prev-20261108` y `crv-release/crv-api-cpu-fix-2026-11-08`; límites
   por IP sin cambios (1.200/min gateway, 600/min API).
+- **Diario de cambios y retención** (Brian, 2026-11-08, ventana 30 días;
+  detalle en `ops/retencion/README.md`): migración `0130_claims_touch_guard`
+  aplicada a las 17:35 (`98d3a0eb` / release `3a197eaf`), crv-api reiniciado,
+  `/health` 200. Primera poda: 9.479.753 entradas del diario de tablas `soft` y
+  20.766 corridas de IA compactadas en 8 min; `VACUUM FULL` del diario (1 min
+  10 s) y de `ai_runs` (1 min 28 s). Diario: 6,4 GB → 791 MB; base: 20 → 14 GB.
+  Comprobado en producción, en una transacción revertida: 1.000 toques de
+  `updated_at` → 0 entradas en el diario. `ANALYZE` de las tablas grandes (las
+  estadísticas creían 1.845 revisiones y había 1,8 millones).
+  **Pendiente de Brian** (el modo automático no lo permitió):
+  1. Instalar el timer semanal: `cp ops/retencion/crv-retencion-semanal.{service,timer} ~/.config/systemd/user/ && systemctl --user daemon-reload && systemctl --user enable --now crv-retencion-semanal.timer`.
+  2. Reiniciar Postgres para aplicar lo ya guardado en `postgresql.auto.conf`
+     (`shared_preload_libraries='pg_stat_statements'`, `shared_buffers='512MB'`):
+     `docker restart crv-postgres` y después
+     `docker exec crv-postgres psql -U crv -d crv -c "CREATE EXTENSION IF NOT EXISTS pg_stat_statements"`.
+  Suite de contrato: 815 de 823; los 8 fallos (portada, curaduría
+  autofix/fixes/incremental, apariencia, fechas DATE, buscador etapa 1) fallan
+  igual en `0345bd97`, sin estos cambios.
