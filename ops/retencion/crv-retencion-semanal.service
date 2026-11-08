@@ -1,0 +1,19 @@
+[Unit]
+Description=CRV retención semanal: poda del diario de colas y compactación de corridas de IA (30 días)
+Wants=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+Environment=PATH=/home/brian/.local/node-v24.20.0-linux-x64/bin:/usr/bin:/bin
+# Máquina compartida: un núcleo, E/S ociosa y memoria acotada. Los lotes son
+# cortos y con pausa, así que la web no espera a esta tarea.
+Nice=19
+IOSchedulingClass=idle
+CPUQuota=100%
+MemoryHigh=512M
+MemoryMax=768M
+ExecStart=/home/brian/.local/node-v24.20.0-linux-x64/bin/npx tsx src/cli/index.ts db:retention --keep-days=30
+# Devuelve a Postgres las estadísticas y el espacio libre para reusar.
+ExecStartPost=/usr/bin/docker exec crv-postgres psql -U crv -d crv -X -q -c "VACUUM (ANALYZE) ingest.change_journal" -c "VACUUM (ANALYZE) ingest.ai_runs"

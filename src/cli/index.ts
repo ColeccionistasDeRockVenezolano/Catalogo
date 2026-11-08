@@ -63,6 +63,7 @@ import { previewFixBatch } from "../curation/actions/batches.js";
 import { parseCurationFixPreviewArgs } from "./curation-fix.js";
 import { pruneCuration } from "../curation/retention.js";
 import { compactEntityResolutionDecisions } from "../er/retention.js";
+import { DEFAULT_KEEP_DAYS, runRetention } from "../db/retention.js";
 import { runGenresCommand } from "./genres.js";
 import { rewritePending } from "../merge/text-rewrite.js";
 
@@ -1171,6 +1172,26 @@ async function main(): Promise<number> {
       return 1;
     }
 
+    case "db:retention": {
+      const raw = args.find((arg) => arg.startsWith("--keep-days="))?.slice("--keep-days=".length);
+      const keepDays = raw === undefined ? DEFAULT_KEEP_DAYS : Number(raw);
+      if (!Number.isInteger(keepDays) || keepDays < 1) {
+        console.error("uso: crv db:retention [--dry-run] [--keep-days=N]");
+        return 1;
+      }
+      const dryRun = args.includes("--dry-run");
+      const started = Date.now();
+      const result = await runRetention({ dryRun, keepDays });
+      if (result.status === "skipped") {
+        console.error("db:retention: otro proceso está podando; no se tocó nada, reintenta más tarde");
+        return 1;
+      }
+      console.log(`db:retention${dryRun ? " --dry-run" : ""} (ventana ${keepDays} días): `
+        + `${result.journalPruned} entradas del diario de tablas soft ${dryRun ? "por podar" : "podadas"} · `
+        + `${result.aiRunsCompacted} corridas de IA ${dryRun ? "por compactar" : "compactadas"} en ${Date.now() - started} ms`);
+      return 0;
+    }
+
     case "er:prune": {
       const numberFlag = (name: string): number | undefined => {
         const raw = args.find((arg) => arg.startsWith(`--${name}=`))?.slice(name.length + 3);
@@ -1337,6 +1358,10 @@ CRV CLI
   curation autofix [--run]   estado de la autocorrección segura (reglas, lo de hoy, avisos); --run la aplica ahora
   curation prune [--dry-run] retención: borra los análisis anteriores a los últimos 500 y los hallazgos resueltos
                              hace más de 180 días (nunca abiertos ni ignorados)
+  db:retention [--dry-run] [--keep-days=N]
+                             retención (30 días por defecto): borra del diario de cambios las entradas de tablas
+                             soft (colas, claims, revisiones) y vacía prompt y respuestas de las corridas de IA;
+                             el diario del catálogo (strict) se conserva siempre
   er:prune [--dry-run] [--keep-full-days=N] [--max-rows=N]
                              retención de decisiones de resolución: compacta (no borra) el dossier de candidatas
                              de las decisiones más viejas que la ventana (ER_DECISION_FULL_DAYS, 3 días por defecto):

@@ -342,7 +342,7 @@ export async function persistResolutionDecision(
       input_name_original,input_name_normalized,input_context,score,action,
       features,candidates,thresholds,explanation,decided_by,candidates_count,compacted_at
     ) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13::jsonb,$14,$15,$16::jsonb,$17::jsonb,$18::jsonb,$19,$20,$21::int,CASE WHEN $21::int IS NULL THEN NULL ELSE now() END)
-    ON CONFLICT(decision_hash) DO UPDATE SET decision_hash=EXCLUDED.decision_hash
+    ON CONFLICT(decision_hash) DO NOTHING
     RETURNING id`, [
     decisionHash, options.runId ?? null, options.claimId ?? null, decision.aiRunId ?? null, decision.kind,
     ...targets, decision.inputOriginal, decision.inputNormalized, JSON.stringify(input), decision.score, decision.action,
@@ -350,7 +350,10 @@ export async function persistResolutionDecision(
     decision.explanation, options.decidedBy ?? (decision.aiProposal ? "deepseek" : "deterministic"),
     compact ? decision.candidates.length : null,
   ]);
-  const id = saved.rows[0]?.id;
+  // La misma decisión ya guardada: se lee su id en vez de reescribir la fila
+  // (el antiguo `DO UPDATE SET decision_hash=…` dejaba una versión muerta).
+  const id = saved.rows[0]?.id ?? (await queryable.query<{ id: string }>(
+    "SELECT id FROM ingest.entity_resolution_decisions WHERE decision_hash=$1", [decisionHash])).rows[0]?.id;
   if (!id) throw new Error("no se pudo persistir entity_resolution_decision");
   return Number(id);
 }

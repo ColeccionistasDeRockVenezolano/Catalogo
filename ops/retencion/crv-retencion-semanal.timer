@@ -1,0 +1,10 @@
+[Unit]
+Description=CRV retención semanal (domingos 03:15 hora local)
+
+[Timer]
+OnCalendar=Sun *-*-* 03:15:00
+RandomizedDelaySec=15m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

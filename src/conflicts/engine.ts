@@ -72,7 +72,8 @@ export async function createFieldConflict(
   const claimAId = Math.min(otherId, input.claimId); const claimBId = Math.max(otherId, input.claimId);
   const valueA = claimAId === otherId ? input.currentValue : input.proposedValue;
   const valueB = claimBId === input.claimId ? input.proposedValue : input.currentValue;
-  await client.query("UPDATE ingest.claims SET status='conflict',updated_at=now() WHERE id=ANY($1::bigint[])", [[claimAId, claimBId]]);
+  // Solo los que aún no lo están: cada rival nuevo volvía a reescribir los dos.
+  await client.query("UPDATE ingest.claims SET status='conflict',updated_at=now() WHERE id=ANY($1::bigint[]) AND status<>'conflict'", [[claimAId, claimBId]]);
   const saved = await client.query<{ id: string }>(`
     INSERT INTO ingest.conflicts(claim_a_id,claim_b_id,entity_kind,field,value_a,value_b)
     VALUES($1,$2,$3::ingest.claim_entity_kind,$4,$5::jsonb,$6::jsonb)

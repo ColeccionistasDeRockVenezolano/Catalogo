@@ -263,3 +263,9 @@ con las tablas.
 `0129_fk_indexes_followup`: los 12 índices de FK de `ingest` que faltaban desde
 0013 (holds de atribución, política editorial, efemérides, veredictos de IA,
 trabajos de imagen, activaciones del buscador, intake de YouTube).
+
+`0130_claims_touch_guard`: disparador `BEFORE UPDATE` en `ingest.claims` que
+descarta la actualización que solo mueve `updated_at` (o no cambia nada): sin
+versión muerta, sin índices tocados y sin entrada en el diario. Era el 42 % del
+diario de cambios. `updated_at` queda como «último cambio real». Quita además
+`er_decisions_input_idx` (161 MB, nunca leído). El down devuelve ambos.
