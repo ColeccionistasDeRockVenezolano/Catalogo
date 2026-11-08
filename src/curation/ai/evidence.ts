@@ -94,6 +94,8 @@ const clip = (text: string) => (text.length > 60 ? `${text.slice(0, 57)}…` : t
 export interface EvidenceContext {
   /** Names of catalog or planned entities, so a citation must identify both the value and who it belongs to. */
   nameOf?: ((ref: CatalogRef) => string | undefined) | undefined;
+  /** Documented aliases of existing entities: a source may name an artist by its alias. */
+  aliasesOf?: ((ref: CatalogRef) => readonly string[]) | undefined;
   root?: { kind: CatalogKind; id: number } | undefined;
   /** Name and aliases of each genre in the taxonomy: a genre is cited by one of them as a whole phrase. */
   genreTerms?: ReadonlyMap<string, string[]> | undefined;
@@ -120,6 +122,18 @@ const organizationTypes: Record<string, string[]> = {
   "record label": ["sello", "disquera", "discografica", "record label", "label"],
   studio: ["estudio", "studio"],
   distributor: ["distribuidora", "distributor"],
+};
+/**
+ * Los tipos de artista son claves internas («solo_artist»): ninguna fuente las
+ * escribe así. Sin estas palabras el resolutor persona → artista, que siempre
+ * crea un solista, nunca encontraba respaldo aunque la cita dijera «cantautor».
+ */
+const artistTypes: Record<string, string[]> = {
+  solo_artist: ["solista", "cantautor", "cantautora", "cantante", "solo artist", "singer-songwriter", "singer"],
+  band: ["banda", "band", "agrupacion", "grupo"],
+  group: ["grupo", "group", "agrupacion", "conjunto", "orquesta"],
+  duo: ["duo", "dueto"],
+  project: ["proyecto", "project"],
 };
 /** A founding is told as «fundó», «creó su propia compañía» or «fundada por». */
 const roleSynonyms: Record<string, string[]> = {
@@ -176,11 +190,16 @@ function fieldGap(key: string, value: CatalogValue, text: string, raw: string, e
   if (/url$/iu.test(key))
     return typeof value === "string" && (raw.includes(value) || evidence.some((e) => e.url === value)) ? null : `${label(key)} no citada`;
   if (refKinds[key] && typeof value === "number") {
-    const name = context.nameOf?.({ kind: refKinds[key], id: value });
-    return name && mentioned(name, text) ? null : `${label(key)}${name ? ` «${name}»` : ""}`;
+    const ref: CatalogRef = { kind: refKinds[key], id: value };
+    const name = context.nameOf?.(ref);
+    return name && namedIn(ref, name, text, context) ? null : `${label(key)}${name ? ` «${name}»` : ""}`;
   }
   if (key === "organizationType" && typeof value === "string") {
     const words = organizationTypes[normalize(value)];
+    return (words ? words.some((w) => mentioned(w, text)) : mentioned(value, text)) ? null : `${label(key)} «${value}»`;
+  }
+  if (key === "artistType" && typeof value === "string") {
+    const words = artistTypes[value];
     return (words ? words.some((w) => mentioned(w, text)) : mentioned(value, text)) ? null : `${label(key)} «${value}»`;
   }
   if (key === "albumType" && typeof value === "string") {
@@ -194,7 +213,11 @@ function refGap(ref: CatalogRef, what: string, text: string, context: EvidenceCo
   if (!context.nameOf) return null;
   if ("id" in ref && context.root && ref.kind === context.root.kind && ref.id === context.root.id) return null;
   const name = context.nameOf(ref);
-  return name && mentioned(name, text) ? null : `${what}${name ? ` «${name}»` : " sin nombre verificable"}`;
+  return name && namedIn(ref, name, text, context) ? null : `${what}${name ? ` «${name}»` : " sin nombre verificable"}`;
+}
+/** The citation names the entity by its name or by one of its documented aliases. */
+function namedIn(ref: CatalogRef, name: string, text: string, context: EvidenceContext): boolean {
+  return mentioned(name, text) || (context.aliasesOf?.(ref) ?? []).some((alias) => mentioned(alias, text));
 }
 const duration = (seconds: number) => `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
 /**

@@ -648,8 +648,23 @@ export async function executePlan(
       return typeof name === "string" ? [[o.key, name] as const] : [];
     }),
   );
+  // Aliases of the existing entities touched by the plan (one query per kind).
+  const aliasTables: Partial<Record<string, [string, string]>> = {
+    artist: ["ingest.artist_aliases", "artist_id"], person: ["ingest.person_aliases", "person_id"],
+    organization: ["ingest.organization_aliases", "organization_id"], album: ["ingest.album_aliases", "album_id"],
+    track: ["ingest.track_aliases", "track_id"],
+  };
+  const aliases = new Map<string, string[]>();
+  for (const [kind, table] of Object.entries(aliasTables)) {
+    const ids = beforeState.affected.filter((a) => a.kind === kind).map((a) => a.id);
+    if (!ids.length || !table) continue;
+    const { rows } = await context.client.query<{ id: string; alias: string }>(
+      `SELECT ${table[1]}::text AS id, alias FROM ${table[0]} WHERE ${table[1]} = ANY($1::bigint[])`, [ids]);
+    for (const row of rows) aliases.set(`${kind}:${row.id}`, [...(aliases.get(`${kind}:${row.id}`) ?? []), row.alias]);
+  }
   const evidenceContext: EvidenceContext = {
     root,
+    aliasesOf: (ref) => ("id" in ref ? aliases.get(`${ref.kind}:${ref.id}`) ?? [] : []),
     genreTerms: draft.operations.some((o) => o.op === "assign_genre" || o.op === "remove_genre") ? await loadGenreTerms(context.client) : undefined,
     nameOf: (ref) =>
       "id" in ref
