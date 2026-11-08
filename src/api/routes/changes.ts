@@ -102,6 +102,21 @@ export async function registerChangeRoutes(app: FastifyInstance): Promise<void> 
     return toPage(rows, total, request.query);
   });
 
+  // Solo el resumen (quién, qué fichas): los avisos tras cada escritura lo piden
+  // para su título. La vista previa de deshacer es lo caro y aquí no se calcula.
+  server.get("/changes/:runId/summary", {
+    schema: {
+      tags: ["changes"],
+      summary: "Un cambio sin la vista previa de deshacer. No escribe nada.",
+      params: runParamsSchema,
+      response: { 200: changeSchema },
+    },
+  }, async (request) => {
+    const change = await getChange(request.params.runId);
+    if (!change) throw notFound("cambio", request.params.runId);
+    return change;
+  });
+
   server.get("/changes/:runId", {
     schema: {
       tags: ["changes"],

@@ -164,7 +164,17 @@ export async function getCurationSummary(running: boolean): Promise<CurationSumm
              count(*) FILTER (WHERE first_seen_scan_id = (SELECT id FROM last_ok))::int AS fresh,
              count(*) FILTER (WHERE evidence ? 'triggeredBy')::int AS chained
         FROM ingest.curation_findings
-       GROUP BY category, detector, signature, status, severity`),
+       WHERE status = 'open'
+       GROUP BY category, detector, signature, status, severity
+      UNION ALL
+      -- Ignorados y resueltos (95 % de la tabla) solo suman por categoría y detector:
+      -- sin leer su evidencia JSON, con el índice (status, category, detector).
+      -- Antes cada sondeo de 20 s recorría los 400 MB de la tabla (~4 s).
+      SELECT category, detector, '' AS signature, NULL AS label, status, (array_agg(severity))[1] AS severity,
+             count(*)::int AS n, 0 AS fresh, 0 AS chained
+        FROM ingest.curation_findings
+       WHERE status <> 'open'
+       GROUP BY category, detector, status`),
   ]);
 
   const known = new Set(CATEGORIES.map((category) => category.key));

@@ -11,7 +11,7 @@ import { listArtists,getArtistDetail } from "../../src/api/repositories/artists.
 import { getAlbumDetail,scopedCreditsByType } from "../../src/api/repositories/albums.js";
 import { createEntity,withOperatorRun } from "../../src/merge/operator.js";
 import { resolvePersonArtist } from "../../src/curation/ai/person-artist.js";
-import { getPersonDetail } from "../../src/api/repositories/persons.js";
+import { getPersonDetail, listPersons } from "../../src/api/repositories/persons.js";
 import { admitArtist } from "../../src/catalog/editorial-admissions.js";
 
 describe("retiro editorial y conservación independiente de efemérides",()=>{
@@ -44,6 +44,12 @@ describe("retiro editorial y conservación independiente de efemérides",()=>{
     const personDetail=await getPersonDetail(person);
     expect(personDetail?.artistConversionBlocked).toBe(true);
     expect(personDetail?.albumCredits).toHaveLength(1);
+  });
+  it("el listado conserva créditos editoriales resueltos desde un artista a una persona", async () => {
+    const listed = await listPersons({ limit: 20, offset: 0, role: "guest", hasCredits: true, sort: "credits" });
+    expect(listed.total).toBe(1);
+    expect(listed.rows).toEqual([expect.objectContaining({ id: person, creditCount: 1, bandCount: 0 })]);
+    expect((await listPersons({ limit: 20, offset: 0, hasCredits: false })).rows).toEqual([]);
   });
   it("bloquea altas por nombre y alias incluso mediante SQL directo",async()=>{
     for(const name of ["Extranjero de prueba"," ALIAS  DE PRUEBA "])

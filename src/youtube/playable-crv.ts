@@ -76,14 +76,17 @@ export function playableVideoSql(v = 'v', options: { allowUnlisted?: boolean } =
     AND ${v}.metadata #>> '{status,privacyStatus}' IN ('public','unlisted')`
     : `${v}.publication_status = 'published'
     AND ${v}.metadata #>> '{status,privacyStatus}' = 'public'`;
-  return `(${privacy}
+  // COALESCE: si falta un campo del metadata (video recién registrado, aún sin
+  // hidratar) la regla da NULL, y como columna `playable` rompía la respuesta
+  // de la ficha entera (500). Sin dato no es reproducible.
+  return `coalesce((${privacy}
     AND ${v}.metadata #>> '{status,uploadStatus}' = 'processed'
     AND ${v}.metadata #>> '{status,embeddable}' = 'true'
     AND coalesce(${v}.metadata #>> '{status,rejectionReason}', '') = ''
     AND coalesce(${v}.metadata #>> '{status,failureReason}', '') = ''
     AND coalesce(${v}.metadata #>> '{snippet,liveBroadcastContent}', 'none') <> 'upcoming'
     AND coalesce(${v}.metadata #>> '{contentDetails,contentRating,ytRating}', '') <> 'ytAgeRestricted'
-    AND coalesce(${v}.metadata #> '{contentDetails,regionRestriction,allowed}', 'null'::jsonb) <> '[]'::jsonb)`;
+    AND coalesce(${v}.metadata #> '{contentDetails,regionRestriction,allowed}', 'null'::jsonb) <> '[]'::jsonb), false)`;
 }
 
 const VIDEO_ID = /^[\w-]{11}$/;

@@ -24,6 +24,14 @@ const envSchema = z.object({
   DATABASE_URL: z
     .string()
     .min(1, "DATABASE_URL es obligatorio (postgresql://usuario:pass@host:puerto/db)"),
+  // Límites del pool. 0 = sin límite (CLI, ingesta y migraciones). La API los
+  // fija en src/api/server.ts: sin ellos una consulta mala retiene conexiones
+  // durante minutos y las demás peticiones esperan sin fin (incidente 2026-11-08).
+  CRV_DB_POOL_MAX: z.coerce.number().int().min(1).max(50).default(10),
+  CRV_DB_CONNECTION_TIMEOUT_MS: z.coerce.number().int().nonnegative().default(0),
+  CRV_DB_STATEMENT_TIMEOUT_MS: z.coerce.number().int().nonnegative().default(0),
+  CRV_DB_IDLE_TX_TIMEOUT_MS: z.coerce.number().int().nonnegative().default(0),
+  CRV_DB_APPLICATION_NAME: z.string().min(1).max(60).default("crv"),
 
   PORT: z.coerce.number().int().positive().default(8080),
   HOST: z.string().default("127.0.0.1"),

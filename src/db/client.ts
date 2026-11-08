@@ -57,7 +57,17 @@ let pool: pg.Pool | undefined;
 
 export function getPool(): pg.Pool {
   if (!pool) {
-    pool = new RunAwarePool({ connectionString: getEnv().DATABASE_URL });
+    const env = getEnv();
+    pool = new RunAwarePool({
+      connectionString: env.DATABASE_URL,
+      max: env.CRV_DB_POOL_MAX,
+      // Esperar una conexión libre no puede ser eterno: falla y libera la petición.
+      connectionTimeoutMillis: env.CRV_DB_CONNECTION_TIMEOUT_MS,
+      // Cancelación en el servidor: PostgreSQL deja de gastar CPU, no solo Node.
+      ...(env.CRV_DB_STATEMENT_TIMEOUT_MS > 0 ? { statement_timeout: env.CRV_DB_STATEMENT_TIMEOUT_MS } : {}),
+      ...(env.CRV_DB_IDLE_TX_TIMEOUT_MS > 0 ? { idle_in_transaction_session_timeout: env.CRV_DB_IDLE_TX_TIMEOUT_MS } : {}),
+      application_name: env.CRV_DB_APPLICATION_NAME,
+    });
   }
   return pool;
 }

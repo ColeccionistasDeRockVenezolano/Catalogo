@@ -1,5 +1,7 @@
 // CRV · Consultas de lectura para personas (PHASES §E7A/E11.7/E11.9).
 import { getPool } from "../../db/client.js";
+import type { Pool, QueryResultRow } from "pg";
+import { ReadCache } from "../../shared/read-cache.js";
 import type { PaginationQuery } from "../pagination.js";
 import { searchIds } from "../search-index.js";
 import { classifyPersonName, type PersonNameClass } from "../../review/person-junk.js";
@@ -38,16 +40,49 @@ export interface PersonListQuery extends PaginationQuery {
   sort?: "name" | "credits" | undefined;
 }
 
+// Expand the editorial views once per request, never once per person.
+// UNION ALL preserves separate album/track credits and band memberships.
+const PERSON_PARTICIPATION = `WITH participation AS MATERIALIZED (
+  SELECT person_id, credit_type::text AS role, false AS membership
+    FROM ingest.catalog_album_credits WHERE person_id IS NOT NULL
+  UNION ALL
+  SELECT person_id, credit_type::text AS role, false AS membership
+    FROM ingest.catalog_track_credits WHERE person_id IS NOT NULL
+  UNION ALL
+  SELECT person_id, 'band_member' AS role, true AS membership FROM public.artist_members
+), person_counts AS MATERIALIZED (
+  SELECT person_id,
+    count(*) FILTER (WHERE NOT membership)::int AS credit_count,
+    count(*) FILTER (WHERE membership)::int AS band_count,
+    array_agg(DISTINCT role) AS roles
+  FROM participation GROUP BY person_id
+)`;
+
+const PERSON_FROM = `FROM public.persons p LEFT JOIN person_counts c ON c.person_id=p.id`;
 const PERSON_COLUMNS = `
   p.id::text AS id, p.name, p.nationality, p.is_venezuelan, ${personDeceasedSql("p")} AS is_deceased, p.picture_url,
-  ((SELECT count(*) FROM ingest.catalog_album_credits WHERE person_id=p.id)
-   + (SELECT count(*) FROM ingest.catalog_track_credits WHERE person_id=p.id))::int AS credit_count,
-  (SELECT count(*) FROM public.artist_members WHERE person_id=p.id)::int AS band_count`;
+  COALESCE(c.credit_count, 0) AS credit_count, COALESCE(c.band_count, 0) AS band_count`;
 
-const HAS_ANY_RELATION = `(
-  EXISTS (SELECT 1 FROM ingest.catalog_album_credits WHERE person_id=p.id)
-  OR EXISTS (SELECT 1 FROM ingest.catalog_track_credits WHERE person_id=p.id)
-  OR EXISTS (SELECT 1 FROM public.artist_members WHERE person_id=p.id))`;
+// Server-side cancellation: a client timeout alone would leave PostgreSQL busy.
+// SET LOCAL is confined to this transaction, including when the query fails.
+async function personRead<Row extends QueryResultRow>(sql: string, params: unknown[] = []) {
+  const client = await getPool().connect();
+  let released = false;
+  try {
+    await client.query("BEGIN READ ONLY");
+    await client.query("SET LOCAL statement_timeout = '5s'");
+    const result = await client.query<Row>(sql, params);
+    await client.query("COMMIT");
+    return result;
+  } catch (error) {
+    try { await client.query("ROLLBACK"); }
+    catch (rollbackError) { client.release(rollbackError as Error); released = true; throw error; }
+    throw error;
+  } finally {
+    // release() must only run once, including a broken connection after rollback.
+    if (!released) client.release();
+  }
+}
 
 interface PersonRowShape {
   id: string; name: string; nationality: string | null; is_venezuelan: boolean | null; is_deceased: boolean; picture_url: string | null;
@@ -69,7 +104,19 @@ function toPersonRow(row: PersonRowShape): PersonListRow {
  * pliega tildes), `suspect` se clasifica en Node (E11.7) y `sort=credits`
  * ordena por créditos + membresías descendente.
  */
-export async function listPersons(query: PersonListQuery): Promise<{ rows: PersonListRow[]; total: number }> {
+type PersonListResult = { rows: PersonListRow[]; total: number };
+const personRequests = new WeakMap<Pool, ReadCache<PersonListResult>>();
+
+export function listPersons(query: PersonListQuery): Promise<PersonListResult> {
+  const pool = getPool();
+  let requests = personRequests.get(pool);
+  if (!requests) { requests = new ReadCache<PersonListResult>(); personRequests.set(pool, requests); }
+  // Share concurrent identical reads, without retaining completed results.
+  return requests.get(JSON.stringify([query.q, query.hasCredits, query.role, query.suspect,
+    query.sort, query.limit, query.offset]), 0, () => loadPersons(query));
+}
+
+async function loadPersons(query: PersonListQuery): Promise<PersonListResult> {
   const conditions: string[] = [];
   const params: unknown[] = [];
   if (query.q?.trim()) {
@@ -78,18 +125,16 @@ export async function listPersons(query: PersonListQuery): Promise<{ rows: Perso
     params.push(ids);
     conditions.push(`p.id = ANY($1::bigint[])`);
   }
-  if (query.hasCredits !== undefined) conditions.push(query.hasCredits ? HAS_ANY_RELATION : `NOT ${HAS_ANY_RELATION}`);
-  if (query.role === "band_member") {
-    conditions.push("EXISTS (SELECT 1 FROM public.artist_members WHERE person_id=p.id)");
-  } else if (query.role) {
+  if (query.hasCredits !== undefined) conditions.push(query.hasCredits ? "c.person_id IS NOT NULL" : "c.person_id IS NULL");
+  if (query.role) {
     params.push(query.role);
-    const roleParam = `$${params.length}::text`;
-    conditions.push(`(
-      EXISTS (SELECT 1 FROM ingest.catalog_album_credits WHERE person_id=p.id AND credit_type::text=${roleParam})
-      OR EXISTS (SELECT 1 FROM ingest.catalog_track_credits WHERE person_id=p.id AND credit_type::text=${roleParam}))`);
+    conditions.push(`$${params.length}::text = ANY(c.roles)`);
   }
   const where = conditions.length ? `WHERE ${conditions.join(" AND ")}` : "";
-  const base = `SELECT ${PERSON_COLUMNS} FROM public.persons p ${where}`;
+  const base = `SELECT ${PERSON_COLUMNS} ${PERSON_FROM} ${where}`;
+  // Finish filtering before LIMIT: otherwise PostgreSQL underestimates the
+  // materialized groups and can choose a nested anti join for hasCredits=false.
+  const filtered = `${PERSON_PARTICIPATION}, filtered AS MATERIALIZED (${base})`;
 
   // Solo la búsqueda añade el array de relevancia; un rol añade un parámetro de texto.
   const order = query.q?.trim()
@@ -99,7 +144,7 @@ export async function listPersons(query: PersonListQuery): Promise<{ rows: Perso
   if (query.suspect) {
     // El filtro de basura es de texto (TypeScript, regla 0.1.11): se cargan
     // los nombres que cumplen el resto de filtros y se clasifican aquí.
-    const all = await getPool().query<PersonRowShape>(`SELECT * FROM (${base}) x ${order}`, params);
+    const all = await personRead<PersonRowShape>(`${filtered} SELECT * FROM filtered x ${order}`, params);
     const matched = all.rows.filter((row) => classifyPersonName(row.name).kind === query.suspect);
     return {
       rows: matched.slice(query.offset, query.offset + query.limit).map(toPersonRow),
@@ -111,10 +156,10 @@ export async function listPersons(query: PersonListQuery): Promise<{ rows: Perso
   // sobre los alias de salida (`ORDER BY credit_count + band_count` falla),
   // y con `q` el orden lo manda el índice (primero los que empiezan).
   const [rows, count] = await Promise.all([
-    getPool().query<PersonRowShape>(
-      `SELECT * FROM (${base}) x ${order} LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
+    personRead<PersonRowShape>(
+      `${filtered} SELECT * FROM filtered x ${order} LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
       [...params, query.limit, query.offset]),
-    getPool().query<{ count: string }>(`SELECT count(*)::text AS count FROM public.persons p ${where}`, params),
+    personRead<{ count: string }>(`${PERSON_PARTICIPATION} SELECT count(*)::text AS count ${PERSON_FROM} ${where}`, params),
   ]);
   return { rows: rows.rows.map(toPersonRow), total: Number(count.rows[0]?.count ?? 0) };
 }
@@ -125,7 +170,7 @@ export async function getPersonFacets(): Promise<{
   withoutCredits: number;
   roles: Array<{ role: string; count: number }>;
 }> {
-  const { rows } = await getPool().query<{
+  const { rows } = await personRead<{
     total: number; without_credits: number; roles: Array<{ role: string; count: number }>;
   }>(`WITH participation AS MATERIALIZED (
         SELECT person_id, credit_type::text AS role FROM ingest.catalog_album_credits WHERE person_id IS NOT NULL
@@ -198,11 +243,20 @@ export interface PersonDuplicateCandidateRow {
   createdAt: string;
 }
 
-/** Créditos y membresías de una ficha: lo que se movería al fusionarla. */
-const CREDIT_COUNT = (column: string) => `(
-  (SELECT count(*) FROM ingest.catalog_album_credits WHERE person_id=c.${column})
-  + (SELECT count(*) FROM ingest.catalog_track_credits WHERE person_id=c.${column})
-  + (SELECT count(*) FROM public.artist_members WHERE person_id=c.${column}))::int`;
+/**
+ * Créditos y membresías de cada ficha en revisión: lo que se movería al fusionarla.
+ * Se agrega una vez para las personas de la cola; la versión correlacionada
+ * recontaba las vistas editoriales seis veces por fila (~6 s con 150 revisiones).
+ */
+const CANDIDATE_CREDITS = `involved AS MATERIALIZED (
+        SELECT person_a_id AS person_id FROM candidate UNION SELECT person_b_id FROM candidate
+      ), credit_counts AS MATERIALIZED (
+        SELECT x.person_id, count(*)::int AS credits FROM (
+          SELECT ac.person_id FROM ingest.catalog_album_credits ac WHERE ac.person_id IN (SELECT person_id FROM involved)
+          UNION ALL SELECT tc.person_id FROM ingest.catalog_track_credits tc WHERE tc.person_id IN (SELECT person_id FROM involved)
+          UNION ALL SELECT am.person_id FROM public.artist_members am WHERE am.person_id IN (SELECT person_id FROM involved)
+        ) x GROUP BY x.person_id
+      )`;
 
 /**
  * Cuántas revisiones vivas hay. Es el contador de la barra lateral y se pide cada
@@ -230,15 +284,17 @@ export async function listPersonDuplicateCandidates(
         SELECT q.id, q.priority, q.payload, q.notes, q.created_at::text AS created_at, q.person_a_id, q.person_b_id
           FROM ingest.review_queue q
          WHERE q.kind::text='person_duplicate' AND q.status IN ('open','in_progress')
-      )
+      ), ${CANDIDATE_CREDITS}
       SELECT c.id::text AS review_id, c.priority, (c.payload->>'score')::float8 AS score,
              COALESCE(c.payload->'features', '[]'::jsonb) AS features, c.notes, c.created_at,
              v.comparison, v.verdict AS web_verdict, v.rationale AS web_rationale, COALESCE(v.evidence, '[]'::jsonb) AS web_evidence,
-             c.person_a_id::text AS a_id, pa.name AS a_name, ${CREDIT_COUNT("person_a_id")} AS a_credits,
-             c.person_b_id::text AS b_id, pb.name AS b_name, ${CREDIT_COUNT("person_b_id")} AS b_credits
+             c.person_a_id::text AS a_id, pa.name AS a_name, COALESCE(ca.credits, 0) AS a_credits,
+             c.person_b_id::text AS b_id, pb.name AS b_name, COALESCE(cb.credits, 0) AS b_credits
         FROM candidate c
         JOIN public.persons pa ON pa.id=c.person_a_id
         JOIN public.persons pb ON pb.id=c.person_b_id
+        LEFT JOIN credit_counts ca ON ca.person_id=c.person_a_id
+        LEFT JOIN credit_counts cb ON cb.person_id=c.person_b_id
         LEFT JOIN LATERAL (
           SELECT verdict, rationale, evidence, comparison FROM ingest.person_web_verifications
            WHERE review_id=c.id OR (person_a_id=LEAST(c.person_a_id,c.person_b_id)

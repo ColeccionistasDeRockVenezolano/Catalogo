@@ -14,15 +14,19 @@ export interface ArtistChannelVideo {
 /** Vínculos por intérprete, protagonista, disco o pista; nunca coincidencias de nombres. */
 export async function artistChannelVideo(artistId: number, date = dailyDate()): Promise<ArtistChannelVideo | null> {
   const { rows } = await getPool().query<{ video_id: string; title: string | null }>(`
-    WITH candidates AS (
-      SELECT v.video_id, v.title FROM media.youtube_videos v
-      WHERE v.publication_status IN ('published','unlisted') AND v.channel_id = $2
-        AND (EXISTS (SELECT 1 FROM media.video_artists va WHERE va.video_id = v.id AND va.artist_id = $1 AND va.relation_kind IN ('performer', 'subject'))
-          OR EXISTS (SELECT 1 FROM media.video_albums va JOIN ingest.catalog_albums al ON al.id = va.album_id
-                     WHERE va.video_id = v.id AND al.artist_id = $1)
-          OR EXISTS (SELECT 1 FROM media.video_tracks vt JOIN ingest.catalog_tracks t ON t.id = vt.track_id
-                     JOIN ingest.catalog_albums al ON al.id = t.album_id WHERE vt.video_id = v.id AND al.artist_id = $1))
-    ) SELECT * FROM candidates ORDER BY video_id`, [artistId, CRV_CHANNEL_ID]);
+    -- Parte de los discos del artista, no de todos los videos del canal: con los
+    -- EXISTS por video PostgreSQL recorría las 160.000 pistas (~190 ms por ficha).
+    WITH albums AS MATERIALIZED (SELECT id FROM ingest.catalog_albums WHERE artist_id = $1),
+    linked AS (
+      SELECT va.video_id FROM media.video_artists va
+       WHERE va.artist_id = $1 AND va.relation_kind IN ('performer', 'subject')
+      UNION SELECT va.video_id FROM media.video_albums va WHERE va.album_id IN (SELECT id FROM albums)
+      UNION SELECT vt.video_id FROM media.video_tracks vt JOIN ingest.catalog_tracks t ON t.id = vt.track_id
+       WHERE t.album_id IN (SELECT id FROM albums)
+    )
+    SELECT v.video_id, v.title FROM media.youtube_videos v JOIN linked l ON l.video_id = v.id
+     WHERE v.publication_status IN ('published','unlisted') AND v.channel_id = $2
+     ORDER BY v.video_id`, [artistId, CRV_CHANNEL_ID]);
   const allowed = await shownCrvVideoIds(rows.map(row => row.video_id));
   const candidates = rows.filter(row => allowed.has(row.video_id));
   if (!candidates.length) return null;

@@ -566,6 +566,8 @@ export const changesApi = {
   list: (params: Paged & { entity?: ChangeEntityKind; id?: number; journaled?: boolean } = {}) =>
     request<Page<ChangeSummary>>("/changes", { query: params }),
   get: (runId: number) => request<ChangeDetail>(`/changes/${runId}`),
+  /** Sin la vista previa de deshacer: para títulos de avisos. */
+  summary: (runId: number) => request<ChangeSummary>(`/changes/${runId}/summary`),
   undo: (runId: number, note: string) =>
     request<ChangeUndoResult>(`/changes/${runId}/undo`, { method: "POST", body: { note }, authenticated: true }),
 };
@@ -940,6 +942,9 @@ export const discoveryApi = {
   event: (body: { id: string; client: string; kind: "impression" | "acceptance" | "search" | "visit"; token: string; visibleMs?: number }) =>
     request<{ status: string; receipt?: string }>("/discovery/metrics/events", { method: "POST", body }),
   suggestions: (signal: AbortSignal, date?: string) => request<import("./discovery").DiscoveryResponse>("/discovery/search-suggestions", { signal, query: { date } }),
+  /** Muestra diaria del servidor para los ejemplos de un buscador por tipo: una sola petición. */
+  searchExamples: (scope: "artist" | "person" | "album" | "organization", signal: AbortSignal, date?: string) =>
+    request<{ dailyCycle: import("../../../src/shared/daily-cycle").DailyCycle; examples: { id: number; label: string }[] }>("/discovery/search-examples", { signal, query: { scope, date } }),
 };
 
 // Enlaces editables: incluye perfiles pendientes; solo los administradores los consultan.

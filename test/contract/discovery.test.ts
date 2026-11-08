@@ -61,6 +61,21 @@ describe("descubrimiento editorial: contrato, curaduría, migración e integrida
    expect((await list()).suggestions.map((s: {id:number}) => s.id)).toEqual([id]);
    expect((await app.inject("/discovery/search-suggestions")).headers["cache-control"]).toBe("no-store");
  });
+ it("ejemplos por tipo: una muestra diaria estable, sin signos sueltos y con el ciclo del servidor", async () => {
+   const p = getPool();
+   await p.query("INSERT INTO public.persons(name) SELECT 'Persona QA '||g FROM generate_series(1,30) g");
+   await p.query("INSERT INTO public.persons(name) VALUES ('?'),('12')");
+   const get = async (query: string) => app.inject(`/discovery/search-examples?${query}`);
+   const first = await get("scope=person");
+   expect(first.statusCode).toBe(200);
+   expect(first.headers["cache-control"]).toBe("public, max-age=600");
+   const body = first.json() as { dailyCycle: { date: string }; examples: { id: number; label: string }[] };
+   expect(body.examples).toHaveLength(24);
+   expect(body.examples.every(row => row.label.startsWith("Persona QA"))).toBe(true);
+   expect((await get(`scope=person&date=${body.dailyCycle.date}`)).json().examples).toEqual(body.examples);
+   expect((await get("scope=artist")).json().examples.map((row: {label:string}) => row.label)).toContain("Artista QA");
+   expect((await get("scope=nada")).statusCode).toBe(400);
+ });
  it("rechaza evidencia ajena, IDs ausentes, aliases duplicados y ventanas inválidas", async () => {
    const wrong = batch(); wrong.artists[0]!.artistId=other; wrong.artists[0]!.expectedName="Duplicado QA";
    expect((await importDiscoveryBatch(wrong)).result.conflicts.length).toBeGreaterThan(0);

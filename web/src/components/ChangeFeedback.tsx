@@ -119,7 +119,7 @@ function useSessionChanges(enabled: boolean): SessionChanges {
 
   const describe = useCallback((runId: number) => {
     // El detalle solo enriquece el aviso: si falta o llega incompleto, el aviso queda como está.
-    changesApi.get(runId).then((detail: ChangeSummary) => {
+    changesApi.summary(runId).then((detail: ChangeSummary) => {
       if (!Array.isArray(detail?.entities)) return;
       const first = detail.entities[0];
       update((prev) => prev.map((item) => item.runId !== runId ? item : {

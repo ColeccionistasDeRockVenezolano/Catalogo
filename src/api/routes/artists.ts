@@ -17,6 +17,7 @@ import { notFoundEntity } from "../repositories/redirects.js";
 import { layaDecidedIds } from "../../genres/public.js";
 import { varyOnCookie } from "./albums.js";
 import { AUDIOVISUAL_KINDS } from "../../youtube/audiovisual-rules.js";
+import { sharedCatalogRead } from "../shared-catalog-read.js";
 
 const artistBaseSchema = z.object({
   id: z.number().int(),
@@ -143,7 +144,11 @@ export async function registerArtistRoutes(app: FastifyInstance): Promise<void> 
       response: { 200: paginatedResponseSchema(artistListItemSchema) },
     },
   }, async (request, reply) => {
-    const { rows, total } = await listArtists(request.query);
+    // Sin sesión ya responde la caché de rutas; con sesión se comparte el listado
+    // y solo se calcula aparte la marca de Laya.
+    const { rows, total } = request.viewer
+      ? await sharedCatalogRead(`artists:${JSON.stringify(request.query)}`, 600_000, () => listArtists(request.query))
+      : await listArtists(request.query);
     varyOnCookie(reply);
     if (!request.viewer) return toPage(rows, total, request.query);
     // Con sesión la respuesta lleva datos de trabajo: nunca a una caché compartida.

@@ -18,6 +18,7 @@ import { getPool } from "../../db/client.js";
 import { layaDecidedIds } from "../../genres/public.js";
 import { albumDiscographySchema } from "./discography.js";
 import { parseCategorySelection } from "../../shared/category-selection.js";
+import { sharedCatalogRead } from "../shared-catalog-read.js";
 
 const albumListItemSchema = z.object({
   id: z.number().int(),
@@ -252,7 +253,11 @@ export async function registerAlbumRoutes(app: FastifyInstance): Promise<void> {
       response: { 200: paginatedResponseSchema(albumListItemSchema) },
     },
   }, async (request, reply) => {
-    const { rows, total } = await listAlbums(request.query);
+    // Sin sesión ya responde la caché de rutas; con sesión se comparte el listado
+    // y solo se calcula aparte la marca de Laya.
+    const { rows, total } = request.viewer
+      ? await sharedCatalogRead(`albums:${JSON.stringify(request.query)}`, 600_000, () => listAlbums(request.query))
+      : await listAlbums(request.query);
     varyOnCookie(reply);
     if (!request.viewer) return toPage(rows, total, request.query);
     // Con sesión la respuesta lleva datos de trabajo: nunca a una caché compartida.

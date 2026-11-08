@@ -5,6 +5,7 @@ import { dailyDate } from "../shared/daily-cycle.js";
 import { publishCatalogRevision, readCatalogRevision } from "../storage/catalog-cache-revision.js";
 import { invalidateSearchIndex } from "./search-index.js";
 import { clearSearchResults } from "./repositories/search.js";
+import { clearSharedCatalogReads } from "./shared-catalog-read.js";
 
 export function registerCatalogCache(app: FastifyInstance): void {
   const cache = new ReadCache<unknown>();
@@ -18,6 +19,7 @@ export function registerCatalogCache(app: FastifyInstance): void {
     revision = current;
     generation++;
     cache.clear();
+    clearSharedCatalogReads();
     clearSearchResults();
     invalidateSearchIndex();
   }
@@ -80,7 +82,7 @@ export function registerCatalogCache(app: FastifyInstance): void {
     const path = request.url.split("?")[0]!;
     if (!isCatalogWrite(request.method, path) || reply.statusCode >= 400) return payload;
     try { await publishCatalogRevision(); await synchronize(); }
-    catch (error) { cache.clear(); app.log.error({ err: error }, "no se pudo publicar la invalidación de caché"); }
+    catch (error) { cache.clear(); clearSharedCatalogReads(); app.log.error({ err: error }, "no se pudo publicar la invalidación de caché"); }
     return payload;
   });
 }

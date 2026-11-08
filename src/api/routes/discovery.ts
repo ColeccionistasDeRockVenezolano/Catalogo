@@ -8,6 +8,8 @@ import { trendPrototype, trendPrototypeSchema } from "../../discovery/trends.js"
 import { createWindowLimiter } from "../rate-limit.js";
 import { ApiError } from "../http-errors.js";
 import { dailyCycleSchema, dailyDateSchema } from "../daily-cycle.js";
+import { dailyCycleAt } from "../../shared/daily-cycle.js";
+import { SEARCH_EXAMPLE_SCOPES, searchExamples } from "../repositories/search-examples.js";
 export async function registerDiscoveryRoutes(app: FastifyInstance): Promise<void> {
   const perIp = createWindowLimiter({ max: 120, windowMs: 60_000, maxKeys: 2000 });
   const total = createWindowLimiter({ max: 10000, windowMs: 60_000, maxKeys: 1 });
@@ -27,6 +29,19 @@ export async function registerDiscoveryRoutes(app: FastifyInstance): Promise<voi
     const selection = JSON.stringify(data.suggestions.map(s => [s.id,s.name,s.group,s.priority]));
     return { ...data, metrics: { enabled, visibleMs: 1000, attributionMs: 900000 },
       suggestions: data.suggestions.map(s => ({ ...s, ...(enabled ? { metricTicket: suggestionTicket(s.id, s.group, s.priority, selection) } : {}) })) };
+  });
+  // Ejemplos rotativos de los buscadores por tipo: una consulta por tipo y día,
+  // en vez de los 9 listados con offset profundo que pedía cada carga de página.
+  app.withTypeProvider<ZodTypeProvider>().get("/discovery/search-examples", {
+    schema: { tags: ["search"], summary: "Ejemplos diarios del buscador de un tipo",
+      querystring: z.object({ scope: z.enum(SEARCH_EXAMPLE_SCOPES), date: dailyDateSchema.optional() }),
+      response: { 200: z.object({ dailyCycle: dailyCycleSchema,
+        examples: z.array(z.object({ id: z.number(), label: z.string() })) }) } },
+  }, async (request, reply) => {
+    // El servidor manda la hora: una fecha ajena al ciclo actual se ignora.
+    const dailyCycle = dailyCycleAt();
+    reply.header("Cache-Control", "public, max-age=600");
+    return { dailyCycle, examples: await searchExamples(request.query.scope, dailyCycle.date) };
   });
   app.withTypeProvider<ZodTypeProvider>().post("/discovery/metrics/events", {
     bodyLimit: 4096,

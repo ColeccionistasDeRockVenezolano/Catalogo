@@ -261,14 +261,17 @@ function bridgeQuery(id: number, creditTypes: string[]) {
               JOIN ingest.catalog_tracks t ON t.id = tc.track_id
               JOIN ingest.catalog_albums al ON al.id = t.album_id AND al.artist_id <> $1
              WHERE NOT EXISTS (SELECT 1 FROM public.artist_members x WHERE x.artist_id = al.artist_id AND x.person_id = mm.person_id)),
+          -- Alcance de cada puente en una sola agregación: la versión correlacionada
+          -- recontaba las vistas por persona (~240 ms por ficha y por regla).
+          bridge_people AS MATERIALIZED (SELECT DISTINCT person_id FROM bridges),
           reach AS (
-            SELECT b.person_id, (
-              SELECT count(DISTINCT r.artist_id) FROM (
-                SELECT artist_id FROM public.artist_members WHERE person_id = b.person_id
-                UNION SELECT al.artist_id FROM public.album_credits ac JOIN ingest.catalog_albums al ON al.id = ac.album_id WHERE ac.person_id = b.person_id
-                UNION SELECT al.artist_id FROM public.track_credits tc JOIN ingest.catalog_tracks t ON t.id = tc.track_id
-                        JOIN ingest.catalog_albums al ON al.id = t.album_id WHERE tc.person_id = b.person_id) r) AS artists
-              FROM (SELECT DISTINCT person_id FROM bridges) b)
+            SELECT r.person_id, count(DISTINCT r.artist_id) AS artists FROM (
+              SELECT am.person_id, am.artist_id FROM public.artist_members am WHERE am.person_id IN (SELECT person_id FROM bridge_people)
+              UNION ALL SELECT ac.person_id, al.artist_id FROM public.album_credits ac JOIN ingest.catalog_albums al ON al.id = ac.album_id
+               WHERE ac.person_id IN (SELECT person_id FROM bridge_people)
+              UNION ALL SELECT tc.person_id, al.artist_id FROM public.track_credits tc JOIN public.tracks t ON t.id = tc.track_id
+                JOIN ingest.catalog_albums al ON al.id = t.album_id WHERE tc.person_id IN (SELECT person_id FROM bridge_people)) r
+             GROUP BY r.person_id)
      SELECT o.id::text AS id, o.name, o.picture_url, o.origin_country,
             count(DISTINCT b.album_id)::int AS albums,
             (array_agg(jsonb_build_object('person', p.name, 'album', b.title) ORDER BY b.title, p.name))[1:${MAX_EVIDENCE}] AS bridges
@@ -321,11 +324,20 @@ const SIMILAR_TIERS: SimilarTier[] = [
     with: `comps AS (
              SELECT al.id, al.title FROM ingest.catalog_albums al JOIN ingest.catalog_artists aa ON aa.id = al.artist_id
               WHERE al.album_type::text = 'compilation' OR NOT (${notVariousSql("aa.name")})),
+           -- Solo las recopilaciones donde participa este artista: antes se cruzaban
+           -- los participantes de todas las del catálogo en cada ficha.
+           my_comps AS MATERIALIZED (
+             SELECT cp.id FROM comps cp JOIN ingest.catalog_albums al ON al.id = cp.id WHERE al.artist_id = $1
+             UNION SELECT cp.id FROM comps cp JOIN public.album_credits ac ON ac.album_id = cp.id WHERE ac.artist_id = $1
+             UNION SELECT cp.id FROM comps cp JOIN public.tracks t ON t.album_id = cp.id
+                     JOIN public.track_credits tc ON tc.track_id = t.id WHERE tc.artist_id = $1),
            participants AS (
              SELECT cp.id AS album_id, cp.title, al.artist_id FROM comps cp JOIN ingest.catalog_albums al ON al.id = cp.id
-             UNION SELECT cp.id, cp.title, ac.artist_id FROM comps cp JOIN public.album_credits ac ON ac.album_id = cp.id WHERE ac.artist_id IS NOT NULL
-             UNION SELECT cp.id, cp.title, tc.artist_id FROM comps cp JOIN ingest.catalog_tracks t ON t.album_id = cp.id
-                     JOIN public.track_credits tc ON tc.track_id = t.id WHERE tc.artist_id IS NOT NULL),
+              WHERE cp.id IN (SELECT id FROM my_comps)
+             UNION SELECT cp.id, cp.title, ac.artist_id FROM comps cp JOIN public.album_credits ac ON ac.album_id = cp.id
+              WHERE ac.artist_id IS NOT NULL AND cp.id IN (SELECT id FROM my_comps)
+             UNION SELECT cp.id, cp.title, tc.artist_id FROM comps cp JOIN public.tracks t ON t.album_id = cp.id
+                     JOIN public.track_credits tc ON tc.track_id = t.id WHERE tc.artist_id IS NOT NULL AND cp.id IN (SELECT id FROM my_comps)),
            hits AS (
              SELECT o.artist_id, o.album_id, o.title FROM participants me JOIN participants o ON o.album_id = me.album_id
               WHERE me.artist_id = $1 AND o.artist_id <> $1)`,
@@ -336,14 +348,23 @@ const SIMILAR_TIERS: SimilarTier[] = [
   {
     // S4 · el mismo productor (persona) en discos de los dos, salvo los que producen a medio catálogo.
     rule: "same_producer", applies: () => true,
-    with: `produced AS (
+    // Parte de los productores de este artista; antes se agregaban todos los
+    // créditos de producción del catálogo y se recontaban por persona.
+    with: `candidates AS MATERIALIZED (
+             SELECT ac.person_id FROM public.album_credits ac JOIN ingest.catalog_albums al ON al.id = ac.album_id
+              WHERE al.artist_id = $1 AND ac.person_id IS NOT NULL AND ac.credit_type::text = 'producer'
+             UNION SELECT tc.person_id FROM public.track_credits tc JOIN public.tracks t ON t.id = tc.track_id
+                     JOIN ingest.catalog_albums al ON al.id = t.album_id
+              WHERE al.artist_id = $1 AND tc.person_id IS NOT NULL AND tc.credit_type::text = 'producer'),
+           produced AS (
              SELECT ac.person_id, al.artist_id FROM public.album_credits ac JOIN ingest.catalog_albums al ON al.id = ac.album_id
-              WHERE ac.person_id IS NOT NULL AND ac.credit_type::text = 'producer'
-             UNION SELECT tc.person_id, al.artist_id FROM public.track_credits tc JOIN ingest.catalog_tracks t ON t.id = tc.track_id
-                     JOIN ingest.catalog_albums al ON al.id = t.album_id WHERE tc.person_id IS NOT NULL AND tc.credit_type::text = 'producer'),
+              WHERE ac.person_id IN (SELECT person_id FROM candidates) AND ac.credit_type::text = 'producer'
+             UNION SELECT tc.person_id, al.artist_id FROM public.track_credits tc JOIN public.tracks t ON t.id = tc.track_id
+                     JOIN ingest.catalog_albums al ON al.id = t.album_id
+              WHERE tc.person_id IN (SELECT person_id FROM candidates) AND tc.credit_type::text = 'producer'),
            my_producers AS (
-             SELECT pr.person_id FROM produced pr WHERE pr.artist_id = $1
-                AND (SELECT count(DISTINCT x.artist_id) FROM produced x WHERE x.person_id = pr.person_id) <= ${HUB_LIMIT}),
+             SELECT person_id FROM produced GROUP BY person_id
+             HAVING bool_or(artist_id = $1) AND count(DISTINCT artist_id) <= ${HUB_LIMIT}),
            hits AS (
              SELECT DISTINCT pr.artist_id, p.name FROM produced pr JOIN my_producers mp ON mp.person_id = pr.person_id
                JOIN public.persons p ON p.id = pr.person_id WHERE pr.artist_id <> $1)`,

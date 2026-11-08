@@ -11,6 +11,7 @@ import { resetEnvCache } from "../../src/config/env.js";
 import { migrateUp } from "../../src/db/migrate.js";
 import { buildApp } from "../../src/api/app.js";
 import { refreshSearchIndex } from "../../src/api/search-index.js";
+import { listPersons } from "../../src/api/repositories/persons.js";
 import { createEntity, withOperatorRun } from "../../src/merge/operator.js";
 
 describe("búsqueda sin tildes y filtros de personas (E11.9)", () => {
@@ -140,6 +141,32 @@ describe("búsqueda sin tildes y filtros de personas (E11.9)", () => {
     expect(suspect.json()).toMatchObject({ data: [], pagination: { total: 0 } });
     const empty = await app.inject("/persons?role=mastering");
     expect(empty.json()).toMatchObject({ data: [], pagination: { total: 0 } });
+  });
+
+  it("comparte solicitudes simultáneas y vuelve a leer después de una escritura", async () => {
+    const query = { limit: 50, offset: 0, role: "producer" };
+    const first = listPersons(query);
+    const concurrent = listPersons({ ...query });
+    expect(concurrent).toBe(first);
+    expect((await first).rows.map(row => row.id)).toEqual([joseId]);
+    await getPool().query("UPDATE public.persons SET nationality='VE' WHERE id=$1", [joseId]);
+    const next = listPersons(query);
+    expect(next).not.toBe(first);
+    expect((await next).rows[0]?.nationality).toBe("VE");
+  });
+
+  it("cancela lecturas bloqueadas y recupera conexiones sin dejar el timeout en el pool", async () => {
+    const locker = await getPool().connect();
+    await locker.query("BEGIN");
+    await locker.query("LOCK TABLE public.persons IN ACCESS EXCLUSIVE MODE");
+    try {
+      await expect(listPersons({ limit: 1, offset: 0 })).rejects.toMatchObject({ code: "57014" });
+    } finally {
+      await locker.query("ROLLBACK");
+      locker.release();
+    }
+    expect((await listPersons({ limit: 1, offset: 0 })).rows).toHaveLength(1);
+    expect((await getPool().query("SHOW statement_timeout")).rows[0].statement_timeout).toBe("0");
   });
 
   it("valida el rol solicitado", async () => {

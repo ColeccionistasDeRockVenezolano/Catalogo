@@ -1,5 +1,7 @@
 // CRV · Entrypoint HTTP (npm run api). ARCHITECTURE.md §4.14: API en
 // 127.0.0.1:8080 por defecto, configurable por PORT/HOST.
+// Primero: fija los límites del pool antes de que cualquier módulo lea el entorno.
+import "./db-defaults.js";
 import { assertSupportedNode } from "../config/runtime.js";
 import { getEnv } from "../config/env.js";
 import { assertDeploymentGuards, assertProductionDatabase } from "../config/deployment.js";

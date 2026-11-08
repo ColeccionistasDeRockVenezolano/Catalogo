@@ -44,17 +44,26 @@ describe("caché del catálogo público", () => {
     expect((await app.inject("/catalog/cache-version")).headers["cache-control"]).toBe("no-store");
   });
 
-  it("no guarda errores ni comparte fichas autenticadas", async () => {
+  it("no guarda errores ni comparte listados autenticados con datos de trabajo", async () => {
     let calls = 0;
-    app.get("/persons/:id", async request => {
+    app.get("/artists", async request => {
       calls++;
       if (calls === 1) throw new Error("temporal");
       return { private: !!request.headers.authorization, calls };
     });
-    expect((await app.inject("/persons/1")).statusCode).toBe(500);
-    expect((await app.inject("/persons/1")).json()).toEqual({ private: false, calls: 2 });
-    expect((await app.inject({ url: "/persons/1", headers: { authorization: "Bearer example" } })).json().private).toBe(true);
-    expect((await app.inject("/persons/1")).json()).toEqual({ private: false, calls: 2 });
+    expect((await app.inject("/artists")).statusCode).toBe(500);
+    expect((await app.inject("/artists")).json()).toEqual({ private: false, calls: 2 });
+    expect((await app.inject({ url: "/artists", headers: { authorization: "Bearer example" } })).json().private).toBe(true);
+    expect((await app.inject("/artists")).json()).toEqual({ private: false, calls: 2 });
+  });
+
+  it("comparte con sesión las fichas que no cambian según quién mira", async () => {
+    let calls = 0;
+    app.get("/persons/:id", async () => ({ calls: ++calls }));
+    expect((await app.inject("/persons/1")).json()).toEqual({ calls: 1 });
+    const authenticated = await app.inject({ url: "/persons/1", headers: { authorization: "Bearer example" } });
+    expect(authenticated.json()).toEqual({ calls: 1 });
+    expect(authenticated.headers["x-crv-cache"]).toBe("HIT");
   });
 
   it.each(['artists', 'albums'])('vuelve a comprobar los videos CRV en cada lectura de %s', async kind => {

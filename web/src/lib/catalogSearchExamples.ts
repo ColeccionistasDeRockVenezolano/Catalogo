@@ -1,5 +1,5 @@
-import { albumsApi, artistsApi, organizationsApi, personsApi } from "./api";
-import type { GenreFacet, GenreFacets, Page } from "./types";
+import { discoveryApi } from "./api";
+import type { GenreFacet, GenreFacets } from "./types";
 import { dailyRandom } from "../../../src/shared/daily-cycle";
 
 export type CatalogSearchScope = "catalog" | "artist" | "person" | "album" | "organization";
@@ -20,36 +20,14 @@ export function randomSample<T>(items: T[], limit = items.length, random = Math.
   return shuffled.slice(0, limit);
 }
 
-async function randomRows<T>(fetch: (params: { limit: number; offset?: number }, signal: AbortSignal) => Promise<Page<T>>, signal: AbortSignal, random: () => number): Promise<T[]> {
-  const limit = 8;
-  const first = await fetch({ limit }, signal);
-  const total = first.pagination.total;
-  if (total <= limit) return first.data;
-
-  // Seleccionar posiciones independientes de TODO el catálogo, sin reemplazo.
-  // Una página contigua concentra nombres con la misma inicial aunque se mezcle.
-  const offsets = new Set<number>();
-  for (let index = total - limit; index < total; index++) {
-    const candidate = Math.floor(random() * (index + 1));
-    offsets.add(offsets.has(candidate) ? index : candidate);
-  }
-  const rows = await Promise.all([...offsets].map(async offset => {
-    if (offset < first.data.length) return [first.data[offset]];
-    return (await fetch({ limit: 1, offset }, signal)).data;
-  }));
-  return rows.flat();
-}
-
 /** Una muestra pequeña del catálogo; los ejemplos nunca ejecutan una búsqueda. */
 export async function loadSearchExamples(scope: CatalogSearchScope, signal: AbortSignal, date: string, random = dailyRandom(date, `search:${scope}`)): Promise<CatalogSearchExample[]> {
   if (scope === "catalog") return []; // El principal usa exclusivamente /discovery/search-suggestions.
-  const types = (["artist", "person", "album", "organization"] as const).filter(type => type === scope);
-  const groups = await Promise.all(types.map(async (type): Promise<CatalogSearchExample[]> => {
-    if (type === "artist") return (await randomRows(artistsApi.list, signal, random)).map(row => ({ key: `artist-${row.id}`, label: row.name, category: "Artista" }));
-    if (type === "person") return (await randomRows(personsApi.list, signal, random)).map(row => ({ key: `person-${row.id}`, label: row.name, category: "Persona" }));
-    if (type === "organization") return (await randomRows(organizationsApi.list, signal, random)).map(row => ({ key: `organization-${row.id}`, label: row.name, category: "Organización" }));
-    return (await randomRows(albumsApi.list, signal, random)).map(row => ({ key: `album-${row.id}`, label: row.title, category: "Disco" }));
-  }));
+  // Una sola petición: el servidor elige la muestra del día y la comparte entre visitas.
+  // Antes se pedían 9 listados con offsets profundos por carga (incidente 2026-11-08).
+  const category = ({ artist: "Artista", person: "Persona", album: "Disco", organization: "Organización" } as const)[scope];
+  const { examples } = await discoveryApi.searchExamples(scope, signal, date);
+  const groups = [examples.map((row): CatalogSearchExample => ({ key: `${scope}-${row.id}`, label: row.label, category }))];
   // Evita ejemplos de un solo signo sin inventar nombres ni alterar el catálogo.
   return groups.flatMap(group => {
     const names = new Set<string>();

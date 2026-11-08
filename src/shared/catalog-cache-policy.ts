@@ -15,7 +15,10 @@ export function catalogCacheTtl(path: string): number {
 /** Estas respuestas son idénticas para visitantes y cuentas con sesión. */
 export function isCommonCatalogRead(path: string): boolean {
   return ["/home", "/ephemerides", "/catalog/overview", "/genres/facets", "/sitemap-ids"].includes(path)
-    || /^\/(artists|albums|persons|organizations)\/facets$/u.test(path);
+    || /^\/(artists|albums|persons|organizations)\/facets$/u.test(path)
+    // Personas, organizaciones, lugares y series no añaden datos de trabajo con sesión.
+    || /^\/(persons|organizations)(\/\d+)?$/u.test(path)
+    || /^\/(places|series)\/\d+$/u.test(path);
 }
 
 export function isCatalogWrite(method: string, path: string): boolean {
