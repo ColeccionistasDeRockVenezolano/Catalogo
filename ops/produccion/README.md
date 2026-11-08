@@ -574,3 +574,29 @@ Script: plain `fetch` de Node, sin instalar nada. Tiempos en ms.
   staging vuelve a medir como producción.
 - Al terminar: procesos del ensayo detenidos y `crv-postgres-staging` con `--cpus 8`
   (toda la máquina; `docker update --cpus 0` no quita el límite).
+
+### Conteos del listado y pendientes · 2026-11-08 (08:00)
+
+- **Personas** (`7bf63c11` / release `32fa194e`): el listado por nombre y la búsqueda
+  ya no expanden los ~157.000 créditos y membresías de las ~34.000 personas en cada
+  página: se pagina sobre `persons` y se cuentan solo las 24 de la página
+  (464 → 105 ms; en producción 77–95 ms). Con filtro por créditos/rol u orden por
+  créditos, una sola expansión con `count(*) OVER ()` en vez de dos consultas.
+  Salida idéntica en 18 combinaciones. Se descartó una foto en memoria por revisión
+  porque rompe el contrato de Codex (una escritura directa se ve en la lectura
+  siguiente; `test/contract/api-persons-filters.test.ts`); una tabla de conteos
+  precalculada exigiría disparadores en el core (`public.*`), que solo Brian aprueba.
+- **Discos** (`1c3881ff` / `ba235865`): el total del listado se guarda por filtros y
+  revisión del catálogo (130 ms menos en cada página después de la primera).
+- `crv-api` reiniciado con ambos (sin errores).
+- **`crv-api-landing`**: el oyente de `error` del pool quedó escrito en
+  `/mnt/datos/crv-release/security-20261104/src/db/client.ts` (copia previa en
+  `client.ts.antes-pool-20261108`; ese árbol corre con cambios sin commit). **Falta
+  reiniciarlo**: `systemctl --user restart crv-api-landing` (el reinicio no estaba
+  en la autorización de esta noche).
+- `web/public/landing/rockola.css` restituido y `web/scripts/build-rockola.mjs`
+  corregido (`4f365672`).
+- Fallo previo, no tocado: `test/contract/person-artist-resolution.test.ts` falla 6
+  de 9 también en el árbol principal (respaldo documental insuficiente en
+  `src/curation/ai/evidence.ts`, «Hay varios artistas compatibles»). Es lógica
+  editorial de la IA de curaduría: decidir qué evidencia basta es de Brian.
