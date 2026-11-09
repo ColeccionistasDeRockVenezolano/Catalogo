@@ -235,7 +235,11 @@ void catalogKey;
 function humanAnswers(g: QueryGold, seg: Segmentation) {
   const conds = new Set([...g.req, ...g.exc, ...g.pref, ...g.any.flat()]);
   const lexical = seg.spans.filter(s => ["concept", "genre", "ambiguous", "facet"].includes(s.kind) && s.candidates.length);
-  const residuals = seg.spans.filter(s => s.kind === "residual");
+  // Un resto que es (parte de) un nombre etiquetado es un nombre, no una condición ni un pendiente (1.6.0).
+  const literals = g.ent.filter(e => e.role === "target").map(e => normalizeLiteral(e.literal));
+  const isName = (s: { text: string }) => { const t = normalizeLiteral(s.text); return t.length > 1 && literals.some(l => l === t || ` ${l} `.includes(` ${t} `)); };
+  const names = new Set(seg.spans.filter(s => s.kind === "residual" && isName(s)).map(s => s.id));
+  const residuals = seg.spans.filter(s => s.kind === "residual" && !names.has(s.id));
   const covered = new Set(lexical.flatMap(s => s.candidates.filter(c => conds.has(c))));
   const uncovered = [...conds].filter(c => !covered.has(c) && !c.startsWith("similarity:") && !c.startsWith("decade:"));
   const describable = ["query_valid", "partial"].includes(g.status);
@@ -249,6 +253,7 @@ function humanAnswers(g: QueryGold, seg: Segmentation) {
   } else if (describable && residuals.length === 1 && uncovered.length === 0 && pendingLeft > 0)
     residualAnswer = pendingLeft === g.pending && g.facet ? { dim: "technical_facet", concept: g.facet } : { dim: "unsupported", concept: null };
   else if (["unrecognized", "unsupported"].includes(g.status) && g.pending === 0 && !g.ent.length) residualAnswer = "filler";
+  else if (g.status === "entity_lookup" && g.pending === 0) residualAnswer = "filler";
   return (key: string, family: string, spanId: string | null, options: string[]): string | null => {
     const pick = (x: string | null) => (x !== null && options.includes(x) ? x : null);
     if (family === "genre_description") {
@@ -265,6 +270,7 @@ function humanAnswers(g: QueryGold, seg: Segmentation) {
       const hits = span.candidates.filter(c => conds.has(c) || c === g.facet);
       return hits.length === 1 ? pick(hits[0]!) : hits.length === 0 && g.pending === 0 ? NOT_REQUESTED : null;
     }
+    if (names.has(span.id)) return family === "dim" ? pick("catalog_name") : null;
     if (residualAnswer === null) return null;
     const ans = residualAnswer === "filler" ? { dim: "filler", concept: null } : residualAnswer;
     if (family === "dim") return pick(ans.dim);

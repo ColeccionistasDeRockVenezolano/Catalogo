@@ -50,7 +50,9 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
     const kinds = [...new Set(matches.map(x => x.kind))];
     // Una referencia de parecido apunta al artista cuando el catálogo lo tiene como tal.
     // Sin señal de clase, un nombre suelto o de referencia apunta al artista cuando el catálogo lo tiene.
-    const kind = hint ?? (kinds.length === 1 ? kinds[0]! : kinds.includes("artist") ? "artist" : null);
+    let kind = hint ?? (kinds.length === 1 ? kinds[0]! : kinds.includes("artist") ? "artist" : null);
+    // La referencia de un parecido es el artista, también cuando el catálogo solo tiene a la persona.
+    if (role === "reference" && kind === "person") kind = "artist";
     const same = matches.filter(x => !kind || x.kind === kind);
     entities.push({ role, kind, literal: normalizeLiteral(literal) });
     intentionEntities.push({ role, kind: (kind ?? "artist") as SearchIntention["entities"][number]["kind"], id: same.length === 1 ? same[0]!.id : null, name: literal,
@@ -110,7 +112,9 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
     // Lo negado nunca es relleno: descartarlo perdería una exclusión pedida.
     if (d === "filler" && p >= (span.cue === "activity" ? Math.max(thr.filler, thr.fillerAfterCue) : thr.filler) && span.mode !== "excluded" && !span.negated) { t.outcome = "ignored"; ignoredFiller++; return; }
     if (d === "filler") { pending.push({ text: span.text, reason: span.mode === "excluded" ? "excluded_restriction_not_representable" : "residual_low_confidence" }); t.outcome = "pending"; return; }
-    if (d === "catalog_name") { pending.push({ text: span.text, reason: "unresolved_name" }); t.outcome = "pending"; return; }
+    // Un nombre fuera del catálogo («peso pluma», «Abolitino») se busca por nombre: en el tráfico real
+    // los nombres son la búsqueda más frecuente (1.6.0, partición de entrenamiento humana).
+    if (d === "catalog_name") { addEntity("target", null, span.text, []); t.outcome = "entity"; return; }
     if (d === "unsupported") { pending.push({ text: span.text, reason: "unsupported_restriction" }); t.outcome = "pending"; return; }
     if (d === "technical_facet") {
       const [f, fp] = top(answers[`pick:${span.id}:facet`]);

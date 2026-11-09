@@ -142,6 +142,14 @@ describe("interpretación de consultas (etapa 3)", () => {
     expect(interpret("asdkjh qwe").canonical.status).toBe("unrecognized");
     expect(interpret("rap para correr").canonical.req).toEqual(["activity:running", "genre:hip-hop"]);
   });
+  it("un dueño fuera del catálogo es búsqueda por nombre; un tema tras «de» no (1.6.0)", () => {
+    expect(interpret("canciones de los ecos").canonical).toMatchObject({ status: "entity_lookup", ent: [{ role: "target", kind: "artist", literal: "los ecos" }] });
+    expect(interpret("canciones de desamor y ruptura").canonical.ent).toEqual([]);
+    expect(interpret("musica de dormir").canonical.req).toEqual(["activity:sleep"]);
+  });
+  it("«música venezolana» dicha tal cual es el género (1.6.0)", () => {
+    expect(interpret("musica venezolana violin").canonical).toMatchObject({ status: "partial", req: ["genre:musica-venezolana"], pending: 1 });
+  });
   it("una contradicción no se ejecuta", () => {
     expect(interpret("algo alegre pero sin alegría").canonical.status).toBe("contradiction");
   });

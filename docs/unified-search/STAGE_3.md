@@ -537,7 +537,58 @@ Con datos sintéticos de un solo redactor (DeepSeek) y etiquetas de un solo auto
 
 **Contaminación declarada.** Mientras ajustaba el filtro de ruido, Claude vio muestras aleatorias de lotes de ensayo y 40 textos de entrenamiento del lote final. Solo cambió el filtro, no el intérprete. No había etiquetas.
 
-**Estado.** El lote está listo y la API sirve la sección. Falta:
-1. desplegar la web (`npm run deploy`);
-2. que Brian etiquete las 300 consultas;
-3. después: exportar, corregir y entrenar con las 180, y ejecutar una sola vez sobre las 120.
+**Etiquetado (2026-11-09).** Decisión de Brian: «Quiero que te encargues del etiquetado y que seas tú mismo quien los procese, te autorizo. Los que no entiendas usa AskUserQuestion». Claude etiquetó las 300 con el labeler `claude-opus-5-5 (autorizado por Brian, 2026-11-09)`. Brian sigue teniendo su etiqueta de RL0010.
+- **Dudas que resolvió Brian:**
+  - la procedencia («rock venezolano», «death metal peruano») queda pendiente;
+  - «X que es», «X rym» y «grupos de X» buscan el género;
+  - «música venezolana» dicha tal cual es el género;
+  - dibujos para colorear, «ebm que nota es» (el acorde), «black metal muffin» y «corrio para que» son no reconocidas.
+- **Seis «no sé»:** RL0002, RL0041, RL0063, RL0069, RL0179 y RL0285.
+- **Exportación:** 116 de prueba y 178 de entrenamiento.
+- **Corrección de convención, antes de ejecutar nada sobre la prueba.** El evaluador congelado cuenta como crítico (`title_as_concept`) toda condición en un `entity_lookup`. Por eso las 22 consultas «nombre + condición» («zane musica oscura») pasaron a `query_valid` con el nombre como destino. Huella final de la prueba: `b979a668…`.
+- **Huella en los criterios:** se rellenó el campo `sha256` de la prueba en `criteria-1.6.0.json`, que estaba vacío por diseño. Los umbrales no cambian.
+- **Independencia:** la prueba no es independiente del autor del sistema, porque la etiquetó quien desarrolla el intérprete.
+
+**Desarrollo**, solo con las 178 de entrenamiento: 136 para ajustar y 42 apartadas por huella del identificador. Se usaron además las pruebas gastadas 1.0.0–6.0.0.
+- Con el modelo 0.9.0 sin cambios, las 178 de entrenamiento dan 0,343. Las búsquedas por nombre fallan en 55 de 56: un nombre fuera del catálogo («peso pluma», «Abolitino») quedaba pendiente.
+- **Léxico 0.7.0:** «música venezolana» se añade como alias del género (estaba en `GENRE_ALIAS_DENY`).
+- **Segmentador:** tras «canciones de», «música de» y similares, un nombre fuera del catálogo que llega hasta el final de la consulta es un dueño. Quedan fuera los sustantivos temáticos, las cifras, las procedencias y las frases del léxico («canciones de los ecos» sí; «canciones de desamor» y «música de dormir» no).
+- **Compilador:**
+  - un resto que Laya llama `catalog_name` se busca por nombre, ya no queda pendiente;
+  - la referencia de un parecido es el artista aunque el catálogo solo tenga a la persona.
+- **`tasks-human`:** un resto que forma parte de un nombre etiquetado se enseña como `catalog_name`.
+- **`crv-query-heads-0.10.0`** (compose-0.7.0 más las 136 humanas repetidas diez veces):
+  - validación 0,956;
+  - en las 42 apartadas da 0,429, frente a 0,452 de 0.9.0 con las reglas nuevas;
+  - empeora las pruebas gastadas (6.0.0: de 0,732 a 0,673).
+  - Se descartó y se eligió 0.9.0 antes de ejecutar sobre la prueba.
+
+**Ejecución reservada** (una sola, 2026-11-09): `crv-query-heads-0.9.0` con reglas 1.6.0 y léxico 0.7.0, sobre 116 consultas.
+
+| Criterio | Valor | Umbral | Cumple |
+| --- | --- | --- | --- |
+| Exactitud del plan | 0,534 | ≥ 0,85 | no |
+| Exactitud adversarial | 0,439 | ≥ 0,80 | no |
+| Errores críticos | 0,095 | ≤ 0,02 | no |
+| Pendientes conservados | 0,745 | ≥ 0,95 | no |
+| Sobreabstención | 0,196 | ≤ 0,10 | no |
+| Sobreconfianza | 0,259 | ≤ 0,05 | no |
+| F1 de condiciones | 0,883 | ≥ 0,90 | no |
+| Obligatorios, tráfico real, latencia (245 ms), ECE (0,050), margen sobre reglas heredadas (+0,37) | — | — | sí |
+| Críticos no peores que reglas sin modelo | 0,095 frente a 0,060 | — | no |
+
+- **Comparación de exactitud:** reglas heredadas 0,164; reglas sin modelo 0,500; Laya base 0,319; 0.9.0 0,534.
+- **Por categoría:** parcial 20/31, simple 23/40, nombre 5/27, sin soporte 12/12, no reconocida 1/4.
+- **Resultado:** no cumple y no se activa. Resultado en `results/query_interpretation--crv-query-heads-0.9.0--1.6.0.json`.
+
+**Diagnóstico.** En tráfico real, la mitad de los errores son de identidad, no de interpretación:
+- un nombre que el catálogo no tiene («sweet 74», «4tor», «musica zombie»);
+- ruido que parece un género («cold wave paragraph», «glitch que series tiene», «salsa para yuca frita»).
+
+Ni el léxico ni Laya pueden decidirlos sin saber qué existe fuera del catálogo. Entrenar con 136 consultas etiquetadas no mejoró las apartadas.
+
+Seis versiones evaluadas, ninguna llega a 0,85. La interpretación de consultas queda sin activar y la etapa 3 se cierra con solo la extracción de afirmaciones activada (`crv-evidence-heads-0.3.0`). Una versión siguiente necesita una decisión de Brian, por ejemplo:
+- resolver nombres contra una fuente externa (Spotify, MusicBrainz) antes de interpretar;
+- tratar el ruido no musical como filtro aparte.
+
+Datos de trabajo en `tmp-analysis/unified-search-stage3-v16`.

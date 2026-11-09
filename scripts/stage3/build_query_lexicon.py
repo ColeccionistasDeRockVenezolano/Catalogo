@@ -157,7 +157,7 @@ famosa famosas famoso famosos popular populares desconocida desconocidas descono
 
 # Alias de género demasiado genéricos o rotos en el registro para proponer un fragmento.
 GENRE_ALIAS_DENY = {"wave", "tracker", "sequencer", "jerk", "tread", "vapor", "mashup", "big music", "no melody",
-                    "batida", "weightless", "drumless", "musica venezolana", "venezolana",
+                    "batida", "weightless", "drumless", "venezolana",
                     "musica", "latin", "pop rap", "rumba"}
 
 # Expresiones ambiguas del diccionario 0.1.0 (ambiguousExpressions) y de la matriz
@@ -383,7 +383,7 @@ def main(genres_path: str) -> None:
             c[k] = [a for a in c[k] if not (a in EXPANDED and a in genre_names)]
     sources = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (VOCAB, GENRE_MAP)}
     sources["genres-db-export"] = hashlib.sha256(Path(genres_path).read_bytes()).hexdigest()
-    body = {"version": "crv-query-lexicon-0.6.0", "builtBy": "scripts/stage3/build_query_lexicon.py", "vocabularyVersion": vocab["version"],
+    body = {"version": "crv-query-lexicon-0.7.0", "builtBy": "scripts/stage3/build_query_lexicon.py", "vocabularyVersion": vocab["version"],
             "genreMapVersion": json.loads(GENRE_MAP.read_text())["version"], "sources": sources,
             "policy": "Candidatos léxicos para proponer fragmentos; no deciden, no asignan atributos ni crean géneros o conceptos.",
             "concepts": concepts, "facets": facets, "genres": genres,

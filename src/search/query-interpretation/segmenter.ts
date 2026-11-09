@@ -147,13 +147,32 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     const n = phraseAt(i, ownerCues);
     if (!n) continue;
     const after = wordsAt(i, n).at(-1)! + 1;
-    const found = longestCatalog(after, 8, ["artist", "person"]);
+    const found = longestCatalog(after, 8, ["artist", "person"]) ?? unresolvedOwner(i, after);
     if (!found) continue;
     // «temas de bossa nova», «música de sexo»: un concepto en minúsculas no es un dueño.
     if (isLexiconPhrase(found.part) && found.part.every(j => tokens[j]!.orig === tokens[j]!.orig.toLowerCase())) continue;
     markUsed(i, n); for (const j of found.part) tokens[j]!.used = true;
     spans.push({ id: nextId(), kind: "entity", text: origOf(found.part), start: i, end: found.part.at(-1)!, candidates: [], cue: "none", mode: "required", group: null,
       entity: { role: "target", kindHint: "artist", literal: origOf(found.part), matches: found.matches, quoted: false } });
+  }
+
+  /** «canciones de los ecos», «música de peso pluma»: un dueño fuera del catálogo (1.6.0, consultas reales).
+   * Solo cuando el nombre llega al final de la consulta y nada en él es del léxico, una cifra o una procedencia. */
+  function unresolvedOwner(cueAt: number, after: number): { part: number[]; matches: CatalogMatch[] } | null {
+    // «música de cámara», «música de dormir»: la señal forma parte de una frase del léxico.
+    // «canciones de desamor», «música de ensueño»: un sustantivo temático tras «de» tampoco es un dueño.
+    if (longestPhrase(cueAt, false) || longestPhrase(after - 1, false) || longestPhrase(after - 1, true)) return null;
+    const idx = wordsAt(after, 8);
+    if (!idx.length || idx.at(-1)! !== tokens.length - 1 || idx.some(j => tokens[j]!.used)) return null;
+    const stop = new Set(["de", "del", "para", "pa", "con", "en", "sin", "que", "o", "cuando", "como", "mix", "playlist"]);
+    const origins = new Set((m.origins ?? []).map(normalizeQueryText));
+    for (const [q, j] of idx.entries()) {
+      const t = tokens[j]!;
+      if (stop.has(t.norm) || /\d/u.test(t.norm) || origins.has(t.norm) || longestPhrase(j, false) || longestPhrase(j, true)) return null;
+      if (lexicon.fillers.has(t.norm) && !(q === 0 && ["los", "las", "el", "la"].includes(t.norm)) && t.norm !== "y") return null;
+    }
+    if (idx.every(j => lexicon.fillers.has(tokens[j]!.norm))) return null;
+    return { part: idx, matches: [] };
   }
 
   // 3. Parecido: «parecido a X [en las guitarras] [pero más triste]».

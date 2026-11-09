@@ -1,5 +1,5 @@
 {
- "version": "crv-query-lexicon-0.6.0",
+ "version": "crv-query-lexicon-0.7.0",
  "builtBy": "scripts/stage3/build_query_lexicon.py",
  "vocabularyVersion": "crv-human-intents-0.3.0-reviewed",
  "genreMapVersion": "crv-genre-knowledge-0.17.0",
@@ -11736,7 +11736,8 @@
     "folclor venezolano",
     "folklore venezolana",
     "folklore venezolano",
-    "musica criolla"
+    "musica criolla",
+    "musica venezolana"
    ]
   },
   {
@@ -15823,5 +15824,10 @@
    "finos",
    "finas"
   ]
+ },
+ "derivedFrom": {
+  "version": "crv-query-lexicon-0.6.0",
+  "sha256": "010e4135672eb7b06a704b2b525410d108c115e62e0c6cb19743d605786cbf65",
+  "change": "1.6.0 (Brian, 2026-11-09): «música venezolana» dicha tal cual es el género Música venezolana; «venezolano/a» suelto sigue siendo procedencia pendiente."
  }
 }
