@@ -1,0 +1,2749 @@
+{
+ "version": "crv-query-real-human-test-1.0.0",
+ "batch": {
+  "path": "docs/unified-search/stage3/datasets/query-real-labeling-1.json",
+  "version": "crv-query-real-labeling-1.0.0",
+  "sha256": "bbbd4683dab11169ed88d2dc28f61cf3006a46ced42356d78e6ed2514b20c6a0"
+ },
+ "labeler": "claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+ "exportedAt": "2026-11-09",
+ "excluded": {
+  "skipped": 6,
+  "unlabeled": 0,
+  "stale": 0
+ },
+ "policy": "Prueba de la versión 1.6.0: no se usa para reglas, léxico, umbrales ni entrenamiento.",
+ "cases": [
+  {
+   "id": "RL0001",
+   "category": "partial",
+   "text": "musica venezolana sinfonica",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:musica-venezolana"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«sinfónica» (orquesta) pendiente"
+  },
+  {
+   "id": "RL0007",
+   "category": "plain",
+   "text": "jazz rap rym",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:jazz-rap"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«rym» relleno (Brian)"
+  },
+  {
+   "id": "RL0009",
+   "category": "partial",
+   "text": "musica para bailar tubo",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:dancing"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«tubo» (tipo de baile) pendiente"
+  },
+  {
+   "id": "RL0012",
+   "category": "entity",
+   "text": "musica como no creer en dios",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "track",
+      "role": "target",
+      "literal": "como no creer en dios"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0014",
+   "category": "entity",
+   "text": "Dannyt",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": null,
+      "role": "target",
+      "literal": "dannyt"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "search_miss",
+   "author": "Consulta real (search_miss) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0021",
+   "category": "plain",
+   "text": "salsa para olvidar un amor",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:salsa",
+     "theme:breakup"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0023",
+   "category": "plain",
+   "text": "melodic metal.website",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:melodic-metal"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«.website» ruido"
+  },
+  {
+   "id": "RL0026",
+   "category": "partial",
+   "text": "musica relajante sonidos mar",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:relaxation"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "sonidos del mar pendiente"
+  },
+  {
+   "id": "RL0027",
+   "category": "partial",
+   "text": "bandas de viking metal",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:metal"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "viking metal: subgénero fuera de la lista → padre + pendiente"
+  },
+  {
+   "id": "RL0030",
+   "category": "plain",
+   "text": "jazz funk house",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:house",
+     "genre:jazz-funk"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0031",
+   "category": "plain",
+   "text": "deathrock que es",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:deathrock"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0034",
+   "category": "plain",
+   "text": "oi que es",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:oi"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0035",
+   "category": "plain",
+   "text": "musica para tener sexo",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:intimacy"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "search_miss",
+   "author": "Consulta real (search_miss) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0039",
+   "category": "plain",
+   "text": "power pop que es",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:power-pop"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0045",
+   "category": "partial",
+   "text": "joropo nacionalista venezolano",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:joropo",
+     "genre:nacionalismo-musical"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "procedencia pendiente"
+  },
+  {
+   "id": "RL0048",
+   "category": "plain",
+   "text": "algo para un cumpleaños",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:celebration"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0051",
+   "category": "entity",
+   "text": "música tipo uma ideia",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": null,
+      "role": "reference",
+      "literal": "uma ideia"
+     }
+    ],
+    "exc": [],
+    "req": [
+     "similarity:overall"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0053",
+   "category": "unsupported",
+   "text": "musica para amanecer en la playa",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "amanecer en la playa pendiente"
+  },
+  {
+   "id": "RL0057",
+   "category": "partial",
+   "text": "punk en venezuela",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:punk"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "procedencia pendiente"
+  },
+  {
+   "id": "RL0058",
+   "category": "clarify",
+   "text": "musica suave en frances",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [
+     "emotion:serene",
+     "energy:energy-low"
+    ],
+    "pref": [],
+    "facet": null,
+    "status": "clarify",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«suave» ambiguo; idioma pendiente"
+  },
+  {
+   "id": "RL0059",
+   "category": "plain",
+   "text": "post black metal que es",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:post-black-metal"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0060",
+   "category": "plain",
+   "text": "bandas sonoras para llorar",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:catharsis",
+     "genre:bandas-sonoras"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0061",
+   "category": "unrecognized",
+   "text": "la musica como influye en las personas",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unrecognized",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "no es una búsqueda de música"
+  },
+  {
+   "id": "RL0064",
+   "category": "plain",
+   "text": "jazz funk que es",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:jazz-funk"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0065",
+   "category": "plain",
+   "text": "neopsicodelia rym",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:neo-psicodelia"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0068",
+   "category": "partial",
+   "text": "musica relajante zulu",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:relaxation"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "procedencia (zulú) pendiente"
+  },
+  {
+   "id": "RL0070",
+   "category": "plain",
+   "text": "canciones de feliz cumpleaños",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:celebration"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0071",
+   "category": "plain",
+   "text": "musica clasica pesada y oscura",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "atmosphere:dark",
+     "energy:energy-high",
+     "genre:musica-clasica"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«pesada» en clásica = energía alta"
+  },
+  {
+   "id": "RL0073",
+   "category": "partial",
+   "text": "blackened thrash metal",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:thrash-metal"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "blackened pendiente"
+  },
+  {
+   "id": "RL0075",
+   "category": "partial",
+   "text": "boom bap rapido",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:boom-bap"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "tempo pendiente"
+  },
+  {
+   "id": "RL0078",
+   "category": "plain",
+   "text": "musica para cuando te gusta alguien",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "theme:love"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0079",
+   "category": "entity",
+   "text": "musica nueva velito el bufon",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "velito el bufon"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«nueva» pendiente"
+  },
+  {
+   "id": "RL0089",
+   "category": "entity",
+   "text": "big band queen",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "queen"
+     }
+    ],
+    "exc": [],
+    "req": [
+     "genre:big-band"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0091",
+   "category": "unsupported",
+   "text": "musica vieja guardia",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«vieja guardia» (época) pendiente"
+  },
+  {
+   "id": "RL0095",
+   "category": "partial",
+   "text": "musica rapida trap",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:trap"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "tempo pendiente"
+  },
+  {
+   "id": "RL0098",
+   "category": "plain",
+   "text": "easy listening for beginners",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:easy-listening"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0099",
+   "category": "entity",
+   "text": "canciones tristes de led zeppelin",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "led zeppelin"
+     }
+    ],
+    "exc": [],
+    "req": [
+     "emotion:sad"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0100",
+   "category": "entity",
+   "text": "VenezuelaDeo",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": null,
+      "role": "target",
+      "literal": "venezueladeo"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "search_miss",
+   "author": "Consulta real (search_miss) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0101",
+   "category": "entity",
+   "text": "canciones parecidas a interstellar",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": null,
+      "role": "reference",
+      "literal": "interstellar"
+     }
+    ],
+    "exc": [],
+    "req": [
+     "similarity:overall"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0103",
+   "category": "partial",
+   "text": "canciones para llorar en español",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:catharsis"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "idioma pendiente"
+  },
+  {
+   "id": "RL0107",
+   "category": "partial",
+   "text": "musica xamanica alegre",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "emotion:joyful"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "chamánica pendiente"
+  },
+  {
+   "id": "RL0108",
+   "category": "plain",
+   "text": "musica alegre de los 90",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "decade:1990s",
+     "emotion:joyful"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0109",
+   "category": "plain",
+   "text": "pop rock artistas",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:pop-rock"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0111",
+   "category": "unsupported",
+   "text": "musica sin epicenter",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "sin efecto epicenter (producción) pendiente"
+  },
+  {
+   "id": "RL0112",
+   "category": "entity",
+   "text": "canciones de los wow wow",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "los wow wow"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0113",
+   "category": "entity",
+   "text": "musica epica willyrex",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "willyrex"
+     }
+    ],
+    "exc": [],
+    "req": [
+     "atmosphere:epic"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0116",
+   "category": "plain",
+   "text": "old school death metal album",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:death-metal-old-school"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0117",
+   "category": "entity",
+   "text": "canciones tristes de wisin y yandel",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "wisin y yandel"
+     }
+    ],
+    "exc": [],
+    "req": [
+     "emotion:sad"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0118",
+   "category": "unsupported",
+   "text": "canciones para dedicar q mi novio",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "dedicar a mi novio"
+  },
+  {
+   "id": "RL0120",
+   "category": "entity",
+   "text": "Chucknorria",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": null,
+      "role": "target",
+      "literal": "chucknorria"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "search_miss",
+   "author": "Consulta real (search_miss) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0125",
+   "category": "plain",
+   "text": "canciones para cuando alguien se va al cielo",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "theme:death"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0126",
+   "category": "plain",
+   "text": "canciones alegres navideñas para niños",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "emotion:joyful",
+     "genre:musica-infantil",
+     "genre:musica-navidena"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0130",
+   "category": "unsupported",
+   "text": "musica para escuchar variada en ingles",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 2
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«variada» e idioma pendientes"
+  },
+  {
+   "id": "RL0140",
+   "category": "unsupported",
+   "text": "música para william",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«para william» (dedicatoria) pendiente"
+  },
+  {
+   "id": "RL0141",
+   "category": "unsupported",
+   "text": "musica vieja chida",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«vieja» pendiente; «chida» relleno"
+  },
+  {
+   "id": "RL0143",
+   "category": "partial",
+   "text": "musica navideña para hacer hallacas",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:musica-navidena"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "cocinar hallacas pendiente"
+  },
+  {
+   "id": "RL0144",
+   "category": "unrecognized",
+   "text": "musica con notas musicales",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unrecognized",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "no es una búsqueda de música"
+  },
+  {
+   "id": "RL0151",
+   "category": "unsupported",
+   "text": "canciones de brasil",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "procedencia pendiente"
+  },
+  {
+   "id": "RL0156",
+   "category": "unrecognized",
+   "text": "gaban pajaro venezolano",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unrecognized",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "ave, no música"
+  },
+  {
+   "id": "RL0159",
+   "category": "plain",
+   "text": "que musica escuchar para correr",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:running"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0163",
+   "category": "partial",
+   "text": "acid jazz en español",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:acid-jazz"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "idioma pendiente"
+  },
+  {
+   "id": "RL0165",
+   "category": "unsupported",
+   "text": "musica wixarika",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "procedencia (wixárika) pendiente"
+  },
+  {
+   "id": "RL0171",
+   "category": "partial",
+   "text": "bandas sonoras mexicanas",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:bandas-sonoras"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "procedencia pendiente"
+  },
+  {
+   "id": "RL0172",
+   "category": "plain",
+   "text": "musica romantica zumba",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:exercise",
+     "emotion:romantic"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0173",
+   "category": "plain",
+   "text": "algo para relajarse",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:relaxation"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0178",
+   "category": "entity",
+   "text": "Kechu y",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": null,
+      "role": "target",
+      "literal": "kechu y"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "search_miss",
+   "author": "Consulta real (search_miss) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0180",
+   "category": "unsupported",
+   "text": "canciones para dedicar la llegada de un bebe",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "dedicar la llegada de un bebé"
+  },
+  {
+   "id": "RL0181",
+   "category": "plain",
+   "text": "musica suave leer",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:concentration",
+     "energy:energy-low"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0183",
+   "category": "partial",
+   "text": "canciones alegres en español para trabajar",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:concentration",
+     "emotion:joyful"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "idioma pendiente"
+  },
+  {
+   "id": "RL0186",
+   "category": "entity",
+   "text": "ater vitae",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": null,
+      "role": "target",
+      "literal": "ater vitae"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "search_miss",
+   "author": "Consulta real (search_miss) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0187",
+   "category": "partial",
+   "text": "musica de camara para guitarra",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:musica-de-camara"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "instrumento pendiente"
+  },
+  {
+   "id": "RL0192",
+   "category": "partial",
+   "text": "musica lenta años 70",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "decade:1970s"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "tempo pendiente"
+  },
+  {
+   "id": "RL0193",
+   "category": "partial",
+   "text": "musica venezolana saturada",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:musica-venezolana"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«saturada» pendiente"
+  },
+  {
+   "id": "RL0196",
+   "category": "entity",
+   "text": "musica triste hello darkness my old friend",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "track",
+      "role": "target",
+      "literal": "hello darkness my old friend"
+     }
+    ],
+    "exc": [],
+    "req": [
+     "emotion:sad"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0197",
+   "category": "plain",
+   "text": "canciones para cuando estás haciendo tarea",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:concentration"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0198",
+   "category": "entity",
+   "text": "pop rock queen baltimora",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "queen"
+     },
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "baltimora"
+     }
+    ],
+    "exc": [],
+    "req": [
+     "genre:pop-rock"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0200",
+   "category": "partial",
+   "text": "música tradicional venezolana",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:musica-tradicional"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "procedencia pendiente"
+  },
+  {
+   "id": "RL0206",
+   "category": "plain",
+   "text": "rock para viajar 4",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:travel",
+     "genre:rock"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0210",
+   "category": "entity",
+   "text": "musica de up",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": null,
+      "role": "target",
+      "literal": "up"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0211",
+   "category": "partial",
+   "text": "folk metal celta",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:folk-metal"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "celta pendiente"
+  },
+  {
+   "id": "RL0215",
+   "category": "plain",
+   "text": "beat para rap",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:hip-hop",
+     "genre:instrumental"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "beat = pista instrumental"
+  },
+  {
+   "id": "RL0219",
+   "category": "plain",
+   "text": "gaita que vaina tan buena",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:gaita"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«que vaina tan buena» refuerza"
+  },
+  {
+   "id": "RL0222",
+   "category": "entity",
+   "text": "canciones de uriel henao",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "uriel henao"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0224",
+   "category": "entity",
+   "text": "musica nueva del kimiko",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "kimiko"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«nueva» pendiente"
+  },
+  {
+   "id": "RL0225",
+   "category": "partial",
+   "text": "rock para tomar whisky",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:rock"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "tomar whisky pendiente"
+  },
+  {
+   "id": "RL0226",
+   "category": "unrecognized",
+   "text": "black metal muffin",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unrecognized",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "Brian: no reconocida"
+  },
+  {
+   "id": "RL0230",
+   "category": "plain",
+   "text": "death metal técnico bandas",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:death-metal-tecnico"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0233",
+   "category": "plain",
+   "text": "art pop arte",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:art-pop"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0234",
+   "category": "plain",
+   "text": "canciones para cuando quieres volver con tu ex",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "theme:breakup"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0235",
+   "category": "plain",
+   "text": "algo para aprender",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:concentration"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0236",
+   "category": "partial",
+   "text": "cantautor venezolano de música llanera",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:cantautor",
+     "genre:joropo"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "música llanera = joropo; procedencia pendiente"
+  },
+  {
+   "id": "RL0238",
+   "category": "plain",
+   "text": "metal industrial pesado",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:metal-industrial"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«pesado» refuerza"
+  },
+  {
+   "id": "RL0242",
+   "category": "partial",
+   "text": "musica tensa lenta",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "emotion:tense"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "tempo pendiente"
+  },
+  {
+   "id": "RL0244",
+   "category": "plain",
+   "text": "dark ambient music para dormir",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:sleep",
+     "genre:dark-ambient"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0249",
+   "category": "entity",
+   "text": "musica rapida eminem",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "eminem"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "tempo pendiente"
+  },
+  {
+   "id": "RL0255",
+   "category": "contradiction",
+   "text": "música sin música",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "contradiction",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0256",
+   "category": "plain",
+   "text": "musica de dormir",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:sleep"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0257",
+   "category": "partial",
+   "text": "canciones alegres ukulele",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "emotion:joyful"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "ukulele pendiente"
+  },
+  {
+   "id": "RL0260",
+   "category": "partial",
+   "text": "musica gotica oscura instrumental",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "atmosphere:dark",
+     "genre:instrumental"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "«gótica» pendiente"
+  },
+  {
+   "id": "RL0263",
+   "category": "entity",
+   "text": "bambuco hay que sacar el diablo",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "track",
+      "role": "target",
+      "literal": "hay que sacar el diablo"
+     }
+    ],
+    "exc": [],
+    "req": [
+     "genre:bambuco"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0264",
+   "category": "partial",
+   "text": "musica para bailar judios",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:dancing"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "judía pendiente"
+  },
+  {
+   "id": "RL0267",
+   "category": "partial",
+   "text": "música épica que dure 1 hora",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "atmosphere:epic"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "duración pendiente"
+  },
+  {
+   "id": "RL0269",
+   "category": "entity",
+   "text": "Guerrulla",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": null,
+      "role": "target",
+      "literal": "guerrulla"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "search_miss",
+   "author": "Consulta real (search_miss) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0274",
+   "category": "entity",
+   "text": "Venezuela demo",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": null,
+      "role": "target",
+      "literal": "venezuela demo"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "search_miss",
+   "author": "Consulta real (search_miss) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0275",
+   "category": "plain",
+   "text": "musica triste rap",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "emotion:sad",
+     "genre:hip-hop"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0278",
+   "category": "unsupported",
+   "text": "grupos de cantantes venezolanos",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "procedencia pendiente"
+  },
+  {
+   "id": "RL0280",
+   "category": "partial",
+   "text": "musica relajante handpan",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:relaxation"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "handpan pendiente"
+  },
+  {
+   "id": "RL0281",
+   "category": "entity",
+   "text": "canciones de los kipus",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "target",
+      "literal": "los kipus"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0282",
+   "category": "entity",
+   "text": "merengue que levante la mano",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "track",
+      "role": "target",
+      "literal": "que levante la mano"
+     }
+    ],
+    "exc": [],
+    "req": [
+     "genre:merengue"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0288",
+   "category": "unsupported",
+   "text": "playlist para mixear en spotify",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "unsupported",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "para mezclar como DJ"
+  },
+  {
+   "id": "RL0293",
+   "category": "partial",
+   "text": "bolero venezolano dulce",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "emotion:romantic",
+     "genre:bolero"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "procedencia pendiente"
+  },
+  {
+   "id": "RL0294",
+   "category": "partial",
+   "text": "death metal sinfónico",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:death-metal"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "partial",
+    "pending": 1
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)",
+   "note": "sinfónico pendiente"
+  },
+  {
+   "id": "RL0295",
+   "category": "entity",
+   "text": "beat quevedo type",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": "artist",
+      "role": "reference",
+      "literal": "quevedo"
+     }
+    ],
+    "exc": [],
+    "req": [
+     "genre:instrumental",
+     "similarity:overall"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0296",
+   "category": "entity",
+   "text": "Abolitiona",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [
+     {
+      "kind": null,
+      "role": "target",
+      "literal": "abolitiona"
+     }
+    ],
+    "exc": [],
+    "req": [],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "entity_lookup",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "search_miss",
+   "author": "Consulta real (search_miss) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0297",
+   "category": "plain",
+   "text": "música para yoga en casa",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "activity:meditation"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  },
+  {
+   "id": "RL0299",
+   "category": "plain",
+   "text": "metal mix instrumental",
+   "gold": {
+    "any": [],
+    "ctx": 0,
+    "ent": [],
+    "exc": [],
+    "req": [
+     "genre:metal-instrumental"
+    ],
+    "alts": [],
+    "pref": [],
+    "facet": null,
+    "status": "query_valid",
+    "pending": 0
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (autorizado por Brian, 2026-11-09)"
+  }
+ ]
+}
