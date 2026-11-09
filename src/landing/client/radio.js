@@ -1420,8 +1420,8 @@
     if (artist) parts.push(artist);
     if (item.album) parts.push(item.album);
     var line = parts.join(' - ');
-    // El año va aparte, tras un punto medio: «Artista - Álbum • 2004».
-    if (item.year) line = line ? line + ' \u2022 ' + item.year : String(item.year);
+    // El año va aparte, tras un punto medio: «Artista - Álbum ∙ 2004».
+    if (item.year) line = line ? line + ' \u2219 ' + item.year : String(item.year);
     return line;
   }
 

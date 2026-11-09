@@ -632,15 +632,15 @@ Script: plain `fetch` de Node, sin instalar nada. Tiempos en ms.
   autofix/fixes/incremental, apariencia, fechas DATE, buscador etapa 1) fallan
   igual en `0345bd97`, sin estos cambios.
 
-## Crédito de la tarjeta: año tras punto medio · 2026-11-09
+## Crédito de la tarjeta: año tras viñeta ∙ · 2026-11-09
 
 La línea pequeña de la radio pasa de «Artista - Álbum - 2004» a
-«Artista - Álbum • 2004» (sin álbum ni artista: «Álbum • Año» o solo el año).
+«Artista - Álbum ∙ 2004» (sin álbum ni artista: «Álbum ∙ Año» o solo el año).
 
-API: `/mnt/datos/crv-release/credito-ano-api-20261109`, copia de
+API: `/mnt/datos/crv-release/credito-ano-api-20261109b`, copia de
 `radio-colores-api-20261106` con `src/shared/radio/credits.ts`
 (`trackCredits`) y `src/landing/render.ts` (`radioClientVersion`
-`crv-2026-11-09a`). Gateway: `/mnt/datos/crv-release/credito-ano-web-20261109`
+`crv-2026-11-09b`). Gateway: `/mnt/datos/crv-release/credito-ano-web-20261109b`
 con `radio.js` recompilado en `public/landing` y `dist/landing` (`itemLine`,
 que también arma el aviso de sustitución por veto regional). Drop-in
 `zzzzzzzzzzzzzzzz-credito-ano.conf` (16 zetas) en `crv-api-landing` y
@@ -651,7 +651,7 @@ El `radio.js` publicado sale del código del último commit más este cambio:
 `web/server.mjs`, que siguen sin release.
 
 Verificado: `/health` 200 en `:8083`; en `127.0.0.1:3140` y en el dominio,
-`data-radio-artist` sale «DespuésDeVieja - Rompecabezas • 2004» y
+`data-radio-artist` sale «DespuésDeVieja - Rompecabezas ∙ 2004» y
 `radio.js` contiene el separador nuevo. `roadmap-es.html` y `roadmap-en.html`
 conservan un ejemplo fijo con el formato antiguo hasta regenerarse.
 
