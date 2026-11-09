@@ -776,7 +776,7 @@
     "alts": [],
     "pref": [],
     "facet": null,
-    "status": "entity_lookup",
+    "status": "query_valid",
     "pending": 0
    },
    "split": "test_real_human",
@@ -870,7 +870,7 @@
     "alts": [],
     "pref": [],
     "facet": null,
-    "status": "entity_lookup",
+    "status": "query_valid",
     "pending": 0
    },
    "split": "test_real_human",
@@ -1090,7 +1090,7 @@
     "alts": [],
     "pref": [],
     "facet": null,
-    "status": "entity_lookup",
+    "status": "query_valid",
     "pending": 0
    },
    "split": "test_real_human",
@@ -1140,7 +1140,7 @@
     "alts": [],
     "pref": [],
     "facet": null,
-    "status": "entity_lookup",
+    "status": "query_valid",
     "pending": 0
    },
    "split": "test_real_human",
@@ -1733,7 +1733,7 @@
     "alts": [],
     "pref": [],
     "facet": null,
-    "status": "entity_lookup",
+    "status": "query_valid",
     "pending": 0
    },
    "split": "test_real_human",
@@ -1788,7 +1788,7 @@
     "alts": [],
     "pref": [],
     "facet": null,
-    "status": "entity_lookup",
+    "status": "query_valid",
     "pending": 0
    },
    "split": "test_real_human",
@@ -2352,7 +2352,7 @@
     "alts": [],
     "pref": [],
     "facet": null,
-    "status": "entity_lookup",
+    "status": "query_valid",
     "pending": 0
    },
    "split": "test_real_human",
@@ -2571,7 +2571,7 @@
     "alts": [],
     "pref": [],
     "facet": null,
-    "status": "entity_lookup",
+    "status": "query_valid",
     "pending": 0
    },
    "split": "test_real_human",
