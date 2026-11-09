@@ -65,9 +65,12 @@ export function trackLine(track: Track | null | undefined): string {
   return [artist, title].filter(Boolean).join(" - ");
 }
 
-/** Línea pequeña: artista - álbum - año, sin el artista de recopilatorio. */
+/** Línea pequeña: artista - álbum • año, sin el artista de recopilatorio. */
 export function trackCredits(track: Track | null | undefined): string {
   if (!track) return "";
   const artist = trackDisplay(track).artist;
-  return [artist, (track.album ?? "").trim(), track.year ? String(track.year) : ""].filter(Boolean).join(" - ");
+  const line = [artist, (track.album ?? "").trim()].filter(Boolean).join(" - ");
+  const year = track.year ? String(track.year) : "";
+  // El año va aparte, tras un punto medio: «Artista - Álbum • 2004».
+  return year ? (line ? `${line} • ${year}` : year) : line;
 }

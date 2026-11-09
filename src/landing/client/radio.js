@@ -1419,8 +1419,10 @@
     var artist = trackDisplay(item).artist;
     if (artist) parts.push(artist);
     if (item.album) parts.push(item.album);
-    if (item.year) parts.push(String(item.year));
-    return parts.join(' - ');
+    var line = parts.join(' - ');
+    // El año va aparte, tras un punto medio: «Artista - Álbum • 2004».
+    if (item.year) line = line ? line + ' \u2022 ' + item.year : String(item.year);
+    return line;
   }
 
   function nextLine(item) {
