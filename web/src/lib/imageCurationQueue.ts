@@ -19,11 +19,18 @@ let connection = { loading: false, error: null as string | null };
 const POLL_FAILURES_BEFORE_NOTICE = 3;
 const POLL_RETRY_MS = 2000;
 const SEND_RETRY_DELAYS_MS = [1000, 3000, 8000];
-// Con muchas decisiones en cola, recargar todas las vistas por cada una satura la API.
-const DATA_CHANGE_DELAY_MS = 5000;
+// Con muchas decisiones en cola, recargar todas las vistas por cada una satura la API:
+// mientras la cola trabaja se avisa como mucho cada 15 s; al vaciarse, enseguida.
+const DATA_CHANGE_BUSY_MS = 15_000;
+const DATA_CHANGE_IDLE_MS = 1000;
 let dataChangeTimer: ReturnType<typeof setTimeout> | undefined;
+let dataChangeAt = 0;
 function announceDataChange() {
-  dataChangeTimer ??= setTimeout(() => { dataChangeTimer = undefined; window.dispatchEvent(new Event(CATALOG_DATA_CHANGED_EVENT)); }, DATA_CHANGE_DELAY_MS);
+  const due = Date.now() + (jobs.some(active) ? DATA_CHANGE_BUSY_MS : DATA_CHANGE_IDLE_MS);
+  if (dataChangeTimer && dataChangeAt <= due) return;
+  clearTimeout(dataChangeTimer);
+  dataChangeAt = due;
+  dataChangeTimer = setTimeout(() => { dataChangeTimer = undefined; window.dispatchEvent(new Event(CATALOG_DATA_CHANGED_EVENT)); }, due - Date.now());
 }
 let failedPolls = 0;
 const active = (job: ImageWork) => ["sending", "queued", "running"].includes(job.status);
@@ -47,6 +54,7 @@ function reconcile(server: ImageJob[]) {
   for (const job of server) tasks.delete(job.requestId);
   emit();
   let changed = false;
+  const drained = before.some(active) && !jobs.some(active);
   for (const job of server) {
     const previous = before.find(old => old.id === job.id || old.requestId === job.requestId);
     if (previous && (active(previous) || previous.id < 0) && ["done", "error"].includes(job.status)) {
@@ -54,7 +62,7 @@ function reconcile(server: ImageJob[]) {
       if (job.status === "done" && job.runId && job.type === "decision") window.dispatchEvent(new CustomEvent<CatalogChangeEvent>(CATALOG_CHANGE_EVENT, { detail: { runId: job.runId, method: "POST", path: `/curation/images/jobs/${job.id}` } }));
     } else if (!previous && job.status === "done") changed = true;
   }
-  if (changed) announceDataChange();
+  if (changed || drained) announceDataChange();
 }
 export async function refreshImageQueue(): Promise<void> {
   if (!enabled || !getSessionCsrf() || fetchingEpoch === epoch) return;

@@ -36,6 +36,8 @@ export interface Entry {
 
 const STORAGE_KEY = "crv:recent-changes";
 const MAX_ENTRIES = 20;
+/** Detalles de cambios por pedir como mucho; los más viejos se descartan. */
+const DESCRIBE_PENDING_MAX = 3;
 const UNDO_PATH = /^\/changes\/(\d+)\/undo$/u;
 
 function loadEntries(): Entry[] {
@@ -117,7 +119,7 @@ function useSessionChanges(enabled: boolean): SessionChanges {
     }
   }, [notify]);
 
-  const describe = useCallback((runId: number) => {
+  const describeOne = useCallback((runId: number): Promise<void> =>
     // El detalle solo enriquece el aviso: si falta o llega incompleto, el aviso queda como está.
     changesApi.summary(runId).then((detail: ChangeSummary) => {
       if (!Array.isArray(detail?.entities)) return;
@@ -128,8 +130,23 @@ function useSessionChanges(enabled: boolean): SessionChanges {
         entity: first ? { kind: first.kind, id: first.id, label: first.label ?? null, op: first.op } : null,
         more: Math.max(0, (detail.entityTotal ?? detail.entities.length) - 1),
       }));
-    }).catch(() => undefined);
-  }, [update]);
+    }).catch(() => undefined),
+  [update]);
+
+  // Una cola de imágenes termina decenas de runs seguidos: los detalles se piden
+  // de a uno, el más reciente primero, y los que se quedan atrás se descartan.
+  const describeQueue = useRef<number[]>([]);
+  const describing = useRef(false);
+  const describe = useCallback((runId: number) => {
+    describeQueue.current = [...describeQueue.current.filter((id) => id !== runId), runId].slice(-DESCRIBE_PENDING_MAX);
+    const next = () => {
+      const target = describing.current ? undefined : describeQueue.current.pop();
+      if (target === undefined) return;
+      describing.current = true;
+      void describeOne(target).finally(() => { describing.current = false; next(); });
+    };
+    next();
+  }, [describeOne]);
 
   // Las descripciones de los avisos se pintan desde la lista: así la ficha
   // aparece en cuanto llega el detalle, sin depender del orden de respuesta.

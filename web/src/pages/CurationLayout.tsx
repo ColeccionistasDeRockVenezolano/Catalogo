@@ -46,9 +46,11 @@ function useSummary(enabled: boolean): CurationOutletContext {
   const [summaryError, setSummaryError] = useState<string>();
   const [summaryFetchedAt, setSummaryFetchedAt] = useState<number>();
   const generation = useRef(0);
+  const inFlight = useRef(false);
 
   const refreshSummary = useCallback(async () => {
     const current = ++generation.current;
+    inFlight.current = true;
     try {
       const next = await curationApi.summary();
       if (current !== generation.current) return;
@@ -58,18 +60,23 @@ function useSummary(enabled: boolean): CurationOutletContext {
     } catch (error) {
       if (current !== generation.current) return;
       setSummaryError(error instanceof ApiError ? error.message : "No se pudo cargar el detector de conflictos.");
+    } finally {
+      if (current === generation.current) inFlight.current = false;
     }
   }, []);
+  // El reloj y el foco no piden otro resumen mientras el anterior no llega:
+  // con la API ocupada, encimarlos cada 3 s era lo que la terminaba de saturar.
+  const pollSummary = useCallback(() => {
+    if (document.visibilityState === "visible" && !inFlight.current) void refreshSummary();
+  }, [refreshSummary]);
 
   const running = summary?.running ?? false;
   useEffect(() => {
     if (!enabled) return undefined;
     void refreshSummary();
-    const timer = window.setInterval(() => {
-      if (document.visibilityState === "visible") void refreshSummary();
-    }, running ? REFRESH_RUNNING_MS : REFRESH_MS);
+    const timer = window.setInterval(pollSummary, running ? REFRESH_RUNNING_MS : REFRESH_MS);
     return () => window.clearInterval(timer);
-  }, [enabled, running, refreshSummary]);
+  }, [enabled, running, refreshSummary, pollSummary]);
 
   // PESTAÑA DORMIDA. El reloj de arriba no refresca mientras la pestaña está
   // oculta, y el navegador además congela sus temporizadores: una pestaña
@@ -78,14 +85,13 @@ function useSummary(enabled: boolean): CurationOutletContext {
   // analizado cien veces. Volver a mirarla pide los datos en el acto.
   useEffect(() => {
     if (!enabled) return undefined;
-    const wake = () => { if (document.visibilityState === "visible") void refreshSummary(); };
-    document.addEventListener("visibilitychange", wake);
-    window.addEventListener("focus", wake);
+    document.addEventListener("visibilitychange", pollSummary);
+    window.addEventListener("focus", pollSummary);
     return () => {
-      document.removeEventListener("visibilitychange", wake);
-      window.removeEventListener("focus", wake);
+      document.removeEventListener("visibilitychange", pollSummary);
+      window.removeEventListener("focus", pollSummary);
     };
-  }, [enabled, refreshSummary]);
+  }, [enabled, pollSummary]);
 
   return { summary, summaryError, summaryFetchedAt, refreshSummary };
 }
@@ -127,10 +133,14 @@ function useImageCount(enabled: boolean): number | undefined {
   useEffect(() => {
     if (!enabled) return undefined;
     let current = true;
+    let inFlight = false;
     const refresh = () => {
+      if (inFlight) return;
+      inFlight = true;
       imageCandidatesApi.summary()
         .then((summary) => { if (current) setCount(summary.album + summary.artist); })
-        .catch(() => undefined);
+        .catch(() => undefined)
+        .finally(() => { inFlight = false; });
     };
     refresh();
     const timer = window.setInterval(() => {

@@ -22,35 +22,51 @@ export function useAsync<T>(fetcher: (signal: AbortSignal) => Promise<T>, deps: 
   const [errorValue, setErrorValue] = useState<unknown>();
   const generation = useRef(0);
   const controller = useRef<AbortController>();
+  // Cancelar en el navegador no detiene la consulta en el servidor: si llega
+  // un aviso de datos nuevos con una lectura en curso, se espera a que termine
+  // y se lee una sola vez más, en vez de encimar consultas (cola de imágenes,
+  // 2026-11-08: 100 decisiones encimaban cientos de lecturas de minutos).
+  const inFlight = useRef(false);
+  const stale = useRef(false);
+  const loadRef = useRef<() => void>(() => undefined);
 
   const load = useCallback(() => {
     const current = ++generation.current;
+    inFlight.current = true;
+    stale.current = false;
     controller.current?.abort();
     const nextController = new AbortController();
     controller.current = nextController;
     setLoading(true);
     setError(undefined);
     setErrorValue(undefined);
+    const settle = () => {
+      inFlight.current = false;
+      if (stale.current) { stale.current = false; loadRef.current(); }
+    };
     fetcher(nextController.signal).then(
-      (result) => { if (current === generation.current) { setData(result); setLoading(false); } },
+      (result) => { if (current === generation.current) { setData(result); setLoading(false); settle(); } },
       (err: unknown) => {
         if (nextController.signal.aborted) return;
         if (current !== generation.current) return;
         setError(err instanceof ApiError ? err.message : "No se pudo cargar la información.");
         setErrorValue(err);
         setLoading(false);
+        settle();
       },
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
+  loadRef.current = load;
   useEffect(() => { load(); }, [load]);
   useEffect(() => () => controller.current?.abort(), []);
   // Tras deshacer o rehacer un cambio, lo abierto se vuelve a leer: la ficha
   // restaurada reaparece y la retirada da su 404 sin recargar la página.
   useEffect(() => {
-    window.addEventListener(CATALOG_DATA_CHANGED_EVENT, load);
-    return () => window.removeEventListener(CATALOG_DATA_CHANGED_EVENT, load);
+    const changed = () => { if (inFlight.current) stale.current = true; else load(); };
+    window.addEventListener(CATALOG_DATA_CHANGED_EVENT, changed);
+    return () => window.removeEventListener(CATALOG_DATA_CHANGED_EVENT, changed);
   }, [load]);
   useEffect(() => {
     const changeSession = () => { setData(undefined); load(); };
