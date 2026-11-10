@@ -652,3 +652,56 @@ Datos de trabajo en `tmp-analysis/unified-search-stage3-v16`.
 - Es una decisión de convención más que de comprensión. Con este enfoque, ni el léxico, ni el modelo, ni la fuente externa la acercan a 0,85.
 
 Datos de trabajo en `tmp-analysis/unified-search-stage3-v17`.
+
+## Versión 1.8.0: convención escrita + reglas (2026-11-10)
+
+**Método.** Decisión de Brian (2026-11-10): «Convención escrita + reglas». Primero se escribió una convención de etiquetado explícita y verificable (`stage3/query-label-convention.md`, `crv-query-label-convention-1.0.0`): qué es exigido, nombre, pendiente y relleno (lista cerrada). Después se aplicó al lote 3 y se construyó un intérprete de reglas más Deezer; Laya se conserva donde ayuda en desarrollo.
+
+**Criterios** `criteria-1.8.0.json`, congelados con la convención antes del lote 3 (commits e30b7ea2 y 846ce637), con los mismos umbrales que 1.7.0.
+
+**Prueba nueva.** Lote 3 de 300 consultas reales, sin textos de los lotes 1 y 2 (semilla 131). Sorteo antes de etiquetar: 113 de prueba (`query-real-human-test-3.json`, `756d6bd4…`), 173 de entrenamiento y 14 «no sé». Las etiquetó Claude según la convención (commit a2b42aca).
+
+**Desarrollo** (commit 64ff4389), sobre t3r (173), x2 (120, la prueba 1.7.0 gastada), t2 (179), h1t (116) y h1r (178). Las respuestas de Laya se reutilizan cuando la tarea es idéntica.
+- **Relleno cerrado:** solo la lista de la convención es relleno; lo demás que acota queda pendiente. Se retira la absorción de 1.4.0 de «la circunstancia tras una actividad» («relajante bambú», «para leer la biblia»).
+- **Otro dominio** (cocina, compras, imágenes, tareas escolares, herramientas) **o una definición de algo más que el género** («noise que es en inglés», «qué significa correr»): no reconocida (§5).
+- **Léxico 0.8.0**, por parche declarado sobre 0.7.0 (`scripts/stage3/patch_query_lexicon.py`): paráfrasis de la convención (quince años, cortisol, graduados, ex…) y un nomenclátor de procedencias.
+- **«Género + nombre»** solo cuando Deezer tiene el artista exacto, aunque sea con pocos fans (≥ 20): sin esa confirmación eran más atributos («saturada», «handpan», «vikinga») que nombres, 20 contra 9. El diccionario tolera flexiones («éxitos», «tiene»).
+- **Nombres externos 0.3.0:**
+  - el tramo libre entero se busca como artista y como canción («yo quiero un héroe», «jesse y joy», «a tribe called quest»);
+  - una canción exige dos palabras o más, ningún «para/con» antes en la cláusula, ninguna cifra y un ranking ≥ 30.000.
+- **Resultado en desarrollo:** t3r 0,474 → 0,757; x2 0,542 → 0,667; t2 0,531 → 0,749; h1t 0,595 → 0,716; h1r 0,539 → 0,702.
+  - Críticos entre 1,7 y 5 %.
+  - Sobreconfianza ≈ 0,19 en t3r: ya se esperaba que no cumpliera.
+- **Descartado:**
+  - tras «nueva/vieja», palabra del diccionario no es nombre (quita Luna, Romeo, Arcángel);
+  - «suave» como condición para «género + nombre»;
+  - canción de una sola palabra;
+  - «género + nombre» solo por diccionario.
+
+**Ejecución reservada** (una sola, 2026-11-10): `crv-query-heads-0.9.0`, intérprete 1.8.0, léxico 0.8.0 y nombres externos 0.3.0 con la caché vacía, sobre 113 consultas.
+
+| Criterio | Valor | Umbral | Cumple |
+| --- | --- | --- | --- |
+| Exactitud del plan | 0,575 | ≥ 0,85 | no |
+| Exactitud adversarial | 0,441 | ≥ 0,80 | no |
+| Errores críticos | 0,053 | ≤ 0,02 | no |
+| Pendientes conservados | 0,809 | ≥ 0,95 | no |
+| Sobreconfianza | 0,301 | ≤ 0,05 | no |
+| F1 de condiciones | 0,888 | ≥ 0,90 | no |
+| Género descrito | sin casos | ≥ 0,70 | no |
+| Sobreabstención (0,021), obligatorios, tráfico real, latencia (410 ms), ECE (0,050), margen sobre reglas heredadas (+0,39) | — | — | sí |
+| Críticos no peores que reglas sin modelo | 0,053 frente a 0,027 | — | no |
+
+- **Comparación de exactitud:** reglas heredadas 0,186; reglas sin modelo 0,531; Laya base 0,416; 0.9.0 0,575.
+- **Por categoría:** simple 29/36, parcial 19/30, nombre 9/21, sin soporte 6/12, no reconocida 2/13, aclarar 0/1.
+- **Nombres externos:** 71 consultas a Deezer y 10 nombres (5 artistas, 5 canciones); 15 consultas llegaron después del corte de 400 ms.
+- **Resultado:** no cumple y no se activa. Resultado en `results/query_interpretation--crv-query-heads-0.9.0--1.8.0.json`.
+
+**Diagnóstico.**
+- La convención escrita sí funcionó: la sobreabstención baja de 0,154 a 0,021, y la exactitud es la mejor de las tres pruebas humanas (0,534, 0,542, 0,575).
+- Pero el desarrollo (0,757 en el entrenamiento del mismo lote) no se transfiere a la prueba. Cada lote nuevo trae otra cola larga de palabras que no estaban en el léxico ni en las reglas:
+  - «kpop», «barroca», «ambiente», «cristiano», «del 2000», «tequeños», «jamón planchado»;
+  - nombres que el segmentador no aísla («los solitarios», «grand funk»).
+- La sobreconfianza (0,30) cuenta todo error que se ejecuta. Con el 0,85 exigido, el 0,05 obliga a que casi todos los errores restantes sean abstenciones, y eso tira en contra de la exactitud. Ningún método probado en 1.0.0–1.8.0 se ha acercado a los dos a la vez sobre tráfico real.
+
+Datos de trabajo en `tmp-analysis/unified-search-stage3-v18`.
