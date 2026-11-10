@@ -10,7 +10,7 @@
    "cases": null,
    "batch": {
     "path": "docs/unified-search/stage3/datasets/query-real-labeling-3.json",
-    "sha256": null,
+    "sha256": "d993c8b8a9940c6206ddd94614868bcfc9b8d8b4a51617307579e29fd75c28c9",
     "split": "test_real_human"
    },
    "description": "Consultas reales nuevas (autocompletado público YouTube/Google región VE y búsquedas del sitio) sin ningún texto de los lotes 1 y 2, sorteadas como prueba antes de etiquetar. Etiqueta de Claude con autorización de Brian (2026-11-09) según la convención escrita crv-query-label-convention-1.0.0, congelada antes de etiquetar; dudas a Brian. Las huellas vacías se rellenan al construir el lote y al exportar la prueba, antes de ejecutar ningún sistema; los umbrales no cambian. Las «no sé» quedan fuera y se cuentan."

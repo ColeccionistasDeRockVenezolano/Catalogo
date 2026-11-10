@@ -15,6 +15,8 @@ Uso:
   python3 scripts/stage3/build_real_query_batch.py --raw <staging>/suggestions-raw.jsonl
   # lote 2 (versión 1.7.0): excluye todo texto de lotes anteriores
   python3 scripts/stage3/build_real_query_batch.py --raw ... --lot 2 --seed 113 --exclude docs/unified-search/stage3/datasets/query-real-labeling-1.json
+  # lote 3 (versión 1.8.0)
+  python3 scripts/stage3/build_real_query_batch.py --raw ... --lot 3 --seed 131 --exclude .../query-real-labeling-1.json --exclude .../query-real-labeling-2.json
 """
 from __future__ import annotations
 
@@ -37,6 +39,12 @@ SEED = 97
 SIZE = 300
 TEST_SHARE = 0.4
 PER_SEED = 2
+STAGE_VERSION = {1: "1.6.0", 2: "1.7.0", 3: "1.8.0"}
+DECISIONS = {
+    1: "Brian, 2026-10-25: «consultas reales etiquetadas por una persona» (opción 1 tras la versión 1.5.0)",
+    2: "Brian, 2026-11-10: «Nombres externos» para la versión 1.7.0; lote nuevo sin textos de los lotes anteriores, etiquetado por Claude con su autorización (2026-11-09)",
+    3: "Brian, 2026-11-10: «Convención escrita + reglas» para la versión 1.8.0; lote nuevo sin textos de los lotes 1 y 2, etiquetado por Claude según crv-query-label-convention-1.0.0",
+}
 
 # Palabras que por sí solas hacen musical la petición. «grupos», «bandas», «temas», «mix» o «lista»
 # no bastan («grupos de investigación paranormal»): necesitan además un género o concepto del léxico.
@@ -140,8 +148,7 @@ def main() -> None:
         "version": version,
         "builtAt": date.today().isoformat(),
         "builtBy": "scripts/stage3/build_real_query_batch.py",
-        "decision": "Brian, 2026-10-25: «consultas reales etiquetadas por una persona» (opción 1 tras la versión 1.5.0)" if args.lot == 1 else
-                    "Brian, 2026-11-10: «Nombres externos» para la versión 1.7.0; lote nuevo sin textos de los lotes anteriores, etiquetado por Claude con su autorización (2026-11-09)",
+        "decision": DECISIONS[args.lot],
         "sources": {"suggestions": {"file": args.raw.name, "sha256": hashlib.sha256(args.raw.read_bytes()).hexdigest(), "responses": len(rows),
                                     "eligibleMusical": eligible, "seeds": len(by_seed),
                                     "coverage": "La cosecha del 2026-10-25 se detuvo cuando Google respondió 403 (límite de frecuencia): faltan las semillas de géneros desde «punk» y las de conceptos sueltos."},
@@ -149,7 +156,7 @@ def main() -> None:
         "excludes": [{"path": str(f), "sha256": hashlib.sha256(f.read_bytes()).hexdigest()} for f in args.exclude],
         "selection": {"seed": args.seed, "size": len(items), "perSeedCap": PER_SEED, "testShare": TEST_SHARE},
         "policy": ("Etiqueta humana a ciegas: la página no muestra la lectura del sistema. La partición se sorteó antes de etiquetar. "
-                   "Las consultas test_real_human forman la prueba de la versión 1.6.0 y no se usan para reglas, léxico ni entrenamiento."),
+                   f"Las consultas test_real_human forman la prueba de la versión {STAGE_VERSION[args.lot]} y no se usan para reglas, léxico ni entrenamiento."),
         "items": items,
     }
     out.write_text(json.dumps(batch, ensure_ascii=False, indent=1) + "\n")
