@@ -13,6 +13,8 @@ de cualquier etiqueta, con semilla fija, y queda escrita en el lote.
 
 Uso:
   python3 scripts/stage3/build_real_query_batch.py --raw <staging>/suggestions-raw.jsonl
+  # lote 2 (versión 1.7.0): excluye todo texto de lotes anteriores
+  python3 scripts/stage3/build_real_query_batch.py --raw ... --lot 2 --seed 113 --exclude docs/unified-search/stage3/datasets/query-real-labeling-1.json
 """
 from __future__ import annotations
 
@@ -85,15 +87,21 @@ def site_queries() -> list[dict]:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--raw", required=True, type=Path)
+    ap.add_argument("--lot", type=int, default=1)
+    ap.add_argument("--seed", type=int, default=SEED)
+    ap.add_argument("--exclude", type=Path, action="append", default=[], help="lote anterior cuyos textos no se repiten")
     args = ap.parse_args()
+    out = OUT if args.lot == 1 else OUT.with_name(f"query-real-labeling-{args.lot}.json")
+    version = VERSION if args.lot == 1 else f"crv-query-real-labeling-{args.lot}.0.0"
     vocab = vocabulary()
     rows = [json.loads(line) for line in args.raw.read_text().splitlines()]
-    rng = random.Random(SEED)
+    rng = random.Random(args.seed)
 
-    seen: set[str] = set()
+    excluded = {norm(i["text"]) for f in args.exclude for i in json.loads(f.read_text())["items"]}
+    seen: set[str] = set(excluded)
     site = []
     queries = site_queries()
-    keys = {norm(q["text"]) for q in queries}
+    keys = {norm(q["text"]) for q in queries} | excluded
     for q in sorted(queries, key=lambda q: q["text"]):
         key = norm(q["text"])
         # El registro guarda también lo que se iba tecleando («Overkrain» antes de «Overkrainv»): queda la forma más larga.
@@ -126,24 +134,27 @@ def main() -> None:
     rng.shuffle(chosen)
 
     tests = set(rng.sample(range(len(chosen)), round(len(chosen) * TEST_SHARE)))
-    items = [{"id": f"RL{i + 1:04d}", **item, "split": "test_real_human" if i in tests else "train_real_human"} for i, item in enumerate(chosen)]
+    prefix = "RL" if args.lot == 1 else f"R{args.lot}"
+    items = [{"id": f"{prefix}{i + 1:03d}" if args.lot > 1 else f"RL{i + 1:04d}", **item, "split": "test_real_human" if i in tests else "train_real_human"} for i, item in enumerate(chosen)]
     batch = {
-        "version": VERSION,
+        "version": version,
         "builtAt": date.today().isoformat(),
         "builtBy": "scripts/stage3/build_real_query_batch.py",
-        "decision": "Brian, 2026-10-25: «consultas reales etiquetadas por una persona» (opción 1 tras la versión 1.5.0)",
+        "decision": "Brian, 2026-10-25: «consultas reales etiquetadas por una persona» (opción 1 tras la versión 1.5.0)" if args.lot == 1 else
+                    "Brian, 2026-11-10: «Nombres externos» para la versión 1.7.0; lote nuevo sin textos de los lotes anteriores, etiquetado por Claude con su autorización (2026-11-09)",
         "sources": {"suggestions": {"file": args.raw.name, "sha256": hashlib.sha256(args.raw.read_bytes()).hexdigest(), "responses": len(rows),
                                     "eligibleMusical": eligible, "seeds": len(by_seed),
                                     "coverage": "La cosecha del 2026-10-25 se detuvo cuando Google respondió 403 (límite de frecuencia): faltan las semillas de géneros desde «punk» y las de conceptos sueltos."},
                     "site": {"tables": ["ingest.search_misses", "ingest.search_operations"], "queries": len(site)}},
-        "selection": {"seed": SEED, "size": len(items), "perSeedCap": PER_SEED, "testShare": TEST_SHARE},
+        "excludes": [{"path": str(f), "sha256": hashlib.sha256(f.read_bytes()).hexdigest()} for f in args.exclude],
+        "selection": {"seed": args.seed, "size": len(items), "perSeedCap": PER_SEED, "testShare": TEST_SHARE},
         "policy": ("Etiqueta humana a ciegas: la página no muestra la lectura del sistema. La partición se sorteó antes de etiquetar. "
                    "Las consultas test_real_human forman la prueba de la versión 1.6.0 y no se usan para reglas, léxico ni entrenamiento."),
         "items": items,
     }
-    OUT.write_text(json.dumps(batch, ensure_ascii=False, indent=1) + "\n")
+    out.write_text(json.dumps(batch, ensure_ascii=False, indent=1) + "\n")
     print(f"{len(items)} consultas ({len(site)} del sitio, {len(items) - len(site)} del autocompletado; {len(tests)} de prueba) "
-          f"de {eligible} elegibles → {OUT.relative_to(ROOT)}")
+          f"de {eligible} elegibles → {out.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":
