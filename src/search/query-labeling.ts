@@ -74,8 +74,8 @@ export function checkGold(gold: LabelGold, options: { conditions: LabelOption[];
   return problems;
 }
 
-async function loadBatch(root: string) {
-  return batchSchema.parse(JSON.parse(await readFile(path.join(root, LABELING_BATCH), "utf8")));
+async function loadBatch(root: string, batchPath = LABELING_BATCH) {
+  return batchSchema.parse(JSON.parse(await readFile(path.join(root, batchPath), "utf8")));
 }
 
 interface LabelRow { item_id: string; batch_version: string; text_sha256: string; outcome: "labeled" | "skipped"; gold: LabelGold | null; note: string; labeled_at: Date }
@@ -100,8 +100,9 @@ export const labelInputSchema = z.discriminatedUnion("outcome", [
   z.object({ outcome: z.literal("skipped"), note: z.string().trim().max(1000).default("") }).strict(),
 ]);
 
-export async function saveQueryLabel(root: string, db: Db, labeler: string, id: string, input: unknown) {
-  const [batch, lex] = await Promise.all([loadBatch(root), loadLexicon(root)]);
+/** `batchPath`: otro lote (1.7.0: query-real-labeling-2.json); la página sigue sirviendo el lote vigente. */
+export async function saveQueryLabel(root: string, db: Db, labeler: string, id: string, input: unknown, batchPath = LABELING_BATCH) {
+  const [batch, lex] = await Promise.all([loadBatch(root, batchPath), loadLexicon(root)]);
   const item = batch.items.find(i => i.id === id);
   if (!item) throw new OperatorError("not_found", "La consulta no está en el lote vigente");
   const parsed = labelInputSchema.parse(input);

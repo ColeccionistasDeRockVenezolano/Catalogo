@@ -6,11 +6,11 @@
  "reservedTests": {
   "queries": {
    "path": "docs/unified-search/stage3/datasets/query-real-human-test-2.json",
-   "sha256": null,
+   "sha256": "656146ef2fb228631d54ecf21646a86cc950ae14994f0cdd25581eee649e57e9",
    "cases": 120,
    "batch": {
     "path": "docs/unified-search/stage3/datasets/query-real-labeling-2.json",
-    "sha256": null,
+    "sha256": "974e868ec77b467a5694cb1e3d2464109070de33e10ea5799d764b150692a9ee",
     "split": "test_real_human"
    },
    "description": "Consultas reales nuevas (autocompletado público YouTube/Google región VE y búsquedas del sitio) sin ningún texto de query-real-labeling-1, sorteadas como prueba antes de etiquetar. Etiqueta de Claude con autorización de Brian (2026-11-09), con las convenciones de 1.6.0; dudas a Brian. La huella del lote se registra al construirlo y la de la prueba al exportarla, antes de ejecutar ningún sistema. Las «no sé» quedan fuera y se cuentan."

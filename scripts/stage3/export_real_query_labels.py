@@ -10,7 +10,7 @@ Las consultas marcadas «no sé» y las que aún no tienen etiqueta quedan fuera
 se cuentan. La categoría se deriva de la etiqueta para los cortes adversariales.
 
 Uso:
-  python3 scripts/stage3/export_real_query_labels.py --labeler "<nombre de operador>" [--require-complete]
+  python3 scripts/stage3/export_real_query_labels.py --labeler "<nombre de operador>" [--require-complete] [--lot 2]
 """
 from __future__ import annotations
 
@@ -23,7 +23,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 DATASETS = ROOT / "docs/unified-search/stage3/datasets"
-BATCH = DATASETS / "query-real-labeling-1.json"
 
 
 def category(gold: dict) -> str:
@@ -50,7 +49,9 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--labeler", required=True)
     ap.add_argument("--require-complete", action="store_true", help="falla si queda alguna consulta sin etiqueta ni «no sé»")
+    ap.add_argument("--lot", type=int, default=1)
     args = ap.parse_args()
+    BATCH = DATASETS / f"query-real-labeling-{args.lot}.json"
     batch_bytes = BATCH.read_bytes()
     batch = json.loads(batch_bytes)
     by_id = {r["item_id"]: r for r in labels(args.labeler)}
@@ -77,8 +78,9 @@ def main() -> None:
     common = {"batch": {"path": str(BATCH.relative_to(ROOT)), "version": batch["version"], "sha256": hashlib.sha256(batch_bytes).hexdigest()},
               "labeler": args.labeler, "exportedAt": date.today().isoformat(),
               "excluded": {"skipped": skipped, "unlabeled": missing, "stale": stale}}
-    for split, name, policy in [("test_real_human", "query-real-human-test-1.json", "Prueba de la versión 1.6.0: no se usa para reglas, léxico, umbrales ni entrenamiento."),
-                                ("train_real_human", "query-real-human-train-1.json", "Entrenamiento y desarrollo.")]:
+    version = {1: "1.6.0", 2: "1.7.0"}.get(args.lot, f"lote {args.lot}")
+    for split, name, policy in [("test_real_human", f"query-real-human-test-{args.lot}.json", f"Prueba de la versión {version}: no se usa para reglas, léxico, umbrales ni entrenamiento."),
+                                ("train_real_human", f"query-real-human-train-{args.lot}.json", "Entrenamiento y desarrollo.")]:
         path = DATASETS / name
         path.write_text(json.dumps({"version": f"crv-{name.removesuffix('.json')}.0.0", **common, "policy": policy, "cases": out[split]},
                                    ensure_ascii=False, indent=1) + "\n")
