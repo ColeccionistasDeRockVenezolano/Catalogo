@@ -6,8 +6,8 @@
  "reservedTests": {
   "queries": {
    "path": "docs/unified-search/stage3/datasets/query-real-human-test-3.json",
-   "sha256": null,
-   "cases": null,
+   "sha256": "756d6bd46d46ef707b2b13b0023a177fe264a728f65dd79715086a2adedf6f71",
+   "cases": 113,
    "batch": {
     "path": "docs/unified-search/stage3/datasets/query-real-labeling-3.json",
     "sha256": "d993c8b8a9940c6206ddd94614868bcfc9b8d8b4a51617307579e29fd75c28c9",
