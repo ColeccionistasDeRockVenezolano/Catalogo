@@ -164,7 +164,8 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     if (longestPhrase(cueAt, false) || longestPhrase(after - 1, false) || longestPhrase(after - 1, true)) return null;
     const idx = wordsAt(after, 8);
     if (!idx.length || idx.at(-1)! !== tokens.length - 1 || idx.some(j => tokens[j]!.used)) return null;
-    const stop = new Set(["de", "del", "para", "pa", "con", "en", "sin", "que", "o", "cuando", "como", "mix", "playlist"]);
+    // 1.8.0: una época relativa («música de antes», «de ahora») es pendiente, no un dueño (convención §3).
+    const stop = new Set(["de", "del", "para", "pa", "con", "en", "sin", "que", "o", "cuando", "como", "mix", "playlist", "antes", "ahora", "hoy", "ayer", "siempre", "antano"]);
     const origins = new Set((m.origins ?? []).map(normalizeQueryText));
     for (const [q, j] of idx.entries()) {
       const t = tokens[j]!;
@@ -246,7 +247,20 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
     if (!decade) continue;
     const start = tokens[i - 1]?.norm === "de" && !tokens[i - 1]!.used ? i - 1 : i;
     for (let k = start; k < j + len; k++) tokens[k]!.used = true;
-    spans.push({ id: nextId(), kind: "decade", text: tokens.slice(start, j + len).map(t => t.orig).join(" "), start, end: j + len - 1, candidates: [`decade:${decade}`], cue: "none", mode: "required", group: null, decade });
+    const first = { id: nextId(), kind: "decade" as const, text: tokens.slice(start, j + len).map(t => t.orig).join(" "), start, end: j + len - 1, candidates: [`decade:${decade}`], cue: "none" as const, mode: "required" as const, group: null as string | null, decade };
+    spans.push(first);
+    // 1.8.0: lista de décadas («de los 70 80 y 90», «80, 90 o 2000»): todas en un mismo grupo O.
+    let k = j + len;
+    while (k < tokens.length) {
+      let n = k;
+      if (tokens[n]?.norm === "," || ["y", "o", "e"].includes(tokens[n]?.norm ?? "")) n++;
+      const next = tokens[n] && !tokens[n]!.used ? decadeWords.get(tokens[n]!.norm) : undefined;
+      if (!next || next === decade) break;
+      first.group ??= `D${start}`;
+      for (let x = k; x <= n; x++) tokens[x]!.used = true;
+      spans.push({ id: nextId(), kind: "decade", text: tokens[n]!.orig, start: n, end: n, candidates: [`decade:${next}`], cue: "none", mode: "required", group: first.group, decade: next });
+      k = n + 1;
+    }
   }
 
   // 6. Consulta que es, entera, un nombre del catálogo (sin señales de pedido).
@@ -525,8 +539,10 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
       const sp = ordered[k]!;
       if (!free(sp)) continue;
       const prev = ordered[k - 1], next = ordered[k + 1];
-      // Circunstancia tras una actividad (o tras otra circunstancia ya absorbida).
-      if (prev && (activityLike(prev) || drop.has(prev)) && only(prev.end, sp.start, o => isCon(o) || o.type === "clause")) { drop.add(sp); continue; }
+      // Circunstancia tras una actividad (o tras otra circunstancia ya absorbida). Hasta 1.7.0: la convención
+      // escrita de 1.8.0 (§3, §4) deja pendiente lo que acota y no es relleno de la lista cerrada
+      // («música relajante bambú», «para leer la biblia»), así que ya no se absorbe.
+      void prev;
       // Verbo auxiliar ante la actividad.
       if (next && activityLike(next) && sp.end - sp.start <= 2 && opsBetween(sp.end, next.start).length === 0 && (sp.cue === "activity" || tokens[sp.start - 1]?.norm === "que")) { drop.add(sp); continue; }
     }
@@ -564,9 +580,12 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
 // 1.7.0 · nombre suelto. En el tráfico real, una consulta sin ninguna frase del léxico ni del catálogo
 // es casi siempre un nombre que el catálogo no tiene («Pungo», «musica nueva de rawayana»): 70 de 140
 // en las particiones humanas de desarrollo. Las que llevan «con», «para», «que» o «como» piden otra cosa.
-const BARE_LEAD = /^(?:(?:la|el|las|los)\s+)?(?:musica|canciones|cancion|temas|tema|rolas)(?:\s+(?:nueva|nuevas|nuevo|nuevos|vieja|viejas|viejo|viejos))?(?:\s+(de|del))?\s+/u;
+const BARE_LEAD = /^(?:(?:la|el|las|los)\s+)?(?:musica|canciones|cancion|temas|tema|rolas|cantante|el cantante|la cantante|grupo|el grupo|banda|la banda de|artista)(?:\s+(nueva|nuevas|nuevo|nuevos|vieja|viejas|viejo|viejos|viejitas))?(?:\s+(de|del))?\s+/u;
 const BARE_STOP = new Set(["con", "para", "pa", "en", "cuando", "que", "q", "como", "se", "mi", "tu", "te", "me", "por", "porque", "tipo", "tipos", "donde",
-  "musica", "musicas", "musiquita", "cancioncita", "canciones", "cancion", "music", "songs", "recomiendame", "recomienda", "escuchar", "playlist"]);
+  "musica", "musicas", "musiquita", "cancioncita", "canciones", "cancion", "music", "songs", "recomiendame", "recomienda", "escuchar", "playlist",
+  // 1.8.0: calificativos que la convención deja pendientes; con ellos la consulta no es un nombre suelto.
+  "rapida", "rapido", "rapidas", "rapidos", "lenta", "lento", "lentas", "lentos", "famosa", "famosas", "famoso", "famosos", "fuerte", "fuertes",
+  "volumen", "bajos", "antes", "antigua", "antiguas", "antiguo", "actual", "actuales", "moderna", "moderno", "kpop", "muy", "full"]);
 const KEY_ROWS = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
 /** Ruido de teclado: palabra larga sin vocales, cuatro consonantes seguidas o una fila del teclado. */
 function keyboardNoise(w: string): boolean {
@@ -575,8 +594,8 @@ function keyboardNoise(w: string): boolean {
   return w.length >= 4 && KEY_ROWS.some(r => [...Array(w.length - 3).keys()].some(i => r.includes(w.slice(i, i + 4))));
 }
 
-/** Literal del nombre cuando toda la consulta es un nombre suelto; null si hay léxico, catálogo o señales de pedido. */
-export function bareNameLiteral(seg: Segmentation): string | null {
+/** Nombre suelto: literal y restricciones pendientes que lo acompañan («vieja», «nueva», un año, «éxitos»). */
+export function bareName(seg: Segmentation): { literal: string; pending: number } | null {
   if (seg.wholeQueryMatches.length || seg.structure.parentheses) return null;
   if (seg.spans.some(s => s.kind !== "residual" || s.cue === "origin" || s.cue === "activity")) return null;
   if (/[<>{}=;()[\]]/u.test(seg.text)) return null;
@@ -584,11 +603,17 @@ export function bareNameLiteral(seg: Segmentation): string | null {
   const lead = norm.match(BARE_LEAD);
   const rest = lead ? norm.slice(lead[0].length) : norm;
   const words = rest.split(" ").filter(Boolean);
-  // «… mix», «… éxitos», «… 2025»: el nombre es lo anterior.
-  while (words.length > 1 && /^(?:mix|exitos|\d{4})$/u.test(words.at(-1)!)) words.pop();
+  // «… mix» es relleno; «… éxitos» y «… 2025» quedan pendientes (convención §3): el nombre es lo anterior.
+  let pending = lead?.[1] ? 1 : 0;
+  while (words.length > 1 && /^(?:mix|exitos|\d{4})$/u.test(words.at(-1)!)) { if (words.pop() !== "mix") pending = Math.max(pending, 1); }
   if (!words.length || words.length > 5) return null;
   if (words.some(w => BARE_STOP.has(w) || REQUEST_HEADS.has(w) || keyboardNoise(w)) || words.at(-1) === "de" || words.at(-1) === "del") return null;
   // «sin bandera» es nombre tras «canciones de»; «musica sin audio» es una restricción.
-  if (words[0] === "sin" && !lead?.[1]) return null;
-  return words.join(" ");
+  if (words[0] === "sin" && !lead?.[2]) return null;
+  return { literal: words.join(" "), pending };
+}
+
+/** Literal del nombre cuando toda la consulta es un nombre suelto; null si hay léxico, catálogo o señales de pedido. */
+export function bareNameLiteral(seg: Segmentation): string | null {
+  return bareName(seg)?.literal ?? null;
 }

@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 import { loadQueryLexicon } from "../../src/search/query-interpretation/lexicon.js";
 import { segmentQuery, bareNameLiteral, catalogKey, emptyCatalog, type CatalogResolver } from "../../src/search/query-interpretation/segmenter.js";
 import { buildQuestions } from "../../src/search/query-interpretation/questions.js";
-import { compileInterpretation } from "../../src/search/query-interpretation/compiler.js";
+import { closedFiller, compileInterpretation, dictionaryForms } from "../../src/search/query-interpretation/compiler.js";
 import { rulesAnswers } from "../../src/search/query-interpretation/baselines.js";
-import { decideExternal, externalCandidates, type ExternalHit } from "../../src/search/query-interpretation/external-names.js";
+import { DEFAULT_EXTERNAL, decideExternal, decideTrack, externalCandidates, nameRuns, type ExternalHit } from "../../src/search/query-interpretation/external-names.js";
 import { compareCase, aggregate, noInvention, type QueryGold } from "../../src/search/query-interpretation/evaluation.js";
 
 const lexicon = loadQueryLexicon();
@@ -101,8 +101,8 @@ describe("interpretación de consultas (etapa 3)", () => {
     expect(r.canonical.req).toEqual([]);
     expect(r.canonical.alts.slice(0, 2)).toEqual(["genre:boom-bap", "genre:hip-hop"]);
   });
-  it("la circunstancia tras una actividad no es restricción y el auxiliar se absorbe (1.3.0)", () => {
-    expect(interpret("temas para correr media hora").canonical).toMatchObject({ status: "query_valid", req: ["activity:running"], pending: 0 });
+  it("lo que acota tras una actividad queda pendiente (convención 1.8.0 §3) y el auxiliar se absorbe (1.3.0)", () => {
+    expect(interpret("temas para correr media hora").canonical).toMatchObject({ status: "partial", req: ["activity:running"], pending: 1 });
     expect(interpret("canciones que inviten a bailar").canonical).toMatchObject({ status: "query_valid", req: ["activity:dancing"] });
   });
   it("una enumeración temática es un solo asunto (1.3.0)", () => {
@@ -185,7 +185,7 @@ describe("evaluación de la etapa 3", () => {
 describe("nombres externos (1.7.0)", () => {
   const dict = { words: new Set(["latino", "paradise", "lost"]), files: [] };
   const raw = { artists: [{ name: "Willyrex", fans: 3943 }, { name: "Latino", fans: 33172 }, { name: "Paradise Lost", fans: 95448 }] };
-  const th = { externalArtistFans: 1000, externalCommonWordFans: 90000, externalBudgetMs: 400 };
+  const th = { ...DEFAULT_EXTERNAL, externalArtistFans: 1000, externalCommonWordFans: 90000, externalBudgetMs: 400 };
   it("una palabra ajena al diccionario basta con el mínimo; solo palabras comunes exigen un artista muy conocido", () => {
     expect(decideExternal("willyrex", raw, th, dict)).toMatchObject({ kind: "artist", name: "Willyrex" });
     expect(decideExternal("latino", raw, th, dict)).toBeNull();
@@ -217,5 +217,77 @@ describe("nombres externos (1.7.0)", () => {
     expect(bare("canciones de brasil")).toBeNull();
     expect(bare("<script>alert(1)</script>")).toBeNull();
     expect(bare("rock alegre")).toBeNull();
+  });
+});
+
+describe("convención de relleno (1.8.0)", () => {
+  it("solo la lista cerrada, números sueltos, interjecciones y repeticiones son relleno", () => {
+    for (const t of ["mix", "que es", "rym", "9", "xd", "uuuu", "youtube", "bonitas"]) expect(closedFiller(t, [])).toBe(true);
+    expect(closedFiller("arte", ["art pop"])).toBe(true);
+    expect(closedFiller("videos tristes", ["canciones tristes"])).toBe(true);
+    for (const t of ["rapida", "angola", "zulu", "nueva", "2025", "piano", "con ritmo"]) expect(closedFiller(t, [])).toBe(false);
+  });
+  it("con la convención, un resto que Laya llama relleno y no está en la lista queda pendiente", () => {
+    const seg = segmentQuery("death metal angola", lexicon, emptyCatalog);
+    const answers = rulesAnswers(seg, buildQuestions(seg, lexicon));
+    for (const k of Object.keys(answers)) if (k.startsWith("dim:")) answers[k] = { choice: "filler", probabilities: { filler: 0.99 } };
+    expect(compileInterpretation(seg, answers, lexicon, { convention: 1 }).canonical.pending).toBeGreaterThan(0);
+    const seg2 = segmentQuery("noise 9", lexicon, emptyCatalog);
+    expect(compileInterpretation(seg2, rulesAnswers(seg2, buildQuestions(seg2, lexicon)), lexicon, { convention: 1 }).canonical.status).toBe("query_valid");
+  });
+  it("formas flexionadas vuelven a su forma de diccionario", () => {
+    expect(dictionaryForms("exitos")).toContain("exito");
+    expect(dictionaryForms("positivas")).toContain("positivo");
+    expect(dictionaryForms("explota")).toContain("explotar");
+    expect(dictionaryForms("tiene")).toContain("tener");
+    expect(dictionaryForms("llamamos")).toContain("llamar");
+  });
+  it("otro dominio o una definición de algo más que el género no piden música (§5)", () => {
+    const status = (t: string) => { const seg = segmentQuery(t, lexicon, emptyCatalog); return compileInterpretation(seg, rulesAnswers(seg, buildQuestions(seg, lexicon)), lexicon, { convention: 1 }).canonical.status; };
+    expect(status("salsa para guiso")).toBe("unrecognized");
+    expect(status("bolero best price")).toBe("unrecognized");
+    expect(status("noise que es en ingles")).toBe("unrecognized");
+    expect(status("que significa correr")).toBe("unrecognized");
+    expect(status("musica con s")).toBe("unrecognized");
+    expect(status("jazz que es")).toBe("query_valid");
+    expect(status("salsa para bailar")).toBe("query_valid");
+  });
+  it("«música de antes» es época pendiente, no un dueño", () => {
+    const seg = segmentQuery("musica de antes", lexicon, emptyCatalog);
+    expect(seg.spans.some(s => s.kind === "entity")).toBe(false);
+  });
+});
+
+describe("tramos de nombre externos (1.8.0)", () => {
+  it("el tramo libre entero, sin palabras de pedido en los bordes, también unido a la frase vecina", () => {
+    const runs = (t: string) => nameRuns(segmentQuery(t, lexicon, emptyCatalog)).map(r => r.literal);
+    expect(runs("musica epica yo quiero un heroe")).toContain("yo quiero un heroe");
+    expect(runs("we will rock you para niños")).toContain("we will rock you");
+    expect(runs("rap gangsta paradise")).not.toContain("gangsta paradise");
+    expect(nameRuns(segmentQuery("musica para leer la biblia", lexicon, emptyCatalog)).every(r => r.cued)).toBe(true);
+    expect(runs("musica romantica jesse y joy mix")).toContain("jesse y joy");
+    expect(runs("musica peruana tipo wendy sulca")).toEqual(["wendy sulca"]);
+  });
+  it("una canción exige el título exacto (sin paréntesis), dos palabras o más, sin cifras, y el ranking mínimo", () => {
+    const dict = { words: new Set(["golden", "yo", "quiero", "un", "heroe", "love", "is", "gone"]), files: [] };
+    const raw = { artists: [], tracks: [{ title: "Golden (from KPop Demon Hunters)", rank: 900000, artist: "HUNTR/X" }, { title: "Yo Quiero un Héroe", rank: 200000, artist: "x" },
+      { title: "Love Is Gone (Acoustic)", rank: 20000, artist: "y" }] };
+    expect(decideTrack("golden", raw, DEFAULT_EXTERNAL, dict)).toBeNull();
+    expect(decideTrack("yo quiero un heroe", raw, DEFAULT_EXTERNAL, dict)).toMatchObject({ kind: "track", popularity: 200000 });
+    expect(decideTrack("love is gone", raw, DEFAULT_EXTERNAL, dict)).toBeNull();
+  });
+  it("el tramo hallado consume sus fragmentos y queda como nombre destino", () => {
+    const seg = segmentQuery("musica epica yo quiero un heroe", lexicon, emptyCatalog);
+    const hit: ExternalHit = { kind: "track", name: "Yo Quiero un Héroe", popularity: 600000, source: "deezer" };
+    const r = compileInterpretation(seg, rulesAnswers(seg, buildQuestions(seg, lexicon)), lexicon, { convention: 1 }, new Map([[catalogKey("yo quiero un heroe"), hit]]));
+    expect(r.canonical).toMatchObject({ status: "query_valid", req: ["atmosphere:epic"], pending: 0, ent: [{ role: "target", kind: "track", literal: "yo quiero un heroe" }] });
+  });
+  it("«género + nombre» exige un artista exacto en Deezer, aunque tenga pocos fans; si no, es pendiente", () => {
+    const run = (t: string, ext?: Map<string, ExternalHit>) => { const seg = segmentQuery(t, lexicon, emptyCatalog); const a = rulesAnswers(seg, buildQuestions(seg, lexicon));
+      for (const k of Object.keys(a)) if (k.startsWith("dim:")) a[k] = { choice: "filler", probabilities: { filler: 0.99 } };
+      return compileInterpretation(seg, a, lexicon, { convention: 1 }, ext ?? new Map()).canonical; };
+    const weak: ExternalHit = { kind: "artist", name: "Hernán Marín", popularity: 27, source: "deezer", weak: true };
+    expect(run("golpe y estribillo hernan marin", new Map([[catalogKey("hernan marin"), weak]])).ent).toEqual([{ role: "target", kind: "artist", literal: "hernan marin" }]);
+    expect(run("musica venezolana saturada")).toMatchObject({ status: "partial", ent: [], pending: 1 });
   });
 });

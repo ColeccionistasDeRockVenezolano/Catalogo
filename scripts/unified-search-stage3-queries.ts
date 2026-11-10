@@ -15,7 +15,7 @@ import { buildQuestions } from "../src/search/query-interpretation/questions.js"
 import { compileInterpretation, type Answers, type Canonical } from "../src/search/query-interpretation/compiler.js";
 import { aggregate, noInvention, type QueryCase } from "../src/search/query-interpretation/evaluation.js";
 import { hybridAnswers, legacyCanonical, rulesAnswers } from "../src/search/query-interpretation/baselines.js";
-import { DEFAULT_EXTERNAL, EXTERNAL_VERSION, ExternalNameCache, loadDictionary, lookupDeezer, decideExternal, externalCandidates, type ExternalHit } from "../src/search/query-interpretation/external-names.js";
+import { DEFAULT_EXTERNAL, EXTERNAL_VERSION, ExternalNameCache, loadDictionary, lookupDeezer, decideExternal, decideTrack, decideWeakArtist, externalCandidates, nameRuns, type ExternalHit } from "../src/search/query-interpretation/external-names.js";
 import { catalogKey } from "../src/search/query-interpretation/segmenter.js";
 
 const CATALOG = process.env["CRV_STAGE3_CATALOG"] ?? `${process.env["HOME"]}/.cache/crv-stage3/catalog-names-2026-10-25.json`;
@@ -66,13 +66,22 @@ if (cmd === "tasks") {
     if (cache) {
       const e0 = performance.now();
       external = new Map();
-      const literals = externalCandidates(seg);
-      const fetched = literals.filter(l => !cache.get(l));
+      // 0.3.0: los tramos de nombre se buscan como artista y como canción.
+      const runs = thresholds.convention ? nameRuns(seg) : [];
+      const literals = [...new Set([...externalCandidates(seg), ...runs.map(r => r.literal)])];
+      const asks = [...literals.map(l => [l, "artist"] as const), ...runs.filter(r => !r.cued && r.words >= 2).map(r => [r.literal, "track"] as const)];
+      const fetched = asks.filter(([l, k]) => !cache.get(l, k));
       // Las consultas de una misma búsqueda van en paralelo: su tiempo es el de la más lenta.
-      const got = await Promise.all(literals.map(l => cache.resolve(l, live)));
-      const fresh = got.filter((g, i) => g && fetched.includes(literals[i]!)).map(g => g!.ms);
+      const got = await Promise.all(asks.map(([l, k]) => cache.resolve(l, live, k)));
+      const fresh = got.filter((g, i) => g && fetched.includes(asks[i]!)).map(g => g!.ms);
       if (live && fresh.length) externalMs.push(extMs = Math.max(...fresh));
-      literals.forEach((l, i) => { const hit = decideExternal(l, got[i]?.raw, extTh); if (hit) { external!.set(catalogKey(l), hit); externalHits++; } });
+      asks.forEach(([l, k], i) => {
+        const key = catalogKey(l);
+        const had = external!.get(key);
+        if (had?.kind === "artist" && !had.weak) return;
+        const hit = k === "artist" ? decideExternal(l, got[i]?.raw, extTh) ?? (had ? null : decideWeakArtist(l, got[i]?.raw, extTh)) : decideTrack(l, got[i]?.raw, extTh);
+        if (hit && !(had && hit.weak)) { if (!had && !hit.weak) externalHits++; external!.set(key, hit); }
+      });
       if (fetched.length) cache.save();
       // La espera de red se mide aparte (externalMs); no entra en el tiempo de compilación.
       tExt = performance.now() - e0;
