@@ -592,3 +592,63 @@ Seis versiones evaluadas, ninguna llega a 0,85. La interpretación de consultas 
 - tratar el ruido no musical como filtro aparte.
 
 Datos de trabajo en `tmp-analysis/unified-search-stage3-v16`.
+
+## Versión 1.7.0: nombres externos (2026-11-10)
+
+**Método.** Decisión de Brian (2026-11-10): «Nombres externos», es decir, resolver fuera del catálogo los nombres que este no tiene. Spotify queda fuera porque su cuota tiene un único dueño (`ops/spotify-diario`). Se usa la búsqueda pública de artistas de Deezer.
+
+**Criterios** `criteria-1.7.0.json`, congelados antes de construir nada (commit 79b03e91), con los mismos umbrales. La latencia incluye la resolución externa con la caché vacía.
+
+**Prueba nueva.** Lote 2 de 300 consultas reales, sin ningún texto del lote 1 (semilla 113). Se sorteó antes de etiquetar: 120 de prueba (`query-real-human-test-2.json`, `656146ef…`) y 179 de entrenamiento. Las etiquetó Claude con la misma autorización. Brian resolvió las dudas, recogidas en `acceptance.json`. Las 294 del lote 1 pasan a desarrollo.
+
+**Desarrollo**, sobre 473 consultas reales: t2 (179), h1t (116, la prueba 1.6.0 ya gastada) y h1r (178). Se usaron además las pruebas sintéticas gastadas.
+- **Primer resolvedor (descartado):** volver nombre todo resto que coincide exactamente con un artista o canción de Deezer. En t2 restó 10 consultas y no ganó ninguna, porque las palabras comunes existen como artistas («latino» tiene 33.172 fans, «live» 87.274). La popularidad no separa: «willyrex» tiene 3.943.
+- **Nombre suelto** (`bareNameLiteral`, regla sin modelo). Una consulta sin léxico ni catálogo y sin señales de pedido es un nombre:
+  - el literal se obtiene quitando «música/canciones (nueva|vieja) (de)», y «mix», «éxitos» o un año al final;
+  - no es nombre si lleva «con», «para», «que», «como» o «tipo», si empieza por «sin» sin un «de» delante, o si es ruido de teclado.
+  - En las 473 reales: 60 aciertos, 6 errores. En las sintéticas: 2 errores de 930.
+  - Explica la mayor parte de la mejora: h1t pasa de 0,534 a 0,569.
+- **Clase.** Un nombre fuera del catálogo es artista salvo que la fuente diga otra cosa: las etiquetas tienen 62 artistas frente a 25 canciones.
+- **Nombres externos** (`crv-external-names-0.2.0`). Un resto con artista exacto en Deezer es ese nombre:
+  - basta con 1.000 fans si tiene una palabra que no está en los diccionarios del sistema (`wspanish`, `wamerican`; las huellas están en `acceptance.json`);
+  - si solo tiene palabras comunes, exige 90.000 fans («led zeppelin», «paradise lost»).
+  - Suma de 1,7 a 2,6 puntos en las reales: t2 0,531, h1t 0,595, h1r 0,539. En las sintéticas es neutro.
+- **Latencia.** La consulta externa sale tras segmentar y corre en paralelo con el modelo, con corte a 400 ms. Lo que no llega a tiempo cuenta como sin nombre externo.
+  - Como ninguna consulta pasa del corte, la cota del p95 es max(p95 del modelo, consulta externa más lenta) + compilación.
+  - La conexión se abre con una consulta fija ajena a la prueba, que no entra en la caché.
+  - Ensayo sobre h1t con caché vacía: 0 cortes, p95 377 ms.
+- **Descartado:** subir el umbral de relleno (0,7–0,95) baja los críticos pero también la exactitud.
+- El candidato se registró en `acceptance.json` (commit 59df4f0d) antes de ejecutar nada sobre la prueba.
+
+**Ejecución reservada** (una sola, 2026-11-10): `crv-query-heads-0.9.0` con reglas 1.7.0, léxico 0.7.0 y nombres externos 0.2.0, sobre 120 consultas, con la caché vacía.
+
+| Criterio | Valor | Umbral | Cumple |
+| --- | --- | --- | --- |
+| Exactitud del plan | 0,542 | ≥ 0,85 | no |
+| Exactitud adversarial | 0,518 | ≥ 0,80 | no |
+| Errores críticos | 0,050 | ≤ 0,02 | no |
+| Pendientes conservados | 0,673 | ≥ 0,95 | no |
+| Sobreabstención | 0,154 | ≤ 0,10 | no |
+| Sobreconfianza | 0,258 | ≤ 0,05 | no |
+| F1 de condiciones | 0,835 | ≥ 0,90 | no |
+| Género descrito | sin casos | ≥ 0,70 | no |
+| Obligatorios, tráfico real, latencia (407 ms), ECE (0,050), margen sobre reglas heredadas (+0,28) | — | — | sí |
+| Críticos no peores que reglas sin modelo | 0,050 frente a 0,025 | — | no |
+
+- **Comparación de exactitud:** reglas heredadas 0,267; **reglas sin modelo 0,550**; Laya base 0,442; 0.9.0 0,542.
+- **Nombres externos:**
+  - 68 consultas a Deezer, p50 de 314 ms;
+  - 18 llegaron después del corte de 400 ms: Deezer respondió más lento que en el ensayo;
+  - 10 nombres.
+- **Por categoría:** nombre 19/38 (frente a 5/27 en 1.6.0), simple 19/26, parcial 14/28, sin soporte 8/15, no reconocida 3/10, aclarar 2/3.
+- **Resultado:** no cumple y no se activa. Resultado en `results/query_interpretation--crv-query-heads-0.9.0--1.7.0.json`.
+
+**Diagnóstico.**
+- Las búsquedas por nombre mejoran mucho: 19 de 38 frente a 5 de 27.
+- Con tráfico real, el modelo ya no aporta: las reglas sin modelo igualan su exactitud (0,550) con la mitad de errores críticos.
+- Los fallos que quedan dependen sobre todo de la frontera entre exigido, pendiente y relleno en modificadores sin representación («relajante zulu», «death metal angola», «musica rapida infantil»).
+  - Las etiquetas los tratan como restricción pendiente.
+  - Laya los descarta como relleno, o al revés.
+- Es una decisión de convención más que de comprensión. Con este enfoque, ni el léxico, ni el modelo, ni la fuente externa la acercan a 0,85.
+
+Datos de trabajo en `tmp-analysis/unified-search-stage3-v17`.
