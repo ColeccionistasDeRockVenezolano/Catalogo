@@ -1,6 +1,7 @@
 import { INTENTION_VERSION, intentionSchema, type SearchIntention } from "../contracts.js";
 import type { QueryLexicon } from "./lexicon.js";
-import type { CatalogMatch, Segmentation, Span } from "./segmenter.js";
+import { bareNameLiteral, catalogKey, type CatalogMatch, type Segmentation, type Span } from "./segmenter.js";
+import type { ExternalHit } from "./external-names.js";
 import { DESCRIBE_KEY, isSoundOnly, NOT_REQUESTED, OTHER, UNCLEAR, type Dimension, type QuestionTask } from "./questions.js";
 
 export const COMPILER_VERSION = "crv-query-compiler-0.2.0";
@@ -37,7 +38,8 @@ function ranked(a: Answer | undefined, exclude: string[] = []): string[] {
 
 export const DESCRIBED_LEXICAL_PRIOR = 1;
 
-export function compileInterpretation(seg: Segmentation, answers: Answers, lexicon: QueryLexicon, thresholds: Thresholds = {}): Interpretation {
+/** `external`: nombres hallados fuera del catálogo por clave normalizada (1.7.0, external-names.ts). */
+export function compileInterpretation(seg: Segmentation, answers: Answers, lexicon: QueryLexicon, thresholds: Thresholds = {}, external?: Map<string, ExternalHit>): Interpretation {
   let describedWithoutGenre = 0;
   const describedSpans: Span[] = [];
   const soundOnly = isSoundOnly(seg);
@@ -51,6 +53,9 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
     // Una referencia de parecido apunta al artista cuando el catálogo lo tiene como tal.
     // Sin señal de clase, un nombre suelto o de referencia apunta al artista cuando el catálogo lo tiene.
     let kind = hint ?? (kinds.length === 1 ? kinds[0]! : kinds.includes("artist") ? "artist" : null);
+    // Fuera del catálogo, la clase la dice la fuente externa; sin ella, el artista: en las etiquetas
+    // humanas de desarrollo los nombres con clase son artistas 62 veces y canciones 25 (1.7.0).
+    if (!kind && !matches.length) kind = external?.get(catalogKey(literal))?.kind ?? "artist";
     // La referencia de un parecido es el artista, también cuando el catálogo solo tiene a la persona.
     if (role === "reference" && kind === "person") kind = "artist";
     const same = matches.filter(x => !kind || x.kind === kind);
@@ -98,6 +103,9 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
     const [dim, p] = top(answers[`dim:${span.id}`]);
     const t = { span: span.id, text: span.text, decision: dim, confidence: p, outcome: "" };
     trace.push(t);
+    // Un resto con artista exacto fuera del catálogo, con la popularidad que su texto exige, es ese nombre (1.7.0).
+    const ext = span.mode !== "excluded" && !span.negated ? external?.get(catalogKey(span.text)) : undefined;
+    if (ext) { addEntity("target", ext.kind, span.text, []); t.decision = `external:${ext.kind}`; t.outcome = "entity"; return; }
     if (span.cue === "origin") { pending.push({ text: span.text, reason: "origin_not_representable" }); t.decision = "origin"; t.outcome = "pending"; return; }
     if (span.cue === "version") { pending.push({ text: span.text, reason: "attribute_not_representable" }); t.decision = "unrepresentable"; t.outcome = "pending"; return; }
     // Descripción de sonido: los restos son rasgos para la pregunta de género, sin preguntas por fragmento
@@ -142,6 +150,14 @@ export function compileInterpretation(seg: Segmentation, answers: Answers, lexic
     const options = [...keys].sort((x, y) => score(y) - score(x)).slice(0, 3);
     if (options.length) described.push(...options);
     else { pending.push({ text: describedSpans.map(s => s.text).join(" · "), reason: "described_traits_without_genre" }); describedWithoutGenre++; }
+  }
+
+  // Nombre suelto: la consulta entera no toca el léxico ni el catálogo y no lleva señales de pedido (1.7.0).
+  const bare = bareNameLiteral(seg);
+  if (bare) {
+    conds.length = 0; pending.length = 0; clarify.length = 0; needClarify = false; entities.length = 0; intentionEntities.length = 0; described.length = 0; describedWithoutGenre = 0;
+    addEntity("target", null, bare, []);
+    trace.push({ span: "-", text: bare, decision: "bare_name", confidence: null, outcome: "entity" });
   }
 
   // Consulta que coincide entera con una ficha y además contiene posibles conceptos.

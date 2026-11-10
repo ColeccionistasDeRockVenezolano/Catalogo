@@ -82,7 +82,14 @@ def query(a):
     legacy = run_baseline(str(reserved_path), "legacy")
     rules = run_baseline(str(reserved_path), "rules")
     lat = json.loads((tw / "latency.json").read_text())
-    compile_p95 = json.loads((tw / "eval-reserved.json").read_text())["compileMsP95"] or 0
+    ev = json.loads((tw / "eval-reserved.json").read_text())
+    compile_p95 = ev["compileMsP95"] or 0
+    # 1.7.0: la consulta externa sale tras segmentar y corre en paralelo con el modelo; la compilación espera a
+    # ambos. Cada consulta externa se corta en su presupuesto, así que con E_max = la más lenta medida,
+    # P(max(M, E) > max(M_p95, E_max)) <= P(M > M_p95) = 5 %: la cota del p95 es max(M_p95, E_max) + compilación.
+    ext = ev.get("external") or None
+    ext_max = (ext or {}).get("caseMsMax") or 0
+    model_part = max(lat["p95"], ext_max)
     crit_ids = {x["id"] for x in res["criticalCases"]} | {x["id"] for x in mand["criticalCases"]}
     ece, per = ece_max(tw, Path(a.val_tasks), tw / "answers-val-tasks.jsonl")
     checks = [
@@ -97,13 +104,13 @@ def query(a):
         check("F1 de condiciones", res["conditionF1"], ">=", 0.90),
         check("Género descrito: acierto entre tres", res["describedGenreRecallAt3"], ">=", 0.70),
         check("Tráfico real sin invención", real["noInvention"], ">=", 0.98),
-        check("Latencia p95 en caliente (ms)", lat["p95"] + compile_p95, "<=", 500),
+        check("Latencia p95 en caliente (ms)", model_part + compile_p95, "<=", 500),
         check("ECE máximo por familia (validación)", ece, "<=", 0.10),
         check("Margen sobre reglas heredadas", res["exactPlanAccuracy"] - legacy["exactPlanAccuracy"], ">=", 0.20),
         check("Críticos no peores que reglas sin modelo", rules["criticalErrorRate"] - res["criticalErrorRate"], ">=", 0.0),
     ]
     row = lambda name, s: {"system": name, "exactitud": s["exactPlanAccuracy"], "críticos": s["criticalErrorRate"], "F1": s["conditionF1"], "sobreconfianza": s.get("overconfidence")}
-    comparison = [row("legacy", legacy), row("rules", rules), row("base", base), {**row("tuned", res), "latencia_p95_ms": lat["p95"] + compile_p95}]
+    comparison = [row("legacy", legacy), row("rules", rules), row("base", base), {**row("tuned", res), "latencia_p95_ms": model_part + compile_p95}]
     files = {"reserved": reserved_path, "mandatory": DS / "query-test-mandatory.json", "real": DS / "query-test-real.json"}
     datasets = {k: {"path": str(v.relative_to(ROOT)), "sha256": sha(v), "cases": len(json.loads(v.read_text())["cases"])} for k, v in files.items()}
     for k, v in files.items():
@@ -113,6 +120,9 @@ def query(a):
     runs = sum(1 for _ in open(tw / "reserved-runs.log"))
     notes = [f"ECE por familia en validación: " + ", ".join(f"{k} {v['ece']}" for k, v in per.items()),
              f"Latencia: modelo p95 {lat['p95']} ms + compilación p95 {round(compile_p95, 1)} ms ({lat['device']}).",
+             *([f"Nombres externos ({ext['version']}, caché vacía al empezar: {ext['live']}): {ext['lookups']} consultas a Deezer en paralelo con el modelo, "
+                f"p50 {ext['msP50'] and round(ext['msP50'])} ms, p95 {ext['msP95'] and round(ext['msP95'])} ms, máx. {round(ext_max)} ms (presupuesto {ext['thresholds']['externalBudgetMs']} ms), "
+                f"{ext['failures']} sin respuesta a tiempo, {ext['hits']} nombres. Cota del p95: max(modelo, externa máx.) + compilación."] if ext else []),
              f"Por categoría: " + ", ".join(f"{k} {v['exact']}/{v['n']}" for k, v in res["byCategory"].items())]
     write("query_interpretation", a.model, common("query_interpretation", a.model, card(a.model), datasets, checks, comparison, notes, runs))
 

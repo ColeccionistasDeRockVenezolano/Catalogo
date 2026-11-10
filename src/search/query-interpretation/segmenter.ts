@@ -560,3 +560,35 @@ export function segmentQuery(text: string, lexicon: QueryLexicon, catalog: Catal
   }
   return { version: "crv-query-segmenter-0.1.0", lexicon: lexicon.doc.version, text, normalized: normalizeQueryText(text), spans, wholeQueryMatches, structure, listenerStates, soundDescription };
 }
+
+// 1.7.0 · nombre suelto. En el tráfico real, una consulta sin ninguna frase del léxico ni del catálogo
+// es casi siempre un nombre que el catálogo no tiene («Pungo», «musica nueva de rawayana»): 70 de 140
+// en las particiones humanas de desarrollo. Las que llevan «con», «para», «que» o «como» piden otra cosa.
+const BARE_LEAD = /^(?:(?:la|el|las|los)\s+)?(?:musica|canciones|cancion|temas|tema|rolas)(?:\s+(?:nueva|nuevas|nuevo|nuevos|vieja|viejas|viejo|viejos))?(?:\s+(de|del))?\s+/u;
+const BARE_STOP = new Set(["con", "para", "pa", "en", "cuando", "que", "q", "como", "se", "mi", "tu", "te", "me", "por", "porque", "tipo", "tipos", "donde",
+  "musica", "musicas", "musiquita", "cancioncita", "canciones", "cancion", "music", "songs", "recomiendame", "recomienda", "escuchar", "playlist"]);
+const KEY_ROWS = ["qwertyuiop", "asdfghjkl", "zxcvbnm"];
+/** Ruido de teclado: palabra larga sin vocales, cuatro consonantes seguidas o una fila del teclado. */
+function keyboardNoise(w: string): boolean {
+  if (w.length >= 4 && !/[aeiou]/u.test(w)) return true;
+  if (/[bcdfghjklmnñpqrstvwxz]{4,}/u.test(w)) return true;
+  return w.length >= 4 && KEY_ROWS.some(r => [...Array(w.length - 3).keys()].some(i => r.includes(w.slice(i, i + 4))));
+}
+
+/** Literal del nombre cuando toda la consulta es un nombre suelto; null si hay léxico, catálogo o señales de pedido. */
+export function bareNameLiteral(seg: Segmentation): string | null {
+  if (seg.wholeQueryMatches.length || seg.structure.parentheses) return null;
+  if (seg.spans.some(s => s.kind !== "residual" || s.cue === "origin" || s.cue === "activity")) return null;
+  if (/[<>{}=;()[\]]/u.test(seg.text)) return null;
+  const norm = normalizeQueryText(seg.text).replace(/\s+/gu, " ").trim();
+  const lead = norm.match(BARE_LEAD);
+  const rest = lead ? norm.slice(lead[0].length) : norm;
+  const words = rest.split(" ").filter(Boolean);
+  // «… mix», «… éxitos», «… 2025»: el nombre es lo anterior.
+  while (words.length > 1 && /^(?:mix|exitos|\d{4})$/u.test(words.at(-1)!)) words.pop();
+  if (!words.length || words.length > 5) return null;
+  if (words.some(w => BARE_STOP.has(w) || REQUEST_HEADS.has(w) || keyboardNoise(w)) || words.at(-1) === "de" || words.at(-1) === "del") return null;
+  // «sin bandera» es nombre tras «canciones de»; «musica sin audio» es una restricción.
+  if (words[0] === "sin" && !lead?.[1]) return null;
+  return words.join(" ");
+}

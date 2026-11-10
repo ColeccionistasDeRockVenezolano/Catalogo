@@ -21,10 +21,13 @@ if [ ! -f "$W/calibration.json" ]; then
 fi
 CAL="$W/calibration.json"
 TH=(); [ -f "$W/thresholds.json" ] && TH=(--thresholds "$W/thresholds.json")
+# 1.7.0: CRV_STAGE3_EXTERNAL=<caché> consulta los nombres fuera del catálogo (Deezer) y mide cada consulta.
+# En la evaluación reservada la caché debe empezar vacía: no se precalienta con textos de la prueba.
+EXT=(); [ -n "${CRV_STAGE3_EXTERNAL:-}" ] && EXT=(--external "$CRV_STAGE3_EXTERNAL" --external-live)
 evaluate() { # $1 nombre, $2 conjunto
   $TSX scripts/unified-search-stage3-queries.ts tasks "$2" "$W/tasks-$1.jsonl" >/dev/null
   run "$1" "$W/tasks-$1.jsonl"
-  $TSX scripts/unified-search-stage3-queries.ts eval "$2" "$W/answers-$1.jsonl" "${TH[@]}" --out "$W/eval-$1.json" >/dev/null
+  $TSX scripts/unified-search-stage3-queries.ts eval "$2" "$W/answers-$1.jsonl" "${TH[@]}" "${EXT[@]}" --out "$W/eval-$1.json" >/dev/null
   python3 -c "import json,sys;d=json.load(open('$W/eval-$1.json'))['summary'];print('$1',json.dumps({k:v for k,v in d.items() if k not in ('results','byCategory','criticalCases','invented')}))"
 }
 if [ "$MODE" = dev ]; then
@@ -35,6 +38,7 @@ if [ "$MODE" = dev ]; then
   run val-tasks "$C/tasks-val.jsonl"
   $PY scripts/stage3/calibrate.py ece --tasks "$C/tasks-val.jsonl" --answers "$W/answers-val-tasks.jsonl" --calibration "$CAL"
 else
+  if [ -n "${CRV_STAGE3_EXTERNAL:-}" ] && [ -e "$CRV_STAGE3_EXTERNAL" ]; then echo "la caché externa $CRV_STAGE3_EXTERNAL ya existe: la reservada empieza vacía" >&2; exit 1; fi
   echo "$(date -u +%FT%TZ) $VARIANT" >> "$W/reserved-runs.log"
   evaluate reserved "${CRV_STAGE3_RESERVED:-$DS/query-test-reserved.json}"
   evaluate mandatory "$DS/query-test-mandatory.json"

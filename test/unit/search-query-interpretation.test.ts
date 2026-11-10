@@ -1,9 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { loadQueryLexicon } from "../../src/search/query-interpretation/lexicon.js";
-import { segmentQuery, catalogKey, emptyCatalog, type CatalogResolver } from "../../src/search/query-interpretation/segmenter.js";
+import { segmentQuery, bareNameLiteral, catalogKey, emptyCatalog, type CatalogResolver } from "../../src/search/query-interpretation/segmenter.js";
 import { buildQuestions } from "../../src/search/query-interpretation/questions.js";
 import { compileInterpretation } from "../../src/search/query-interpretation/compiler.js";
 import { rulesAnswers } from "../../src/search/query-interpretation/baselines.js";
+import { decideExternal, externalCandidates, type ExternalHit } from "../../src/search/query-interpretation/external-names.js";
 import { compareCase, aggregate, noInvention, type QueryGold } from "../../src/search/query-interpretation/evaluation.js";
 
 const lexicon = loadQueryLexicon();
@@ -178,5 +179,43 @@ describe("evaluación de la etapa 3", () => {
     const p = { status: "query_valid" as const, req: ["activity:intimacy"], exc: [], any: [], pref: [], ctx: 0, ent: [], pending: 0, alts: [], facets: [] };
     expect(noInvention(["activity:intimacy"], p)).toBe(true);
     expect(noInvention([], p)).toBe(false);
+  });
+});
+
+describe("nombres externos (1.7.0)", () => {
+  const dict = { words: new Set(["latino", "paradise", "lost"]), files: [] };
+  const raw = { artists: [{ name: "Willyrex", fans: 3943 }, { name: "Latino", fans: 33172 }, { name: "Paradise Lost", fans: 95448 }] };
+  const th = { externalArtistFans: 1000, externalCommonWordFans: 90000, externalBudgetMs: 400 };
+  it("una palabra ajena al diccionario basta con el mínimo; solo palabras comunes exigen un artista muy conocido", () => {
+    expect(decideExternal("willyrex", raw, th, dict)).toMatchObject({ kind: "artist", name: "Willyrex" });
+    expect(decideExternal("latino", raw, th, dict)).toBeNull();
+    expect(decideExternal("paradise lost", raw, th, dict)).toMatchObject({ name: "Paradise Lost" });
+    expect(decideExternal("willy", raw, th, dict)).toBeNull();
+    expect(decideExternal("willyrex", raw, th, null)).toBeNull();
+    expect(decideExternal("x", undefined, th, dict)).toBeNull();
+  });
+  it("un nombre suelto se busca por nombre (artista por defecto) y el resto externo pasa a nombre", () => {
+    const seg = segmentQuery("Pungo", lexicon, emptyCatalog);
+    expect(externalCandidates(seg)).toContain("pungo");
+    const plain = compileInterpretation(seg, rulesAnswers(seg, buildQuestions(seg, lexicon)), lexicon);
+    expect(plain.canonical.status).toBe("entity_lookup");
+    expect(plain.canonical.ent[0]).toMatchObject({ role: "target", kind: "artist", literal: "pungo" });
+    const s2 = segmentQuery("musica epica willyrex", lexicon, emptyCatalog);
+    const hit: ExternalHit = { kind: "artist", name: "Willyrex", popularity: 3943, source: "deezer" };
+    const r = compileInterpretation(s2, rulesAnswers(s2, buildQuestions(s2, lexicon)), lexicon, {}, new Map([[catalogKey("willyrex"), hit]]));
+    expect(r.canonical.req).toEqual(["atmosphere:epic"]);
+    expect(r.canonical.ent).toEqual([{ role: "target", kind: "artist", literal: "willyrex" }]);
+  });
+  it("nombre suelto: quita «música nueva de», rechaza «con», «para» y «sin» sin «de»", () => {
+    const bare = (t: string) => bareNameLiteral(segmentQuery(t, lexicon, emptyCatalog));
+    expect(bare("musica nueva de rawayana")).toBe("rawayana");
+    expect(bare("música vieja joe vera")).toBe("joe vera");
+    expect(bare("canciones de sin bandera")).toBe("sin bandera");
+    expect(bare("musica con instrumentos")).toBeNull();
+    expect(bare("musica sin audio")).toBeNull();
+    expect(bare("música para xbox")).toBeNull();
+    expect(bare("canciones de brasil")).toBeNull();
+    expect(bare("<script>alert(1)</script>")).toBeNull();
+    expect(bare("rock alegre")).toBeNull();
   });
 });
