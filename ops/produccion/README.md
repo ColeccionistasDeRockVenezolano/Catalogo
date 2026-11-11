@@ -834,3 +834,29 @@ Verificado tras activar: ambos servicios activos, API `/health` 200, portada
 del gateway 200 con la versión nueva y bundle del dominio público HTTP 200
 idéntico byte a byte al de la release. Pasan las 11 pruebas de créditos y
 tarjeta; la fuente de release valida ambas grafías y recopilatorios.
+
+## Buscador etapa 3: modo «solo si coinciden» activado · 2026-11-11
+
+Activación autorizada por Brian (fila 2 de `ingest.search_model_activations`, run 43201, modelo `crv-query-gated-1.10.0`,
+evaluación reservada única `query_interpretation--crv-query-student-s5--1.10.0.json`). El estudiante solo NO cumple los
+umbrales y no se activa por separado: solo el modo de coincidencia.
+
+Qué hace: tras responder `/search` (principal, sin `types`, visitante elegible), la API consulta al interpretador local, y **solo si la 1.8.0
+y el estudiante producen el mismo plan** anota ese plan en el resumen de la búsqueda (`versions.model = crv-query-gated-1.10.0:agree`,
+`intention` motor `laya`); si no coinciden, el resumen queda «sin interpretar» (`:abstain`). No cambia los resultados ni retrasa la respuesta
+(la anotación es posterior; el resumen solo se guarda al confirmar). Máximo 2 interpretaciones en curso.
+
+Release `/home/brian/apps/crv-release/crv-api-2026-11-11-buscador-gated` = `crv-api-2026-11-08-rendimiento` + `src/search/query-interpretation/*`,
+`laya-models.ts`, ruta `/search`, léxico y criterios/evaluación 1.10.0 (sin otros cambios del workspace). Drop-ins de `crv-api`:
+`fijado.conf` (WorkingDirectory de la release) y `zz-buscador-gated.conf` (`CRV_QUERY_GATED=1`). Unidad nueva
+`crv-query-interpreter.service` (127.0.0.1:3191; Laya 0.9.0 + estudiante s5 en GPU; `CRV_LAYA_BASE_REVISION` fija la revisión base porque
+`refs/main` de la caché de Hugging Face cambió el 2026-11-10 aunque los bytes son idénticos).
+
+Privacidad y límites: los tramos que el catálogo no resuelve se consultan en Deezer (decisión 1.7.0), como se midió; la caché de nombres es solo
+de memoria. El catálogo de nombres es la instantánea `~/.cache/crv-stage3/catalog-names-2026-10-25.json` (no se actualiza sola). Latencia de
+extremo a extremo con Deezer en frío: p50 ≈ 0,3 s, p95 ≈ 1 s (la medida de 474 ms de la evaluación era una cota sin red real); no bloquea la búsqueda.
+Se dejó una búsqueda de prueba («ska venezolano de los 80») en `ingest.search_attempts` al verificar de punta a punta.
+
+Vuelta atrás: registrar la desactivación (`scripts/stage3/activate.ts query_interpretation crv-query-gated-1.10.0 deactivate <actor> <motivo>`)
+o poner `CRV_QUERY_GATED=0`; para volver a la release anterior, copiar `.deploy-backup/fijado.conf.2026-11-08` de la release nueva como
+`fijado.conf`, retirar `zz-buscador-gated.conf`, `daemon-reload` y reiniciar `crv-api`; `systemctl --user disable --now crv-query-interpreter`.
