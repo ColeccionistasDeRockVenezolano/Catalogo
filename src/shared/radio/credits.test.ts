@@ -31,6 +31,19 @@ describe("firma de una pista de la radio", () => {
       .toBe("Convoy - Hoy Voy Por Ti ∙ 2016");
   });
 
+  it("firma Zapato3 también en recopilatorios y títulos con prefijo", () => {
+    for (const artist of ["Zapato 3", "Zapato3", " ZAPATO 3 "]) {
+      expect(displayArtist(artist)).toBe("Zapato3");
+      expect(trackDisplay({ artist, title: "Zapato 3 - Pantaletas Negras" }))
+        .toEqual({ artist: "Zapato3", title: "Pantaletas Negras" });
+    }
+    expect(trackLine({ artist: "Various Artists", title: "Zapato 3 - Pantaletas Negras" }))
+      .toBe("Zapato3 - Pantaletas Negras");
+    expect(trackCredits({ artist: "Zapato 3", album: "Bésame y Suicídate", year: 1991 }))
+      .toBe("Zapato3 - Bésame y Suicídate ∙ 1991");
+    expect(displayArtist("Zapato 30")).toBe("Zapato 30");
+  });
+
   it("sin artista ni guion suelto deja el título entero", () => {
     expect(trackDisplay({ artist: "Various Artists", title: "Paranoia", album: "Vol. 2", year: 2005 }))
       .toEqual({ artist: "", title: "Paranoia" });

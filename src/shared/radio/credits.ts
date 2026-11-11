@@ -23,7 +23,9 @@ export function isCompilationArtist(artist: string | null | undefined): boolean 
 /** El artista que se puede enseñar; vacío cuando la pista viene de un recopilatorio. */
 export function displayArtist(artist: string | null | undefined): string {
   const value = String(artist ?? "").trim();
-  return value === "" || isCompilationArtist(value) ? "" : value;
+  if (value === "" || isCompilationArtist(value)) return "";
+  // Regla editorial de Brian: en la radio se firma «Zapato3».
+  return /^zapato\s*3$/iu.test(value) ? "Zapato3" : value;
 }
 
 interface Track {
@@ -42,16 +44,16 @@ export function trackDisplay(track: Track | null | undefined): { artist: string;
   const rawTitle = String(track?.title ?? "").trim();
   const known = displayArtist(track?.artist);
   if (known) {
-    const prefix = `${known} - `;
-    if (rawTitle.toLocaleLowerCase("es").startsWith(prefix.toLocaleLowerCase("es"))) {
-      return { artist: known, title: rawTitle.slice(prefix.length).trim() };
+    const match = TITLE_WITH_ARTIST.exec(rawTitle);
+    if (match && displayArtist(match[1]).toLocaleLowerCase("es") === known.toLocaleLowerCase("es")) {
+      return { artist: known, title: (match[2] ?? "").trim() };
     }
     return { artist: known, title: rawTitle };
   }
   const match = TITLE_WITH_ARTIST.exec(rawTitle);
   if (!match) return { artist: "", title: rawTitle };
   const [, left = "", right = ""] = match;
-  return { artist: left.trim(), title: right.trim() };
+  return { artist: displayArtist(left), title: right.trim() };
 }
 
 /** Línea principal de la tarjeta: el título de la música, sin el artista. */
