@@ -461,6 +461,7 @@ function loadCatalog(state: EngineState, station: RadioStation, nowMs: number): 
     file, revision, version: digest, items, videoEnds,
     totalDuration: items.reduce((sum, item, index) => sum + slotSeconds(station, item, index), 0),
   };
+  if (previous && previous.version === digest) refreshCachedOrders(state, previous, state.catalog);
   // Un catálogo nuevo no corta la pieza en curso: la versión anterior sirve hasta
   // que esa pieza termina. Si lo que suena es un video retirado, el relevo es inmediato.
   if (previous && previous.version !== digest && !state.staleCatalog) {
@@ -472,6 +473,25 @@ function loadCatalog(state: EngineState, station: RadioStation, nowMs: number): 
     }
   }
   return state.catalog;
+}
+
+// La huella solo mira [videoId, inicio, duración] para que la programación no
+// salte cuando cambian los datos de una pieza. Pero los órdenes guardados de cada
+// ciclo llevan las piezas del archivo anterior: si solo cambió un título, un
+// artista o un género, se conservan las posiciones y se sustituye cada pieza por
+// su versión nueva. Misma huella = mismas piezas en el mismo orden, así que el
+// emparejamiento por índice es exacto. (Caso «La Semana (Cabello/Troconis)»,
+// 2026-11-07: la corrección tardó un día en verse, hasta un reinicio.)
+function refreshCachedOrders(state: EngineState, previous: CatalogCache, next: CatalogCache): void {
+  if (previous.items.length !== next.items.length) return;
+  const replacement = new Map<RadioCatalogItem, RadioCatalogItem>();
+  previous.items.forEach((item, index) => replacement.set(item, next.items[index]!));
+  for (const cache of [state.orders, state.baseOrders]) {
+    for (const [key, order] of cache) {
+      if (!key.startsWith(`${next.version}:`)) continue;
+      cache.set(key, order.map((item) => replacement.get(item) ?? item));
+    }
+  }
 }
 
 function activeCatalog(state: EngineState, station: RadioStation, nowMs: number): CatalogCache | null {

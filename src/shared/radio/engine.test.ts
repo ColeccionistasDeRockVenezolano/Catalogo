@@ -201,4 +201,23 @@ describe("motor de radio", () => {
     expect(radioSnapshot(station, station.epochMs)!.total).toBe(8);
     fs.rmSync(stateDir, { recursive: true, force: true });
   });
+
+  it("un título corregido se ve al instante sin mover la programación", () => {
+    const station = fixture((index) => ({ title: `Tema ${index + 1} (Autor/Autor)` }));
+    const at = (offsetMs: number): number => station.epochMs + offsetMs;
+    const before = [0, 150_000, 400_000].map((offset) => radioSnapshot(station, at(offset))!);
+    expect(before[1]!.current!.title).toMatch(/\(Autor\/Autor\)$/);
+    // Solo cambian los títulos: misma huella [videoId, inicio, duración].
+    const raw = JSON.parse(fs.readFileSync(station.catalogPath, "utf8")) as { items: Array<{ title: string }> };
+    for (const item of raw.items) item.title = item.title.replace(" (Autor/Autor)", "");
+    fs.writeFileSync(station.catalogPath, JSON.stringify(raw));
+    const later = new Date(Date.now() + 60_000);
+    fs.utimesSync(station.catalogPath, later, later);
+    const after = [0, 150_000, 400_000].map((offset) => radioSnapshot(station, at(offset) + 1)!);
+    after.forEach((snapshot, index) => {
+      expect(snapshot.catalogVersion).toBe(before[index]!.catalogVersion);
+      expect(snapshot.current!.videoId).toBe(before[index]!.current!.videoId);
+      expect(snapshot.current!.title).not.toMatch(/Autor/);
+    });
+  });
 });

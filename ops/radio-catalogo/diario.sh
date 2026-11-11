@@ -24,5 +24,7 @@ status=0
 echo "[$(date -Is)] inicio"
 ./scripts/with-node22.sh ./node_modules/.bin/tsx scripts/radio-sheet-sync.ts --real --out "$log_dir/hoja-ultima.json" || status=1
 ./scripts/with-node22.sh ./node_modules/.bin/tsx scripts/export-radio-catalog.ts "$catalog" --tipos-hoja "$@" || status=1
+# La radio solo sigue al catálogo si la API en marcha lee el mismo archivo.
+"$repo/ops/radio-catalogo/comprobar-ruta.sh" "$catalog" || status=1
 echo "[$(date -Is)] fin (estado $status)"
 exit "$status"
