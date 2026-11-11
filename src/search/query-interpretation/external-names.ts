@@ -161,22 +161,38 @@ export interface Lookup { raw: ExternalRaw | null; ms: number; error?: string }
  * (HTML, 429 o código 4), que es propio de la evaluación en lote; se mide el intento que responde.
  */
 export async function lookupDeezer(literal: string, budgetMs = DEFAULT_EXTERNAL.externalBudgetMs, kind: "artist" | "track" = "artist"): Promise<Lookup> {
-  const url = `https://api.deezer.com/search/${kind}?limit=10&q=${encodeURIComponent(literal)}`;
   for (let attempt = 0; ; attempt++) {
     await throttle();
     const t0 = performance.now();
+    // 1.10.0: tope duro. Si la petición no se resuelve ni se aborta (visto en lotes largos), cuenta como sin respuesta.
+    const hang = new Promise<Lookup>(res => setTimeout(() => res({ raw: null, ms: budgetMs, error: "Hang" }), budgetMs + 1500).unref?.());
+    const got = await Promise.race([lookupOnce(literal, budgetMs, kind, attempt, t0), hang]);
+    if (got === "retry") { await new Promise(r => setTimeout(r, 1500 * (attempt + 1))); continue; }
+    return got;
+  }
+}
+
+async function lookupOnce(literal: string, budgetMs: number, kind: "artist" | "track", attempt: number, t0: number): Promise<Lookup | "retry"> {
+  {
+    const url = `https://api.deezer.com/search/${kind}?limit=10&q=${encodeURIComponent(literal)}`;
+    // 1.10.0: AbortController + temporizador propio (AbortSignal.timeout es débil y no mantiene vivo el bucle: una
+    // petición detenida dejaba la evaluación en lote colgada o cerrada con «unsettled top-level await»).
+    const ctl = new AbortController();
+    const timer = setTimeout(() => ctl.abort(), budgetMs);
     try {
-      const res = await fetch(url, { signal: AbortSignal.timeout(budgetMs), headers: { "user-agent": "crv-search-stage3/1.7.0" } });
+      const res = await fetch(url, { signal: ctl.signal, headers: { "user-agent": "crv-search-stage3/1.7.0" } });
       const text = await res.text();
       const ms = performance.now() - t0;
       const body = res.ok && text.trimStart().startsWith("{") ? JSON.parse(text) as { data?: Record<string, unknown>[]; error?: { code?: number } } : null;
-      if ((!body || body.error?.code === 4) && attempt < 4) { await new Promise(r => setTimeout(r, 1500 * (attempt + 1))); continue; }
+      if ((!body || body.error?.code === 4) && attempt < 4) return "retry";
       if (!body || body.error) return { raw: null, ms, error: body ? JSON.stringify(body.error) : `HTTP ${res.status}` };
       const data = body.data ?? [];
       return { raw: kind === "artist" ? { artists: data.map(x => ({ name: String(x["name"]), fans: Number(x["nb_fan"] ?? 0) })) }
         : { artists: [], tracks: data.map(x => ({ title: String(x["title"]), rank: Number(x["rank"] ?? 0), artist: String((x["artist"] as Record<string, unknown> | undefined)?.["name"] ?? "") })) }, ms };
     } catch (e) {
       return { raw: null, ms: Math.min(performance.now() - t0, budgetMs), error: (e as Error).name };
+    } finally {
+      clearTimeout(timer);
     }
   }
 }
@@ -185,6 +201,7 @@ export async function lookupDeezer(literal: string, budgetMs = DEFAULT_EXTERNAL.
 export class ExternalNameCache {
   private readonly entries: Record<string, { raw: ExternalRaw | null; ms: number; at: string; error?: string }>;
   failures = 0;
+  get size() { return Object.keys(this.entries).length; }
   constructor(private readonly file: string, private readonly budgetMs = DEFAULT_EXTERNAL.externalBudgetMs) {
     this.entries = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
   }

@@ -1,0 +1,7099 @@
+{
+ "version": "crv-query-real-human-test-4.0.0",
+ "batch": {
+  "path": "docs/unified-search/stage3/datasets/query-real-labeling-4.json",
+  "version": "crv-query-real-labeling-4.0.0",
+  "sha256": "17ed9484cdfd5ee9cd4fb4fe0a8739d0cc68cad3c2a511e6d8dc0793f03ddfff"
+ },
+ "labeler": "claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+ "exportedAt": "2026-11-10",
+ "excluded": {
+  "skipped": 3,
+  "unlabeled": 0,
+  "stale": 0
+ },
+ "policy": "Prueba de la versión 1.9.0: no se usa para reglas, léxico, umbrales ni entrenamiento.",
+ "cases": [
+  {
+   "id": "R4001",
+   "category": "entity",
+   "text": "bandas parecidas a panic at the disco",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "panic at the disco",
+      "kind": "artist",
+      "role": "reference"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4002",
+   "category": "plain",
+   "text": "musica romantica alegre",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful",
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4003",
+   "category": "plain",
+   "text": "art pop para niños",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:art-pop",
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4004",
+   "category": "plain",
+   "text": "rock para moto",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel",
+     "genre:rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4005",
+   "category": "entity",
+   "text": "musica relajante la nube para niños",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:relaxation",
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "la nube",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«la nube» tomado como nombre sin clase (duda: podría ser imagen descriptiva)"
+  },
+  {
+   "id": "R4006",
+   "category": "entity",
+   "text": "musica de dragon ball z",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "dragon ball z",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "obra con nombre propio"
+  },
+  {
+   "id": "R4007",
+   "category": "plain",
+   "text": "que musica escuchar para hacer tarea",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4008",
+   "category": "plain",
+   "text": "música de vals",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:vals-venezolano"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "vals = alias de vals venezolano (como «canciones para vals»)"
+  },
+  {
+   "id": "R4009",
+   "category": "entity",
+   "text": "musica epica jujutsu kaisen",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:epic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "jujutsu kaisen",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "obra"
+  },
+  {
+   "id": "R4010",
+   "category": "plain",
+   "text": "canciones para kinder",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "kinder = niños (paráfrasis)"
+  },
+  {
+   "id": "R4011",
+   "category": "entity",
+   "text": "death amusia",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:death-metal"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "amusia",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "género + nombre; duda: Death como banda"
+  },
+  {
+   "id": "R4012",
+   "category": "unsupported",
+   "text": "canciones estilo playa",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "playa"
+  },
+  {
+   "id": "R4013",
+   "category": "unsupported",
+   "text": "canciones para dedicar a una amiga",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "dedicar a una amiga"
+  },
+  {
+   "id": "R4014",
+   "category": "plain",
+   "text": "calypso",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:calipso"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4015",
+   "category": "plain",
+   "text": "musica espiritual oscura",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:dark",
+     "theme:spirituality"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4016",
+   "category": "partial",
+   "text": "psychobilly festival",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:psychobilly"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "festival pendiente (como «quest fest»)"
+  },
+  {
+   "id": "R4017",
+   "category": "entity",
+   "text": "música de juan gabriel",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "juan gabriel",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4018",
+   "category": "plain",
+   "text": "nacionalismo musical características",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:nacionalismo-musical"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "pregunta de definición"
+  },
+  {
+   "id": "R4019",
+   "category": "plain",
+   "text": "black atmospheric metal",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:black-metal-atmosferico"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4020",
+   "category": "entity",
+   "text": "canciones parecidas a rosa pastel",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "rosa pastel",
+      "kind": "artist",
+      "role": "reference"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4021",
+   "category": "plain",
+   "text": "musica triste youtube",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "youtube = plataforma"
+  },
+  {
+   "id": "R4022",
+   "category": "plain",
+   "text": "playlist para quince años",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4023",
+   "category": "entity",
+   "text": "rock para viajar dj dash",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel",
+     "genre:rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "dj dash",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4024",
+   "category": "plain",
+   "text": "que es el death metal melodico",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:death-metal-melodico"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4025",
+   "category": "plain",
+   "text": "canciones con dembow",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:urbano-latino"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "dembow = alias de urbano latino en el léxico"
+  },
+  {
+   "id": "R4026",
+   "category": "plain",
+   "text": "golpe larense baile",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "genre:golpe-larense"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4027",
+   "category": "entity",
+   "text": "canciones de los diablitos",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "los diablitos",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4028",
+   "category": "plain",
+   "text": "rock para sentirse poderoso",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:confident",
+     "genre:rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4029",
+   "category": "partial",
+   "text": "canciones tristes kdrama",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "kdrama genérico, no obra con nombre"
+  },
+  {
+   "id": "R4030",
+   "category": "partial",
+   "text": "boom bap 2023",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:boom-bap"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "2023"
+  },
+  {
+   "id": "R4031",
+   "category": "partial",
+   "text": "bandas de antes romanticas",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "de antes"
+  },
+  {
+   "id": "R4032",
+   "category": "plain",
+   "text": "canciones tristes que no sabes como se llaman",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«no sabes como se llaman» = relleno"
+  },
+  {
+   "id": "R4033",
+   "category": "entity",
+   "text": "canciones de los ilegales merengue",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:merengue"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "los ilegales",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4034",
+   "category": "partial",
+   "text": "música fuerte y machacona",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "energy:energy-high"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "fuerte = energía alta (precedente); machacona pendiente"
+  },
+  {
+   "id": "R4035",
+   "category": "plain",
+   "text": "merengue venezolano para bailar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "genre:merengue-venezolano"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4036",
+   "category": "partial",
+   "text": "ebm cuatro venezolano",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:ebm"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "cuatro (instrumento) y procedencia"
+  },
+  {
+   "id": "R4037",
+   "category": "entity",
+   "text": "rock para los dientes bajo",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "rock para los dientes",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "duda: tomado como título; bajo (instrumento) pendiente"
+  },
+  {
+   "id": "R4038",
+   "category": "partial",
+   "text": "musica instrumental cristiana saxofon",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:instrumental",
+     "genre:musica-cristiana"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "saxofón"
+  },
+  {
+   "id": "R4039",
+   "category": "plain",
+   "text": "que musica deben escuchar los niños",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4040",
+   "category": "plain",
+   "text": "bandas de entrenamiento",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4041",
+   "category": "unsupported",
+   "text": "canciones para dedicar s tu novio",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "dedicar a tu novio (como «dedicar al amor de tu vida»)"
+  },
+  {
+   "id": "R4042",
+   "category": "entity",
+   "text": "mambo que rico el mambo original",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:mambo"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "que rico el mambo",
+      "kind": "track",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«original» (versión) pendiente"
+  },
+  {
+   "id": "R4043",
+   "category": "plain",
+   "text": "post grunge albums",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:post-grunge"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4044",
+   "category": "plain",
+   "text": "flamenco que bonito",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:flamenco"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«que bonito» como valoración vaga; duda: podría ser la canción «Qué bonito»"
+  },
+  {
+   "id": "R4045",
+   "category": "partial",
+   "text": "canciones tristes ingles",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "idioma"
+  },
+  {
+   "id": "R4046",
+   "category": "partial",
+   "text": "algo para un hombre solitario",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:lonely"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "para un hombre (público)"
+  },
+  {
+   "id": "R4047",
+   "category": "entity",
+   "text": "cantautor que actúa con el grupo radio bemba",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:cantautor"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "radio bemba",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "duda: pregunta de identidad (Manu Chao); nombre con condición"
+  },
+  {
+   "id": "R4048",
+   "category": "partial",
+   "text": "metal sinfónico mejores canciones",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:metal-sinfonico"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "mejores = popularidad"
+  },
+  {
+   "id": "R4049",
+   "category": "partial",
+   "text": "musica lenta romantica ingles",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "lenta, inglés"
+  },
+  {
+   "id": "R4050",
+   "category": "partial",
+   "text": "musica para bailar uruguaya",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4051",
+   "category": "entity",
+   "text": "musica de la casa de alofoke",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "la casa de alofoke",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "programa (obra)"
+  },
+  {
+   "id": "R4052",
+   "category": "unrecognized",
+   "text": "salsa para acompañar empanadas criollas",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "comida"
+  },
+  {
+   "id": "R4053",
+   "category": "plain",
+   "text": "power metal playlist",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:power-metal"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4054",
+   "category": "partial",
+   "text": "musica para bailar hora loca 2024",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:celebration",
+     "activity:dancing"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "hora loca = fiesta (paráfrasis, duda); 2024 pendiente"
+  },
+  {
+   "id": "R4055",
+   "category": "entity",
+   "text": "fusión latina 2025 miradas que mienten",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:fusion-latina"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "miradas que mienten",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "2025; género + nombre"
+  },
+  {
+   "id": "R4056",
+   "category": "partial",
+   "text": "bachata para bailar pegadito",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:dancing",
+     "genre:bachata"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«pegadito» pendiente"
+  },
+  {
+   "id": "R4057",
+   "category": "plain",
+   "text": "música triste navidad",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad",
+     "genre:musica-navidena"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4058",
+   "category": "unrecognized",
+   "text": "canciones con g",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "letra suelta"
+  },
+  {
+   "id": "R4059",
+   "category": "plain",
+   "text": "musica para relajar la mente y el alma",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4060",
+   "category": "plain",
+   "text": "musica relajante y motivadora para trabajar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "activity:relaxation",
+     "emotion:confident"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4061",
+   "category": "partial",
+   "text": "metal sinfónico afgano",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:metal-sinfonico"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4062",
+   "category": "partial",
+   "text": "baladas venezolanos",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:balada"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4063",
+   "category": "plain",
+   "text": "metalcore que significa",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:metalcore"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4064",
+   "category": "plain",
+   "text": "música cristiana variada",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:musica-cristiana"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "variada = relleno (como mixtas)"
+  },
+  {
+   "id": "R4065",
+   "category": "partial",
+   "text": "canciones para cuando cumples 23",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "edad 23 pendiente"
+  },
+  {
+   "id": "R4066",
+   "category": "partial",
+   "text": "musica rapida movida",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "energy:energy-high"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "rápida"
+  },
+  {
+   "id": "R4067",
+   "category": "entity",
+   "text": "canciones de willie colón",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "willie colon",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4068",
+   "category": "entity",
+   "text": "musica que baila john travolta",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "john travolta",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "actor; duda (podría leerse disco)"
+  },
+  {
+   "id": "R4069",
+   "category": "partial",
+   "text": "musica fuerte ingles",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "energy:energy-high"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "fuerte = energía alta; inglés pendiente"
+  },
+  {
+   "id": "R4070",
+   "category": "unsupported",
+   "text": "playlist para cesarea",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "cesárea"
+  },
+  {
+   "id": "R4071",
+   "category": "partial",
+   "text": "musica relajante turca",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4072",
+   "category": "partial",
+   "text": "baladas en ingles",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:balada"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "idioma"
+  },
+  {
+   "id": "R4073",
+   "category": "partial",
+   "text": "nueva trova santiaguera",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:nueva-trova"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4074",
+   "category": "plain",
+   "text": "post punk para bailar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "genre:post-punk"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4075",
+   "category": "entity",
+   "text": "música como cuchillo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "cuchillo",
+      "kind": null,
+      "role": "reference"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«como X»; duda: podría ser título"
+  },
+  {
+   "id": "R4076",
+   "category": "unsupported",
+   "text": "musica de violin rapida",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "violín, rápida"
+  },
+  {
+   "id": "R4077",
+   "category": "plain",
+   "text": "bachata para encava",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel",
+     "genre:bachata"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "encava = transporte (paráfrasis, duda)"
+  },
+  {
+   "id": "R4078",
+   "category": "unsupported",
+   "text": "canciones de los mundiales de futbol",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "mundiales de fútbol"
+  },
+  {
+   "id": "R4079",
+   "category": "plain",
+   "text": "metalcore bands",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:metalcore"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4080",
+   "category": "plain",
+   "text": "grupos de zumba",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4081",
+   "category": "unsupported",
+   "text": "musica para oir en la playa",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "playa"
+  },
+  {
+   "id": "R4082",
+   "category": "entity",
+   "text": "musica para bailar yailin",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "yailin",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4083",
+   "category": "plain",
+   "text": "cumbia para vos",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:cumbia"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«para vos» relleno"
+  },
+  {
+   "id": "R4084",
+   "category": "partial",
+   "text": "joropo venezolano patrimonio de la humanidad",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:joropo"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia; «patrimonio de la humanidad» informativo, no cuenta"
+  },
+  {
+   "id": "R4085",
+   "category": "plain",
+   "text": "musica tipo lambada",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:musica-tropical"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "lambada = alias de música tropical"
+  },
+  {
+   "id": "R4086",
+   "category": "plain",
+   "text": "cha cha niños",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:cha-cha-cha",
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "cha cha = cha-cha-chá"
+  },
+  {
+   "id": "R4087",
+   "category": "unsupported",
+   "text": "canciones que uno se sepa",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "popularidad"
+  },
+  {
+   "id": "R4088",
+   "category": "entity",
+   "text": "música de los cangrejos",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "los cangrejos",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4089",
+   "category": "partial",
+   "text": "musica para bailar zapateado mix",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "zapateado (estilo) pendiente"
+  },
+  {
+   "id": "R4090",
+   "category": "unsupported",
+   "text": "musica para jugar dota 2",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "videojuego"
+  },
+  {
+   "id": "R4092",
+   "category": "plain",
+   "text": "musica romantica de los 90",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:1990s",
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4093",
+   "category": "plain",
+   "text": "darkwave music",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:darkwave"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4094",
+   "category": "partial",
+   "text": "dark ambient drone",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:dark-ambient"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "drone no metal: pendiente (no drone-metal)"
+  },
+  {
+   "id": "R4095",
+   "category": "entity",
+   "text": "musica instrumental taize",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:instrumental"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "taize",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "Taizé como nombre"
+  },
+  {
+   "id": "R4096",
+   "category": "partial",
+   "text": "musica fuerte y ruidosa",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "energy:energy-high"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "ruidosa pendiente"
+  },
+  {
+   "id": "R4097",
+   "category": "plain",
+   "text": "glam rock que significa",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:glam-rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4098",
+   "category": "unrecognized",
+   "text": "pasaje de cucuta a bogota",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "viaje"
+  },
+  {
+   "id": "R4099",
+   "category": "entity",
+   "text": "musica con quien se queda el perro",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "con quien se queda el perro",
+      "kind": "track",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4100",
+   "category": "entity",
+   "text": "canciones que le dedico diomedes a patricia acosta",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "diomedes",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "dedicadas a Patricia Acosta"
+  },
+  {
+   "id": "R4101",
+   "category": "plain",
+   "text": "power metal cristiano",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:musica-cristiana",
+     "genre:power-metal"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "como «metalcore cristiano»"
+  },
+  {
+   "id": "R4102",
+   "category": "entity",
+   "text": "musica epica god of war",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:epic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "god of war",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "obra"
+  },
+  {
+   "id": "R4103",
+   "category": "partial",
+   "text": "salsa para gay",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:salsa"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "público"
+  },
+  {
+   "id": "R4104",
+   "category": "partial",
+   "text": "musica relajante flauta",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "flauta"
+  },
+  {
+   "id": "R4105",
+   "category": "plain",
+   "text": "folk metal que es",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:folk-metal"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4106",
+   "category": "unrecognized",
+   "text": "cuasi experimental que es",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "diseño cuasi experimental (investigación)"
+  },
+  {
+   "id": "R4107",
+   "category": "unrecognized",
+   "text": "calipso queda embarazada de odiseo",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "mitología"
+  },
+  {
+   "id": "R4108",
+   "category": "plain",
+   "text": "que musica escuchar en el gym",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4109",
+   "category": "entity",
+   "text": "canciones para dedicar de kris r",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "kris r",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "dedicar"
+  },
+  {
+   "id": "R4111",
+   "category": "plain",
+   "text": "bandas de una moto",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "duda: «bandas de una moto»"
+  },
+  {
+   "id": "R4112",
+   "category": "unsupported",
+   "text": "musica para escuchar borracho",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "borracho (ocasión)"
+  },
+  {
+   "id": "R4113",
+   "category": "unsupported",
+   "text": "canciones que valen la pena escuchar",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«que valen la pena» = calidad/popularidad"
+  },
+  {
+   "id": "R4114",
+   "category": "partial",
+   "text": "musica para bailar zumba 2026",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:dancing",
+     "activity:exercise"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "2026"
+  },
+  {
+   "id": "R4115",
+   "category": "partial",
+   "text": "bandas emo venezolanas",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:emo"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4116",
+   "category": "partial",
+   "text": "lo mejor del pop rock venezolano",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:pop-rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "lo mejor y procedencia"
+  },
+  {
+   "id": "R4117",
+   "category": "plain",
+   "text": "boom bap salsa",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:boom-bap",
+     "genre:salsa"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4118",
+   "category": "partial",
+   "text": "música cristiana del momento",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:musica-cristiana"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "del momento = época"
+  },
+  {
+   "id": "R4119",
+   "category": "partial",
+   "text": "bandas punk venezolanas",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:punk"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4120",
+   "category": "partial",
+   "text": "que musica escuchar segun la materia",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "según la materia"
+  },
+  {
+   "id": "R4121",
+   "category": "unrecognized",
+   "text": "drill para uñas inalambrico",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "herramienta"
+  },
+  {
+   "id": "R4122",
+   "category": "partial",
+   "text": "musica instrumental violin y piano",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:instrumental"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "violín y piano"
+  },
+  {
+   "id": "R4123",
+   "category": "partial",
+   "text": "musica oscura halloween",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "atmosphere:dark"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "halloween"
+  },
+  {
+   "id": "R4124",
+   "category": "plain",
+   "text": "musica romantica para llorar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:catharsis",
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4125",
+   "category": "partial",
+   "text": "canciones para dedicar para cumpleaños",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "dedicar"
+  },
+  {
+   "id": "R4126",
+   "category": "entity",
+   "text": "musica tipo depeche mode",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "depeche mode",
+      "kind": "artist",
+      "role": "reference"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4127",
+   "category": "plain",
+   "text": "música infantil cristiana",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:musica-cristiana",
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4128",
+   "category": "entity",
+   "text": "adoración que se abra el cielo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:adoracion"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "que se abra el cielo",
+      "kind": "track",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4129",
+   "category": "entity",
+   "text": "musica de los jaivas lo mejor",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "los jaivas",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "lo mejor"
+  },
+  {
+   "id": "R4130",
+   "category": "plain",
+   "text": "musica alegre rock en español",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful",
+     "genre:rock-latino"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«rock en español» es alias de rock latino en el léxico 0.7.0 (duda: train-3 lo dejó como idioma)"
+  },
+  {
+   "id": "R4131",
+   "category": "partial",
+   "text": "musica relajante ondas alfa",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "ondas alfa"
+  },
+  {
+   "id": "R4132",
+   "category": "entity",
+   "text": "canciones para dedicar jose madero",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "jose madero",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "dedicar"
+  },
+  {
+   "id": "R4133",
+   "category": "plain",
+   "text": "musica de los 2000",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:2000s"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4134",
+   "category": "unsupported",
+   "text": "musica de los libros dela biblia",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "libros de la Biblia (religioso, como «leer la biblia»)"
+  },
+  {
+   "id": "R4135",
+   "category": "unsupported",
+   "text": "canciones con voz grave en español",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "voz grave, idioma"
+  },
+  {
+   "id": "R4136",
+   "category": "plain",
+   "text": "jazz funk mix",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:jazz-funk"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4137",
+   "category": "entity",
+   "text": "musica romantica usted no sabe lo que es el amor",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "usted no sabe lo que es el amor",
+      "kind": "track",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4138",
+   "category": "entity",
+   "text": "cantautor paraiso",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:cantautor"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "paraiso",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4139",
+   "category": "entity",
+   "text": "una musica lenta nini estrada",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "nini estrada",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "lenta"
+  },
+  {
+   "id": "R4140",
+   "category": "partial",
+   "text": "musica triste usada en videos",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "usada en videos (popularidad)"
+  },
+  {
+   "id": "R4141",
+   "category": "partial",
+   "text": "joropo venezolano para bailar",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:dancing",
+     "genre:joropo"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4142",
+   "category": "partial",
+   "text": "pop latino 2023",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:pop-latino"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "2023"
+  },
+  {
+   "id": "R4143",
+   "category": "plain",
+   "text": "canciones con historias tristes",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "historias tristes"
+  },
+  {
+   "id": "R4144",
+   "category": "unsupported",
+   "text": "musica con acordeon",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "acordeón"
+  },
+  {
+   "id": "R4145",
+   "category": "plain",
+   "text": "musica con norteño",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:musica-tradicional"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "norteño = alias"
+  },
+  {
+   "id": "R4146",
+   "category": "plain",
+   "text": "bandas de power metal",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:power-metal"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4147",
+   "category": "entity",
+   "text": "emo queen sophia",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:emo"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "queen sophia",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "duda: género + nombre"
+  },
+  {
+   "id": "R4148",
+   "category": "partial",
+   "text": "future funk spanish",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:funk"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "future funk subgénero fuera; idioma"
+  },
+  {
+   "id": "R4149",
+   "category": "partial",
+   "text": "musica para fin de año 2025",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "fin de año = fiesta (paráfrasis, duda); 2025"
+  },
+  {
+   "id": "R4150",
+   "category": "plain",
+   "text": "jazz funk dance",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "genre:jazz-funk"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "jazz funk dance (baile)"
+  },
+  {
+   "id": "R4151",
+   "category": "plain",
+   "text": "musica tipo discoteca",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4152",
+   "category": "partial",
+   "text": "harmonica blues solo",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:harmonica-blues"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "solo (instrumental) pendiente"
+  },
+  {
+   "id": "R4153",
+   "category": "unsupported",
+   "text": "musica lenta y rapida para jugar",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "tempo lento y rápido; jugar"
+  },
+  {
+   "id": "R4154",
+   "category": "entity",
+   "text": "música una vieja canción de amor",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "una vieja cancion de amor",
+      "kind": "track",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4155",
+   "category": "entity",
+   "text": "musica epica one punch man",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:epic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "one punch man",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "obra"
+  },
+  {
+   "id": "R4156",
+   "category": "entity",
+   "text": "canciones parecidas a tu boda",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "tu boda",
+      "kind": "track",
+      "role": "reference"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4157",
+   "category": "entity",
+   "text": "musica como una estrella",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "como una estrella",
+      "kind": "track",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "como «musica como pasan los años»"
+  },
+  {
+   "id": "R4158",
+   "category": "plain",
+   "text": "canciones para adorar a dios",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:adoracion"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "adorar a dios = adoración (paráfrasis)"
+  },
+  {
+   "id": "R4159",
+   "category": "plain",
+   "text": "musica que genera tension",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:tense"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4160",
+   "category": "unrecognized",
+   "text": "música de cámara libro",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "libro (partituras/lectura)"
+  },
+  {
+   "id": "R4161",
+   "category": "partial",
+   "text": "grupos de rock famosos",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "popularidad"
+  },
+  {
+   "id": "R4162",
+   "category": "entity",
+   "text": "musica romantica zeze e luciano",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:romantic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "zeze e luciano",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4163",
+   "category": "entity",
+   "text": "canciones tristes tercer cielo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "tercer cielo",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4164",
+   "category": "plain",
+   "text": "blackened crust rym",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:blackened-crust"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4165",
+   "category": "entity",
+   "text": "gaitas la salle",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:gaita"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "la salle",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4166",
+   "category": "entity",
+   "text": "canciones con yeri mua",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "yeri mua",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4167",
+   "category": "entity",
+   "text": "canciones de los trolls",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "trolls",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "película"
+  },
+  {
+   "id": "R4168",
+   "category": "unsupported",
+   "text": "musica tumba bajos",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "bajos (como «full bajos»); tumba no es género aquí"
+  },
+  {
+   "id": "R4169",
+   "category": "partial",
+   "text": "musica romantica salsa viejita",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:romantic",
+     "genre:salsa"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "viejita"
+  },
+  {
+   "id": "R4170",
+   "category": "partial",
+   "text": "música tropical de venezuela",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:musica-tropical"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4171",
+   "category": "unsupported",
+   "text": "canciones que ya son de dominio publico",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "dominio público"
+  },
+  {
+   "id": "R4172",
+   "category": "entity",
+   "text": "camera lenta musica hariel",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "camera lenta",
+      "kind": "track",
+      "role": "target"
+     },
+     {
+      "literal": "hariel",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4173",
+   "category": "partial",
+   "text": "algo para dormir natural",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:sleep"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "natural"
+  },
+  {
+   "id": "R4174",
+   "category": "entity",
+   "text": "musica karina",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "karina",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4175",
+   "category": "entity",
+   "text": "trap queen dubstep remix",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:dubstep"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "trap queen",
+      "kind": "track",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "remix"
+  },
+  {
+   "id": "R4176",
+   "category": "entity",
+   "text": "ethereal waves innersync",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "ethereal waves",
+      "kind": "track",
+      "role": "target"
+     },
+     {
+      "literal": "innersync",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "duda"
+  },
+  {
+   "id": "R4177",
+   "category": "clarify",
+   "text": "que escuchar cuando estas enojado",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [
+     "emotion:angry",
+     "emotion:serene"
+    ],
+    "ent": [],
+    "ctx": 1,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "como «que escuchar cuando estas triste»"
+  },
+  {
+   "id": "R4178",
+   "category": "partial",
+   "text": "canciones para orar a solas con dios",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "atmosphere:intimate"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«a solas» alias; orar pendiente"
+  },
+  {
+   "id": "R4179",
+   "category": "partial",
+   "text": "bandas pop rock venezolanas",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:pop-rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4180",
+   "category": "entity",
+   "text": "canciones de los farmerz",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "los farmerz",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4181",
+   "category": "plain",
+   "text": "gangsters rap",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:gangsta-rap"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4182",
+   "category": "partial",
+   "text": "musica suave para niños de primaria",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "energy:energy-low",
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "primaria (edad)"
+  },
+  {
+   "id": "R4183",
+   "category": "plain",
+   "text": "merengue venezolano mix",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:merengue-venezolano"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4184",
+   "category": "unrecognized",
+   "text": "playlist para apple music",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "solo plataforma y palabras de pedido"
+  },
+  {
+   "id": "R4185",
+   "category": "unrecognized",
+   "text": "música como medio de comunicación",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "teoría"
+  },
+  {
+   "id": "R4186",
+   "category": "partial",
+   "text": "canciones alegres venezolanas",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4187",
+   "category": "unsupported",
+   "text": "musica tipo vikinga",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "vikinga"
+  },
+  {
+   "id": "R4188",
+   "category": "clarify",
+   "text": "musica suave linda",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [
+     "emotion:serene",
+     "energy:energy-low"
+    ],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "suave aislado; linda relleno"
+  },
+  {
+   "id": "R4189",
+   "category": "plain",
+   "text": "new age para que sirve",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:new-age"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "pregunta sobre el género"
+  },
+  {
+   "id": "R4190",
+   "category": "partial",
+   "text": "playlist para xv argentina",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4191",
+   "category": "unsupported",
+   "text": "playlist para jogar de zed",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "videojuego (jugar de Zed)"
+  },
+  {
+   "id": "R4192",
+   "category": "partial",
+   "text": "música clásica venezolana",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:musica-clasica"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4193",
+   "category": "plain",
+   "text": "musica tipo flamenco",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:flamenco"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4194",
+   "category": "partial",
+   "text": "canciones para dedicar un bebe",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "dedicar"
+  },
+  {
+   "id": "R4195",
+   "category": "unsupported",
+   "text": "playlist para jugar warzone",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "videojuego"
+  },
+  {
+   "id": "R4196",
+   "category": "entity",
+   "text": "joropo sin limites",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:joropo"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "sin limites",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«sin límites» como nombre, no exclusión"
+  },
+  {
+   "id": "R4197",
+   "category": "plain",
+   "text": "musica para estudiar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4198",
+   "category": "unsupported",
+   "text": "canciones para orar",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "orar"
+  },
+  {
+   "id": "R4199",
+   "category": "clarify",
+   "text": "que escuchar cuando estoy triste",
+   "gold": {
+    "status": "clarify",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [
+     "emotion:joyful",
+     "emotion:sad"
+    ],
+    "ent": [],
+    "ctx": 1,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4200",
+   "category": "partial",
+   "text": "canciones de rock ingles para dedicar",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "inglés; dedicar"
+  },
+  {
+   "id": "R4201",
+   "category": "plain",
+   "text": "musica alegre para bailar instrumental",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "emotion:joyful",
+     "genre:instrumental"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4202",
+   "category": "partial",
+   "text": "canciones alegres mujeres",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "mujeres"
+  },
+  {
+   "id": "R4203",
+   "category": "unsupported",
+   "text": "musica para pistear en la playa",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "pistear (beber), playa"
+  },
+  {
+   "id": "R4204",
+   "category": "unsupported",
+   "text": "musica para cocinar",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "cocinar"
+  },
+  {
+   "id": "R4205",
+   "category": "plain",
+   "text": "bandas de baile",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4206",
+   "category": "partial",
+   "text": "electronic venezolana",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:electronica"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4207",
+   "category": "partial",
+   "text": "house para restaurantes",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:house"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "restaurantes"
+  },
+  {
+   "id": "R4208",
+   "category": "partial",
+   "text": "psychobilly mexicano",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:psychobilly"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4209",
+   "category": "partial",
+   "text": "musica instrumental para comer",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:instrumental"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "comer"
+  },
+  {
+   "id": "R4210",
+   "category": "entity",
+   "text": "black metal junker queen",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:black-metal"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "junker queen",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "personaje de videojuego"
+  },
+  {
+   "id": "R4211",
+   "category": "unsupported",
+   "text": "musica nueva banda 2026",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "nueva/2026 (época); banda (estilo fuera)"
+  },
+  {
+   "id": "R4212",
+   "category": "plain",
+   "text": "bandas de yoga",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:meditation"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4213",
+   "category": "entity",
+   "text": "musica epica de naruto",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:epic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "naruto",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "obra"
+  },
+  {
+   "id": "R4214",
+   "category": "entity",
+   "text": "parade metalcore",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:metalcore"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "parade",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4215",
+   "category": "entity",
+   "text": "musica triste up altas aventuras",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "up altas aventuras",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "película"
+  },
+  {
+   "id": "R4216",
+   "category": "unsupported",
+   "text": "música turca lenta",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia, lenta"
+  },
+  {
+   "id": "R4217",
+   "category": "entity",
+   "text": "musica de beele que tipo es",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "beele",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "pregunta por el género del artista"
+  },
+  {
+   "id": "R4218",
+   "category": "unsupported",
+   "text": "musica con fondo de anime",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "fondo de anime (anime no es «animar»)"
+  },
+  {
+   "id": "R4219",
+   "category": "entity",
+   "text": "metal gear",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "metal gear",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "videojuego, no género"
+  },
+  {
+   "id": "R4220",
+   "category": "entity",
+   "text": "bolero savoy",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:bolero"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "savoy",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4221",
+   "category": "partial",
+   "text": "musica instrumental italiana",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:instrumental"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4222",
+   "category": "plain",
+   "text": "aguinaldos de navidad",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:aguinaldo"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«de navidad» repite la condición"
+  },
+  {
+   "id": "R4223",
+   "category": "plain",
+   "text": "new age music",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:new-age"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4224",
+   "category": "unsupported",
+   "text": "canciones que parecen trabalenguas",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "trabalenguas"
+  },
+  {
+   "id": "R4225",
+   "category": "plain",
+   "text": "música venezolana para llorar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:catharsis",
+     "genre:musica-venezolana"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4226",
+   "category": "partial",
+   "text": "musica nueva y alegre",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "nueva"
+  },
+  {
+   "id": "R4227",
+   "category": "plain",
+   "text": "bolero para niña",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:bolero",
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "para niña = infantil (duda)"
+  },
+  {
+   "id": "R4228",
+   "category": "unsupported",
+   "text": "disco de venezuela",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "disco = soporte; procedencia (duda: género disco)"
+  },
+  {
+   "id": "R4229",
+   "category": "plain",
+   "text": "grunge que estilo es",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:grunge"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4230",
+   "category": "entity",
+   "text": "fusión latina 2025 aprendi a soltarte",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:fusion-latina"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "aprendi a soltarte",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "2025; género + nombre"
+  },
+  {
+   "id": "R4231",
+   "category": "entity",
+   "text": "recomiéndame buena música de corazón serrano",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "corazon serrano",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4232",
+   "category": "plain",
+   "text": "instrumental venezolano",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:folclor-fusion"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«instrumental venezolano» es alias de folclor fusión en el léxico (duda)"
+  },
+  {
+   "id": "R4233",
+   "category": "entity",
+   "text": "death banda punk",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:punk"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "death",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "la banda Death (proto-punk)"
+  },
+  {
+   "id": "R4234",
+   "category": "plain",
+   "text": "folk rock 60s and 70s",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:folk-rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [
+     [
+      "decade:1960s",
+      "decade:1970s"
+     ]
+    ],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4235",
+   "category": "partial",
+   "text": "musica para la playa niños",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "playa"
+  },
+  {
+   "id": "R4236",
+   "category": "plain",
+   "text": "que musica debe escuchar un recien nacido",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "recién nacido = bebé"
+  },
+  {
+   "id": "R4237",
+   "category": "entity",
+   "text": "musica de ozuna",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "ozuna",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4238",
+   "category": "entity",
+   "text": "musica triste xxanaxx tentacion",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:sad"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "xxanaxx",
+      "kind": "artist",
+      "role": "target"
+     },
+     {
+      "literal": "tentacion",
+      "kind": "track",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4239",
+   "category": "entity",
+   "text": "dark paradise metal cover",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:metal"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "dark paradise",
+      "kind": "track",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "cover"
+  },
+  {
+   "id": "R4241",
+   "category": "plain",
+   "text": "blues para niños",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:blues",
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4242",
+   "category": "plain",
+   "text": "jazz funk albums",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:jazz-funk"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4243",
+   "category": "partial",
+   "text": "dance para dibujar",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:dance"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "dibujar"
+  },
+  {
+   "id": "R4244",
+   "category": "partial",
+   "text": "playlist para gym girl",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "girl (público)"
+  },
+  {
+   "id": "R4245",
+   "category": "partial",
+   "text": "musica campesina andina venezolana",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:musica-andina-venezolana"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "campesina pendiente"
+  },
+  {
+   "id": "R4246",
+   "category": "unrecognized",
+   "text": "salsa para sandwich kraft",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "comida"
+  },
+  {
+   "id": "R4247",
+   "category": "entity",
+   "text": "bandas parecidas a daft punk",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "daft punk",
+      "kind": "artist",
+      "role": "reference"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4248",
+   "category": "entity",
+   "text": "noise killer",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:noise"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "killer",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4249",
+   "category": "partial",
+   "text": "musica relajante xilofono",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:relaxation"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "xilófono"
+  },
+  {
+   "id": "R4250",
+   "category": "unsupported",
+   "text": "canciones de los memes",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "memes"
+  },
+  {
+   "id": "R4251",
+   "category": "plain",
+   "text": "música para meditar zen",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:meditation"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4252",
+   "category": "unrecognized",
+   "text": "pop rocks candy",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "golosina"
+  },
+  {
+   "id": "R4253",
+   "category": "plain",
+   "text": "algo para niños y niñas",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4254",
+   "category": "entity",
+   "text": "recomiéndame más música como la de la bella luz",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "similarity:overall"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "la bella luz",
+      "kind": "artist",
+      "role": "reference"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4255",
+   "category": "partial",
+   "text": "canciones alegres neurociencia",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "neurociencia"
+  },
+  {
+   "id": "R4256",
+   "category": "partial",
+   "text": "musica vieja salsa mix",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:salsa"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "vieja"
+  },
+  {
+   "id": "R4257",
+   "category": "entity",
+   "text": "musica de willie gonzalez exitos",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "willie gonzalez",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "éxitos"
+  },
+  {
+   "id": "R4258",
+   "category": "plain",
+   "text": "bandas new metal",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:nu-metal"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "new metal = nu metal"
+  },
+  {
+   "id": "R4259",
+   "category": "plain",
+   "text": "emo",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:emo"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4260",
+   "category": "partial",
+   "text": "música para niños de 3 años",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "edad"
+  },
+  {
+   "id": "R4261",
+   "category": "unrecognized",
+   "text": "qué música me recomiendan escuchar",
+   "gold": {
+    "status": "unrecognized",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "solo palabras de pedido"
+  },
+  {
+   "id": "R4262",
+   "category": "plain",
+   "text": "canciones para cuando vuelve tu ex",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "theme:breakup"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4263",
+   "category": "plain",
+   "text": "música tradicional para bailar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "genre:musica-tradicional"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4264",
+   "category": "partial",
+   "text": "musica rapida fiesta",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:celebration"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "rápida"
+  },
+  {
+   "id": "R4265",
+   "category": "partial",
+   "text": "musica alegre viernes",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "emotion:joyful"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "viernes"
+  },
+  {
+   "id": "R4266",
+   "category": "partial",
+   "text": "musica epica española",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "atmosphere:epic"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4267",
+   "category": "partial",
+   "text": "guaracha que es en colombia",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:guaracha"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "en Colombia (procedencia); duda: significado regional"
+  },
+  {
+   "id": "R4268",
+   "category": "partial",
+   "text": "bandas venezolanas rock",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4269",
+   "category": "entity",
+   "text": "música vieja de edwin zeballos",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "edwin zeballos",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "vieja"
+  },
+  {
+   "id": "R4270",
+   "category": "entity",
+   "text": "música de los pasteles verdes",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "los pasteles verdes",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4271",
+   "category": "plain",
+   "text": "black metal depresivo suicida",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:black-metal-depresivo"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "«depresivo suicida» es el nombre del subgénero"
+  },
+  {
+   "id": "R4272",
+   "category": "entity",
+   "text": "musica instrumental yanni",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:instrumental"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "yanni",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4273",
+   "category": "plain",
+   "text": "bandas de ejercicio",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:exercise"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4274",
+   "category": "entity",
+   "text": "musica nueva karol",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "karol",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "nueva"
+  },
+  {
+   "id": "R4275",
+   "category": "partial",
+   "text": "jazz latino vocal",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:jazz-latino"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "vocal"
+  },
+  {
+   "id": "R4276",
+   "category": "partial",
+   "text": "canciones para dormir a bebés de 4 a 12 meses",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:sleep",
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "edad"
+  },
+  {
+   "id": "R4277",
+   "category": "entity",
+   "text": "canciones de ali primera",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "ali primera",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4278",
+   "category": "plain",
+   "text": "música alegre cumbias",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "emotion:joyful",
+     "genre:cumbia"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4279",
+   "category": "plain",
+   "text": "garage rock 2000",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:2000s",
+     "genre:garage-rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4280",
+   "category": "plain",
+   "text": "musica lugubre",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "atmosphere:ominous"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4281",
+   "category": "partial",
+   "text": "algo para niños de 6 años",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:musica-infantil"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "edad"
+  },
+  {
+   "id": "R4282",
+   "category": "plain",
+   "text": "guasa guasa",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:guasa"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4283",
+   "category": "plain",
+   "text": "canciones que hacen llorar a la gente",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:catharsis"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4284",
+   "category": "partial",
+   "text": "musica para bailar fin de año 2025",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "activity:celebration",
+     "activity:dancing"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "fin de año = fiesta (duda); 2025"
+  },
+  {
+   "id": "R4285",
+   "category": "partial",
+   "text": "heavy metal español",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:heavy-metal"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia/idioma"
+  },
+  {
+   "id": "R4286",
+   "category": "plain",
+   "text": "electro pop 2000",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "decade:2000s",
+     "genre:electropop"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4287",
+   "category": "unsupported",
+   "text": "musica para kermes",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "kermés"
+  },
+  {
+   "id": "R4288",
+   "category": "entity",
+   "text": "musica de los fabulosos cadillacs exitos",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "los fabulosos cadillacs",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "éxitos"
+  },
+  {
+   "id": "R4289",
+   "category": "partial",
+   "text": "rock para futbol",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:rock"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "fútbol"
+  },
+  {
+   "id": "R4290",
+   "category": "entity",
+   "text": "música de los zombies",
+   "gold": {
+    "status": "entity_lookup",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "zombies",
+      "kind": null,
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "película o banda; sin clase"
+  },
+  {
+   "id": "R4291",
+   "category": "entity",
+   "text": "musica instrumental juan luis guerra",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:instrumental"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [
+     {
+      "literal": "juan luis guerra",
+      "kind": "artist",
+      "role": "target"
+     }
+    ],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4292",
+   "category": "partial",
+   "text": "onda nueva venezolana",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:onda-nueva"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4293",
+   "category": "plain",
+   "text": "experimental metal albums",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:metal-experimental"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4294",
+   "category": "plain",
+   "text": "guarachas para bailar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:dancing",
+     "genre:guaracha"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4295",
+   "category": "plain",
+   "text": "para post metal",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "genre:post-metal"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "web_suggest",
+   "author": "Consulta real (web_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4296",
+   "category": "plain",
+   "text": "musica para el coche",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:travel"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "coche = carro"
+  },
+  {
+   "id": "R4297",
+   "category": "plain",
+   "text": "musica suave y relajante para trabajar",
+   "gold": {
+    "status": "query_valid",
+    "req": [
+     "activity:concentration",
+     "activity:relaxation",
+     "energy:energy-low"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 0,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)"
+  },
+  {
+   "id": "R4298",
+   "category": "partial",
+   "text": "musica japonesa oscura",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "atmosphere:dark"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "procedencia"
+  },
+  {
+   "id": "R4299",
+   "category": "unsupported",
+   "text": "musica sin groserias en español",
+   "gold": {
+    "status": "unsupported",
+    "req": [],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 2,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "sin groserías; idioma"
+  },
+  {
+   "id": "R4300",
+   "category": "partial",
+   "text": "salsa para ellas",
+   "gold": {
+    "status": "partial",
+    "req": [
+     "genre:salsa"
+    ],
+    "exc": [],
+    "pref": [],
+    "any": [],
+    "alts": [],
+    "ent": [],
+    "ctx": 0,
+    "pending": 1,
+    "facet": null
+   },
+   "split": "test_real_human",
+   "source": "youtube_suggest",
+   "author": "Consulta real (youtube_suggest) · etiqueta humana de claude-opus-5-5 (subagente a ciegas, /goal de Brian 2026-11-10)",
+   "note": "público"
+  }
+ ]
+}

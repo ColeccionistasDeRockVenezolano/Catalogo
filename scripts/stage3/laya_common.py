@@ -18,7 +18,8 @@ MODELS_DIR = Path(os.environ.get("CRV_LAYA_MODELS", Path.home() / ".local/share/
 
 
 def base_checkpoint() -> tuple[str, Path]:
-    revision = (HUB / "refs/main").read_text().strip()
+    # CRV_LAYA_BASE_REVISION fija la revisión (el servicio no depende de que «refs/main» siga apuntando a ella).
+    revision = os.environ.get("CRV_LAYA_BASE_REVISION") or (HUB / "refs/main").read_text().strip()
     if len(revision) != 40:
         raise ValueError("revisión local inválida")
     path = HUB / "snapshots" / revision / "multilingual"

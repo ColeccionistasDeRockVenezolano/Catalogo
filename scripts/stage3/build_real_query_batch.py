@@ -39,11 +39,12 @@ SEED = 97
 SIZE = 300
 TEST_SHARE = 0.4
 PER_SEED = 2
-STAGE_VERSION = {1: "1.6.0", 2: "1.7.0", 3: "1.8.0"}
+STAGE_VERSION = {1: "1.6.0", 2: "1.7.0", 3: "1.8.0", 4: "1.9.0"}
 DECISIONS = {
     1: "Brian, 2026-10-25: «consultas reales etiquetadas por una persona» (opción 1 tras la versión 1.5.0)",
     2: "Brian, 2026-11-10: «Nombres externos» para la versión 1.7.0; lote nuevo sin textos de los lotes anteriores, etiquetado por Claude con su autorización (2026-11-09)",
     3: "Brian, 2026-11-10: «Convención escrita + reglas» para la versión 1.8.0; lote nuevo sin textos de los lotes 1 y 2, etiquetado por Claude según crv-query-label-convention-1.0.0",
+    4: "Brian, 2026-11-10: «implementalo de esa forma hasta que pase las evaluaciones» (/goal) para la versión 1.9.0 (destilación con ejemplos etiquetados); lote de prueba nuevo sin textos de los lotes 1–3, etiquetado por Claude según crv-query-label-convention-1.0.0",
 }
 
 # Palabras que por sí solas hacen musical la petición. «grupos», «bandas», «temas», «mix» o «lista»
@@ -97,6 +98,8 @@ def main() -> None:
     ap.add_argument("--raw", required=True, type=Path)
     ap.add_argument("--lot", type=int, default=1)
     ap.add_argument("--seed", type=int, default=SEED)
+    ap.add_argument("--size", type=int, default=SIZE)
+    ap.add_argument("--all-test", action="store_true", help="todo el lote es prueba (la destilación entrena con otro corpus)")
     ap.add_argument("--exclude", type=Path, action="append", default=[], help="lote anterior cuyos textos no se repiten")
     args = ap.parse_args()
     out = OUT if args.lot == 1 else OUT.with_name(f"query-real-labeling-{args.lot}.json")
@@ -138,10 +141,10 @@ def main() -> None:
         rng.shuffle(items)
         pool.extend(items[:PER_SEED])
     rng.shuffle(pool)
-    chosen = site + pool[: SIZE - len(site)]
+    chosen = site + pool[: args.size - len(site)]
     rng.shuffle(chosen)
 
-    tests = set(rng.sample(range(len(chosen)), round(len(chosen) * TEST_SHARE)))
+    tests = set(range(len(chosen))) if args.all_test else set(rng.sample(range(len(chosen)), round(len(chosen) * TEST_SHARE)))
     prefix = "RL" if args.lot == 1 else f"R{args.lot}"
     items = [{"id": f"{prefix}{i + 1:03d}" if args.lot > 1 else f"RL{i + 1:04d}", **item, "split": "test_real_human" if i in tests else "train_real_human"} for i, item in enumerate(chosen)]
     batch = {
@@ -154,7 +157,7 @@ def main() -> None:
                                     "coverage": "La cosecha del 2026-10-25 se detuvo cuando Google respondió 403 (límite de frecuencia): faltan las semillas de géneros desde «punk» y las de conceptos sueltos."},
                     "site": {"tables": ["ingest.search_misses", "ingest.search_operations"], "queries": len(site)}},
         "excludes": [{"path": str(f), "sha256": hashlib.sha256(f.read_bytes()).hexdigest()} for f in args.exclude],
-        "selection": {"seed": args.seed, "size": len(items), "perSeedCap": PER_SEED, "testShare": TEST_SHARE},
+        "selection": {"seed": args.seed, "size": len(items), "perSeedCap": PER_SEED, "testShare": 1.0 if args.all_test else TEST_SHARE},
         "policy": ("Etiqueta humana a ciegas: la página no muestra la lectura del sistema. La partición se sorteó antes de etiquetar. "
                    f"Las consultas test_real_human forman la prueba de la versión {STAGE_VERSION[args.lot]} y no se usan para reglas, léxico ni entrenamiento."),
         "items": items,

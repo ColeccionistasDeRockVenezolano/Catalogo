@@ -1,0 +1,166 @@
+{
+ "version": "crv-stage3-evaluation-1",
+ "task": "query_interpretation",
+ "modes": {
+  "completo (estudiante solo)": {
+   "passed": false,
+   "checks": [
+    {
+     "name": "Exactitud del plan (reservada adjudicada)",
+     "value": 0.5195,
+     "threshold": ">= 0.85",
+     "pass": false
+    },
+    {
+     "name": "Exactitud en casos adversariales",
+     "value": 0.2727,
+     "threshold": ">= 0.80",
+     "pass": false
+    },
+    {
+     "name": "Errores críticos",
+     "value": 0.0625,
+     "threshold": "<= 0.02",
+     "pass": false
+    },
+    {
+     "name": "Restricciones pendientes conservadas",
+     "value": 0.7838,
+     "threshold": ">= 0.95",
+     "pass": false
+    },
+    {
+     "name": "Sobreabstención",
+     "value": 0.114,
+     "threshold": "<= 0.10",
+     "pass": false
+    },
+    {
+     "name": "Sobreconfianza",
+     "value": 0.3711,
+     "threshold": "<= 0.05",
+     "pass": false
+    },
+    {
+     "name": "F1 de condiciones",
+     "value": 0.8677,
+     "threshold": ">= 0.90",
+     "pass": false
+    }
+   ]
+  },
+  "solo si coinciden (1.8.0 + estudiante)": {
+   "passed": true,
+   "checks": [
+    {
+     "name": "executedExactAccuracy",
+     "value": 0.9677,
+     "threshold": ">= 0.85",
+     "pass": true
+    },
+    {
+     "name": "coverage",
+     "value": 0.4227,
+     "threshold": ">= 0.4",
+     "pass": true
+    },
+    {
+     "name": "overconfidence",
+     "value": 0.0117,
+     "threshold": "<= 0.05",
+     "pass": true
+    },
+    {
+     "name": "criticalErrors",
+     "value": 0,
+     "threshold": "<= 0.02",
+     "pass": true
+    },
+    {
+     "name": "unsupportedPreservation",
+     "value": 0.991,
+     "threshold": ">= 0.95",
+     "pass": true
+    },
+    {
+     "name": "conditionF1Executed",
+     "value": 0.9863,
+     "threshold": ">= 0.9",
+     "pass": true
+    },
+    {
+     "name": "criticalErrors mandatory",
+     "value": 0,
+     "threshold": "<= 0.0",
+     "pass": true
+    },
+    {
+     "name": "realTrafficNoInvention",
+     "value": 1,
+     "threshold": ">= 0.98",
+     "pass": true
+    },
+    {
+     "name": "latencyP95WarmMs",
+     "value": 474.4,
+     "threshold": "<= 500",
+     "pass": true
+    }
+   ],
+   "n": 256,
+   "answered": 93,
+   "answerable": 220
+  }
+ },
+ "modelId": "crv-query-student-s5 + crv-query-heads-0.9.0",
+ "baseRevision": "6c080fd3d0b108fc5a4e03faab048833366272f6",
+ "weightsSha256": {
+  "student-s5": "a866a1cd767d67d49d754066c7404948bf84b4c0355d60460c0b435e4f1f9460",
+  "heads-0.9.0": "8ea2746169cef1dd123cc14028e50d79b8d6ca471c626ccf44143e74c2642e63"
+ },
+ "criteriaVersion": "crv-stage3-criteria-1.10.0",
+ "criteriaSha256": "2fe057490b10e57c6b2ea2ab8a53bdc86bf95e5b7789bd298341193386e2ee2a",
+ "evaluatedAt": "2026-11-10T17:36:00Z",
+ "reservedTestRuns": 1,
+ "datasets": {
+  "reserved": {
+   "path": "docs/unified-search/stage3/datasets/query-real-human-test-4-adjudicated.json",
+   "sha256": "faef95d1b746b86d4aaf0132535420010a817d55f8a14b757e257bcca57fba74",
+   "cases": 256
+  },
+  "mandatory": {
+   "cases": 5
+  },
+  "real": {
+   "cases": 45
+  }
+ },
+ "comparison": [
+  {
+   "system": "1.8.0 sola",
+   "exactitud": 0.6484,
+   "críticos": 0.0312,
+   "F1": 0.9055,
+   "sobreconfianza": 0.2695
+  },
+  {
+   "system": "estudiante s5 solo",
+   "exactitud": 0.5195,
+   "críticos": 0.0625,
+   "F1": 0.8677,
+   "sobreconfianza": 0.3711
+  }
+ ],
+ "passed": {
+  "completo": false,
+  "coincidencia": true
+ },
+ "notes": [
+  "Modo «solo si coinciden»: el plan del estudiante se ejecuta solo si la 1.8.0 produce el mismo plan; si no, el resultado es unsupported con ≥1 pendiente y no se ejecuta nada.",
+  "Coinciden 110 de 256 (lote adjudicado), 2 de 5 obligatorios y 15 de 45 de tráfico real; respondidos 93, respondibles 220.",
+  "Latencia p95: cota conservadora 474,4 ms = max(modelo 1.8.0 277,1; nombres externos 400) + compilación 8,9 + estudiante 65,5 (en serie); el estudiante corre en paralelo en la práctica.",
+  "Nombres externos (caché vacía): 169 consultas a Deezer en la 1.8.0, 47 sin respuesta a tiempo; 26 nombres resueltos.",
+  "Evaluación lanzada tres veces: las dos primeras no produjeron ninguna métrica por un cuelgue de la resolución externa (AbortSignal.timeout) y se detuvieron antes de ver resultados; se corrigió con AbortController, tope duro por petición y un temporizador de espera en el script de evaluación. La tercera es la reservada única.",
+  "El oro adjudicado excluye los 41 casos con discrepancia y 3 sin etiqueta del lote 4: los resultados miden consultas de lectura inequívoca, no el lote completo."
+ ]
+}

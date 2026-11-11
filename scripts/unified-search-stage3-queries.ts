@@ -4,6 +4,8 @@
  *   eval  <dataset.json> <answers.jsonl|rules|legacy> [--thresholds t.json] [--out r.json]
  *         [--external cache.json [--external-live]]   1.7.0: nombres fuera del catálogo (Deezer); con
  *         --external-live consulta lo que falte en la caché y mide el tiempo de cada consulta.
+ *   plans <dataset.json> <plans.jsonl> [--out r.json]  1.9.0: planes canónicos ya calculados por el modelo
+ *         de planes {id, canonical, confidence?, ms?}; mismo evaluador que «eval».
  * Solo lee la instantánea del catálogo y el léxico; no escribe en la base.
  */
 import { readFileSync, writeFileSync } from "node:fs";
@@ -53,6 +55,8 @@ if (cmd === "tasks") {
   // «En caliente»: se abre la conexión con una consulta fija ajena a la prueba, que no entra en la caché.
   if (cache && live) await lookupDeezer("crv warmup", extTh.externalBudgetMs * 5);
   let externalHits = 0;
+  // AbortSignal.timeout no mantiene vivo el bucle de eventos: sin esto Node cierra con «unsettled top-level await» si Deezer se detiene.
+  const keepAlive = setInterval(() => {}, 1000);
   for (const c of dataset.cases) {
     if (arg === "legacy") { preds.push(legacyCanonical(c.text, c.gold)); details.push(null); continue; }
     const t0 = performance.now();
@@ -97,6 +101,7 @@ if (cmd === "tasks") {
     ? { n: dataset.cases.length, noInvention: dataset.cases.filter((c, i) => noInvention(c.allowed!, preds[i]!)).length / dataset.cases.length,
         invented: dataset.cases.flatMap((c, i) => noInvention(c.allowed!, preds[i]!) ? [] : [{ id: c.id, text: c.text, pred: preds[i] }]) }
     : aggregate(dataset.cases, preds);
+  clearInterval(keepAlive);
   cache?.save();
   const sorted = [...compileMs].sort((a, b) => a - b);
   const extSorted = [...externalMs].sort((a, b) => a - b);
@@ -111,7 +116,22 @@ if (cmd === "tasks") {
   if (flag("--out")) writeFileSync(flag("--out")!, JSON.stringify(out, null, 1));
   const { results: _r, ...brief } = summary as Record<string, unknown>;
   console.log(JSON.stringify(brief, null, 1).slice(0, 6000));
+} else if (cmd === "plans") {
+  const by = new Map<string, { canonical: Canonical; ms?: number }>();
+  for (const line of readFileSync(arg!, "utf8").split("\n")) { if (line.trim()) { const r = JSON.parse(line); by.set(r.id, r); } }
+  const preds = dataset.cases.map(c => { const r = by.get(c.id); if (!r) throw new Error(`Falta el plan de ${c.id}`); return r.canonical; });
+  const real = dataset.cases.every(c => c.allowed);
+  const summary = real
+    ? { n: dataset.cases.length, noInvention: dataset.cases.filter((c, i) => noInvention(c.allowed!, preds[i]!)).length / dataset.cases.length,
+        invented: dataset.cases.flatMap((c, i) => noInvention(c.allowed!, preds[i]!) ? [] : [{ id: c.id, text: c.text, pred: preds[i] }]) }
+    : aggregate(dataset.cases, preds);
+  const ms = [...by.values()].map(r => r.ms ?? 0).sort((a, b) => a - b);
+  const out = { dataset: dataset.version, plans: arg, lexicon: lexicon.doc.version, latencyMsP50: ms[Math.floor(ms.length * 0.5)] ?? null, latencyMsP95: ms[Math.floor(ms.length * 0.95)] ?? null,
+    summary, details: dataset.cases.map((c, i) => ({ id: c.id, text: c.text, canonical: preds[i] })) };
+  if (flag("--out")) writeFileSync(flag("--out")!, JSON.stringify(out, null, 1));
+  const { results: _r, ...brief } = summary as Record<string, unknown>;
+  console.log(JSON.stringify(brief, null, 1).slice(0, 6000));
 } else {
-  console.error("uso: tasks|eval");
+  console.error("uso: tasks|eval|plans");
   process.exit(2);
 }
