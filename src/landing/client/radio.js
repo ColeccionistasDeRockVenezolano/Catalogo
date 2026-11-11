@@ -1,3 +1,176 @@
+// Medidor pasivo: recibe horarios y observaciones; nunca controla el audio.
+// Los contadores son acumulados por pieza y los intervalos sin observación
+// se separan de los fallos. ES5 para compartir el mismo medidor en todo dispositivo.
+function createRadioPlaybackMeter() {
+  var pieces = [], finished = [], previous = null;
+  var continuity = { observedMs: 0, interruptedMs: 0, unobservedMs: 0, unverifiedMs: 0, excludedMs: 0, maxSampleGapMs: 0 };
+  function rounded(value) { return value === null ? null : Math.round(value); }
+  function plan(def) {
+    if (!def || !isFinite(def.startMs) || !isFinite(def.endMs) || def.endMs <= def.startMs) return;
+    for (var i = 0; i < pieces.length; i += 1) {
+      if (pieces[i].id === def.id) return;
+      if (pieces[i].kind === def.kind && pieces[i].videoId === (def.videoId || null)
+        && pieces[i].offsetMs === (def.offsetMs || 0) && Math.abs(pieces[i].startMs - def.startMs) < 1000) {
+        if (pieces[i].aliases.indexOf(def.id) === -1) pieces[i].aliases.push(def.id);
+        return;
+      }
+    }
+    // Una respuesta repetida no reabre piezas que ya se midieron.
+    if (previous && def.endMs <= previous.serverMs - 2000) return;
+    pieces.push({
+      id: def.id, aliases: [def.id], kind: def.kind, videoId: def.videoId || null, title: def.title || '',
+      startMs: def.startMs, endMs: def.endMs, offsetMs: def.offsetMs || 0,
+      firstObservedAt: null, firstPlayingAt: null, firstProgressAt: null,
+      firstPositionMs: null, lastPositionMs: null, lastPlayingAt: null,
+      startDelayMs: null, firstDriftMs: null, maxAheadMs: 0, maxBehindMs: 0,
+      observedMs: 0, interruptedMs: 0, frozenMs: 0, wrongVideoMs: 0,
+      bufferingMs: 0, pausedMs: 0, missingMs: 0, mutedMs: 0, endedMs: 0, loadingMs: 0,
+      unobservedMs: 0, unverifiedMs: 0, excludedMs: 0, hiddenMs: 0, maxSampleGapMs: 0,
+      autoplayBlocks: 0, playerErrors: 0, recoveryAttempts: 0, lastRecoveryAt: null, sampleCount: 0,
+      progressAt: null, previousSource: null, joinedMidPiece: false
+    });
+    // Acotación defensiva; los horarios normales mantienen unas pocas piezas.
+    if (pieces.length > 24) finish(pieces.shift(), 'capacity');
+  }
+  function status(source) {
+    if (!source) return 'missing';
+    if (source.matches === null) return 'unverified';
+    if (source.matches === false) return 'wrong_video';
+    if (source.muted) return 'muted';
+    return source.state;
+  }
+  function publicPiece(p, outcome) {
+    var out = {};
+    for (var key in p) {
+      if (!Object.prototype.hasOwnProperty.call(p, key) || key === 'previousSource' || key === 'progressAt') continue;
+      out[key] = typeof p[key] === 'number' ? rounded(p[key]) : p[key];
+    }
+    out.outcome = outcome;
+    out.issues = [];
+    if (!p.joinedMidPiece && p.startDelayMs !== null && p.startDelayMs > 1000) out.issues.push('late_start');
+    if (p.startDelayMs !== null && p.startDelayMs < -1000) out.issues.push('early_start');
+    if (p.maxAheadMs > 2000 || p.maxBehindMs > 2000) out.issues.push('drift');
+    if (p.interruptedMs > 500) out.issues.push('interruption');
+    if (p.frozenMs > 500) out.issues.push('frozen');
+    if (p.wrongVideoMs > 0) out.issues.push('wrong_video');
+    if (p.autoplayBlocks) out.issues.push('autoplay_blocked');
+    if (p.playerErrors) out.issues.push('player_error');
+    return out;
+  }
+  function finish(piece, outcome) {
+    finished.push(publicPiece(piece, outcome));
+    if (finished.length > 48) finished.shift();
+  }
+  function sample(frame) {
+    var delta = previous ? Math.max(0, frame.monoMs - previous.monoMs) : 0;
+    var wallDelta = previous ? frame.serverMs - previous.serverMs : 0;
+    // El reloj del servidor puede corregirse; no convertir un salto de reloj
+    // ni un temporizador suspendido en una supuesta interrupción del sonido.
+    var unknown = Boolean(previous && (delta > 2000 || Math.abs(wallDelta - delta) > 500));
+    continuity.maxSampleGapMs = Math.max(continuity.maxSampleGapMs, delta);
+    if (previous) {
+      if (!previous.expected) continuity.excludedMs += delta;
+      else if (unknown) continuity.unobservedMs += delta;
+      else {
+        continuity.observedMs += delta;
+        if (!previous.covered && previous.unverified) continuity.unverifiedMs += delta;
+        else if (!previous.covered) continuity.interruptedMs += delta;
+      }
+    }
+    var covered = false, unverified = false;
+    for (var i = pieces.length - 1; i >= 0; i -= 1) {
+      var p = pieces[i], source = null;
+      for (var s = 0; s < frame.sources.length; s += 1) {
+        if (p.aliases.indexOf(frame.sources[s].id) === -1) continue;
+        // Durante el relevo puede haber dos fuentes para el mismo tramo.
+        if (!source || status(frame.sources[s]) === 'playing') source = frame.sources[s];
+      }
+      var playing = status(source) === 'playing';
+      if (source && source.matches === null && source.state === 'playing' && !source.muted) unverified = true;
+      var inSlot = frame.serverMs >= p.startMs && frame.serverMs < p.endMs;
+      var interval = previous && wallDelta > 0 ? Math.max(0, Math.min(frame.serverMs, p.endMs) - Math.max(previous.serverMs, p.startMs)) : 0;
+      if (unknown) {
+        if (wallDelta > 0) interval *= delta / wallDelta;
+        else if (inSlot || (previous.serverMs >= p.startMs && previous.serverMs < p.endMs)) interval = delta;
+      }
+      if (interval) {
+        if (previous.hidden) p.hiddenMs += interval;
+        p.maxSampleGapMs = Math.max(p.maxSampleGapMs, delta);
+        if (!previous.expected) p.excludedMs += interval;
+        else if (unknown) p.unobservedMs += interval;
+        else {
+          p.observedMs += interval;
+          var prior = status(p.previousSource);
+          var priorState = p.previousSource && p.previousSource.state;
+          if (prior === 'missing') p.missingMs += interval;
+          if (prior === 'muted') p.mutedMs += interval;
+          if (priorState === 'buffering') p.bufferingMs += interval;
+          if (priorState === 'paused') p.pausedMs += interval;
+          if (priorState === 'ended') p.endedMs += interval;
+          if (priorState === 'unstarted' || priorState === 'cued') p.loadingMs += interval;
+          if (prior === 'unverified') p.unverifiedMs += interval;
+          else if (prior !== 'playing') p.interruptedMs += interval;
+          if (prior === 'wrong_video') p.wrongVideoMs += interval;
+          if (prior === 'playing' && p.progressAt !== null && previous.monoMs - p.progressAt >= 750) p.frozenMs += interval;
+        }
+      }
+      if (frame.expected && (inSlot || playing)) {
+        if (p.firstObservedAt === null) {
+          p.firstObservedAt = frame.serverMs;
+          p.joinedMidPiece = frame.serverMs - p.startMs > 2000;
+        }
+        p.sampleCount += 1;
+        if (playing && isFinite(source.positionMs)) {
+          var progressed = p.previousSource && status(p.previousSource) === 'playing'
+            && source.positionMs > p.previousSource.positionMs + 1 && !unknown;
+          if (p.firstPlayingAt === null) {
+            p.firstPlayingAt = frame.serverMs;
+            p.startDelayMs = frame.serverMs - p.startMs;
+            p.firstPositionMs = source.positionMs;
+          }
+          if (p.progressAt === null || progressed) p.progressAt = frame.monoMs;
+          if (progressed && p.firstProgressAt === null) p.firstProgressAt = frame.serverMs;
+          p.lastPositionMs = source.positionMs;
+          p.lastPlayingAt = frame.serverMs;
+          var drift = source.positionMs - p.offsetMs - (frame.serverMs - p.startMs);
+          if (p.firstDriftMs === null) p.firstDriftMs = drift;
+          p.maxAheadMs = Math.max(p.maxAheadMs, drift);
+          p.maxBehindMs = Math.max(p.maxBehindMs, -drift);
+          // Una cola o entrada anticipada también cubre continuidad global.
+          if (frame.monoMs - p.progressAt < 750) covered = true;
+        }
+      }
+      p.previousSource = source;
+      if (frame.serverMs >= p.endMs + 2000) {
+        finish(p, p.firstObservedAt === null ? 'not_listened' : p.firstPlayingAt === null ? 'not_observed_playing' : 'ended');
+        pieces.splice(i, 1);
+      }
+    }
+    previous = { monoMs: frame.monoMs, serverMs: frame.serverMs, expected: frame.expected, covered: covered, hidden: frame.hidden, unverified: unverified };
+  }
+  function event(id, name) {
+    for (var i = 0; i < pieces.length; i += 1) {
+      if (pieces[i].aliases.indexOf(id) === -1) continue;
+      if (name === 'autoplay_blocked') pieces[i].autoplayBlocks += 1;
+      if (name === 'player_error') pieces[i].playerErrors += 1;
+      if (name === 'pause_recovery') {
+        pieces[i].recoveryAttempts += 1;
+        pieces[i].lastRecoveryAt = previous ? previous.serverMs : null;
+      }
+    }
+  }
+  function flush(reason) {
+    var summaries = finished.splice(0, 48);
+    for (var i = 0; i < pieces.length; i += 1) {
+      if (pieces[i].firstObservedAt !== null) summaries.push(publicPiece(pieces[i], reason === 'pagehide' ? 'pagehide' : 'ongoing'));
+    }
+    var totals = {};
+    for (var key in continuity) if (Object.prototype.hasOwnProperty.call(continuity, key)) totals[key] = rounded(continuity[key]);
+    return { schema: 1, reason: reason, cumulative: true, sampleIntervalMs: 250, counters: totals, pieces: summaries };
+  }
+  return { plan: plan, sample: sample, event: event, flush: flush };
+}
+
 // Radio — cliente progresivo para el player oficial de YouTube.
 // El iframe funciona por si solo; este archivo agrega reloj compartido,
 // presencia, entrada automatica a la emision y recuperacion de deriva.
@@ -123,8 +296,6 @@
   var WARM_STOP_MS = 20000;
   var RELAY_REPORTS_MAX = 6;
   var relayReports = 0;
-  // Oculta y sin cuña sonando, la entrante arranca cuando a la saliente le queda esto.
-  var BACKGROUND_OVERLAP_S = 3.2;
   // Safari, Chrome y los demas navegadores de iPhone/iPad comparten las
   // restricciones multimedia de WebKit. Un segundo iframe puede precargarse
   // en silencio, pero no siempre puede empezar a sonar sin otro gesto. En esos
@@ -148,6 +319,7 @@
   // Pausa del visitante: apaga la intencion de escuchar y ningun relevo la
   // vuelve a encender.
   var userPaused = false;
+  var videoResumeButton = null, playRequestVersion = 0;
   var fadeTimer = null;
   var UNLOCK_EVENTS = ['pointerdown', 'keydown', 'touchstart', 'pointerup', 'touchend', 'click'];
   var mediaSessionReady = false;
@@ -353,13 +525,6 @@
       if (bgSweeperFaded) bgSweeper.load();
     } catch (_) { bgSweeper = null; bgSweeperFaded = false; }
   }
-  function deckAheadMs() {
-    if (!document.hidden || !ready) return 0;
-    try {
-      var ahead = Number(activeDeck().player.getCurrentTime()) - liveSecond();
-      return ahead > 0 && ahead < 15 ? ahead * 1000 : 0;
-    } catch (_) { return 0; }
-  }
   function backgroundSweeperPlaying() {
     return Boolean(bgSweeper && bgSweeperTicker && !bgSweeper.paused && !bgSweeper.ended);
   }
@@ -382,8 +547,8 @@
     if (!isFinite(start) || start === bgSweeperStartMs) return;
     prepareBackgroundSweeper();
     if (!bgSweeper) return;
-    // Un relevo oculto entra antes de su hora: la canción va adelantada y la cuña la sigue a ella.
-    var target = (serverNow() - start + deckAheadMs()) / 1000;
+    // La cuña conserva su horario aunque el video esté adelantado o retrasado.
+    var target = (serverNow() - start) / 1000;
     if (target < 0 || target >= snapshot.sweeper.durationSeconds - 0.5) return;
     bgSweeperStartMs = start;
     bgSweeperDuration = snapshot.sweeper.durationSeconds;
@@ -418,6 +583,19 @@
     return Boolean(androidDevice && activation && !activation.hasBeenActive);
   }
   function cueVideoId() { return snapshot && snapshot.sweeper ? snapshot.sweeper.videoId || null : null; }
+  // YouTube puede activar subtítulos por la preferencia del visitante. No hay
+  // parámetro oficial que fuerce apagarlos: unloadModule no está documentado.
+  // Se intenta al estar listo, al cargar módulos (también en cada relevo) y
+  // al empezar a reproducir. Si falta el método o falla, la radio sigue igual.
+  function disableCaptions(event) {
+    var player = event && event.target;
+    if (!player || typeof player.unloadModule !== 'function' || typeof player.getOptions !== 'function') return;
+    try {
+      var modules = player.getOptions();
+      // Descargar el módulo emite otro onApiChange: no repetir si ya no está.
+      if (modules && modules.indexOf('captions') !== -1) player.unloadModule('captions');
+    } catch (_) { /* una API opcional nunca interrumpe la emisión */ }
+  }
   function createCueDeck() {
     if (cueDeck.player || !window.YT || !window.YT.Player) return;
     var holder = document.createElement('div');
@@ -430,12 +608,15 @@
         height: 315,
         playerVars: { playsinline: 1, rel: 0, autoplay: 0, controls: 0, fs: 0, disablekb: 1, iv_load_policy: 3, origin: window.location.origin },
         events: {
-          onReady: function () {
+          onReady: function (event) {
+            disableCaptions(event);
             cueDeck.ready = true;
             var el = iframeOf(cueDeck);
             if (el) { el.setAttribute('data-radio-deck', 'standby'); el.setAttribute('aria-hidden', 'true'); el.setAttribute('tabindex', '-1'); }
           },
           onStateChange: onCueState,
+          onApiChange: disableCaptions,
+          onAutoplayBlocked: function () { qualityPlayerEvent(cueDeck, 'autoplay_blocked'); },
           onError: function (event) { trace('cue_error', { code: event && event.data }); cueDeck.failed = true; cueDeck.warming = false; cueDeck.warmed = false; stopCue(); }
         }
       });
@@ -456,9 +637,9 @@
         cueDeck.player.loadVideoById({ videoId: cueVideoId(), startSeconds: cueStart() });
       } catch (_) { cueDeck.warming = false; }
     }
-    // Con la pantalla apagada la canción va adelantada: la cuña entra a su hora respecto a ella.
+    // La cuña usa el reloj común, también con la pantalla apagada.
     if (cueDeck.warmed && !cueDeck.playing && !isSweeper() && slotSweeper() && activeDeck().key === currentKey()) {
-      var wait = Date.parse(snapshot.endsAt) - sweeperLeadSeconds() * 1000 - deckAheadMs() - serverNow();
+      var wait = Date.parse(snapshot.endsAt) - sweeperLeadSeconds() * 1000 - serverNow();
       if (wait <= 0) syncCueDeck();
       else if (wait < 1000 && !cueDeck.entry) cueDeck.entry = window.setTimeout(function () { cueDeck.entry = null; syncCueDeck(); }, wait);
     }
@@ -472,7 +653,13 @@
     return Math.round(Math.max(0, Math.min(100, chosenVolume() * envelope)));
   }
   function onCueState(event) {
+    qualityTick();
     var state = event.data;
+    if (state === PLAYING && userPaused) {
+      try { cueDeck.player.pauseVideo(); } catch (_) { /* la pausa elegida sigue vigente */ }
+      return;
+    }
+    if (state === PLAYING) disableCaptions(event);
     trace('cue_yt', { s: YT_STATE_NAMES[String(state)] || state });
     if (state !== PLAYING) return;
     if (cueDeck.warming && !cueDeck.warmTimer) {
@@ -509,7 +696,7 @@
     if (!isFinite(start) || start === cueDeck.startMs) return;
     if (!listening || userPaused || userMuted || soundPending) return;
     if (!cueDeck.warmed) { cueDeck.startMs = start; trace('cue_skip', { warming: cueDeck.warming ? 1 : 0 }); return; }
-    var target = Math.max(0, (serverNow() - start + deckAheadMs()) / 1000);
+    var target = Math.max(0, (serverNow() - start) / 1000);
     if (target >= snapshot.sweeper.durationSeconds - 0.5) return;
     cueDeck.startMs = start;
     cueDeck.duration = snapshot.sweeper.durationSeconds;
@@ -572,7 +759,7 @@
     // Oculta, la cuña nunca detiene la música (Android no deja volver a arrancar el
     // reproductor) y va siempre por <audio>: entre el final de una canción y el inicio
     // de la siguiente es lo único que suena, y con solo Web Audio Brave corta la red.
-    if (document.hidden) { stopSweeper(); startBackgroundSweeper(); return; }
+    if (document.hidden && !appleTouchDevice) { stopSweeper(); startBackgroundSweeper(); return; }
     // Al volver a primer plano termina la que ya sonaba: otra la duplicaría.
     if (backgroundSweeperPlaying()) return;
     // Only the solo portion pauses YouTube; its tail belongs over the music.
@@ -656,13 +843,14 @@
     if (!reduced) sweeperFrame = window.requestAnimationFrame(paintSweeper);
   }
   if (sweeperToggle) sweeperToggle.addEventListener('click', function () {
-    if (audible()) { listening = false; stopSweeper(); }
+    if (!userPaused && listening && !soundPending && !userMuted) { pauseListening(); }
     else {
+      userPaused = false;
       listening = true; started = true; soundPending = false;
       // Escuchar el identificador con el altavoz apagado es pedir sonido.
       if (userMuted) { userMuted = false; if (listenerVolume === 0) listenerVolume = lastAudibleVolume; persistVolume(); paintVolume(); }
       try { activeDeck().player.unMute(); } catch (_) {}
-      syncSweeper(true);
+      correctDrift(true, true);
     }
     paintSweeper(); refreshLabels(); refreshStatus(); heartbeatLive();
   });
@@ -740,6 +928,114 @@
     apiFailures: 0, apiFailingSince: 0, apiStatuses: [], snapshotAt: 0,
     hiddenSince: document.hidden ? Date.now() : 0, flags: '', playerErrors: {}
   };
+
+  // Medición continua, independiente del cupo de avisos de fallos. Un lote
+  // cada 30 s resume todas las piezas, incluidas las correctas; no sube muestras.
+  var qualityMeter = createRadioPlaybackMeter();
+  var qualityLastReport = 0, qualitySequence = 0, qualityDropped = 0;
+  var qualityClockRoundTripMs = null;
+  function qualityMonoMs() {
+    return window.performance && window.performance.now ? window.performance.now() : Date.now();
+  }
+  function qualityMusicPlan(item, start) {
+    if (!item || !isFinite(start)) return;
+    qualityMeter.plan({ id: 'music:' + pieceKey(item, new Date(start).toISOString()), kind: 'music',
+      videoId: item.videoId, title: item.title, startMs: start,
+      endMs: start + Number(item.durationSeconds) * 1000, offsetMs: Number(item.startSeconds) * 1000 });
+  }
+  function qualityPlans() {
+    if (!snapshot) return;
+    var start = Date.parse(snapshot.startsAt);
+    if (isSweeper()) start -= Number(snapshot.current.durationSeconds) * 1000;
+    qualityMusicPlan(snapshot.current, start);
+    var nextStart = Date.parse(snapshot.endsAt) + (!isSweeper() && slotSweeper() ? sweeperGapSeconds() * 1000 : 0);
+    if (snapshot.upcoming && snapshot.upcoming[0]) qualityMusicPlan(snapshot.upcoming[0], nextStart);
+    var cueStartMs = sweeperStartMs();
+    if (snapshot.sweeper && isFinite(cueStartMs)) qualityMeter.plan({
+      id: 'identifier:' + cueStartMs, kind: 'identifier', title: projectName,
+      startMs: cueStartMs, endMs: cueStartMs + snapshot.sweeper.durationSeconds * 1000, offsetMs: 0
+    });
+  }
+  function qualityDeckSource(deck, id, expectedVideo, offsetMs) {
+    var source = { id: id, state: YT_STATE_NAMES[String(stateOf(deck))] || 'unknown', matches: null, muted: true, positionMs: NaN };
+    try {
+      source.positionMs = Number(deck.player.getCurrentTime()) * 1000 - (offsetMs || 0);
+      var data = deck.player.getVideoData && deck.player.getVideoData();
+      source.matches = data && data.video_id ? data.video_id === expectedVideo : null;
+      source.muted = mutedOf(deck) || (volumeControl && volumeOf(deck) === 0);
+    } catch (_) { /* sin información verificable */ }
+    return source;
+  }
+  function qualityTick() {
+    if (!qualityMeter || !snapshot || !started) return;
+    try {
+      qualityPlans();
+      var sources = [];
+      for (var index = 0; index < decks.length; index += 1) {
+        var deck = decks[index], key = deck.key || (deck.tailPlaying ? deck.qualityTailKey : null);
+        if (!deck.player || !key) continue;
+        var parts = key.split('|');
+        sources.push(qualityDeckSource(deck, 'music:' + key, parts[1], 0));
+      }
+      if (snapshot.sweeper) {
+        if (sweeperSource && sweeperContext) sources.push({
+          id: 'identifier:' + sweeperStartMs(), matches: true, muted: false,
+          state: sweeperContext.state === 'running' ? 'playing' : 'paused',
+          positionMs: (sweeperOffset + sweeperContext.currentTime - sweeperBeganAt) * 1000
+        });
+        if (bgSweeper && isFinite(bgSweeperStartMs)) sources.push({
+          id: 'identifier:' + bgSweeperStartMs, matches: true, muted: bgSweeper.muted || bgSweeper.volume === 0,
+          state: bgSweeper.paused ? 'paused' : bgSweeper.ended ? 'ended' : 'playing', positionMs: bgSweeper.currentTime * 1000
+        });
+        if (cueDeck.player && cueDeck.playing) sources.push(qualityDeckSource(cueDeck,
+          'identifier:' + cueDeck.startMs, cueVideoId(), cueDeck.seconds * 1000));
+      }
+      qualityMeter.sample({ monoMs: qualityMonoMs(), serverMs: serverNow(), sources: sources, hidden: document.hidden,
+        expected: !userPaused && !userMuted && !soundPending && (listening || backgroundPlaybackIntent || diag.everAudible) });
+      if (!qualityLastReport) qualityLastReport = qualityMonoMs();
+      if (qualityMonoMs() - qualityLastReport >= 30000) qualityReport('periodic');
+    } catch (_) { /* medir nunca interrumpe la reproducción */ }
+  }
+  function qualityDevice() {
+    var ua = navigator.userAgent || '';
+    return { type: appleTouchDevice ? (/iPhone|iPod/.test(ua) ? 'phone' : 'tablet')
+      : androidDevice ? (/Mobile/.test(ua) ? 'phone' : 'tablet') : /Mobi/.test(ua) ? 'mobile' : 'desktop',
+      platform: appleTouchDevice ? 'iOS/iPadOS' : androidDevice ? 'Android' : 'desktop',
+      decks: standbyDeck().player ? 2 : 1, volumeControl: volumeControl };
+  }
+  function qualityReport(reason) {
+    if (!diagnosticUrl || !qualityMeter || !started) return;
+    qualityLastReport = qualityMonoMs();
+    var measurement = qualityMeter.flush(reason);
+    if (!measurement.pieces.length && reason !== 'periodic') return;
+    qualitySequence += 1;
+    var report = {
+      kind: 'playback_quality', sessionId: sessionId, reportId: sessionId + ':' + pageLoadedAt + ':' + qualitySequence,
+      clientTime: new Date().toISOString(), script: scriptSrc.replace(/^.*\//, ''),
+      appleTouch: appleTouchDevice, brave: Boolean(navigator.brave), device: qualityDevice(),
+      hidden: document.hidden, online: navigator.onLine, catalogVersion: snapshot && snapshot.catalogVersion,
+      clockRoundTripMs: qualityClockRoundTripMs, droppedReports: qualityDropped, measurement: measurement,
+      // El resumen numérico se conserva aunque el fallo dure menos que el
+      // umbral de stall o se agote el cupo de avisos de esta página.
+      playback: {
+        phase: snapshot && snapshot.phase, key: currentKey(), nextKey: nextPieceKey(),
+        listening: listening, userPaused: userPaused, userMuted: userMuted, soundPending: soundPending,
+        backgroundIntent: backgroundPlaybackIntent, quietForMs: Math.max(0, quietUntil - Date.now()),
+        active: deckDiagnostic(activeDeck()), recoveryAttempts: pausedRecovery.attempts,
+        trail: diagTrail.slice(-16)
+      }
+    };
+    if (diag.queue.length >= 24) { diag.queue.shift(); qualityDropped += 1; }
+    diag.queue.push(report);
+    flushDiagnostics();
+  }
+  function qualityPlayerEvent(deck, name) {
+    try {
+      qualityPlans();
+      qualityMeter.event(deck === cueDeck ? 'identifier:' + cueDeck.startMs : 'music:' + deck.key, name);
+      qualityTick();
+    } catch (_) { /* API parcial */ }
+  }
 
   function trace(event, detail) {
     var entry = { t: Date.now() - pageLoadedAt, e: event };
@@ -856,7 +1152,7 @@
     }
     trace('diag', { kind: kind });
     diag.queue.push(report);
-    if (diag.queue.length > 10) diag.queue.shift();
+    if (diag.queue.length > 24) { diag.queue.shift(); qualityDropped += 1; }
     flushDiagnostics();
   }
 
@@ -887,8 +1183,9 @@
       xhr.onreadystatechange = function () {
         if (xhr.readyState !== 4) return;
         // Un rechazo del servidor (400, 403, 429) no se reintenta: solo la red caída.
-        done(xhr.status !== 0 && (xhr.status < 500 || xhr.status === 501));
+        done(xhr.status !== 0 && xhr.status !== 429 && (xhr.status < 500 || xhr.status === 501));
       };
+      xhr.onerror = xhr.ontimeout = function () { done(false); };
       xhr.send(JSON.stringify(report));
     } catch (_) { done(false); }
   }
@@ -896,7 +1193,7 @@
   // Avisos que no salieron antes de cerrar o recargar la página.
   function persistDiagnostics() {
     if (!diag.queue.length) return;
-    try { window.localStorage.setItem(DIAG_STORE, JSON.stringify(diag.queue.slice(-5))); } catch (_) { /* sin almacenamiento */ }
+    try { window.localStorage.setItem(DIAG_STORE, JSON.stringify(diag.queue.slice(-24))); } catch (_) { /* sin almacenamiento */ }
   }
 
   function restoreDiagnostics() {
@@ -909,7 +1206,7 @@
     try {
       var list = JSON.parse(stored);
       if (!list || !list.length) return;
-      for (var index = 0; index < list.length && index < 5; index += 1) {
+      for (var index = 0; index < list.length && index < 24; index += 1) {
         if (!list[index] || typeof list[index] !== 'object') continue;
         list[index].previousPage = true;
         list[index].deliveredFromPageAgeMs = 0;
@@ -1050,10 +1347,12 @@
   });
   window.addEventListener('online', function () { trace('online'); stuck.nextAt = 0; });
   window.addEventListener('offline', function () { trace('offline'); });
-  document.addEventListener('freeze', function () { trace('freeze'); persistDiagnostics(); });
+  document.addEventListener('freeze', function () { qualityTick(); qualityReport('freeze'); trace('freeze'); persistDiagnostics(); });
   document.addEventListener('resume', function () { trace('resume'); });
   window.addEventListener('pageshow', function (event) { trace('pageshow', { persisted: Boolean(event && event.persisted) }); });
   window.addEventListener('pagehide', function () {
+    qualityTick();
+    qualityReport('pagehide');
     trace('pagehide');
     // Recargar o cerrar en pleno silencio es justo el caso que interesa.
     if (diag.silentSince && Date.now() - diag.silentSince >= 5000 && diag.sent < DIAG_MAX_REPORTS) {
@@ -1068,9 +1367,17 @@
       diag.queue.push(report);
     }
     persistDiagnostics();
+    // pagehide puede cancelar XHR. El mismo reportId permite reconocer un
+    // reenvío si también llegó el XHR o si se recupera desde localStorage.
+    if (navigator.sendBeacon && diag.queue.length) {
+      try {
+        navigator.sendBeacon(diagnosticUrl, new Blob([JSON.stringify(diag.queue[diag.queue.length - 1])], { type: 'application/json' }));
+      } catch (_) { /* queda persistido para la próxima visita */ }
+    }
   });
   restoreDiagnostics();
   window.setTimeout(flushDiagnostics, 3000);
+  window.setInterval(qualityTick, 250);
 
   // --- Piezas y reproductores ---------------------------------------------------
 
@@ -1159,14 +1466,16 @@
     return Boolean(document.hidden && started && !userPaused && (listening || backgroundPlaybackIntent) && !standbyDeck().player);
   }
 
-  // Carga ya la cancion siguiente en el reproductor activo, sin esperar a que
-  // el tramo termine ni a la cuña. Entra unos segundos antes de su hora.
+  // Relevo de respaldo en el mismo reproductor: nunca antes de la hora de la
+  // entrante y siempre en el segundo vigente si el temporizador llegó tarde.
   function relayNextInBackground() {
     var key = nextPieceKey();
     var deck = activeDeck();
     if (!key || !deck.ready || deck.key === key) return;
     var next = snapshot.upcoming[0];
     if (videoRejected(next.videoId)) return;
+    var elapsed = (serverNow() - Date.parse(key.split('|')[0])) / 1000;
+    if (elapsed < 0 || elapsed >= next.durationSeconds) return;
     cancelRamp(deck);
     deck.dimmed = false;
     deck.fadeInLevel = null;
@@ -1178,7 +1487,7 @@
     deck.tailPlaying = false;
     try {
       levelForBackgroundEntry(deck);
-      deck.player.loadVideoById(segment(next, next.startSeconds));
+      deck.player.loadVideoById(segment(next, next.startSeconds + elapsed));
     } catch (_) { /* se recupera al volver a primer plano */ }
   }
 
@@ -1198,7 +1507,8 @@
   // ocurre en el corte: la saliente terminó de bajar justo antes.
   function backgroundRelayDue() {
     if (!snapshot) return false;
-    return isSweeper() || serverNow() >= Date.parse(snapshot.endsAt) - 250;
+    var key = nextPieceKey();
+    return Boolean(key && serverNow() >= Date.parse(key.split('|')[0]));
   }
 
   // Fin del fundido de salida: el corte del tramo en oculto, el final de la
@@ -1239,18 +1549,7 @@
         correctDrift(true, false);
       });
       navigator.mediaSession.setActionHandler('pause', function () {
-        backgroundPlaybackIntent = false;
-        listening = false;
-        // La pausa del sistema es una pausa del visitante: la reanudacion
-        // automatica no la deshace.
-        userPaused = true;
-        stopSweeper();
-        stopBackgroundSweeper();
-        quietUntil = Date.now() + 2000;
-        try { activeDeck().player.pauseVideo(); } catch (_) { /* ya estaba en pausa */ }
-        heartbeat(false);
-        refreshLabels();
-        refreshStatus();
+        pauseListening();
       });
     } catch (_) { /* algunos navegadores exponen solo parte de Media Session */ }
     updateMediaSession();
@@ -1262,10 +1561,80 @@
     if (!document.hidden || !backgroundPlaybackIntent || backgroundResumeAttempted
       || activeDeck() !== deck || currentRejected()) return;
     backgroundResumeAttempted = true;
+    watchPausedPlayer();
+  }
+
+  // PAUSED sin una orden del control o de Media Session conserva la intención
+  // de escuchar. Cada intento vuelve al segundo vigente; nunca desplaza la cola.
+  var pausedRecovery = { key: null, since: 0, nextAt: 0, attempts: 0 };
+  function pauseListening() {
+    // Registrar primero la intención: los PAUSED/PLAYING pendientes del iframe
+    // no pueden volver a activar la escucha ni dejar una cola sonando.
+    playRequestVersion += 1;
+    trace('listener_pause');
+    userPaused = true; listening = false; backgroundPlaybackIntent = false;
+    backgroundResumeAttempted = false;
+    clearPausedRecovery(); clearStuck();
+    quietUntil = Date.now() + 2000;
+    stopSweeper(); stopBackgroundSweeper(); stopCue();
+    for (var index = 0; index < decks.length; index += 1) {
+      var deck = decks[index];
+      cancelRamp(deck); deck.fadeInLevel = null; deck.dimmed = false;
+      deck.tailPlaying = false; deck.preparing = false; deck.syncOnPlayKey = null; deck.entryAlignment = null;
+      try { if (deck.player) deck.player.pauseVideo(); } catch (_) { /* puede seguir cargando */ }
+    }
+    heartbeat(false); refreshLabels(); refreshStatus(); updateMediaSession();
+  }
+  function clearPausedRecovery() {
+    pausedRecovery.key = null; pausedRecovery.since = 0; pausedRecovery.nextAt = 0; pausedRecovery.attempts = 0;
+  }
+  function watchPausedPlayer() {
+    if (!document.hidden || !ready || !snapshot || !started || userPaused || userMuted || soundPending
+      || !(listening || backgroundPlaybackIntent) || isSweeper() || currentRejected()) { clearPausedRecovery(); return; }
+    var deck = activeDeck();
+    if (stateOf(deck) !== PAUSED) { clearPausedRecovery(); return; }
+    if (Date.now() < quietUntil || !ensurePlaybackTimeline() || deck.key !== currentKey()) return;
+    var now = Date.now();
+    if (pausedRecovery.key !== deck.key) {
+      clearPausedRecovery(); pausedRecovery.key = deck.key; pausedRecovery.since = now;
+    }
+    if (now < pausedRecovery.nextAt) return;
+    pausedRecovery.attempts += 1;
+    pausedRecovery.nextAt = now + Math.min(30000, 1500 * Math.pow(2, Math.min(5, pausedRecovery.attempts - 1)));
+    var target = liveSecond();
+    trace('pause_recovery', { n: pausedRecovery.attempts, ms: now - pausedRecovery.since, target: target, hidden: document.hidden });
+    qualityMeter.event('music:' + deck.key, 'pause_recovery');
+    // Una pausa durante el fundido no deja a la canción recuperada en cero.
+    cancelRamp(deck); deck.dimmed = false; deck.fadeInLevel = null;
+    setLevel(deck, chosenVolume());
+    quietUntil = now + 750;
     try {
-      deck.player.playVideo();
+      if (pausedRecovery.attempts === 1) {
+        deck.syncOnPlayKey = deck.key;
+        deck.player.seekTo(target, true);
+        deck.player.playVideo();
+      } else loadCurrent(deck, target);
       updateMediaSession();
-    } catch (_) { /* se recupera al volver o desde el control multimedia */ }
+    } catch (_) { /* el siguiente repaso conserva el intento y su espera */ }
+  }
+
+  // Después de una suspensión no se reproduce un tramo vencido mientras llega
+  // la autoridad horaria. Una sola consulta pendiente evita ráfagas de peticiones.
+  var timelineRefreshPending = false;
+  function ensurePlaybackTimeline() {
+    if (!snapshot) return false;
+    var now = serverNow();
+    if (now >= Date.parse(snapshot.startsAt) && now < Date.parse(snapshot.endsAt)) return true;
+    if (!timelineRefreshPending) {
+      timelineRefreshPending = true;
+      refresh(function (ok) {
+        timelineRefreshPending = false;
+        if (!ok || !snapshot || serverNow() >= Date.parse(snapshot.endsAt)) return;
+        watchPausedPlayer();
+        if (!userPaused && (listening || backgroundPlaybackIntent)) correctDrift(false);
+      });
+    }
+    return false;
   }
 
   // El tramo exacto de la cancion: el reproductor se detiene en su final y
@@ -1300,8 +1669,8 @@
   // rescata. Pasa en Android al relevar con la pantalla apagada: al callar la
   // saliente el sistema frena la página y le corta la red. Si debería sonar y
   // no suena, se vuelve a cargar la pieza en el segundo del vivo, con espera
-  // creciente. Una pausa (del visitante, de una llamada o de otra app) nunca se
-  // fuerza: el sistema es dueño de esa decisión.
+  // creciente. Las pausas explícitas se respetan; PAUSED sin esa orden tiene
+  // su propio vigilante, que también vuelve al punto vigente de la emisión.
   var STUCK_VISIBLE_MS = 8000, STUCK_HIDDEN_MS = 15000, STUCK_RETRY_MAX_MS = 30000, STUCK_NOTICE_MS = 6000;
   var stuck = { since: 0, key: null, attempts: 0, nextAt: 0, reported: false };
 
@@ -1344,6 +1713,7 @@
   }
 
   function loadCurrent(deck, fromSecond) {
+    if (!ensurePlaybackTimeline()) return;
     var item = snapshot.current;
     deck.key = currentKey();
     deck.videoId = item.videoId;
@@ -1351,6 +1721,7 @@
     deck.preparing = false;
     deck.prepared = false;
     deck.tailPlaying = false;
+    deck.syncOnPlayKey = deck.key;
     if (quietStart()) {
       deck.player.mute();
       deck.unmuteOnPlay = true;
@@ -1391,22 +1762,24 @@
 
   function displayArtist(value) {
     var artist = value == null ? '' : String(value).trim();
-    return COMPILATION_ARTIST.test(artist) ? '' : artist;
+    if (COMPILATION_ARTIST.test(artist)) return '';
+    // Regla editorial de Brian: en la radio se firma «Zapato3».
+    return /^zapato\s*3$/i.test(artist) ? 'Zapato3' : artist;
   }
 
   function trackDisplay(item) {
     var raw = item && item.title != null ? String(item.title).trim() : '';
     var known = displayArtist(item && item.artist);
     if (known) {
-      var prefix = known + ' - ';
-      if (raw.toLowerCase().indexOf(prefix.toLowerCase()) === 0) {
-        return { artist: known, title: raw.slice(prefix.length).trim() };
+      var prefixed = /^(.{1,120}?)\s+-\s+(.+)$/.exec(raw);
+      if (prefixed && displayArtist(prefixed[1]).toLowerCase() === known.toLowerCase()) {
+        return { artist: known, title: prefixed[2].trim() };
       }
       return { artist: known, title: raw };
     }
     var match = /^(.{1,120}?)\s+-\s+(.+)$/.exec(raw);
     if (!match) return { artist: '', title: raw };
-    return { artist: match[1].trim(), title: match[2].trim() };
+    return { artist: displayArtist(match[1]), title: match[2].trim() };
   }
 
   function trackTitle(item) {
@@ -1448,6 +1821,7 @@
   // El boton solo dice «Estas al dia» cuando el audio esta realmente en
   // marcha; en cualquier otro estado nombra la accion que falta.
   function refreshLabels() {
+    syncVideoResumeControl();
     if (!syncLabel) return;
     var text;
     var action;
@@ -1461,6 +1835,37 @@
     // La acción gobierna juntos el botón, su pulse y el tono de la explicación.
     if (root.getAttribute('data-radio-action') !== action) root.setAttribute('data-radio-action', action);
     if (syncButton && syncButton.getAttribute('data-radio-action') !== action) syncButton.setAttribute('data-radio-action', action);
+  }
+
+  // El iframe no distingue un play manual de una confirmación automática
+  // tardía. En pausa, el clic sobre su imagen es un botón accesible explícito.
+  function syncVideoResumeControl() {
+    if (userPaused && !videoResumeButton) {
+      videoResumeButton = document.createElement('button');
+      videoResumeButton.type = 'button';
+      videoResumeButton.setAttribute('data-radio-video-resume', '');
+      videoResumeButton.style.cssText = 'position:absolute;inset:0;z-index:2;width:100%;height:100%;padding:0;border:0;background:transparent;cursor:pointer;outline-offset:-4px';
+      videoResumeButton.addEventListener('click', function (event) {
+        if (event && event.isTrusted === false) return;
+        requestLivePlayback();
+      });
+      frame.parentNode.appendChild(videoResumeButton);
+    }
+    if (videoResumeButton) {
+      videoResumeButton.hidden = !userPaused || isSweeper();
+      videoResumeButton.setAttribute('aria-label', t('radio.resync'));
+      videoResumeButton.setAttribute('title', t('radio.resync'));
+    }
+  }
+
+  function requestLivePlayback() {
+    var requestVersion = ++playRequestVersion;
+    userPaused = false; listening = true;
+    refreshLabels();
+    refresh(function (ok) {
+      if (requestVersion !== playRequestVersion || userPaused) return;
+      if (ok || snapshot) correctDrift(true, true);
+    });
   }
 
   // La linea de estado solo declara el vivo con sonido real; en el resto de
@@ -1500,12 +1905,14 @@
 
   function applySnapshot(data, local, roundTripMs) {
     if (!data || !data.current || !data.startsAt || !data.endsAt) return false;
+    qualityTick();
     if (!local) {
       // Una respuesta que tardó no sirve para poner el reloj: la hora que trae
       // ya pasó, y la emisión retrocedería esos segundos.
       var reportedTime = Date.parse(data.serverTime);
       if (isFinite(reportedTime) && (!clockSet || roundTripMs <= MAX_CLOCK_ROUND_TRIP_MS)) {
         serverDeltaMs = reportedTime + roundTripMs / 2 - Date.now();
+        qualityClockRoundTripMs = roundTripMs;
         clockSet = true;
       }
       // El relevo local redondea a milisegundos: la misma pieza del servidor
@@ -1520,6 +1927,7 @@
     var previousKey = currentKey();
     var leavingSlotSweeper = slotSweeper();
     snapshot = data;
+    try { qualityPlans(); } catch (_) { /* medir nunca frena la emisión */ }
     lastSlotSweeper = leavingSlotSweeper;
     alignDeckKeys();
     root.setAttribute('data-radio-video-id', data.current.videoId);
@@ -1546,7 +1954,7 @@
     if (!snapshot) return 0;
     var startMs = Date.parse(snapshot.startsAt);
     var duration = isSweeper() ? sweeperGapSeconds() : Number(snapshot.current.durationSeconds) || 0;
-    return isSweeper() ? Math.max(0, Math.min(duration, (serverNow() - startMs) / 1000)) : Math.max(0, Math.min(duration - 1, Math.floor((serverNow() - startMs) / 1000)));
+    return Math.max(0, Math.min(Math.max(0, duration - 0.05), (serverNow() - startMs) / 1000));
   }
 
   // El mismo punto, expresado como segundo dentro del video del album.
@@ -1614,6 +2022,7 @@
     var nextSlotSweeper = Boolean(snapshot.sweeperNext);
     var cross = nextSlotSweeper ? 0 : Number(snapshot.crossfadeSeconds) || 0;
     var duration = enteringSweeper ? sweeperGapSeconds() : Math.max(0.5, current.durationSeconds - cross);
+    if (serverNow() >= endsAtMs + duration * 1000) { ensurePlaybackTimeline(); return; }
     applySnapshot({
       phase: enteringSweeper ? 'sweeper' : 'music',
       sweeper: snapshot.sweeper,
@@ -1647,12 +2056,7 @@
     // relevo ocurre con Brave minimizado.
     if (document.hidden) backgroundResumeAttempted = false;
     if (!snapshot) return;
-    if (isSweeper() && ready && backgroundMode()) {
-      // Sin segundo reproductor la musica sigue en el mismo.
-      stopSweeper();
-      relayNextInBackground();
-      refreshLabels(); refreshStatus(); return;
-    }
+    if (!ensurePlaybackTimeline()) return;
     if (isSweeper()) {
       if (ready && mutedOf(activeDeck()) && !noGesture()) soundPending = true;
       syncSweeper(false); refreshLabels(); refreshStatus(); return;
@@ -2059,23 +2463,15 @@
     }
   }
 
-  // Con la pantalla apagada manda lo que le queda a la saliente, no el reloj: si la
-  // cuña no sonó, también entra antes del corte, porque un hueco deja sin red.
+  // Un temporizador retrasado puede perder el corte. El reloj del servidor
+  // conserva el mismo inicio y el mismo solape en primer y segundo plano.
   function crossInBackground() {
-    if (!document.hidden || !ready || !listening || userPaused || !snapshot || isSweeper()) return;
-    var from = activeDeck();
-    var to = standbyDeck();
-    if (from.key !== currentKey()) return;
-    if (stateOf(from) !== PLAYING || backgroundSweeperPlaying() || cueDeck.playing) return;
-    var at;
-    try { at = Number(from.player.getCurrentTime()) || 0; } catch (_) { return; }
-    var end = (Number(snapshot.current.startSeconds) || 0) + (Number(snapshot.current.durationSeconds) || 0);
-    if (end - at > BACKGROUND_OVERLAP_S) return;
-    if (to.ready && to.prepared && to.key === nextPieceKey()) { swapDecks(true); return; }
-    // Un reproductor que nunca sonó no carga con la pantalla apagada: la siguiente entra en el que suena.
-    if (!quietStart() || !nextPieceKey()) return;
-    trace('same_deck', { to: YT_STATE_NAMES[String(stateOf(to))] || stateOf(to) });
-    relayNextInBackground();
+    if (!document.hidden || !ready || !(listening || backgroundPlaybackIntent) || userPaused || !snapshot) return;
+    // También sale de la cuña: su cola no debe ocultar un relevo detenido.
+    // Este respaldo no depende del repaso principal ni de recibir otro evento
+    // PAUSED de un iframe que ya estaba en pausa cuando se le pidió play.
+    if (serverNow() >= Date.parse(snapshot.endsAt)) advanceBoundary();
+    watchPausedPlayer();
   }
 
   // `early`: la entrante arranca antes de su hora, desde el inicio de su tramo.
@@ -2093,6 +2489,7 @@
     activeIndex = 1 - activeIndex;
     if (wantSound) swapGraceUntil = Date.now() + 2000;
     to.preparing = false;
+    to.syncOnPlayKey = to.key;
     markDecks();
     if (wantSound) {
       // El volumen baja a cero antes de quitar el silencio: nada se oye de
@@ -2111,7 +2508,7 @@
       // Ya está en su punto si el relevo llegó a tiempo: buscar otra vez solo lo frena.
       var live = liveSecond(), at = NaN;
       try { at = Number(to.player.getCurrentTime()); } catch (_) { /* se busca abajo */ }
-      if (!(Math.abs(at - live) < 2)) to.player.seekTo(live, true);
+      if (!(Math.abs(at - live) < 0.75)) to.player.seekTo(live, true);
     }
     to.player.playVideo();
     if (!crossMs) {
@@ -2125,6 +2522,7 @@
       // ni se le retira el fundido.
       from.tailPlaying = true;
     }
+    from.qualityTailKey = from.key;
     from.key = null;
     from.prepared = false;
     from.preparing = false;
@@ -2235,7 +2633,11 @@
   function correctDrift(forcePlay, allowUnmute) {
     // Una entrada forzada (boton de la tarjeta, vuelta al vivo) reanuda la
     // emision y retira la pausa del visitante.
-    if (forcePlay && userPaused) userPaused = false;
+    if (forcePlay) {
+      userPaused = false;
+      if (ready && snapshot) { started = true; listening = true; }
+    }
+    if (snapshot && !ensurePlaybackTimeline()) return;
     if (isSweeper()) {
       if (forcePlay) { started = true; listening = true; if (allowUnmute) soundPending = false; }
       syncSweeper(forcePlay); refreshLabels(); refreshStatus(); heartbeatLive(); return;
@@ -2266,6 +2668,7 @@
         } else {
           var actual = Number(deck.player.getCurrentTime()) || 0;
           // Con la pantalla apagada puede ir unos segundos adelantada: se corrige al volver.
+          if (forcePlay) deck.syncOnPlayKey = deck.key;
           if (forcePlay || (!document.hidden && Math.abs(actual - target) > 4)) deck.player.seekTo(target, true);
           if (forcePlay) deck.player.playVideo();
         }
@@ -2304,6 +2707,32 @@
 
   // --- Entrada automatica ----------------------------------------------------
 
+  function alignEntryToLive(deck) {
+    if (deck.key !== currentKey() || stateOf(deck) !== PLAYING || userPaused
+      || !ensurePlaybackTimeline()) return;
+    if (deck.syncOnPlayKey === deck.key) {
+      // Consumir antes de seek. La validación posterior mantiene una ventana
+      // acotada porque el iframe puede informar el destino antes de estabilizarse.
+      deck.syncOnPlayKey = null;
+      deck.entryAlignment = { key: deck.key, until: Date.now() + 10000, nextAt: 0, attempts: 0 };
+    }
+    var alignment = deck.entryAlignment;
+    if (!alignment || alignment.key !== deck.key) return;
+    var now = Date.now();
+    if (now >= alignment.until) { deck.entryAlignment = null; return; }
+    if (now < alignment.nextAt) return;
+    alignment.nextAt = now + 1000;
+    var target = liveSecond();
+    try {
+      if (Math.abs(Number(deck.player.getCurrentTime()) - target) > 0.25 && alignment.attempts < 3) {
+        alignment.attempts += 1;
+        alignment.nextAt = now + 1500;
+        trace('entry_alignment', { target: target, n: alignment.attempts });
+        deck.player.seekTo(target, true);
+      }
+    } catch (_) { /* el medidor registra cualquier desfase restante */ }
+  }
+
   function enterLive() {
     if (attemptTimer) { window.clearTimeout(attemptTimer); attemptTimer = null; }
     if (userPaused) return;
@@ -2332,15 +2761,14 @@
     if (!ready || !snapshot || soundPending || userPaused) return;
     if (currentRejected()) { joinPending = !started; refreshLabels(); refreshStatus(); return; }
     var deck = activeDeck();
-    if (playerState() === PLAYING && deck.key === currentKey()) { enterLive(); return; }
+    deck.syncOnPlayKey = deck.key;
+    if (playerState() === PLAYING && deck.key === currentKey()) { alignEntryToLive(deck); enterLive(); return; }
     setStatus(t('radio.loading'), 'loading');
     try {
-      if (deck.key !== currentKey()) {
-        loadCurrent(deck);
-      } else {
-        deck.player.seekTo(liveSecond(), true);
-        deck.player.playVideo();
-      }
+      // En un iframe recién creado, seek + play puede dejar UNSTARTED sin
+      // cargar realmente el capítulo. Iniciar su segmento explícito conserva
+      // el punto vigente y su final incluso al recargar a mitad de canción.
+      loadCurrent(deck);
     } catch (_) { return; }
     if (attemptTimer) window.clearTimeout(attemptTimer);
     attemptTimer = window.setTimeout(function () {
@@ -2386,9 +2814,11 @@
     soundPending = false;
     disarmSoundUnlock();
     try {
+      activeDeck().syncOnPlayKey = activeDeck().key;
       settleVolume();
       activeDeck().player.unMute();
       activeDeck().player.playVideo();
+      alignEntryToLive(activeDeck());
     } catch (_) {
       setStatus(t('radio.error'), 'error');
       return;
@@ -2447,8 +2877,17 @@
   }
 
   function onDeckState(deck, event) {
+    qualityTick();
     var state = event.data;
+    // Un play ya enviado puede confirmarse después de la pausa del sistema.
+    // Esa confirmación tardía no revoca la decisión de la persona.
+    if (state === PLAYING && userPaused) {
+      quietUntil = Date.now() + 2000;
+      try { deck.player.pauseVideo(); } catch (_) { /* la siguiente observación lo confirma */ }
+      return;
+    }
     if (state === PLAYING) {
+      disableCaptions(event);
       deck.everPlayed = true;
       if (deck.unmuteOnPlay) {
         deck.unmuteOnPlay = false;
@@ -2496,9 +2935,8 @@
       // Una reproduccion correcta confirma que cualquier control local de
       // sesion ya fue superado (por ejemplo, despues de iniciar sesion).
       if (deck.videoId) delete restricted[deck.videoId];
-      // El video tambien se reanuda desde su propia superficie (clic en la
-      // imagen): si vuelve a sonar, la pausa del visitante ya no existe.
-      if (userPaused) userPaused = false;
+      // Incluye autoplay y desbloqueo de sonido, además de los relevos.
+      alignEntryToLive(deck);
       if (deck.fadeInLevel !== null) {
         var target = deck.fadeInLevel;
         deck.fadeInLevel = null;
@@ -2511,21 +2949,24 @@
       if (snapshot && serverNow() >= Date.parse(snapshot.endsAt) - 1500) advanceBoundary();
     } else if (state === PAUSED) {
       if (Date.now() < quietUntil) return;
+      if (userPaused) { clearPausedRecovery(); return; }
       if (document.hidden && backgroundPlaybackIntent) {
-        // Un único reintento inmediato por ocultación. Un setTimeout aquí no
-        // es fiable: Android puede congelarlo antes de que llegue a ejecutarse.
+        // Primer intento inmediato; el vigilante mantiene los reintentos si
+        // la página sigue ejecutándose y el reproductor permanece en pausa.
         heartbeat(false);
         resumeBackgroundPlayback(deck);
         return;
       }
-      listening = false;
-      stopSweeper();
+      // El iframe no informa quién pidió PAUSED. Con la página visible se
+      // respeta como una pausa de la persona; no se intenta adivinar lo contrario.
+      pauseListening();
       heartbeat(false);
       refreshStatus();
     }
   }
 
   function onDeckError(deck, event) {
+    qualityPlayerEvent(deck, 'player_error');
     var code = Number(event && event.data);
     var videoId = deck.videoId;
     notePlayerError(deck, code);
@@ -2568,7 +3009,9 @@
 
   function deckEvents(index, onReady) {
     return {
-      onReady: onReady,
+      onReady: function (event) { disableCaptions(event); onReady(event); },
+      onApiChange: disableCaptions,
+      onAutoplayBlocked: function () { qualityPlayerEvent(decks[index], 'autoplay_blocked'); },
       onStateChange: function (event) { onDeckState(decks[index], event); },
       onError: function (event) { onDeckError(decks[index], event); }
     };
@@ -2661,7 +3104,7 @@
       refreshLabels();
       refreshStatus();
     }
-    refresh(function (ok) { if (ok || snapshot) correctDrift(true, true); });
+    requestLivePlayback();
   });
   if (root.getAttribute('data-radio-requested') === 'true') requestBoot();
 
@@ -2735,6 +3178,8 @@
     if (snapshot && serverNow() >= Date.parse(snapshot.endsAt) + 1000) advanceBoundary();
     if (backgroundMode() && backgroundRelayDue()) relayNextInBackground();
     watchStuckPlayer();
+    watchPausedPlayer();
+    alignEntryToLive(activeDeck());
     watchAutoMute();
     maybePrepare();
     guardSegmentEnd();

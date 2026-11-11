@@ -2,7 +2,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { appendRadioDiagnostic, isRadioDiagnosticKind, recentRadioDiagnostics, sanitizeDiagnostic, summarizeUserAgent } from "./diagnostics.js";
+import { appendRadioDiagnostic, isRadioDiagnosticKind, recentRadioDiagnostics, sanitizeDiagnostic, summarizeUserAgent, summarizeRadioQuality } from "./diagnostics.js";
 
 describe("diagnóstico de la radio", () => {
   it("acota lo que recibe y descarta lo que no es JSON simple", () => {
@@ -27,11 +27,38 @@ describe("diagnóstico de la radio", () => {
     expect(summarizeUserAgent("Mozilla/5.0 (Linux; Android 14; Pixel) AppleWebKit/537.36 Chrome/130.0.0.0 Mobile Safari/537.36", true))
       .toEqual({ browser: "Brave", version: "130", os: "Android 14", mobile: true });
     expect(summarizeUserAgent(undefined)).toEqual({ browser: "otro", version: null, os: "otro", mobile: false });
+    const ipadDesktop = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15";
+    expect(summarizeUserAgent(ipadDesktop, false, true)).toMatchObject({ browser: "Safari", os: "iPadOS", mobile: true });
+    expect(summarizeUserAgent(ipadDesktop)).toMatchObject({ os: "macOS", mobile: false });
   });
 
   it("solo acepta los tipos conocidos", () => {
     expect(isRadioDiagnosticKind("stall")).toBe(true);
+    expect(isRadioDiagnosticKind("playback_quality")).toBe(true);
     expect(isRadioDiagnosticKind("cualquiera")).toBe(false);
+  });
+
+  it("evalúa por dispositivo y pieza sin sumar lotes acumulados ni reenvíos", () => {
+    const quality = (page: string, seq: number, samples: number, ms: number, outcome = "ongoing", device = "tablet") => ({
+      kind: "playback_quality", browser: "Safari", os: "iPadOS", device: { type: device },
+      report: { reportId: `${page}:${seq}`, measurement: { schema: 1, pieces: [{
+        id: "music:abc", kind: "music", firstObservedAt: 1000, sampleCount: samples, outcome,
+        observedMs: ms, interruptedMs: 750, frozenMs: 0, unobservedMs: 0,
+        maxAheadMs: 250, maxBehindMs: 750, issues: ["interruption"],
+      }] } },
+    });
+    const final = quality("session:page1", 3, 100, 25000, "ended");
+    const summary = summarizeRadioQuality([
+      quality("session:page1", 1, 50, 12500), final, final,
+      quality("session:page1", 2, 75, 18750),
+      quality("session:page2", 1, 80, 20000, "ended", "desktop"),
+    ]);
+    expect(summary).toHaveLength(2);
+    expect(summary[0]).toMatchObject({ device: "tablet", pieces: 1, observedMs: 25000, interruptedMs: 750, withIssues: 1, issues: { interruption: 1 } });
+    expect(summary[1]).toMatchObject({ device: "desktop", pieces: 1, observedMs: 20000 });
+    expect(summarizeRadioQuality([{ kind: "playback_quality", report: {} }])).toEqual([]);
+    // La API sanea el cuerpo (report), no el envoltorio que ella añade al log.
+    expect(summarizeRadioQuality([{ ...final, report: sanitizeDiagnostic(final.report) }])).toEqual(summarizeRadioQuality([final]));
   });
 
   it("anota, rota y resume para el panel", () => {

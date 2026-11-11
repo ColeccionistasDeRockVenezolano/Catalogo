@@ -38,6 +38,8 @@ export async function registerRadioRoutes(app: FastifyInstance): Promise<void> {
   const listenerLimiter = createWindowLimiter({ max: 120, windowMs: 60_000, maxKeys: 5_000 });
   const reportLimiter = createWindowLimiter({ max: 20, windowMs: 10 * 60_000, maxKeys: 5_000 });
   const diagnosticLimiter = createWindowLimiter({ max: 30, windowMs: 10 * 60_000, maxKeys: 5_000 });
+  const qualityLimiter = createWindowLimiter({ max: 40, windowMs: 10 * 60_000, maxKeys: 5_000 });
+  const qualityIpLimiter = createWindowLimiter({ max: 480, windowMs: 10 * 60_000, maxKeys: 5_000 });
 
   const stationOrThrow = async () => {
     const project = await projectId();
@@ -86,14 +88,18 @@ export async function registerRadioRoutes(app: FastifyInstance): Promise<void> {
     bodyLimit: 256 * 1024,
     schema: { tags: ["Radio"], body: z.object({ kind: z.string().max(40), sessionId: z.string().regex(SESSION_ID) }).passthrough() },
   }, async (request, reply) => {
-    if (!diagnosticLimiter.take(clientIp(request))) throw new ApiError(429, "rate_limited", "Demasiados diagnósticos de la radio.");
     const body = request.body as Record<string, unknown> & { kind: string; sessionId: string };
     if (!isRadioDiagnosticKind(body.kind)) throw new ApiError(400, "invalid_diagnostic", "Diagnóstico inválido.");
+    const ip = clientIp(request);
+    const allowed = body.kind === "playback_quality"
+      ? qualityIpLimiter.take(ip) && qualityLimiter.take(`${ip}:${body.sessionId}`)
+      : diagnosticLimiter.take(ip);
+    if (!allowed) throw new ApiError(429, "rate_limited", "Demasiados diagnósticos de la radio.");
     const { project, station } = await stationOrThrow();
     const country = clientCountry(request);
     const nowMs = Date.now();
     const onAir = radioSnapshot(station, nowMs, radioListenerCount(project), { country });
-    const browser = summarizeUserAgent(request.headers["user-agent"], body["brave"] === true);
+    const browser = summarizeUserAgent(request.headers["user-agent"], body["brave"] === true, body["appleTouch"] === true);
     const report = sanitizeDiagnostic(body) as Record<string, unknown>;
     delete report["kind"];
     delete report["sessionId"];
@@ -103,6 +109,7 @@ export async function registerRadioRoutes(app: FastifyInstance): Promise<void> {
       session: body.sessionId.slice(0, 12),
       country: country ?? "zz",
       ...browser,
+      device: report["device"] ?? null,
       server: onAir ? {
         phase: onAir.phase, videoId: onAir.current.videoId, title: onAir.current.title, artist: onAir.current.artist,
         startsAt: onAir.startsAt, endsAt: onAir.endsAt, substituteFor: onAir.current.regionSubstituteFor?.videoId ?? null,
