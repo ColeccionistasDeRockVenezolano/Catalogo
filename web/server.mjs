@@ -239,7 +239,7 @@ const SECURITY_HEADERS = {
   "referrer-policy": webMode === "landing" ? REFERRER_FOR_YOUTUBE : "no-referrer",
   "x-content-type-options": "nosniff",
   "x-frame-options": "DENY",
-  "strict-transport-security": "max-age=31536000",
+  "strict-transport-security": "max-age=31536000; includeSubDomains",
 };
 // La tarjeta de radio dentro del catálogo es lo único que se deja enmarcar, y solo
 // por este mismo sitio. La portada no la sirve.
@@ -934,7 +934,25 @@ function landingWhitelist(req, res, virtualUrl, acceptsHtml) {
   return true;
 }
 
+const HTTPS_HOSTS = new Set((process.env.CRV_HTTPS_HOSTS ?? "coleccionistasderockvenezolano.com,www.coleccionistasderockvenezolano.com,mini-server.tail5815b0.ts.net")
+  .split(",").map((value) => value.trim().toLowerCase()).filter(Boolean));
+
+/** Redirige a HTTPS cuando el borde dice que la petición entró por HTTP. */
+function enforceHttps(req, res) {
+  if (String(req.headers["x-forwarded-proto"] ?? "").toLowerCase() !== "http") return false;
+  const hostHeader = String(req.headers["x-forwarded-host"] ?? req.headers.host ?? "").split(",")[0].trim().toLowerCase();
+  if (!HTTPS_HOSTS.has(hostHeader)) return false;
+  res.writeHead(308, {
+    location: `https://${hostHeader}${req.url ?? "/"}`,
+    "cache-control": "no-store",
+    ...SECURITY_HEADERS,
+  });
+  res.end();
+  return true;
+}
+
 async function handleRequest(req, res) {
+  if (enforceHttps(req, res)) return;
   const ip = clientIp(req);
   if (ip.length > 0 && !isLocalRequest(req) && rateLimited(ip)) {
     res.writeHead(429, { "content-type": "text/plain; charset=utf-8", "retry-after": "60", ...SECURITY_HEADERS });

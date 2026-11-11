@@ -66,9 +66,11 @@ let counter = 0;
 
 async function runContainer(name: string, port: number, encoding?: "UTF8" | "SQL_ASCII"): Promise<void> {
   await sh("docker", [
-    "run", "-d", "--name", name,
+    "run", "-d", "--rm", "--name", name,
     "-e", "POSTGRES_HOST_AUTH_METHOD=trust",
-    "-p", `${port}:5432`,
+    // Solo loopback: un Postgres de test sin contraseña no puede quedar
+    // alcanzable desde la LAN o la tailnet si la suite muere sin limpiar.
+    "-p", `127.0.0.1:${port}:5432`,
     // Datos en RAM: estos contenedores son desechables y el Docker root vive en
     // el HDD — con tmpfs, initdb + core + migraciones dejan de depender del disco
     // (medido el 2026-09-18: el arranque por archivo baja de ~30-60 s a ~5-10 s).
