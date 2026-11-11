@@ -18,7 +18,7 @@ describe('aviso de lanzamiento: datos durables, permisos y envío a Sheets', () 
   let app: FastifyInstance;
   let directory: string;
   let credentials: string;
-  const payload = { name: 'Prueba Coleccionista', type: 'Coleccionista' as const, email: 'QA@example.invalid', phone: '+58 412 123 4567', social: '@prueba', campaign: 'biblioteca-2026' };
+  const payload = { name: 'Prueba Coleccionista', type: 'Invitado' as const, email: 'QA@example.invalid', phone: '+58 412 123 4567', social: '@prueba', campaign: 'biblioteca-2026' };
   const post = (data: unknown = payload, origin: string | undefined = 'http://localhost:5173', ip = '203.0.113.12') => app.inject({ method: 'POST', url: '/roadmap/launch',
     headers: { ...(origin ? { origin } : {}), 'x-forwarded-for': ip }, payload: data as Record<string, unknown> });
   beforeAll(async () => {
@@ -28,6 +28,8 @@ describe('aviso de lanzamiento: datos durables, permisos y envío a Sheets', () 
     delete process.env['CRV_LAUNCH_SHEET_CREDENTIALS']; resetEnvCache();
     await getPool().query(readFileSync('migrations/0112_unified_auth.up.sql', 'utf8'));
     await getPool().query(readFileSync('migrations/0127_launch_contacts.up.sql', 'utf8'));
+    await getPool().query(readFileSync('migrations/0131_launch_guest_default.up.sql', 'utf8'));
+    await getPool().query(readFileSync('migrations/0132_launch_guest_capitalized.up.sql', 'utf8'));
     directory = await mkdtemp(join(tmpdir(), 'crv-launch-test-')); credentials = join(directory, 'account.json');
     const { privateKey } = generateKeyPairSync('rsa', { modulusLength: 2048 });
     await writeFile(credentials, JSON.stringify({ client_email: 'test@example.invalid', private_key: privateKey.export({ type: 'pkcs8', format: 'pem' }) }), { mode: 0o600 });
@@ -55,13 +57,19 @@ describe('aviso de lanzamiento: datos durables, permisos y envío a Sheets', () 
       name: payload.name, type: payload.type, email: 'qa@example.invalid', phone: payload.phone, social: payload.social, origin: 'Roadmap', campaign: payload.campaign, synced_at: null,
     });
   });
+  it('guarda invitado sin preguntar el tipo y también con formularios antiguos', async () => {
+    const { type: _type, ...withoutType } = payload;
+    expect((await post(withoutType)).statusCode).toBe(200);
+    expect((await post({ ...payload, type: 'Investigador', email: 'old@example.invalid' })).statusCode).toBe(200);
+    expect((await getPool().query('SELECT type FROM auth.launch_contacts')).rows).toEqual([{ type: 'Invitado' }, { type: 'Invitado' }]);
+  });
   it('deduplica el correo sin sustituir su campaña original ni datos ya guardados', async () => {
     const first = await saveLaunchContact(launchContactBody.parse(payload));
     expect(await saveLaunchContact(launchContactBody.parse({ ...payload, email: 'qa@example.invalid', campaign: 'otra' }))).toBe(first);
     expect((await getPool().query('SELECT campaign FROM auth.launch_contacts')).rows).toEqual([{ campaign: payload.campaign }]);
   });
-  it('valida tipo, correo y teléfono; impide que el cliente cambie Origen', async () => {
-    for (const input of [{ ...payload, origin: 'Otro' }, { ...payload, type: 'CRV' }, { ...payload, email: 'incorrecto' }, { ...payload, phone: 'abc' }, { ...payload, name: 'x' }, { ...payload, campaign: 'x'.repeat(201) }]) expect((await post(input)).statusCode).toBe(400);
+  it('valida correo y teléfono; impide que el cliente cambie Origen', async () => {
+    for (const input of [{ ...payload, origin: 'Otro' }, { ...payload, email: 'incorrecto' }, { ...payload, phone: 'abc' }, { ...payload, name: 'x' }, { ...payload, campaign: 'x'.repeat(201) }]) expect((await post(input)).statusCode).toBe(400);
     expect((await post({ ...payload, website: 'bot.example' }, undefined, '203.0.113.13')).statusCode).toBe(400);
     expect(launchContactBody.safeParse({ ...payload, phone: '......' }).success).toBe(false);
     expect((await getPool().query('SELECT 1 FROM auth.launch_contacts')).rowCount).toBe(0);
@@ -95,7 +103,7 @@ describe('aviso de lanzamiento: datos durables, permisos y envío a Sheets', () 
       }
       if (url.includes(':append')) {
         expect(parsed.searchParams.get('valueInputOption')).toBe('RAW');
-        expect(JSON.parse(String(init?.body)).values).toEqual([['Prueba Coleccionista','Coleccionista','qa@example.invalid','+58 412 123 4567','@prueba','Roadmap','biblioteca-2026']]);
+        expect(JSON.parse(String(init?.body)).values).toEqual([['Prueba Coleccionista','Invitado','qa@example.invalid','+58 412 123 4567','@prueba','Roadmap','biblioteca-2026']]);
         if (options.failAppend) throw new Error('Timeout after Google may have saved');
         return Response.json({ updates: { updatedRows: 1 } });
       }

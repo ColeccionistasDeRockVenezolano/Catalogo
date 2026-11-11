@@ -77,7 +77,6 @@
     Object.keys(values).forEach(function (name) { values[name] = String(values[name]).trim(); });
     if (!values.name || values.name.length < 2) fieldError('name', english ? 'Enter your name (at least 2 characters).' : 'Escribe tu nombre (al menos 2 caracteres).');
     if (!values.email || !form.elements.namedItem('email').validity.valid) fieldError('email', english ? 'Enter a valid email, such as you@example.com.' : 'Escribe un correo válido, como tu@correo.com.');
-    if (!values.type) fieldError('type', english ? 'Choose the option that best describes you.' : 'Elige la opción que más te identifica.');
     if (values.phone && (!/^[+\d\s().-]{6,40}$/.test(values.phone) || values.phone.replace(/\D/g, '').length < 6)) fieldError('phone', english ? 'Check your number and include the country code.' : 'Revisa tu número e incluye el código de país.');
     ['name', 'social'].forEach(function (name) { if (/[\u0000-\u001f\u007f]/.test(values[name] || '')) fieldError(name, english ? 'Remove unsupported characters.' : 'Elimina los caracteres no válidos.'); });
     var invalid = form.querySelector('[aria-invalid="true"]');

@@ -18,17 +18,6 @@
         <input id="launch-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254" placeholder="<%= launchEn ? 'you@example.com' : 'tu@correo.com' %>" aria-describedby="launch-email-error" autocapitalize="none" spellcheck="false">
         <span id="launch-email-error" class="launch-form__error" hidden></span>
       </div>
-      <div class="launch-form__field">
-        <label for="launch-type"><%= launchEn ? 'How do you connect with music?' : '¿Cómo te conectas con la música?' %></label>
-        <select id="launch-type" name="type" required aria-describedby="launch-type-error">
-          <option value="" selected disabled><%= launchEn ? 'Choose what best describes you' : 'Elige lo que más te identifica' %></option>
-          <option value="Oyente"><%= launchEn ? 'Listener' : 'Oyente' %></option>
-          <option value="Músico / banda"><%= launchEn ? 'Musician / band' : 'Músico / banda' %></option>
-          <option value="Investigador"><%= launchEn ? 'Researcher' : 'Investigador' %></option>
-          <option value="Coleccionista"><%= launchEn ? 'Collector' : 'Coleccionista' %></option>
-        </select>
-        <span id="launch-type-error" class="launch-form__error" hidden></span>
-      </div>
       <details class="launch-form__optional">
         <summary><%= launchEn ? 'Add phone or social profiles' : 'Añadir teléfono o redes' %><span><%= launchEn ? 'Optional' : 'Opcional' %></span></summary>
         <div class="launch-form__field">

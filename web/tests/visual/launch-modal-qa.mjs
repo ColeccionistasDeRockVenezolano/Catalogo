@@ -41,10 +41,9 @@ try {
   await desktop.page.getByRole('button', { name: 'Avísame del lanzamiento' }).click();
   await expect(desktop.page.getByLabel('Tu nombre', { exact: true })).toHaveAttribute('aria-invalid', 'true');
   await expect(desktop.page.getByLabel('Correo electrónico', { exact: true })).toHaveAttribute('aria-invalid', 'true');
-  await expect(desktop.dialog.getByRole('combobox')).toHaveAttribute('aria-invalid', 'true'); ok('Errores de campos obligatorios asociados y con foco');
+  await expect(desktop.dialog.getByRole('combobox')).toHaveCount(0); ok('Errores de campos obligatorios asociados y con foco');
   await desktop.page.getByLabel('Tu nombre', { exact: true }).fill('QA Biblioteca');
   await desktop.page.getByLabel('Correo electrónico', { exact: true }).fill(email);
-  await desktop.dialog.getByRole('combobox').selectOption('Investigador');
   await desktop.page.getByText('Añadir teléfono o redes', { exact: false }).click();
   await desktop.page.getByLabel('Teléfono', { exact: true }).fill('incorrecto');
   await desktop.page.getByRole('button', { name: 'Avísame del lanzamiento' }).click();
@@ -62,7 +61,7 @@ try {
   await expect(desktop.page.getByRole('heading', { name: 'Ya eres parte.' })).toBeVisible(); await screenshot(desktop.page, 'success');
   await expect(other.getByRole('dialog')).not.toBeVisible(); ok('Éxito confirmado y cierre en otra pestaña');
   const saved = (await db.query('SELECT name,type,email,phone,social,origin,campaign FROM auth.launch_contacts WHERE email=$1', [email])).rows;
-  expect(saved).toEqual([{ name: 'QA Biblioteca', type: 'Investigador', email, phone: '+58 412 123 4567', social: '@qa-biblioteca', origin: 'Roadmap', campaign: 'biblioteca digital' }]); ok('Siete columnas correctas y campaña decodificada de la URL');
+  expect(saved).toEqual([{ name: 'QA Biblioteca', type: 'Invitado', email, phone: '+58 412 123 4567', social: '@qa-biblioteca', origin: 'Roadmap', campaign: 'biblioteca digital' }]); ok('Siete columnas correctas y campaña decodificada de la URL');
   await desktop.page.reload({ waitUntil: 'domcontentloaded' }); await expect(desktop.dialog).not.toBeVisible();
   await desktop.page.evaluate(() => localStorage.clear()); await desktop.page.reload({ waitUntil: 'domcontentloaded' });
   await expect.poll(() => desktop.page.evaluate(k => localStorage.getItem(k), key)).toBe('1'); await expect(desktop.dialog).not.toBeVisible(); ok('Recuerda el envío por cookie aunque se borre localStorage');

@@ -7,7 +7,8 @@ import { getEnv } from '../config/env.js';
 const clean = (max: number) => z.string().trim().max(max).refine(value => !Array.from(value).some(char => char.charCodeAt(0) < 32 || char.charCodeAt(0) === 127), 'Elimina los caracteres de control.');
 export const launchContactBody = z.object({
   name: clean(120).pipe(z.string().min(2)),
-  type: z.enum(['Oyente', 'Músico / banda', 'Investigador', 'Coleccionista']),
+  // Compatibilidad con pestañas antiguas: el servidor fija siempre el tipo.
+  type: z.string().max(120).optional().transform(() => 'Invitado' as const),
   email: z.string().trim().max(254).email().transform(value => value.toLowerCase()),
   phone: clean(40).default('').refine(value => !value || (/^[+\d\s().-]{6,40}$/u.test(value) && value.replace(/\D/gu, '').length >= 6), 'Revisa el número de teléfono.'),
   social: clean(500).default(''),
