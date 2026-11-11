@@ -51,6 +51,7 @@
         <span class="btn-count" data-btn-count <%- openApplications > 0 ? '' : 'hidden' %>><%= openApplications %></span>
       </button>
       <button type="button" class="btn btn-ghost" data-open="metrics-form"><span class="icon-label"><i data-lucide="chart-column"></i> <%= t('admin.metrics') %></span></button>
+      <button type="button" class="btn btn-ghost" data-open="radio-queue-form"><span class="icon-label"><i data-lucide="radio"></i> Radio</span></button>
       <button type="button" class="btn btn-ghost" data-open="collaborate-form-config"><span class="icon-label"><i data-lucide="clipboard-list"></i> <%= t('admin.collaborateForm') %></span></button>
       <button type="button" class="btn btn-ghost" data-open="invites-form"><span class="icon-label"><i data-lucide="link"></i> <%= t('admin.inviteLinks') %></span></button>
       <% if (currentAdmin) { %>
@@ -87,6 +88,38 @@
                data-public-origin="<%= branding.siteUrl %>"
                data-flag-base="<%= basePath %>/static/flags/"
                data-messages="<%= JSON.stringify(clientMessages(lang, 'metrics')) %>"></div>
+        </div>
+      </div>
+    </dialog>
+
+    <%# Radio › Poner a continuación: la pieza suena al acabar la que está al aire
+        y la programación sigue donde iba. Lo pinta radio-queue.js. %>
+    <dialog class="modal modal--lg" id="radio-queue-form" data-modal-root aria-labelledby="radio-queue-title">
+      <div class="modal__panel">
+        <div class="modal__head">
+          <div class="modal__titles">
+            <span class="kicker">Radio</span>
+            <h2 class="modal__title" id="radio-queue-title">Poner a continuación</h2>
+            <p class="modal__sub">La pieza suena cuando termine la que está al aire. Después, la programación sigue exactamente donde iba.</p>
+          </div>
+          <button type="button" class="modal__close" data-modal-close aria-label="<%= t('common.close') %>"><i data-lucide="x"></i></button>
+        </div>
+        <div class="modal__body">
+          <div class="radio-queue" data-radio-queue-root data-radio-queue-url="/api/community/admin/panel/radio">
+            <section>
+              <h3>En fila</h3>
+              <ul class="radio-queue__list" data-radio-queue-list aria-live="polite"></ul>
+            </section>
+            <section>
+              <h3>Buscar en el catálogo al aire</h3>
+              <form class="radio-queue__search" data-radio-queue-search>
+                <input type="search" data-radio-queue-input placeholder="Título, artista o disco" aria-label="Buscar pieza" maxlength="120" autocomplete="off">
+                <button type="submit" class="btn btn-ghost">Buscar</button>
+              </form>
+              <p class="radio-queue__status" data-radio-queue-status role="status"></p>
+              <ul class="radio-queue__list" data-radio-queue-results></ul>
+            </section>
+          </div>
         </div>
       </div>
     </dialog>
@@ -1763,5 +1796,7 @@
 <script src="<%= basePath %>/static/admin.js?v=<%= assetVersion %>" defer></script>
 <script src="<%= basePath %>/static/acquisition-panel.js?v=2026-11-04a" defer></script>
 <script src="<%= basePath %>/static/metrics.js?v=2026-11-04a" defer></script>
+<link rel="stylesheet" href="<%= basePath %>/static/radio-queue.css?v=2026-11-11a">
+<script src="<%= basePath %>/static/radio-queue.js?v=2026-11-11a" defer></script>
 </body>
 </html>

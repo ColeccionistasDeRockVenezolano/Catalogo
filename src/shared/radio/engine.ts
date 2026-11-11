@@ -12,6 +12,10 @@ import { createRadioAvailabilityStore, oembedAvailability, type RadioAvailabilit
 import { genrePrimaryKey, type RadioItemGenres } from "./genres.js";
 import { radioLog } from "./log.js";
 import { genreProgrammingOrder } from "./programming.js";
+import {
+  MAX_PENDING_INSERTS, createRadioInsertsStore, foldOldInserts, insertEndMs, insertOffsetMs, pendingInserts, playingInsert,
+  type RadioInsert, type RadioInsertsFile, type RadioInsertsStore,
+} from "./inserts.js";
 
 export type { RadioItemGenres } from "./genres.js";
 
@@ -99,6 +103,7 @@ interface EngineState {
   baseOrders: Map<string, RadioCatalogItem[]>;
   orders: Map<string, RadioCatalogItem[]>;
   availability: RadioAvailabilityStore | null;
+  inserts: RadioInsertsStore | null;
   sweepTimer: NodeJS.Timeout | null;
   lastUsedMs: number;
 }
@@ -115,7 +120,7 @@ function stateFor(station: RadioStation): EngineState {
   if (!state) {
     state = {
       file: null, rejectedFile: "", catalog: null, staleCatalog: null, baseOrders: new Map(), orders: new Map(),
-      availability: null, sweepTimer: null, lastUsedMs: Date.now(),
+      availability: null, inserts: null, sweepTimer: null, lastUsedMs: Date.now(),
     };
     states.set(key, state);
   }
@@ -125,6 +130,11 @@ function stateFor(station: RadioStation): EngineState {
 
 function statePathOf(station: RadioStation): string {
   return station.owner && station.statePath ? station.statePath : station.catalogPath;
+}
+
+function insertsOf(state: EngineState, station: RadioStation): RadioInsertsStore {
+  if (!state.inserts) state.inserts = createRadioInsertsStore(`${statePathOf(station)}.inserts.json`);
+  return state.inserts;
 }
 
 function availabilityOf(state: EngineState, station: RadioStation): RadioAvailabilityStore {
@@ -664,10 +674,115 @@ function forListener(catalog: CatalogCache, item: RadioCatalogItem, country: str
   return regionSubstitute(catalog, item, country, slotKey, avoid) ?? item;
 }
 
+/** Pieza puesta a mano, con los datos del catálogo vigente si sigue en él. */
+function insertItem(catalog: CatalogCache, insert: RadioInsert): RadioCatalogItem {
+  const live = catalog.items.find((item) => item.videoId === insert.videoId && item.startSeconds === insert.startSeconds);
+  return {
+    ...(live ?? { ...insert.item, videoId: insert.videoId, startSeconds: insert.startSeconds, available: true as const }),
+    // Su tramo quedó fijado al ponerla: el reloj no se mueve aunque cambie el catálogo.
+    durationSeconds: insert.durationSeconds,
+  };
+}
+
+/**
+ * Lo que sonará desde `fromMs` (hora real), tramo a tramo: las piezas puestas a
+ * su hora y, entre ellas, la programación del reloj del ciclo.
+ */
+function upcomingFrom(
+  state: EngineState, station: RadioStation, catalog: CatalogCache, inserts: RadioInsertsFile, fromMs: number,
+  country: string | null, avoid: ReadonlySet<string>,
+): RadioCatalogItem[] {
+  const out: RadioCatalogItem[] = [];
+  let t = fromMs;
+  const limit = Math.min(UPCOMING_COUNT, catalog.items.length - 1 + inserts.inserts.length);
+  while (out.length < limit) {
+    const insert = inserts.inserts.find((entry) => Math.abs(entry.startsAtMs - t) < 1);
+    if (insert) {
+      out.push(forListener(catalog, insertItem(catalog, insert), country, `ins:${insert.id}`, avoid));
+      t = insertEndMs(insert);
+      continue;
+    }
+    const offset = insertOffsetMs(inserts, t + 1);
+    const located = locate(state, station, catalog, t - offset + 1);
+    const item = located.order[located.position]!;
+    out.push(forListener(catalog, item, country, `${located.cycle}:${located.position}`, avoid));
+    t = located.startsAtMs + slotSeconds(station, item, located.position) * 1000 + offset;
+  }
+  return out;
+}
+
 export function radioSnapshot(station: RadioStation, nowMs = Date.now(), listeners = 0, listener: RadioListener = {}): RadioSnapshot | null {
   const state = stateFor(station);
-  const catalog = activeCatalog(state, station, nowMs);
+  const inserts = insertsOf(state, station).read();
+  const offsetMs = insertOffsetMs(inserts, nowMs);
+  const playing = playingInsert(inserts, nowMs);
+  // El reloj del ciclo: la hora real menos lo que ocuparon las piezas puestas.
+  // Mientras suena una, se queda quieto en el punto donde se interrumpió.
+  const cycleNowMs = (playing ? playing.startsAtMs : nowMs) - offsetMs;
+  const catalog = activeCatalog(state, station, cycleNowMs);
   if (!catalog) return null;
+  const scheduled = scheduledSnapshot(state, station, catalog, cycleNowMs, offsetMs, listeners, listener, inserts);
+  const pending = pendingInserts(inserts, nowMs);
+  const country = normalizeListenerCountry(listener.country);
+  const avoid = new Set([scheduled.current, ...scheduled.upcoming].map((item) => item.videoId));
+  if (!playing) {
+    if (pending.length === 0) return { ...scheduled, serverTime: new Date(nowMs).toISOString() };
+    const located = locate(state, station, catalog, cycleNowMs);
+    const slotEndMs = located.startsAtMs + slotSeconds(station, located.order[located.position]!, located.position) * 1000 + offsetMs;
+    const upcoming = upcomingFrom(state, station, catalog, inserts, slotEndMs, country, avoid);
+    // Con un catálogo cambiado entre medias, el tramo no puede pasarse de la hora fijada.
+    const endsAt = Math.min(Date.parse(scheduled.endsAt), pending[0]!.startsAtMs);
+    const nextIsInsert = Math.abs(pending[0]!.startsAtMs - slotEndMs) < 1;
+    return {
+      ...scheduled, serverTime: new Date(nowMs).toISOString(), endsAt: new Date(endsAt).toISOString(),
+      sweeperNext: nextIsInsert ? false : scheduled.sweeperNext, next: upcoming[0]!, upcoming,
+    };
+  }
+  const queued = pending.length > 0 && Math.abs(pending[0]!.startsAtMs - insertEndMs(playing)) < 1;
+  const current = forListener(catalog, insertItem(catalog, playing), country, `ins:${playing.id}`, avoid);
+  // Después vienen las demás puestas y, al final, la pieza que tocaba: la que
+  // el reloj quieto señala como actual.
+  const upcoming = upcomingFrom(state, station, catalog, inserts, insertEndMs(playing), country, avoid);
+  const startsAtMs = playing.startsAtMs;
+  const endsAtMs = insertEndMs(playing);
+  // Si el tramo anterior cerraba con cuña, la cuña se monta sobre el arranque de la pieza puesta.
+  const previous = inserts.inserts.some((insert) => insert !== playing && Math.abs(insertEndMs(insert) - startsAtMs) < 1);
+  const previousCloses = !previous && sweeperClosesSlot(station, (scheduled.position - 2 + scheduled.total) % scheduled.total);
+  const overlapMs = (station.sweeper?.overlapSeconds ?? 0) * 1000;
+  const sweeperActive = Boolean(station.sweeper && previousCloses && nowMs < startsAtMs + overlapMs);
+  return {
+    phase: "music",
+    ...(station.sweeper ? { sweeper: station.sweeper } : {}),
+    sweeperSlot: false,
+    sweeperNext: !queued && scheduled.sweeperSlot,
+    crossfadeSeconds: crossfadeSeconds(station),
+    ...(sweeperActive ? { sweeperStartedAt: new Date(startsAtMs - (sweeperGap(station) + sweeperLead(station)) * 1000).toISOString() } : {}),
+    station: station.stationName,
+    queueId: `ins:${playing.id}:music`,
+    catalogVersion: catalog.version,
+    serverTime: new Date(nowMs).toISOString(),
+    startsAt: new Date(startsAtMs).toISOString(),
+    endsAt: new Date(endsAtMs).toISOString(),
+    offsetSeconds: Math.max(0, Math.floor((nowMs - startsAtMs) / 1000)),
+    cycle: scheduled.cycle,
+    position: scheduled.position,
+    total: scheduled.total,
+    current,
+    next: upcoming[0]!,
+    upcoming,
+    listeners,
+  };
+}
+
+/**
+ * La emisión programada a la hora del reloj del ciclo, con sus horas pasadas a
+ * hora real (`shiftMs`). Es el cálculo de siempre: sin piezas puestas, el reloj
+ * del ciclo es la hora real.
+ */
+function scheduledSnapshot(
+  state: EngineState, station: RadioStation, catalog: CatalogCache, nowMs: number, shiftMs: number,
+  listeners: number, listener: RadioListener, inserts: RadioInsertsFile,
+): RadioSnapshot {
   const located = locate(state, station, catalog, nowMs);
   const scheduled = located.order[located.position]!;
   const scheduledUpcoming: Array<{ item: RadioCatalogItem; slotKey: string }> = [];
@@ -692,7 +807,9 @@ export function radioSnapshot(station: RadioStation, nowMs = Date.now(), listene
   const mediaEndsAtMs = located.startsAtMs + scheduled.durationSeconds * 1000;
   const closes = sweeperClosesSlot(station, located.position);
   const nextCloses = sweeperClosesSlot(station, (located.position + 1) % located.order.length);
-  const previousCloses = sweeperClosesSlot(station, (located.position - 1 + located.order.length) % located.order.length);
+  // Tras una pieza puesta, la cuña del tramo anterior ya sonó sobre ella.
+  const afterInsert = inserts.inserts.some((insert) => Math.abs(insertEndMs(insert) - (located.startsAtMs + shiftMs)) < 1);
+  const previousCloses = !afterInsert && sweeperClosesSlot(station, (located.position - 1 + located.order.length) % located.order.length);
   const leadMs = sweeperLead(station) * 1000;
   const overlapMs = (station.sweeper?.overlapSeconds ?? 0) * 1000;
   const headSweeperAtMs = mediaEndsAtMs - leadMs;
@@ -713,13 +830,13 @@ export function radioSnapshot(station: RadioStation, nowMs = Date.now(), listene
     sweeperSlot: closes,
     sweeperNext: nextCloses,
     crossfadeSeconds: crossfadeSeconds(station),
-    ...(sweeperActive ? { sweeperStartedAt: new Date(sweeperStartedAtMs).toISOString() } : {}),
+    ...(sweeperActive ? { sweeperStartedAt: new Date(sweeperStartedAtMs + shiftMs).toISOString() } : {}),
     station: station.stationName,
     queueId: `${catalog.version}:${located.cycle}:${located.position}:${inSweeper ? "sweeper" : "music"}`,
     catalogVersion: catalog.version,
-    serverTime: new Date(nowMs).toISOString(),
-    startsAt: new Date(startsAtMs).toISOString(),
-    endsAt: new Date(endsAtMs).toISOString(),
+    serverTime: new Date(nowMs + shiftMs).toISOString(),
+    startsAt: new Date(startsAtMs + shiftMs).toISOString(),
+    endsAt: new Date(endsAtMs + shiftMs).toISOString(),
     offsetSeconds: Math.max(0, inSweeper ? (nowMs - startsAtMs) / 1000 : Math.floor((nowMs - startsAtMs) / 1000)),
     cycle: located.cycle,
     position: located.position + 1,
@@ -729,6 +846,123 @@ export function radioSnapshot(station: RadioStation, nowMs = Date.now(), listene
     upcoming,
     listeners,
   };
+}
+
+/** Margen mínimo antes de que suene una pieza puesta: el reproductor ya prepara la siguiente. */
+const INSERT_MIN_LEAD_MS = 15_000;
+
+export class RadioInsertError extends Error {
+  constructor(readonly code: "not_owner" | "no_catalog" | "not_in_catalog" | "queue_full" | "adjacent" | "not_found" | "already_playing", message: string) {
+    super(message);
+  }
+}
+
+export interface RadioInsertView {
+  id: string; videoId: string; startSeconds: number; title: string; artist: string | null; album: string;
+  durationSeconds: number; startsAt: string; endsAt: string; status: "playing" | "pending" | "done";
+  requestedAt: string; requestedBy: string | null;
+}
+
+function insertView(catalog: CatalogCache | null, insert: RadioInsert, nowMs: number): RadioInsertView {
+  const item = catalog ? insertItem(catalog, insert) : { ...insert.item };
+  return {
+    id: insert.id, videoId: insert.videoId, startSeconds: insert.startSeconds, title: item.title, artist: item.artist, album: item.album,
+    durationSeconds: insert.durationSeconds, startsAt: new Date(insert.startsAtMs).toISOString(), endsAt: new Date(insertEndMs(insert)).toISOString(),
+    status: insert.startsAtMs > nowMs ? "pending" : nowMs < insertEndMs(insert) ? "playing" : "done",
+    requestedAt: new Date(insert.requestedAtMs).toISOString(), requestedBy: insert.requestedBy,
+  };
+}
+
+/** Piezas puestas que suenan o van a sonar, y las terminadas en la última hora. */
+export function listRadioInserts(station: RadioStation, nowMs = Date.now()): RadioInsertView[] {
+  const state = stateFor(station);
+  const inserts = insertsOf(state, station).read();
+  const catalog = activeCatalog(state, station, nowMs - insertOffsetMs(inserts, nowMs));
+  return inserts.inserts.filter((insert) => insertEndMs(insert) > nowMs - 3600_000).map((insert) => insertView(catalog, insert, nowMs));
+}
+
+/**
+ * Pone una pieza del catálogo a continuación: suena cuando acabe el tramo al aire
+ * (o tras las otras puestas). No reordena nada: al terminar, la emisión sigue en
+ * la pieza que tocaba. Solo la estación dueña de la emisión puede hacerlo.
+ */
+export function queueRadioInsert(
+  station: RadioStation, piece: { videoId: string; startSeconds: number }, options: { nowMs?: number; requestedBy?: string | null } = {},
+): RadioInsertView {
+  if (!station.owner) throw new RadioInsertError("not_owner", "Este servidor no es el dueño de la emisión.");
+  const nowMs = options.nowMs ?? Date.now();
+  const state = stateFor(station);
+  const store = insertsOf(state, station);
+  const file = foldOldInserts(store.read(), nowMs);
+  const offsetMs = insertOffsetMs(file, nowMs);
+  const playing = playingInsert(file, nowMs);
+  const cycleNowMs = (playing ? playing.startsAtMs : nowMs) - offsetMs;
+  const catalog = activeCatalog(state, station, cycleNowMs);
+  if (!catalog) throw new RadioInsertError("no_catalog", "La radio no tiene un catálogo disponible.");
+  const item = catalog.items.find((entry) => entry.videoId === piece.videoId && entry.startSeconds === piece.startSeconds);
+  if (!item) throw new RadioInsertError("not_in_catalog", "Esa pieza no está en el catálogo al aire.");
+  const pending = pendingInserts(file, nowMs);
+  if (pending.length >= MAX_PENDING_INSERTS) throw new RadioInsertError("queue_full", `Ya hay ${MAX_PENDING_INSERTS} piezas esperando.`);
+
+  // Detrás de la última puesta; si no hay, al final del tramo programado al aire.
+  const chained = [...(playing ? [playing] : []), ...pending];
+  let startsAtMs: number;
+  if (chained.length > 0) {
+    startsAtMs = insertEndMs(chained.at(-1)!);
+  } else {
+    let located = locate(state, station, catalog, cycleNowMs);
+    let slotEndMs = located.startsAtMs + slotSeconds(station, located.order[located.position]!, located.position) * 1000 + offsetMs;
+    // Con el tramo a punto de acabar, el reproductor ya preparó la pieza siguiente: se espera un tramo más.
+    while (slotEndMs - nowMs < INSERT_MIN_LEAD_MS) {
+      located = locate(state, station, catalog, slotEndMs - offsetMs + 1);
+      slotEndMs = located.startsAtMs + slotSeconds(station, located.order[located.position]!, located.position) * 1000 + offsetMs;
+    }
+    startsAtMs = slotEndMs;
+  }
+  const sameAs = (other: { videoId: string; startSeconds: number } | undefined): boolean =>
+    Boolean(other && other.videoId === item.videoId && other.startSeconds === item.startSeconds);
+  const ending = locate(state, station, catalog, startsAtMs - offsetMs - 1);
+  const before = chained.length > 0 ? chained.at(-1) : ending.order[ending.position];
+  const after = upcomingFrom(state, station, catalog, file, startsAtMs, null, new Set())[0];
+  if (sameAs(before) || sameAs(after)) throw new RadioInsertError("adjacent", "Esa pieza ya suena justo antes o justo después.");
+  const insert: RadioInsert = {
+    id: crypto.randomBytes(6).toString("hex"),
+    videoId: item.videoId, startSeconds: item.startSeconds, durationSeconds: item.durationSeconds,
+    startsAtMs, slotMs: Math.max(0.5, item.durationSeconds - crossfadeSeconds(station)) * 1000,
+    requestedAtMs: nowMs, requestedBy: options.requestedBy ?? null,
+    item: { title: item.title, artist: item.artist, album: item.album, year: item.year, trackNumber: item.trackNumber },
+  };
+  store.write({ ...file, inserts: [...file.inserts, insert] });
+  radioLog("info", "radio_insert_queued", { station: station.stationName, id: insert.id, videoId: insert.videoId, startSeconds: insert.startSeconds, startsAt: new Date(startsAtMs).toISOString(), by: insert.requestedBy });
+  return insertView(catalog, insert, nowMs);
+}
+
+const fold = (value: string): string => value.normalize("NFD").replace(/\p{M}/gu, "").toLocaleLowerCase("es");
+
+/** Piezas del catálogo al aire que coinciden con todas las palabras (título, artista o álbum). */
+export function searchRadioCatalog(station: RadioStation, query: string, limit = 30): RadioCatalogItem[] {
+  const words = fold(query).split(/\s+/u).filter(Boolean);
+  if (words.length === 0) return [];
+  const catalog = loadCatalog(stateFor(station), station, Date.now());
+  if (!catalog) return [];
+  return catalog.items
+    .filter((item) => { const text = fold(`${item.title} ${item.artist ?? ""} ${item.album}`); return words.every((word) => text.includes(word)); })
+    .slice(0, limit);
+}
+
+/** Quita una pieza puesta que aún no suena; las de detrás se adelantan para no dejar hueco. */
+export function cancelRadioInsert(station: RadioStation, id: string, options: { nowMs?: number; by?: string | null } = {}): void {
+  if (!station.owner) throw new RadioInsertError("not_owner", "Este servidor no es el dueño de la emisión.");
+  const nowMs = options.nowMs ?? Date.now();
+  const store = insertsOf(stateFor(station), station);
+  const file = store.read();
+  const target = file.inserts.find((insert) => insert.id === id);
+  if (!target) throw new RadioInsertError("not_found", "Esa pieza puesta no existe.");
+  if (target.startsAtMs <= nowMs) throw new RadioInsertError("already_playing", "Esa pieza ya está sonando o ya sonó.");
+  const inserts = file.inserts.filter((insert) => insert !== target)
+    .map((insert) => insert.startsAtMs > target.startsAtMs ? { ...insert, startsAtMs: insert.startsAtMs - target.slotMs } : insert);
+  store.write({ ...file, inserts });
+  radioLog("info", "radio_insert_cancelled", { station: station.stationName, id, by: options.by ?? null });
 }
 
 /**

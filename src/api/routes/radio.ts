@@ -14,7 +14,8 @@ import { clientCountry, clientIp } from "../auth.js";
 import { projectId } from "../community/store.js";
 import { createWindowLimiter } from "../rate-limit.js";
 import {
-  inspectCatalog, radioSnapshot, reportRadioUnavailable, resetRadioEngineForTests,
+  RadioInsertError, cancelRadioInsert, inspectCatalog, listRadioInserts, queueRadioInsert, radioSnapshot, reportRadioUnavailable,
+  resetRadioEngineForTests, searchRadioCatalog,
 } from "../../shared/radio/engine.js";
 import { loadRadioConfig, radioStationFromConfig } from "../../shared/radio/config.js";
 import { compareRadioSnapshots } from "../../shared/radio/compare.js";
@@ -124,6 +125,44 @@ export async function registerRadioRoutes(app: FastifyInstance): Promise<void> {
       request.log.error({ err: error }, "radio_diagnostic_write_failed");
     }
     return reply.code(204).header("cache-control", "no-store").send();
+  });
+
+  // Piezas puestas a mano: suenan al acabar lo que está al aire y la emisión
+  // sigue donde iba. Solo administración y solo en el servidor dueño de la emisión.
+  const insertFailure = (error: unknown): never => {
+    if (error instanceof RadioInsertError) {
+      const status = error.code === "not_owner" ? 409 : error.code === "not_found" ? 404 : error.code === "no_catalog" ? 503 : 422;
+      throw new ApiError(status, `radio_insert_${error.code}`, error.message);
+    }
+    throw error;
+  };
+  api.get("/community/admin/panel/radio/catalog", {
+    schema: { tags: ["Radio"], querystring: z.object({ q: z.string().trim().min(2).max(120) }) },
+  }, async (request) => {
+    const { station } = await stationOrThrow();
+    return { items: searchRadioCatalog(station, request.query.q) };
+  });
+  api.get("/community/admin/panel/radio/inserts", { schema: { tags: ["Radio"] } }, async () => {
+    const { station } = await stationOrThrow();
+    return { owner: Boolean(station.owner), inserts: listRadioInserts(station) };
+  });
+  api.post("/community/admin/panel/radio/inserts", {
+    schema: { tags: ["Radio"], body: z.object({ videoId: z.string().regex(VIDEO_ID), startSeconds: z.number().int().min(0) }).strict() },
+  }, async (request, reply) => {
+    const { station } = await stationOrThrow();
+    try {
+      const insert = queueRadioInsert(station, request.body, { requestedBy: request.operator ?? null });
+      return reply.code(201).send({ insert });
+    } catch (error) { return insertFailure(error); }
+  });
+  api.delete("/community/admin/panel/radio/inserts/:id", {
+    schema: { tags: ["Radio"], params: z.object({ id: z.string().regex(/^[0-9a-f]{12}$/u) }) },
+  }, async (request, reply) => {
+    const { station } = await stationOrThrow();
+    try {
+      cancelRadioInsert(station, request.params.id, { by: request.operator ?? null });
+      return reply.code(204).send();
+    } catch (error) { return insertFailure(error); }
   });
 
   // Estado de la sombra: motor local, catálogo y comparación con Herra. No

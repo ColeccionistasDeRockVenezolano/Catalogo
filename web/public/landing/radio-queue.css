@@ -1,0 +1,17 @@
+/* Radio › Poner a continuación (panel de administración). */
+.radio-queue { display: grid; gap: 1.25rem; }
+.radio-queue__search { display: flex; gap: 0.5rem; }
+.radio-queue__search input { flex: 1; min-width: 0; }
+.radio-queue__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.radio-queue__row { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.6rem 0.75rem; border: 1px solid var(--line, rgba(255,255,255,0.12)); border-radius: 10px; }
+.radio-queue__text { display: grid; gap: 0.15rem; min-width: 0; }
+.radio-queue__text strong { overflow-wrap: anywhere; }
+.radio-queue__meta { font-size: 0.85em; opacity: 0.75; }
+.radio-queue__empty { margin: 0; opacity: 0.75; }
+.radio-queue__status { min-height: 1.4em; margin: 0; }
+.radio-queue__status.is-error { color: var(--red, #e50914); }
+.radio-queue h3 { margin: 0 0 0.5rem; font-size: 1rem; }
+@media (max-width: 560px) {
+  .radio-queue__row { flex-direction: column; align-items: stretch; }
+  .radio-queue__search { flex-direction: column; }
+}
