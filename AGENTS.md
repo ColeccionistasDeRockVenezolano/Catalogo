@@ -23,6 +23,16 @@ Git son consecuencia del traslado; no restaurar esos archivos encima del
 enlace ni interpretar las bajas como pérdida de las capturas.
 No mover PostgreSQL, secretos ni dependencias a este almacén.
 
+# Copias de hojas de Google: carpeta «Prueba»
+
+Regla de Brian (2026-11-09): todo respaldo, copia de prueba o de verificación
+de una hoja de Google (YT Master, Contactos u otra) se crea en la carpeta
+«Prueba» de Drive (`1Y1anMvJhGi8Ym3Io1efvBJBWsM4G91G9`, en
+CRV Web Project/Databases/Online Databases). No dejar copias en otras
+carpetas, en la raíz de Drive ni junto a la hoja original. La hoja real
+YT Master (Auto) es `1caah2RnW3T2nAkWV2HfrwlZN1ELMhPgPufyYEBG1A9g` y no se usa
+como hoja de prueba.
+
 # Puerta temporal del dominio (Fase 2B)
 
 Decisión de Brian (2026-11-02): mientras el catálogo no se publique, el dominio
