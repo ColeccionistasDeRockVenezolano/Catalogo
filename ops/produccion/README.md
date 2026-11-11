@@ -658,3 +658,179 @@ conservan un ejemplo fijo con el formato antiguo hasta regenerarse.
 Vuelta atrás: retirar los dos `zzzzzzzzzzzzzzzz-credito-ano.conf`,
 `systemctl --user daemon-reload`, reiniciar `crv-api-landing`, esperar
 `/health` y reiniciar `crv-landing`.
+
+## Aviso de lanzamiento: tipo invitado fijo · 2026-11-09
+
+El formulario deja de preguntar «¿Cómo te conectas con la música?» en español
+ e inglés. Nombre y correo siguen siendo obligatorios. El servidor asigna siempre
+`invitado`, también cuando llega un tipo de una pestaña antigua. La migración
+`0131_launch_guest_default` añade ese valor y lo fija como default de PostgreSQL;
+conserva los tipos de los registros anteriores. Contactos recibe `invitado`
+a través de la cola existente.
+
+API: `/mnt/datos/crv-release/launch-invitado-api-20261109`; gateway:
+`/mnt/datos/crv-release/launch-invitado-web-20261109`. Copias de los releases
+`credito-ano-*-20261109b` con solo los cambios del aviso. Drop-in en ambos:
+`zzzzzzzzzzzzzzzzz-launch-invitado.conf`. Script versionado como
+`launch-modal.js?v=2026-11-09-invitado`; fallback HTML actualizado en ambos idiomas.
+
+Verificación: 12 pruebas de contrato (incluyen alta sin tipo, formulario antiguo
+ y envío de `invitado` a Sheets simulado), TypeScript y salud de ambos servicios.
+Vuelta atrás: retirar esos dos drop-ins, `systemctl --user daemon-reload`,
+reiniciar API y después gateway. La ampliación del CHECK es compatible con el
+código anterior y puede conservarse para evitar transformar registros nuevos.
+
+### Mayúscula del tipo automático · 2026-11-09
+
+Corrección de Brian: el valor exacto es `Invitado`. Migración
+`0132_launch_guest_capitalized` aplicada: corrige el valor anterior y el default,
+conservando los perfiles históricos. API en
+`/mnt/datos/crv-release/launch-Invitado-api-20261109`, drop-in
+`zzzzzzzzzzzzzzzzzz-launch-Invitado.conf`; gateway sin cambios.
+Las 12 pruebas de contrato pasan. Envío real desde el formulario público móvil:
+HTTP 200, confirmación visible, tipo `Invitado` en PostgreSQL y sincronización
+confirmada. Lectura directa de Sheets verificó `Invitado` en `Sheet1!B584`
+(registro «Prueba CRV — Invitado con mayúscula»).
+
+## Medición automática de radio · 2026-11-10
+
+Activa en el dominio con cliente `crv-2026-11-10-meter1`. API:
+`/mnt/datos/crv-release/radio-medicion-api-20261110`, basada en
+`launch-Invitado-api-20261109`; gateway:
+`/mnt/datos/crv-release/radio-medicion-web-20261110`, basado en
+`launch-invitado-web-20261109`. El bundle anterior se contrastó byte a byte
+contra HEAD antes de preparar el nuevo. Se trasladó la medición de reproducción;
+los cambios de subtítulos pendientes del workspace no forman parte de la release.
+
+Ambos servicios usan el drop-in `zzzzzzzzzzzzzzzzzzzzzz-radio-medicion.conf`
+que cambia solamente `WorkingDirectory`. No hay migración de base ni nueva ruta
+pública. El servidor recibe lotes `playback_quality`, separa sus cupos de los
+avisos antiguos, reconoce iPad con agente de escritorio y agrega resultados por
+dispositivo, navegador y sistema. Ver [RADIO_PLAYBACK_MEASUREMENT.md](../../docs/RADIO_PLAYBACK_MEASUREMENT.md)
+para métricas, precisión, consulta y límites de retención.
+
+Vuelta atrás: retirar exclusivamente esos dos drop-ins, ejecutar
+`systemctl --user daemon-reload` y reiniciar `crv-api-landing` y `crv-landing`.
+Los drop-ins anteriores conservan las rutas previas. Los registros ya escritos
+se conservan. Evidencias: `reports/radio-medicion-2026-11-10/`.
+
+## Recuperación de pausas y horario de radio · 2026-11-10
+
+Cliente `crv-2026-11-10-meter1-recovery1`, API en
+`/mnt/datos/crv-release/radio-recuperacion-api-20261110` y gateway en
+`/mnt/datos/crv-release/radio-recuperacion-web-20261110`. Parten de las dos
+releases `radio-medicion-*-20261110`; solo cambian el cliente y su versión SSR.
+Los cambios de subtítulos pendientes del workspace siguen fuera de esta release.
+
+Corrige PAUSED inesperado: mantiene la intención de escuchar, reintenta con
+espera creciente y vuelve al punto vigente del capítulo, respetando las pausas
+explícitas. Al confirmar PLAYING comprueba también la demora de carga. Un
+horario vencido se concilia con el servidor antes de cargar. Se retiran el
+relevo oculto regido por la posición del video y el adelanto de la cuña para
+seguirlo. Ver [RADIO_PLAYBACK_RECOVERY.md](../../docs/RADIO_PLAYBACK_RECOVERY.md).
+
+Drop-in nuevo en ambos servicios:
+`zzzzzzzzzzzzzzzzzzzzzzz-radio-recuperacion.conf` (23 zetas). Vuelta atrás:
+retirar exclusivamente esos dos archivos, ejecutar `systemctl --user daemon-reload`
+y reiniciar API y gateway; los drop-ins de medición conservan los anteriores.
+No hay migración, cambio de catálogo ni nueva ruta pública. Las pestañas abiertas
+cargan el cliente nuevo al recargar.
+
+Evidencia y manifiesto de activación en `reports/radio-recuperacion-2026-11-10/`.
+El manifiesto registra que la espera inicial de salud de 15 s se agotó y el
+reinicio del gateway se completó tras confirmar que la API estaba saludable.
+
+### Pausa voluntaria prioritaria · 2026-11-10
+
+Cliente `crv-2026-11-10-meter1-recovery2`, releases
+`radio-pausa-api-20261110` y `radio-pausa-web-20261110`. Corrige la regresión que
+reanudaba un PAUSED del video visible. El botón principal muestra «Pausar»;
+comparte con la cuña y Media Session una pausa que detiene ambos reproductores,
+colas, cuñas y reintentos. La reanudación requiere una nueva orden. Las pausas
+inesperadas solo se recuperan automáticamente en segundo plano.
+
+Drop-in nuevo de 24 zetas `zzzzzzzzzzzzzzzzzzzzzzzz-radio-pausa.conf` en ambos
+servicios; para revertir, retirar exclusivamente esos dos archivos, recargar
+systemd y reiniciar API y gateway. Fuente y bundle excluyen los subtítulos
+pendientes. Evidencia: `reports/radio-pausa-2026-11-10/`.
+
+### Play sobre el video y estado al día · 2026-11-10
+
+Cliente `crv-2026-11-10-meter1-recovery3-zapato3`, releases `radio-play-api-20261110b`
+y `radio-play-web-20261110b`, basadas en las releases `radio-zapato3` para
+conservar la corrección editorial publicada durante este trabajo.
+El clic sobre la imagen pausada solicita volver
+al vivo mediante el mismo flujo que el botón de la radio. Consulta el horario
+actual, invalida respuestas de play si después se eligió pausa y comprueba
+la posición al empezar a reproducir con umbral de 250 ms. Conserva el rechazo
+de PLAYING automáticos tardíos mientras siga vigente la pausa.
+
+Se restituye «Estás al día» y `data-radio-action="synced"`, con el verde original.
+El botón vuelve a resincronizar; la pausa se hace desde el video, cuña o control
+del sistema. No cambia el CSS ni se publican los subtítulos pendientes.
+Drop-in de 26 zetas terminado en `-radio-play.conf` en ambos servicios. Reversión:
+retirar solo esos dos drop-ins, recargar systemd y reiniciar API y gateway.
+Evidencias: `reports/radio-play-directo-2026-11-10/`.
+
+### Entrada automática al vivo · 2026-11-10
+
+Cliente final `crv-2026-11-10-meter1-recovery4b-zapato3`, releases
+`radio-autojoin-api-20261110b` y `radio-autojoin-web-20261110b`, copias de la
+primera revisión `radio-autojoin-*-20261110`, a su vez basadas en
+`radio-play-*-20261110b`. Corrige el desfase tras recargar con un iframe que ya
+reproducía y el arranque/desbloqueo de sonido tardíos. Comparten la comprobación
+de posición de las entradas manuales. La validación de entrada dura hasta 10 s,
+con máximo de tres búsquedas y al menos 1,5 s entre ellas para dejar estabilizar
+la carga. Pausar la cancela. Se conserva «Estás al día» verde y Zapato3.
+
+Si el iframe aún no reproduce, el arranque carga explícitamente su segmento
+en el punto del vivo: no depende de seek + play sobre un iframe sin iniciar.
+No se incluyen los subtítulos pendientes ni otros cambios del workspace.
+Drop-in final de 28 zetas terminado en `-radio-autojoin.conf` en ambos servicios;
+la primera revisión usa 27 zetas y está identificada en `deploy-inicial.json`.
+Reversión: retirar exclusivamente esos dos drop-ins, recargar systemd y
+reiniciar API y gateway. Evidencia: `reports/radio-entrada-automatica-2026-11-10/`.
+
+
+### Respaldo viñeta → música en segundo plano · 2026-11-10
+
+Cliente `crv-2026-11-10-meter1-recovery5-zapato3`, releases
+`radio-handoff-api-20261110` y `radio-handoff-web-20261110`, derivados de
+`radio-autojoin-*-20261110b`. El respaldo de 500 ms también avanza al salir de
+la cuña y vigila PAUSED sin depender del repaso principal ni de otro evento
+del iframe. Los lotes de medición guardan el estado interno y los últimos
+16 eventos para investigar cortes cortos. No incluye los subtítulos pendientes.
+
+138 pruebas del workspace y 104 contra fuente/bundle exactos; transición con
+YouTube real en pestaña oculta simulada y callbacks principales omitidos.
+La QA publicada perdió el primer play, recuperó en unos 2 s sin volver a la
+pestaña y confirmó el punto del vivo y el nuevo contexto de diagnóstico.
+Puerta pública: 113/113. SHA del bundle:
+`db45b1a970b3149aa5cbca589ad90f081f110898b7de8fdbdeb56358a1bc8435`.
+
+Drop-ins de 29 zetas terminados en `-radio-handoff.conf` en ambos servicios.
+Reversión: retirar exclusivamente esos dos drop-ins, recargar systemd y
+reiniciar API/gateway para volver a `radio-autojoin-*-20261110b`.
+Evidencia: `reports/radio-clon-segundo-plano-2026-11-10/`.
+
+## Nombre de Zapato3 en la radio · 2026-11-10
+
+Regla editorial de Brian: «Zapato 3» se muestra como «Zapato3» en créditos,
+«A continuación», Media Session y pistas de recopilatorios. Se retira también
+el prefijo del artista del título cuando usa cualquiera de las dos grafías.
+
+Releases `radio-zapato3-api-20261110` y `radio-zapato3-web-20261110`, copias de
+`radio-pausa-*-20261110` con solo las funciones de créditos y la versión del
+cliente `crv-2026-11-10-meter1-recovery2-zapato3`. Bundle regenerado en
+`public/landing` y `dist/landing`. Drop-in de 25 zetas
+`zzzzzzzzzzzzzzzzzzzzzzzzz-radio-zapato3.conf` en `crv-api-landing` y `crv-landing`.
+Sin cambios de base ni del catálogo. Conserva las correcciones de pausa vigentes.
+
+Para revertir: retirar exclusivamente esos dos drop-ins, ejecutar
+`systemctl --user daemon-reload`, reiniciar `crv-api-landing`, esperar `/health`
+y reiniciar `crv-landing`. Las pestañas abiertas reciben el cliente al recargar.
+
+Verificado tras activar: ambos servicios activos, API `/health` 200, portada
+del gateway 200 con la versión nueva y bundle del dominio público HTTP 200
+idéntico byte a byte al de la release. Pasan las 11 pruebas de créditos y
+tarjeta; la fuente de release valida ambas grafías y recopilatorios.
