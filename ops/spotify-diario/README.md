@@ -5,7 +5,11 @@ Un solo dueño de la cuota de Spotify (2026-10-14). Reemplaza a los jobs de Herm
 la cosecha de reproductores.
 
 - `diario.py`: fotos del lote sin foto → discos para el reproductor → run reversible en
-  `public.streaming_links`. Estado y diario en `data/raw/spotify-diario/` (`cuota.json`, `diario.log`).
+  `public.streaming_links`. Estado y diario en `data/raw/spotify-diario/` (`cuota.json`,
+  `diario.log`). Si al arrancar las dos credenciales siguen castigadas pero el castigo vence
+  dentro de la hora siguiente (`CRV_SPOTIFY_ESPERA_CASTIGO`, 3600 s), espera en vez de salir
+  en 1 s: el timer de las 19:00 adelanta al vencimiento del 429 de la víspera y antes se perdía
+  el día entero (4 y 8 nov 2026). Un castigo de ~24 h sigue parando la corrida.
 - `systemd/`: copiar a `~/.config/systemd/user/`, `systemctl --user daemon-reload` y
   `systemctl --user enable --now crv-spotify-diario.timer` (todos los días a las 19:00).
 - `auditoria-seca.py`: audita una entrada sin gastar cuota (universo pendiente, atajo local y
@@ -41,9 +45,11 @@ con el título del catálogo.
 
 Cuota (developer.spotify.com, quota-modes y blog del 2026-07-23): el modo desarrollo cuenta por
 cuenta de desarrollador y por grupo de endpoints; al agotarse responde 429 con
-`"reason": "QUOTA_EXCEEDED"` (~24 h). Más Client IDs de la misma cuenta no suman cuota. El script
-lleva la cuenta por credencial y tipo de consulta con un tope diario (`--tope`, 500) y 3 s entre
-llamadas; los grupos sin cuota se saltan y se retoman al día siguiente.
+`"reason": "QUOTA_EXCEEDED"` (~24 h). Más Client IDs de la misma cuenta no suman cuota. Medido en
+la campaña 2026-11-02: el 429 llega a las ~101 llamadas por credencial y grupo, muy por debajo
+del `--tope` del script (500). El script lleva la cuenta por credencial y tipo de consulta con un
+tope diario (`--tope`, 500) y 3 s entre llamadas; los grupos sin cuota se saltan y se retoman al
+día siguiente. El tablero toma el tope real del último «fin ·» del diario, no del `--tope`.
 
 ## Lote sin foto: identidad antes de aplicar (2026-10-14)
 

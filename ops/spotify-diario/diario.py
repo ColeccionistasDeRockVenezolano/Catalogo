@@ -42,6 +42,12 @@ CAPTURAS = ROOT / "data/raw/spotify-lote-2026-10-03"
 EMBEDS = ROOT / "reports/streaming-embeds-2026-10-13"
 IMAGENES = Path.home() / ".hermes/skills/media/spotify-artist-extract/scripts/download_images.py"
 
+# El timer dispara a las 19:00, pero el castigo del 429 de la víspera vence a la hora en que
+# ocurrió ese 429 (~19:09-19:20): si al arrancar las dos credenciales siguen castigadas, antes se
+# salía en 1 s y se perdía el día entero (4 y 8 nov 2026). Ahora se espera si vence dentro de
+# este margen; un castigo de ~24 h sigue parando la corrida.
+ESPERA_CASTIGO_MAX = int(os.environ.get("CRV_SPOTIFY_ESPERA_CASTIGO", "3600"))
+
 
 def cargar(nombre, ruta):
     spec = importlib.util.spec_from_file_location(nombre, ruta)
@@ -114,6 +120,24 @@ class Cuota:
             return True
         except Agotada:
             return False
+
+    def espera_castigo(self, tipos):
+        """Segundos hasta que alguna credencial sirva para alguno de esos tipos.
+
+        0.0 si ya hay una libre; None si no hay castigo que esperar (lo que bloquea es el tope
+        diario, que no se libera hasta mañana). Solo cuenta credenciales que aún tienen cupo.
+        """
+        ahora = time.time()
+        proximas = []
+        for t in tipos:
+            for nombre, _, _ in self.creds:
+                if self.usadas(nombre, t) >= self.tope:
+                    continue
+                cast = (self.e["castigo_hasta"].get(nombre) or {}).get(t, 0)
+                if cast <= ahora:
+                    return 0.0
+                proximas.append(cast - ahora)
+        return min(proximas) if proximas else None
 
     def token(self, nombre, cid, sec):
         tok, vence = self.tokens.get(nombre, (None, 0))
@@ -355,9 +379,14 @@ def cosechar_reproductores(sp, entrada=None, salida=None, prioridad=None):
         + (f" (prioridad {prioridad})" if prioridad else ""))
     hechos = 0
     for a in faltan:
-        if not (sp.disponible("busqueda") or sp.disponible("discos-del-artista")):
-            log("reproductores: parada, sin cuota hoy para búsquedas ni listas de discos")
-            break
+        while not (sp.disponible("busqueda") or sp.disponible("discos-del-artista")):
+            espera = sp.espera_castigo(("busqueda", "discos-del-artista"))
+            if espera is None or espera > ESPERA_CASTIGO_MAX:
+                log("reproductores: parada, sin cuota hoy para búsquedas ni listas de discos")
+                return hechos, len(faltan) - hechos
+            log(f"reproductores: sin cuota; el castigo vence en {espera / 60:.0f} min y espero"
+                f" (máximo {ESPERA_CASTIGO_MAX / 60:.0f})")
+            time.sleep(espera + 5)
         try:
             r = reproductores(sp, a, discos.get(a["id"], []), lote)
         except Agotada:

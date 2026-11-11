@@ -14,6 +14,7 @@ import argparse
 import html
 import json
 import os
+import re
 import statistics
 import subprocess
 import sys
@@ -151,6 +152,27 @@ def marcas(tramo: list[str]) -> list[datetime]:
                 out.append(datetime.strptime(l[:19], "%Y-%m-%d %H:%M:%S"))
             except Exception:  # noqa: BLE001
                 continue
+    return out
+
+
+def ultimas_corridas(lineas: list[str], cuantas: int = 3) -> list[tuple[int, dict[str, int]]]:
+    """(artistas nuevos, llamadas por credencial) de las últimas corridas cerradas.
+
+    Sale del «fin · N artistas nuevos · principal X · respaldo Y» del diario. Una corrida que
+    arranca y sale sin cuota en 1 s deja 0/0; se conserva porque no borra el máximo observado,
+    pero no sirve para medir el coste por artista.
+    """
+    out: list[tuple[int, dict[str, int]]] = []
+    for l in reversed(lineas):
+        if "fin · " not in l:
+            continue
+        m = re.search(r"fin · (\d+) artistas nuevos", l)
+        llamadas = {k: int(v) for k, v in re.findall(r"(principal|respaldo) (\d+)", l)}
+        if not m or not llamadas:
+            continue
+        out.append((int(m.group(1)), llamadas))
+        if len(out) >= cuantas:
+            break
     return out
 
 
@@ -316,7 +338,8 @@ footer a:hover{color:#fff}
 def construir(dir_camp: Path) -> str:
     artistas, discos = entrada(dir_camp)
     hechos = salidas(dir_camp)
-    tramo, inicio, ts = corrida_con_marcas(lineas_log())
+    lineas = lineas_log()
+    tramo, inicio, ts = corrida_con_marcas(lineas)
     ahora = datetime.now()
 
     # universo del job: prioridad 1 y algún disco sin enlace verificado
@@ -342,21 +365,30 @@ def construir(dir_camp: Path) -> str:
     except Exception:  # noqa: BLE001
         cuota = {}
     castigos = cuota.get("castigo_hasta") or {}
-    usadas = cuota.get("usadas") or {}
+    # cuota.json no se reescribe si una corrida sale sin hacer llamadas: sin este filtro el
+    # tablero mostraba como «hoy» las llamadas del último día que trabajó (7 nov).
+    usadas = (cuota.get("usadas") or {}) if cuota.get("fecha") == ahora.date().isoformat() else {}
     creds = ["principal", "respaldo"]
+    corridas = ultimas_corridas(lineas)
+    # El 429 de Spotify llega mucho antes del tope del script; las últimas corridas cerradas
+    # dicen cuántas llamadas aguantó una credencial y cuántos artistas sacó con ellas.
+    cap_cred = min(TOPE_CRED, max((v for _, c in corridas for v in c.values()), default=0) or TOPE_CRED)
+    ult = next((c for c in corridas if c[0] > 0), None)
+    costo_art = max(1.0, sum(ult[1].values()) / ult[0]) if ult else 1.0
     libre_hoy = 0
     bloques_cuota = []
     for c in creds:
         u = sum((usadas.get(c) or {}).values())
         cast = max((castigos.get(c) or {}).values(), default=0)
         cast_dt = datetime.fromtimestamp(cast) if cast > ahora.timestamp() else None
-        cupo = 0 if cast_dt else max(0, TOPE_CRED - u)
+        cupo = 0 if cast_dt else max(0, cap_cred - u)
         libre_hoy += cupo
         color = "ambar" if cast_dt else ("verde" if u else "violeta")
         nota = (f"Castigada hasta {cast_dt:%d/%m %H:%M} por cuota agotada (429 QUOTA_EXCEEDED)."
                 if cast_dt else ("Sin castigo; cupo disponible hoy." if u else "Sin usar todavía."))
-        bloques_cuota.append(barra(f"Credencial {c}", u, TOPE_CRED, color,
-                                   f"Llamadas hechas hoy con esta credencial sobre el tope de {miles(TOPE_CRED)}. {nota}"))
+        bloques_cuota.append(barra(f"Credencial {c}", u, cap_cred, color,
+                                   f"Llamadas hechas hoy con esta credencial. Tope real observado: "
+                                   f"{miles(cap_cred)} por grupo de endpoints (el script permite {miles(TOPE_CRED)}). {nota}"))
 
     activo = systemctl("is-active", SERVICIO) == "active"
     castigo_max = max((datetime.fromtimestamp(cast) for c in creds
@@ -389,10 +421,9 @@ def construir(dir_camp: Path) -> str:
     if restantes == 0:
         eta_txt, eta_nota = "Terminado", "No quedan artistas de la prioridad 1."
     elif not activo:
-        # Fin de calendario: capacidad = 2 credenciales × 500 llamadas; coste = llamadas/artista medido hoy.
-        llamadas_hoy = sum(sum((usadas.get(c) or {}).values()) for c in creds)
-        costo = max(1.0, llamadas_hoy / max(1, len(procesados)))
-        cap_art = max(1, int((TOPE_CRED * 2) / costo))
+        # Fin de calendario: capacidad = credenciales × tope real observado; coste = llamadas por
+        # artista de la última corrida que trabajó (no del histórico entero).
+        cap_art = max(1, int((cap_cred * len(creds)) / costo_art))
         arranque = prox or ahora
         if castigo_max and arranque < castigo_max:
             arranque = arranque + timedelta(days=1)  # la de hoy sale sin cuota
@@ -405,8 +436,8 @@ def construir(dir_camp: Path) -> str:
             eta_txt = fin.strftime("%d/%m ~%H:%M")
             eta_nota = (
                 f"Orientativa: {miles(restantes)} artistas por delante, capacidad ~{miles(cap_art)}/día "
-                f"(cuota de {miles(TOPE_CRED * 2)} llamadas y {num1(costo)} llamadas por artista medido hoy), "
-                f"ritmo {num1(tasa)}/min. "
+                f"(cuota real ~{miles(cap_cred * len(creds))} llamadas antes del 429 y "
+                f"{num1(costo_art)} llamadas por artista), ritmo {num1(tasa)}/min. "
                 + (f"Sin cuota hasta el {castigo_max:%d/%m %H:%M}; la primera corrida útil arranca el "
                    f"{primera:%d/%m a las %H:%M}." if castigo_max else
                    f"Primera corrida útil el {primera:%d/%m a las %H:%M}."))
@@ -476,12 +507,16 @@ def construir(dir_camp: Path) -> str:
     # estado en palabras del trabajo, no de systemd
     if restantes == 0:
         estado_html = pill("Completo · nada en cola", "ok")
+    elif activo and castigo_max:
+        estado_html = pill(f"Esperando cuota hasta {castigo_max:%d/%m %H:%M} · {miles(restantes)} en cola", "warn")
     elif activo:
         estado_html = pill(f"Corriendo · {miles(restantes)} artistas en cola", "ok")
     elif castigo_max:
         estado_html = pill(f"Sin cuota hasta {castigo_max:%d/%m %H:%M} · {miles(restantes)} en cola", "warn")
+    elif prox:
+        estado_html = pill(f"En espera · próxima corrida {prox:%d/%m %H:%M} · {miles(restantes)} en cola", "warn")
     else:
-        estado_html = pill(f"En pausa · {miles(restantes)} artistas en cola", "warn")
+        estado_html = pill(f"Parado · {miles(restantes)} artistas en cola", "warn")
 
     resumen_txt = (f"De <b>{miles(len(uni_art))}</b> artistas con perfil verificado y discos sin enlace, "
                    f"se han trabajado <b>{miles(len(procesados))}</b> ({num1(pct(len(procesados), len(uni_art)))} %): "
@@ -570,7 +605,7 @@ def construir(dir_camp: Path) -> str:
   <section>
     <h2>Cuota de la API <span>lo que de verdad limita el avance</span></h2>
     <div class="panel cuota">{''.join(bloques_cuota)}</div>
-    <p class="ayuda" style="margin-top:10px">La cuota es por app y cuenta de desarrollador; se agota con 429 QUOTA_EXCEEDED y castigo de ~24 h. El job reparte {miles(TOPE_CRED)} llamadas por credencial y día y para limpio al agotarlas: no reintenta en bucle.</p>
+    <p class="ayuda" style="margin-top:10px">La cuota es por app y cuenta de desarrollador; se agota con 429 QUOTA_EXCEEDED y castigo de ~24 h. El script permite {miles(TOPE_CRED)} llamadas por credencial y día, pero Spotify corta antes (~{miles(cap_cred)} por credencial y grupo de endpoints): al llegar al 429 la corrida para limpia y, si el castigo vence dentro de la hora siguiente, espera en vez de perder el día.</p>
   </section>
 
   <section>
@@ -617,6 +652,7 @@ def main() -> None:
     destino = dir_camp / "tablero.html"
     espejo = Path("/tmp/crv-recon")
     espejo.mkdir(parents=True, exist_ok=True)
+    fallos: set[Path] = set()  # un destino roto (p. ej. entrada NTFS inválida) se avisa una vez
     while True:
         try:
             doc = construir(dir_camp)
@@ -631,8 +667,11 @@ def main() -> None:
                 tmp = ruta.with_suffix(".tmp")
                 tmp.write_text(doc, encoding="utf-8")
                 os.replace(tmp, ruta)
+                fallos.discard(ruta)
             except Exception as e:  # noqa: BLE001
-                print(f"no se pudo escribir {ruta}: {e}", flush=True)
+                if ruta not in fallos:
+                    print(f"no se pudo escribir {ruta}: {e}", flush=True)
+                    fallos.add(ruta)
         print(f"{datetime.now():%H:%M:%S} tablero → {destino}", flush=True)
         if args.una_vez:
             return
