@@ -1,7 +1,9 @@
 import { decideKnowledge, knowledgeDecisionSchema, knowledgeReviewDetail, publishedKnowledge } from "../../search/knowledge-publication.js";
 import { knowledgeAdministration } from "../../search/knowledge-administration.js";
 import { searchAdministration } from "../../search/administration.js";
-import { activationRequestSchema, layaAdministration, recordLayaActivation } from "../../search/laya-models.js";
+import { activationRequestSchema, isLayaActive, layaAdministration, recordLayaActivation } from "../../search/laya-models.js";
+import { gatedConfig, interpretGated } from "../../search/query-interpretation/gated-service.js";
+import { GATED_MODE_VERSION } from "../../search/query-interpretation/gated.js";
 import { randomUUID } from "node:crypto";
 import { searchCollector, confirmationSchema, retainSearchAnalytics, type SearchSnapshot } from "../../search/observability.js";
 import { INTENTION_VERSION, OBSERVABILITY_VERSION } from "../../search/contracts.js";
@@ -177,6 +179,9 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
       if (eligible(request)) {
         const receipt = searchCollector.issue(request.query.q, snapshot);
         if (receipt) reply.header("x-crv-search-receipt", receipt);
+        // Modo «solo si coinciden»: no retrasa la respuesta. El plan se anota en el resumen (que solo se guarda al confirmar la búsqueda)
+        // y solo si coinciden la 1.8.0 y el estudiante; si no, el resumen conserva «sin interpretar». No cambia los resultados.
+        if (receipt && !request.query.types) void annotateGated(request.query.q, snapshot);
       } else searchCollector.quality.excluded++;
       reply.header("cache-control", "no-store");
     }
@@ -230,6 +235,19 @@ function eligible(request: import("fastify").FastifyRequest): boolean {
   return request.viewer?.role !== "admin" && !request.headers.authorization && !request.headers["x-crv-test"]
     && !(request.headers.cookie?.includes("crv_session=") && !request.viewer)
     && !isLocalRequest(request) && !/bot|crawler|spider|headless|playwright|selenium|curl|wget/iu.test(request.headers["user-agent"] ?? "");
+}
+
+const GATED_MODEL_ID = "crv-query-gated-1.10.0";
+async function annotateGated(q: string, snapshot: SearchSnapshot): Promise<void> {
+  try {
+    const cfg = gatedConfig();
+    if (!cfg || !(await isLayaActive("query_interpretation", GATED_MODEL_ID))) return;
+    const r = await interpretGated(q, cfg);
+    if (!r) return;
+    snapshot.timings["gated_interpretation"] = r.ms;
+    snapshot.versions["model"] = `${GATED_MODE_VERSION}:${r.outcome.answered ? "agree" : "abstain"}`;
+    if (r.outcome.answered) snapshot.intention = r.legacyIntention;
+  } catch { /* la anotación es opcional */ }
 }
 
 function initialSnapshot(q: string): SearchSnapshot {

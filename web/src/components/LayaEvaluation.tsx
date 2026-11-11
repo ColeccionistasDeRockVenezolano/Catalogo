@@ -92,7 +92,7 @@ function EvaluationCard({ evaluation: e, isActive, onChanged }: { evaluation: Ev
           <tbody>{e.comparison.map(row => <tr key={String(row.system)}><td>{systems[String(row.system)] ?? String(row.system)}</td>{metricNames.map(m => <td key={m}>{fmt(row[m])}</td>)}</tr>)}</tbody></table>
       </div>}
       {!!e.notes.length && <ul>{e.notes.map(n => <li key={n}>{n}</li>)}</ul>}
-      <p>Conjuntos: {Object.entries(e.datasets).map(([k, d]) => `${k} (${d.cases}, ${d.sha256.slice(0, 10)})`).join(" · ")}. Evaluación {e.path} · {e.sha256.slice(0, 12)}.</p>
+      <p>Conjuntos: {Object.entries(e.datasets).map(([k, d]) => `${k} (${d.cases}, ${d.sha256 ? d.sha256.slice(0, 10) : "sin huella"})`).join(" · ")}. Evaluación {e.path} · {e.sha256.slice(0, 12)}.</p>
       {(e.passed || isActive) && <div className="search-admin__links">
         <label htmlFor={`reason-${e.path}`}>Motivo</label>
         <input id={`reason-${e.path}`} className="search-admin__filter" value={reason} onChange={ev => setReason(ev.target.value)} maxLength={1000} />

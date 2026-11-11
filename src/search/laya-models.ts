@@ -24,11 +24,11 @@ export const evaluationSchema = z.object({
   modelId: z.string().regex(/^[a-z0-9][a-z0-9.-]{1,80}$/u),
   baseRevision: z.string().regex(/^[a-f0-9]{40}$/u),
   weightsSha256: z.string().regex(/^[a-f0-9]{64}$/u).nullable(),
-  card: z.record(z.string(), z.unknown()),
+  card: z.record(z.string(), z.unknown()).default({}),
   criteriaVersion: z.string().min(1),
   evaluatedAt: z.string(),
   reservedTestRuns: z.number().int().min(0),
-  datasets: z.record(z.string(), z.object({ path: z.string(), sha256: z.string().regex(/^[a-f0-9]{64}$/u), cases: z.number().int() }).passthrough()),
+  datasets: z.record(z.string(), z.object({ path: z.string().optional(), sha256: z.string().regex(/^[a-f0-9]{64}$/u).optional(), cases: z.number().int() }).passthrough()),
   checks: z.array(checkSchema).min(1),
   comparison: z.array(z.object({ system: z.string() }).passthrough()),
   passed: z.boolean(),
@@ -43,6 +43,35 @@ export const activationRequestSchema = z.object({
   reason: z.string().trim().min(3).max(1000),
 }).strict();
 
+/**
+ * Evaluación del «modo solo si coinciden» (criteria 1.10.0): el archivo inmutable trae dos modos (estudiante solo y
+ * modo de coincidencia) y las huellas de dos modelos. Lo que se activa es el modo de coincidencia, así que se lee su
+ * veredicto y sus comprobaciones; el estudiante solo NO cumple y nunca se activa por separado. El identificador del
+ * modelo activo es el del modo (`crv-query-gated-<criterios>`), cuya ficha guarda las huellas de ambos modelos.
+ * El archivo en disco no se modifica: solo cambia cómo se lee.
+ */
+export function normalizeEvaluation(raw: unknown): unknown {
+  const r = raw as Record<string, unknown> | null;
+  if (!r || typeof r !== "object" || !r["modes"] || r["checks"]) return raw;
+  const modes = r["modes"] as Record<string, { passed?: boolean; checks?: unknown[] }>;
+  const gatedKey = Object.keys(modes).find(k => k.startsWith("solo si coinciden"));
+  const gated = gatedKey ? modes[gatedKey] : undefined;
+  if (!gated || !Array.isArray(gated.checks) || typeof gated.passed !== "boolean") return raw;
+  const criteria = String(r["criteriaVersion"] ?? "").replace(/^crv-stage3-criteria-/u, "");
+  const hashes = (r["weightsSha256"] ?? {}) as Record<string, string>;
+  const student = Object.entries(hashes).find(([k]) => k.startsWith("student"));
+  const laya = Object.entries(hashes).find(([k]) => k.startsWith("heads"));
+  return {
+    ...r,
+    modelId: `crv-query-gated-${criteria}`,
+    weightsSha256: student?.[1] ?? null,
+    card: { ...(r["card"] as object | undefined), mode: "gatedAgreement", student: student?.[0] ?? null, studentWeightsSha256: student?.[1] ?? null,
+      laya: laya?.[0] ?? null, layaOverlayWeightsSha256: laya?.[1] ?? null, alone: Object.fromEntries(Object.entries(modes).filter(([k]) => k !== gatedKey).map(([k, m]) => [k, m.passed])) },
+    checks: gated.checks,
+    passed: gated.passed,
+  };
+}
+
 async function readEvaluations() {
   // Las pruebas apuntan a un directorio propio; la ruta registrada sigue siendo relativa al repositorio.
   const dir = process.env["CRV_STAGE3_RESULTS"] ?? path.join(root, RESULTS);
@@ -52,7 +81,7 @@ async function readEvaluations() {
   const out: Array<{ path: string; sha256: string; evaluation: LayaEvaluation }> = [];
   for (const file of files) {
     const raw = await readFile(path.join(dir, file));
-    const parsed = evaluationSchema.safeParse(JSON.parse(raw.toString("utf8")));
+    const parsed = evaluationSchema.safeParse(normalizeEvaluation(JSON.parse(raw.toString("utf8"))));
     if (!parsed.success) continue;
     out.push({ path: process.env["CRV_STAGE3_RESULTS"] ? path.join(dir, file) : `${RESULTS}/${file}`, sha256: createHash("sha256").update(raw).digest("hex"), evaluation: parsed.data });
   }
@@ -81,7 +110,7 @@ export async function layaAdministration() {
     criteria: { version: criteria.version, authority: criteria.authority, activation: criteria.activation },
     evaluations: evaluations.map(({ path: p, sha256, evaluation: e }) => ({ path: p, sha256, task: e.task, modelId: e.modelId, passed: e.passed,
       evaluatedAt: e.evaluatedAt, reservedTestRuns: e.reservedTestRuns, criteriaVersion: e.criteriaVersion, checks: e.checks, comparison: e.comparison,
-      datasets: e.datasets, notes: e.notes, card: { trainedAt: e.card["trainedAt"] ?? null, bestEpoch: e.card["bestEpoch"] ?? null, train: e.card["train"] ?? null,
+      datasets: Object.fromEntries(Object.entries(e.datasets).map(([k, d]) => [k, { ...d, sha256: d.sha256 ?? "" }])), notes: e.notes, card: { trainedAt: e.card["trainedAt"] ?? null, bestEpoch: e.card["bestEpoch"] ?? null, train: e.card["train"] ?? null,
         unfreezeLayers: e.card["unfreezeLayers"] ?? null, baseRevision: e.baseRevision, weightsSha256: e.weightsSha256 } })),
     active: active.rows,
     history: history.rows,
@@ -110,4 +139,16 @@ export async function recordLayaActivation(input: z.infer<typeof activationReque
     [request.task, request.action, request.modelId, e.baseRevision, e.weightsSha256, e.card, found.path, found.sha256, e.criteriaVersion, e.passed, actor, request.reason, ctx.runId])).rows[0];
     return { id: Number(row.id), createdAt: row.created_at as string, task: request.task, modelId: request.modelId, action: request.action };
   });
+}
+
+/** ¿Está activo ese modelo para esa tarea? La última fila del registro decide; se consulta como máximo una vez por minuto. */
+const activeCache = new Map<string, { at: number; value: boolean }>();
+export async function isLayaActive(task: (typeof LAYA_TASKS)[number], modelId: string): Promise<boolean> {
+  const key = `${task}:${modelId}`;
+  const hit = activeCache.get(key);
+  if (hit && Date.now() - hit.at < 60_000) return hit.value;
+  const value = await getPool().query("SELECT 1 FROM ingest.search_model_active WHERE task=$1 AND model_id=$2", [task, modelId])
+    .then(r => r.rowCount === 1, () => false);
+  activeCache.set(key, { at: Date.now(), value });
+  return value;
 }
