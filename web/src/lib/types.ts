@@ -58,7 +58,8 @@ export interface PlanSearch {
   withoutData: { genre?: { artist: number; album: number }; year?: { artist: number; album: number } };
 }
 
-export type SearchResults = Record<SearchEntityType, SearchHit[]> & { emotion?: EmotionMatch | null; totals?: Partial<Record<SearchEntityType, number>> };
+/** `didYouMean`: sugerencias aproximadas («Carameo de cianuro» → «Caramelos De Cianuro»); solo llegan cuando la búsqueda no encontró nada. */
+export type SearchResults = Record<SearchEntityType, SearchHit[]> & { emotion?: EmotionMatch | null; totals?: Partial<Record<SearchEntityType, number>>; didYouMean?: SearchHit[] };
 
 // ---------- artists ----------
 export interface ArtistListItem {

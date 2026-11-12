@@ -1,0 +1,7859 @@
+{
+ "summary": {
+  "version": "crv-did-you-mean-0.1.0",
+  "evaluatedAt": "2026-11-12T13:40:55.776Z",
+  "perKind": 400,
+  "seed": 20261112,
+  "index": {
+   "kinds": [
+    "artist",
+    "album",
+    "organization",
+    "person",
+    "track"
+   ],
+   "keys": 260197,
+   "buildMs": 327,
+   "approxRssMb": 39
+  },
+  "setA": {
+   "edit1:artist": {
+    "n": 400,
+    "top1": 393,
+    "top3": 400,
+    "none": 0,
+    "wrongTop": 7,
+    "top1Rate": 0.9825,
+    "top3Rate": 1
+   },
+   "edit1:*": {
+    "n": 2000,
+    "top1": 1937,
+    "top3": 1995,
+    "none": 2,
+    "wrongTop": 61,
+    "top1Rate": 0.9685,
+    "top3Rate": 0.9975
+   },
+   "edit2:artist": {
+    "n": 400,
+    "top1": 390,
+    "top3": 395,
+    "none": 4,
+    "wrongTop": 6,
+    "top1Rate": 0.975,
+    "top3Rate": 0.9875
+   },
+   "edit2:*": {
+    "n": 2000,
+    "top1": 1928,
+    "top3": 1980,
+    "none": 17,
+    "wrongTop": 55,
+    "top1Rate": 0.964,
+    "top3Rate": 0.99
+   },
+   "stop:artist": {
+    "n": 400,
+    "top1": 396,
+    "top3": 400,
+    "none": 0,
+    "wrongTop": 4,
+    "top1Rate": 0.99,
+    "top3Rate": 1
+   },
+   "stop:*": {
+    "n": 1852,
+    "top1": 1813,
+    "top3": 1846,
+    "none": 6,
+    "wrongTop": 33,
+    "top1Rate": 0.9789416846652268,
+    "top3Rate": 0.9967602591792657
+   },
+   "edit1:album": {
+    "n": 400,
+    "top1": 392,
+    "top3": 400,
+    "none": 0,
+    "wrongTop": 8,
+    "top1Rate": 0.98,
+    "top3Rate": 1
+   },
+   "edit2:album": {
+    "n": 400,
+    "top1": 383,
+    "top3": 394,
+    "none": 5,
+    "wrongTop": 12,
+    "top1Rate": 0.9575,
+    "top3Rate": 0.985
+   },
+   "stop:album": {
+    "n": 400,
+    "top1": 395,
+    "top3": 398,
+    "none": 2,
+    "wrongTop": 3,
+    "top1Rate": 0.9875,
+    "top3Rate": 0.995
+   },
+   "edit1:organization": {
+    "n": 400,
+    "top1": 393,
+    "top3": 400,
+    "none": 0,
+    "wrongTop": 7,
+    "top1Rate": 0.9825,
+    "top3Rate": 1
+   },
+   "edit2:organization": {
+    "n": 400,
+    "top1": 390,
+    "top3": 399,
+    "none": 1,
+    "wrongTop": 9,
+    "top1Rate": 0.975,
+    "top3Rate": 0.9975
+   },
+   "stop:organization": {
+    "n": 252,
+    "top1": 248,
+    "top3": 252,
+    "none": 0,
+    "wrongTop": 4,
+    "top1Rate": 0.9841269841269841,
+    "top3Rate": 1
+   },
+   "edit1:person": {
+    "n": 400,
+    "top1": 389,
+    "top3": 399,
+    "none": 0,
+    "wrongTop": 11,
+    "top1Rate": 0.9725,
+    "top3Rate": 0.9975
+   },
+   "edit2:person": {
+    "n": 400,
+    "top1": 383,
+    "top3": 396,
+    "none": 4,
+    "wrongTop": 13,
+    "top1Rate": 0.9575,
+    "top3Rate": 0.99
+   },
+   "stop:person": {
+    "n": 400,
+    "top1": 393,
+    "top3": 400,
+    "none": 0,
+    "wrongTop": 7,
+    "top1Rate": 0.9825,
+    "top3Rate": 1
+   },
+   "edit1:track": {
+    "n": 400,
+    "top1": 370,
+    "top3": 396,
+    "none": 2,
+    "wrongTop": 28,
+    "top1Rate": 0.925,
+    "top3Rate": 0.99
+   },
+   "edit2:track": {
+    "n": 400,
+    "top1": 382,
+    "top3": 396,
+    "none": 3,
+    "wrongTop": 15,
+    "top1Rate": 0.955,
+    "top3Rate": 0.99
+   },
+   "stop:track": {
+    "n": 400,
+    "top1": 381,
+    "top3": 396,
+    "none": 4,
+    "wrongTop": 15,
+    "top1Rate": 0.9525,
+    "top3Rate": 0.99
+   }
+  },
+  "discardedNonEmpty": 269,
+  "latencyMs": {
+   "n": 5852,
+   "p50": 15.371713000000454,
+   "p95": 23.36858999999822,
+   "p99": 28.031505999999354
+  },
+  "shortQueriesWithSuggestion": 0,
+  "setB": {
+   "total": 93,
+   "stillEmpty": 88,
+   "withSuggestion": 31
+  },
+  "setC": {
+   "total": 879,
+   "empty": 855,
+   "withSuggestion": 35
+  },
+  "serviceLatencyMs": {
+   "p50": 11.989227000012761,
+   "p95": 20.737624000001233
+  }
+ },
+ "rows": [
+  {
+   "query": "Jody Ju",
+   "set": "B",
+   "empty": true,
+   "ms": 897.4157869999908,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Joudy",
+     "context": "San Cristóbal, Táchira"
+    },
+    {
+     "type": "album",
+     "label": "Joudy Ju",
+     "context": "Joudy In"
+    }
+   ]
+  },
+  {
+   "query": "Un cancionero",
+   "set": "B",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "caceroloops",
+   "set": "B",
+   "empty": true,
+   "ms": 56.75403099998948,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Caseroloops",
+     "context": "Barquisimeto"
+    }
+   ]
+  },
+  {
+   "query": "Overkrain",
+   "set": "B",
+   "empty": true,
+   "ms": 14.424526000002516,
+   "suggestions": []
+  },
+  {
+   "query": "Kechu",
+   "set": "B",
+   "empty": true,
+   "ms": 7.930101999998442,
+   "suggestions": []
+  },
+  {
+   "query": "coctail",
+   "set": "B",
+   "empty": true,
+   "ms": 9.819888999991235,
+   "suggestions": []
+  },
+  {
+   "query": "Jody j",
+   "set": "B",
+   "empty": true,
+   "ms": 9.182972000009613,
+   "suggestions": []
+  },
+  {
+   "query": "musica para tener",
+   "set": "B",
+   "empty": true,
+   "ms": 18.748256999999285,
+   "suggestions": []
+  },
+  {
+   "query": "power metal playlist",
+   "set": "B",
+   "empty": true,
+   "ms": 14.735894999990705,
+   "suggestions": []
+  },
+  {
+   "query": "musica para tener sexo",
+   "set": "B",
+   "empty": true,
+   "ms": 13.623585999986972,
+   "suggestions": []
+  },
+  {
+   "query": "musica para tener se",
+   "set": "B",
+   "empty": true,
+   "ms": 14.357649999990826,
+   "suggestions": []
+  },
+  {
+   "query": "rock de los 80 sin metal",
+   "set": "B",
+   "empty": true,
+   "ms": 15.938766999999643,
+   "suggestions": []
+  },
+  {
+   "query": "musica para tene",
+   "set": "B",
+   "empty": true,
+   "ms": 19.5756790000014,
+   "suggestions": []
+  },
+  {
+   "query": "cji",
+   "set": "B",
+   "empty": true,
+   "ms": 0.03322399999888148,
+   "suggestions": []
+  },
+  {
+   "query": "Un cancio",
+   "set": "B",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "Kechu y",
+   "set": "B",
+   "empty": true,
+   "ms": 11.758239999995567,
+   "suggestions": []
+  },
+  {
+   "query": "4tor",
+   "set": "B",
+   "empty": true,
+   "ms": 0.009659999996074475,
+   "suggestions": []
+  },
+  {
+   "query": "metell",
+   "set": "B",
+   "empty": true,
+   "ms": 8.516039000009187,
+   "suggestions": []
+  },
+  {
+   "query": "metelli",
+   "set": "B",
+   "empty": true,
+   "ms": 8.730563999997685,
+   "suggestions": []
+  },
+  {
+   "query": "Dannyt",
+   "set": "B",
+   "empty": true,
+   "ms": 9.281305999989854,
+   "suggestions": [
+    {
+     "type": "person",
+     "label": "Daniel \"Danny\" García",
+     "context": null
+    },
+    {
+     "type": "person",
+     "label": "Danny",
+     "context": null
+    },
+    {
+     "type": "person",
+     "label": "Danny Punk",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "Revoltas",
+   "set": "B",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "OverkrainOverkrain",
+   "set": "B",
+   "empty": true,
+   "ms": 14.426434000008157,
+   "suggestions": []
+  },
+  {
+   "query": "Overkrainv",
+   "set": "B",
+   "empty": true,
+   "ms": 14.459679999999935,
+   "suggestions": []
+  },
+  {
+   "query": "pbuck",
+   "set": "B",
+   "empty": true,
+   "ms": 9.301577999998699,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Puck",
+     "context": "Caracas"
+    }
+   ]
+  },
+  {
+   "query": "ater vitae",
+   "set": "B",
+   "empty": true,
+   "ms": 16.55844100000104,
+   "suggestions": []
+  },
+  {
+   "query": "Venezie",
+   "set": "B",
+   "empty": true,
+   "ms": 9.299832999997307,
+   "suggestions": []
+  },
+  {
+   "query": "Venezuela demo",
+   "set": "B",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "VenezuelaDeo",
+   "set": "B",
+   "empty": true,
+   "ms": 16.88550099999702,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "Venezuelademo 10",
+     "context": "Various Artists"
+    },
+    {
+     "type": "album",
+     "label": "Venezuelademo 13",
+     "context": "Various Artists"
+    },
+    {
+     "type": "album",
+     "label": "Venezuelademo 15",
+     "context": "Various Artists"
+    }
+   ]
+  },
+  {
+   "query": "Abdd",
+   "set": "B",
+   "empty": true,
+   "ms": 0.01973700000962708,
+   "suggestions": []
+  },
+  {
+   "query": "Abddo",
+   "set": "B",
+   "empty": true,
+   "ms": 7.496207000003778,
+   "suggestions": []
+  },
+  {
+   "query": "Abddon",
+   "set": "B",
+   "empty": true,
+   "ms": 9.256810999999288,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Natastor",
+     "context": "Caracas"
+    },
+    {
+     "type": "artist",
+     "label": "Abaddon",
+     "context": "Valencia"
+    }
+   ]
+  },
+  {
+   "query": "Abolitin",
+   "set": "B",
+   "empty": true,
+   "ms": 9.010028999997303,
+   "suggestions": []
+  },
+  {
+   "query": "Abolitino",
+   "set": "B",
+   "empty": true,
+   "ms": 14.190864999996847,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Abolición",
+     "context": "El Tigre, Anzoategui"
+    }
+   ]
+  },
+  {
+   "query": "Abolitiona",
+   "set": "B",
+   "empty": true,
+   "ms": 13.788174000001163,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Abolición",
+     "context": "El Tigre, Anzoategui"
+    }
+   ]
+  },
+  {
+   "query": "Abolition",
+   "set": "B",
+   "empty": true,
+   "ms": 15.021785999997519,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Abolición",
+     "context": "El Tigre, Anzoategui"
+    },
+    {
+     "type": "artist",
+     "label": "Dreams of Tears",
+     "context": "Miranda"
+    }
+   ]
+  },
+  {
+   "query": "Maga Bo",
+   "set": "B",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "Vebne",
+   "set": "B",
+   "empty": true,
+   "ms": 7.725888999993913,
+   "suggestions": []
+  },
+  {
+   "query": "Vew",
+   "set": "B",
+   "empty": true,
+   "ms": 0.008616000006441027,
+   "suggestions": []
+  },
+  {
+   "query": "VenezuelaDw",
+   "set": "B",
+   "empty": true,
+   "ms": 15.80724399999599,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "De Venezuela",
+     "context": "José Luis Rodríguez"
+    },
+    {
+     "type": "album",
+     "label": "Venezuela",
+     "context": "Carlos Baute"
+    },
+    {
+     "type": "album",
+     "label": "The Venezuelan Zing Son Vol. 1",
+     "context": "Los Amigos Invisibles"
+    }
+   ]
+  },
+  {
+   "query": "Pesonsl",
+   "set": "B",
+   "empty": true,
+   "ms": 9.133791000000201,
+   "suggestions": []
+  },
+  {
+   "query": "Cronics",
+   "set": "B",
+   "empty": true,
+   "ms": 11.4656590000086,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Crónica",
+     "context": "San Félix - Ciudad Guayana"
+    },
+    {
+     "type": "album",
+     "label": "Crónicas",
+     "context": "Juan Francisco"
+    },
+    {
+     "type": "album",
+     "label": "Crónicas De Una",
+     "context": "Braulio Polanco"
+    }
+   ]
+  },
+  {
+   "query": "jisus",
+   "set": "B",
+   "empty": true,
+   "ms": 8.372002000003704,
+   "suggestions": [
+    {
+     "type": "person",
+     "label": "Jesús",
+     "context": null
+    },
+    {
+     "type": "person",
+     "label": "Jesús Cordero",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "Will p",
+   "set": "B",
+   "empty": true,
+   "ms": 9.395682999995188,
+   "suggestions": [
+    {
+     "type": "person",
+     "label": "Ill-P",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "Wil pink",
+   "set": "B",
+   "empty": true,
+   "ms": 10.134021000005305,
+   "suggestions": [
+    {
+     "type": "person",
+     "label": "Wil Punk",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "palo por",
+   "set": "B",
+   "empty": true,
+   "ms": 11.390838000006624,
+   "suggestions": []
+  },
+  {
+   "query": "palo por ese",
+   "set": "B",
+   "empty": true,
+   "ms": 15.619610000008834,
+   "suggestions": []
+  },
+  {
+   "query": "palo por es",
+   "set": "B",
+   "empty": true,
+   "ms": 15.768725000001723,
+   "suggestions": []
+  },
+  {
+   "query": "caceroloop",
+   "set": "B",
+   "empty": true,
+   "ms": 14.294441000005463,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Caseroloops",
+     "context": "Barquisimeto"
+    }
+   ]
+  },
+  {
+   "query": "Pungo",
+   "set": "B",
+   "empty": true,
+   "ms": 11.017778000008548,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "EN PUNGA",
+     "context": "Akapellah"
+    },
+    {
+     "type": "album",
+     "label": "Y Punto!",
+     "context": "Gran Coquivacoa"
+    },
+    {
+     "type": "album",
+     "label": "...Y Punto",
+     "context": "Punto Sur"
+    }
+   ]
+  },
+  {
+   "query": "horae",
+   "set": "B",
+   "empty": true,
+   "ms": 28.76275799999712,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "+horas",
+     "context": "Carzé"
+    },
+    {
+     "type": "person",
+     "label": "Horacio Avedaño",
+     "context": null
+    },
+    {
+     "type": "track",
+     "label": "Las Horas",
+     "context": "Carlos Baute · Espiral"
+    }
+   ]
+  },
+  {
+   "query": "PPocz & Pacheko",
+   "set": "B",
+   "empty": true,
+   "ms": 21.486885999998776,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Pocz & Pacheko",
+     "context": "Caracas"
+    }
+   ]
+  },
+  {
+   "query": "The pusj",
+   "set": "B",
+   "empty": true,
+   "ms": 5.755929999999353,
+   "suggestions": []
+  },
+  {
+   "query": "The pus",
+   "set": "B",
+   "empty": true,
+   "ms": 5.064427000004798,
+   "suggestions": []
+  },
+  {
+   "query": "The push",
+   "set": "B",
+   "empty": true,
+   "ms": 5.117431000006036,
+   "suggestions": []
+  },
+  {
+   "query": "The pushkos",
+   "set": "B",
+   "empty": true,
+   "ms": 15.249219000004814,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "De Pushkos",
+     "context": "Caracas"
+    }
+   ]
+  },
+  {
+   "query": "wtfest",
+   "set": "B",
+   "empty": true,
+   "ms": 9.122231999994256,
+   "suggestions": []
+  },
+  {
+   "query": "WFest",
+   "set": "B",
+   "empty": true,
+   "ms": 8.06767299999774,
+   "suggestions": []
+  },
+  {
+   "query": "n3c",
+   "set": "B",
+   "empty": true,
+   "ms": 0.014467999993939884,
+   "suggestions": []
+  },
+  {
+   "query": "n3ctar",
+   "set": "B",
+   "empty": true,
+   "ms": 11.328564999988885,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "Néctar",
+     "context": "Jorge Espinoza"
+    }
+   ]
+  },
+  {
+   "query": "LeCin",
+   "set": "B",
+   "empty": true,
+   "ms": 9.121448999998393,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Lecon",
+     "context": "Caracas"
+    }
+   ]
+  },
+  {
+   "query": "LeCinema",
+   "set": "B",
+   "empty": true,
+   "ms": 10.067439000005834,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Le' Cinema",
+     "context": "Caracas, Distrito Capital"
+    }
+   ]
+  },
+  {
+   "query": "' OR 1=1--",
+   "set": "B",
+   "empty": true,
+   "ms": 8.849468000000343,
+   "suggestions": []
+  },
+  {
+   "query": "<script>alert(1)</script>",
+   "set": "B",
+   "empty": true,
+   "ms": 19.486510000002454,
+   "suggestions": []
+  },
+  {
+   "query": "loblanco",
+   "set": "B",
+   "empty": true,
+   "ms": 9.484475999997812,
+   "suggestions": [
+    {
+     "type": "person",
+     "label": "Leopoldo Blanco",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "loblancodelojo",
+   "set": "B",
+   "empty": true,
+   "ms": 17.3235480000003,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Lo Blanco Del Ojo",
+     "context": "Aragua"
+    }
+   ]
+  },
+  {
+   "query": "pedru",
+   "set": "B",
+   "empty": true,
+   "ms": 8.159195000000182,
+   "suggestions": [
+    {
+     "type": "organization",
+     "label": "Perú",
+     "context": null
+    },
+    {
+     "type": "person",
+     "label": "Pedro",
+     "context": null
+    },
+    {
+     "type": "person",
+     "label": "Pedro Bermudez",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "pedrucci",
+   "set": "B",
+   "empty": true,
+   "ms": 8.409046999993734,
+   "suggestions": []
+  },
+  {
+   "query": "Dermis tar",
+   "set": "B",
+   "empty": true,
+   "ms": 17.643259000004036,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Dermis Tatú",
+     "context": "Caracas"
+    }
+   ]
+  },
+  {
+   "query": "ska venezolano de los 80",
+   "set": "B",
+   "empty": true,
+   "ms": 17.09594900000957,
+   "suggestions": []
+  },
+  {
+   "query": "Juan peto",
+   "set": "B",
+   "empty": true,
+   "ms": 15.532292000003508,
+   "suggestions": [
+    {
+     "type": "person",
+     "label": "Juan Petit",
+     "context": null
+    },
+    {
+     "type": "person",
+     "label": "Juan Pinto",
+     "context": null
+    },
+    {
+     "type": "person",
+     "label": "Juan Nieto",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "Gabru",
+   "set": "B",
+   "empty": true,
+   "ms": 7.932270000004792,
+   "suggestions": []
+  },
+  {
+   "query": "power mm",
+   "set": "B",
+   "empty": true,
+   "ms": 10.940374999991036,
+   "suggestions": []
+  },
+  {
+   "query": "power mme",
+   "set": "B",
+   "empty": true,
+   "ms": 15.855515999995987,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Arkangel",
+     "context": "Valencia - Carabobo"
+    },
+    {
+     "type": "person",
+     "label": "Power Age",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "power mmet",
+   "set": "B",
+   "empty": true,
+   "ms": 14.827300999997533,
+   "suggestions": []
+  },
+  {
+   "query": "power mr",
+   "set": "B",
+   "empty": true,
+   "ms": 10.616745000006631,
+   "suggestions": []
+  },
+  {
+   "query": "Poer",
+   "set": "B",
+   "empty": true,
+   "ms": 0.010114000004250556,
+   "suggestions": []
+  },
+  {
+   "query": "zzqxwprueba",
+   "set": "B",
+   "empty": true,
+   "ms": 14.480168000009144,
+   "suggestions": []
+  },
+  {
+   "query": "Poew",
+   "set": "B",
+   "empty": true,
+   "ms": 0.017177999994601123,
+   "suggestions": []
+  },
+  {
+   "query": "cbd",
+   "set": "B",
+   "empty": true,
+   "ms": 0.010238000002573244,
+   "suggestions": []
+  },
+  {
+   "query": "MDT",
+   "set": "B",
+   "empty": true,
+   "ms": 0.007859999997890554,
+   "suggestions": []
+  },
+  {
+   "query": "Chucknorria",
+   "set": "B",
+   "empty": true,
+   "ms": 13.475007999993977,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Chucknorris",
+     "context": "Caracas"
+    }
+   ]
+  },
+  {
+   "query": "los mesp",
+   "set": "B",
+   "empty": true,
+   "ms": 5.926466999997501,
+   "suggestions": []
+  },
+  {
+   "query": "Guerrulla",
+   "set": "B",
+   "empty": true,
+   "ms": 14.837757000001147,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Guerrilla",
+     "context": "Maracay, Aragua"
+    }
+   ]
+  },
+  {
+   "query": "Sal sal",
+   "set": "B",
+   "empty": true,
+   "ms": 9.724411000002874,
+   "suggestions": []
+  },
+  {
+   "query": "cdchome-anniversaries__years",
+   "set": "B",
+   "empty": true,
+   "ms": 9.776350000000093,
+   "suggestions": []
+  },
+  {
+   "query": "sweet 74",
+   "set": "B",
+   "empty": true,
+   "ms": 10.564699000009568,
+   "suggestions": []
+  },
+  {
+   "query": "sweet 75",
+   "set": "B",
+   "empty": true,
+   "ms": 10.810481999986223,
+   "suggestions": []
+  },
+  {
+   "query": "Jose Manuel Coraspe",
+   "set": "B",
+   "empty": true,
+   "ms": 15.244911999994656,
+   "suggestions": []
+  },
+  {
+   "query": "Jose Manue Coraspe",
+   "set": "B",
+   "empty": true,
+   "ms": 16.7899039999902,
+   "suggestions": []
+  },
+  {
+   "query": "Musica para tener sex",
+   "set": "B",
+   "empty": true,
+   "ms": 13.289940000002389,
+   "suggestions": []
+  },
+  {
+   "query": "musica para tener s",
+   "set": "B",
+   "empty": true,
+   "ms": 15.924939000004088,
+   "suggestions": []
+  },
+  {
+   "query": "Cayayo Trc",
+   "set": "B",
+   "empty": true,
+   "ms": 13.781474000003072,
+   "suggestions": []
+  },
+  {
+   "query": "Caceroloops",
+   "set": "B",
+   "empty": true,
+   "ms": 13.88896900000691,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Caseroloops",
+     "context": "Barquisimeto"
+    }
+   ]
+  },
+  {
+   "query": "musica venezolana sinfonica",
+   "set": "C",
+   "empty": true,
+   "ms": 9.644629000002169,
+   "suggestions": []
+  },
+  {
+   "query": "jazz rap rym",
+   "set": "C",
+   "empty": true,
+   "ms": 16.626967000003788,
+   "suggestions": []
+  },
+  {
+   "query": "musica para bailar tubo",
+   "set": "C",
+   "empty": true,
+   "ms": 10.65484300001117,
+   "suggestions": []
+  },
+  {
+   "query": "musica como no creer en dios",
+   "set": "C",
+   "empty": true,
+   "ms": 9.94669700000668,
+   "suggestions": []
+  },
+  {
+   "query": "Dannyt",
+   "set": "C",
+   "empty": true,
+   "ms": 9.414422999994713,
+   "suggestions": [
+    {
+     "type": "person",
+     "label": "Daniel \"Danny\" García",
+     "context": null
+    },
+    {
+     "type": "person",
+     "label": "Danny",
+     "context": null
+    },
+    {
+     "type": "person",
+     "label": "Danny Punk",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "salsa para olvidar un amor",
+   "set": "C",
+   "empty": true,
+   "ms": 12.228006999997888,
+   "suggestions": []
+  },
+  {
+   "query": "melodic metal.website",
+   "set": "C",
+   "empty": true,
+   "ms": 13.010650999989593,
+   "suggestions": []
+  },
+  {
+   "query": "musica relajante sonidos mar",
+   "set": "C",
+   "empty": true,
+   "ms": 9.860090999995009,
+   "suggestions": []
+  },
+  {
+   "query": "bandas de viking metal",
+   "set": "C",
+   "empty": true,
+   "ms": 14.807149000000209,
+   "suggestions": []
+  },
+  {
+   "query": "jazz funk house",
+   "set": "C",
+   "empty": true,
+   "ms": 18.925946000003023,
+   "suggestions": []
+  },
+  {
+   "query": "deathrock que es",
+   "set": "C",
+   "empty": true,
+   "ms": 17.216225999989547,
+   "suggestions": []
+  },
+  {
+   "query": "oi que es",
+   "set": "C",
+   "empty": true,
+   "ms": 31.08504799999355,
+   "suggestions": [
+    {
+     "type": "track",
+     "label": "La que es",
+     "context": "Los Cadillac's · Energy"
+    }
+   ]
+  },
+  {
+   "query": "musica para tener sexo",
+   "set": "C",
+   "empty": true,
+   "ms": 13.551793999999063,
+   "suggestions": []
+  },
+  {
+   "query": "power pop que es",
+   "set": "C",
+   "empty": true,
+   "ms": 17.173358000000007,
+   "suggestions": []
+  },
+  {
+   "query": "joropo nacionalista venezolano",
+   "set": "C",
+   "empty": true,
+   "ms": 9.285711000004085,
+   "suggestions": []
+  },
+  {
+   "query": "algo para un cumpleaños",
+   "set": "C",
+   "empty": true,
+   "ms": 14.175856000001659,
+   "suggestions": []
+  },
+  {
+   "query": "música tipo uma ideia",
+   "set": "C",
+   "empty": true,
+   "ms": 15.195951999994577,
+   "suggestions": []
+  },
+  {
+   "query": "musica para amanecer en la playa",
+   "set": "C",
+   "empty": true,
+   "ms": 9.548183000006247,
+   "suggestions": []
+  },
+  {
+   "query": "punk en venezuela",
+   "set": "C",
+   "empty": true,
+   "ms": 40.87119700000039,
+   "suggestions": [
+    {
+     "type": "track",
+     "label": "Luna de Venezuela",
+     "context": "Billo's Caracas Boys · Impactos de Billo, Vol. 1"
+    },
+    {
+     "type": "track",
+     "label": "Puro Venezuela",
+     "context": "Huáscar Barradas · Hallacas Con Flauta"
+    },
+    {
+     "type": "artist",
+     "label": "Son Venezuela",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "musica suave en frances",
+   "set": "C",
+   "empty": true,
+   "ms": 13.763275999997859,
+   "suggestions": []
+  },
+  {
+   "query": "post black metal que es",
+   "set": "C",
+   "empty": true,
+   "ms": 11.892252999998163,
+   "suggestions": []
+  },
+  {
+   "query": "bandas sonoras para llorar",
+   "set": "C",
+   "empty": true,
+   "ms": 10.390490999998292,
+   "suggestions": []
+  },
+  {
+   "query": "la musica como influye en las personas",
+   "set": "C",
+   "empty": true,
+   "ms": 8.969075000000885,
+   "suggestions": []
+  },
+  {
+   "query": "jazz funk que es",
+   "set": "C",
+   "empty": true,
+   "ms": 17.35778500000015,
+   "suggestions": []
+  },
+  {
+   "query": "neopsicodelia rym",
+   "set": "C",
+   "empty": true,
+   "ms": 17.68308899999829,
+   "suggestions": []
+  },
+  {
+   "query": "musica relajante zulu",
+   "set": "C",
+   "empty": true,
+   "ms": 14.20241199999873,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de feliz cumpleaños",
+   "set": "C",
+   "empty": true,
+   "ms": 9.720483000011882,
+   "suggestions": []
+  },
+  {
+   "query": "musica clasica pesada y oscura",
+   "set": "C",
+   "empty": true,
+   "ms": 9.822123999998439,
+   "suggestions": []
+  },
+  {
+   "query": "blackened thrash metal",
+   "set": "C",
+   "empty": true,
+   "ms": 11.565371000004234,
+   "suggestions": []
+  },
+  {
+   "query": "boom bap rapido",
+   "set": "C",
+   "empty": true,
+   "ms": 17.315388000002713,
+   "suggestions": []
+  },
+  {
+   "query": "musica para cuando te gusta alguien",
+   "set": "C",
+   "empty": true,
+   "ms": 8.565187999993213,
+   "suggestions": []
+  },
+  {
+   "query": "musica nueva velito el bufon",
+   "set": "C",
+   "empty": true,
+   "ms": 10.439194999999017,
+   "suggestions": []
+  },
+  {
+   "query": "big band queen",
+   "set": "C",
+   "empty": true,
+   "ms": 17.51857000000018,
+   "suggestions": []
+  },
+  {
+   "query": "musica vieja guardia",
+   "set": "C",
+   "empty": true,
+   "ms": 12.845799999995506,
+   "suggestions": []
+  },
+  {
+   "query": "musica rapida trap",
+   "set": "C",
+   "empty": true,
+   "ms": 14.670660999996471,
+   "suggestions": []
+  },
+  {
+   "query": "easy listening for beginners",
+   "set": "C",
+   "empty": true,
+   "ms": 9.3874080000096,
+   "suggestions": []
+  },
+  {
+   "query": "canciones tristes de led zeppelin",
+   "set": "C",
+   "empty": true,
+   "ms": 9.22033699999156,
+   "suggestions": []
+  },
+  {
+   "query": "VenezuelaDeo",
+   "set": "C",
+   "empty": true,
+   "ms": 14.677410000003874,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "Venezuelademo 10",
+     "context": "Various Artists"
+    },
+    {
+     "type": "album",
+     "label": "Venezuelademo 13",
+     "context": "Various Artists"
+    },
+    {
+     "type": "album",
+     "label": "Venezuelademo 15",
+     "context": "Various Artists"
+    }
+   ]
+  },
+  {
+   "query": "canciones parecidas a interstellar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.478929000004428,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para llorar en español",
+   "set": "C",
+   "empty": true,
+   "ms": 9.201002000001608,
+   "suggestions": []
+  },
+  {
+   "query": "musica xamanica alegre",
+   "set": "C",
+   "empty": true,
+   "ms": 11.75010000000475,
+   "suggestions": []
+  },
+  {
+   "query": "musica alegre de los 90",
+   "set": "C",
+   "empty": true,
+   "ms": 18.18494799999462,
+   "suggestions": []
+  },
+  {
+   "query": "pop rock artistas",
+   "set": "C",
+   "empty": true,
+   "ms": 17.236821999991662,
+   "suggestions": []
+  },
+  {
+   "query": "musica sin epicenter",
+   "set": "C",
+   "empty": true,
+   "ms": 13.260204999998678,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de los wow wow",
+   "set": "C",
+   "empty": true,
+   "ms": 17.149904999998398,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica willyrex",
+   "set": "C",
+   "empty": true,
+   "ms": 12.867183999987901,
+   "suggestions": []
+  },
+  {
+   "query": "old school death metal album",
+   "set": "C",
+   "empty": true,
+   "ms": 9.542391999988467,
+   "suggestions": []
+  },
+  {
+   "query": "canciones tristes de wisin y yandel",
+   "set": "C",
+   "empty": true,
+   "ms": 8.832374999998137,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar q mi novio",
+   "set": "C",
+   "empty": true,
+   "ms": 9.253468000009889,
+   "suggestions": []
+  },
+  {
+   "query": "Chucknorria",
+   "set": "C",
+   "empty": true,
+   "ms": 13.236942999996245,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Chucknorris",
+     "context": "Caracas"
+    }
+   ]
+  },
+  {
+   "query": "canciones para cuando alguien se va al cielo",
+   "set": "C",
+   "empty": true,
+   "ms": 8.167998999997508,
+   "suggestions": []
+  },
+  {
+   "query": "canciones alegres navideñas para niños",
+   "set": "C",
+   "empty": true,
+   "ms": 12.383453999995254,
+   "suggestions": []
+  },
+  {
+   "query": "musica para escuchar variada en ingles",
+   "set": "C",
+   "empty": true,
+   "ms": 8.544611000004807,
+   "suggestions": []
+  },
+  {
+   "query": "música para william",
+   "set": "C",
+   "empty": true,
+   "ms": 15.72271199998795,
+   "suggestions": []
+  },
+  {
+   "query": "musica vieja chida",
+   "set": "C",
+   "empty": true,
+   "ms": 14.41770199999155,
+   "suggestions": []
+  },
+  {
+   "query": "musica navideña para hacer hallacas",
+   "set": "C",
+   "empty": true,
+   "ms": 12.194694000005256,
+   "suggestions": []
+  },
+  {
+   "query": "musica con notas musicales",
+   "set": "C",
+   "empty": true,
+   "ms": 10.70481199999631,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de brasil",
+   "set": "C",
+   "empty": true,
+   "ms": 19.89751100000285,
+   "suggestions": []
+  },
+  {
+   "query": "gaban pajaro venezolano",
+   "set": "C",
+   "empty": true,
+   "ms": 10.68226100000902,
+   "suggestions": []
+  },
+  {
+   "query": "que musica escuchar para correr",
+   "set": "C",
+   "empty": true,
+   "ms": 8.869756999993115,
+   "suggestions": []
+  },
+  {
+   "query": "acid jazz en español",
+   "set": "C",
+   "empty": true,
+   "ms": 18.63350999999966,
+   "suggestions": []
+  },
+  {
+   "query": "musica wixarika",
+   "set": "C",
+   "empty": true,
+   "ms": 17.204517999998643,
+   "suggestions": []
+  },
+  {
+   "query": "bandas sonoras mexicanas",
+   "set": "C",
+   "empty": true,
+   "ms": 10.41138000000501,
+   "suggestions": []
+  },
+  {
+   "query": "musica romantica zumba",
+   "set": "C",
+   "empty": true,
+   "ms": 11.105890999999247,
+   "suggestions": []
+  },
+  {
+   "query": "algo para relajarse",
+   "set": "C",
+   "empty": true,
+   "ms": 13.92678700000397,
+   "suggestions": []
+  },
+  {
+   "query": "Kechu y",
+   "set": "C",
+   "empty": true,
+   "ms": 9.943693000008352,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar la llegada de un bebe",
+   "set": "C",
+   "empty": true,
+   "ms": 7.754377000004752,
+   "suggestions": []
+  },
+  {
+   "query": "musica suave leer",
+   "set": "C",
+   "empty": true,
+   "ms": 17.647914000001037,
+   "suggestions": []
+  },
+  {
+   "query": "canciones alegres en español para trabajar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.185882999998285,
+   "suggestions": []
+  },
+  {
+   "query": "ater vitae",
+   "set": "C",
+   "empty": true,
+   "ms": 15.365462000001571,
+   "suggestions": []
+  },
+  {
+   "query": "musica de camara para guitarra",
+   "set": "C",
+   "empty": true,
+   "ms": 8.918025999999372,
+   "suggestions": []
+  },
+  {
+   "query": "musica lenta años 70",
+   "set": "C",
+   "empty": true,
+   "ms": 16.279215000002296,
+   "suggestions": []
+  },
+  {
+   "query": "musica venezolana saturada",
+   "set": "C",
+   "empty": true,
+   "ms": 10.257838999998057,
+   "suggestions": []
+  },
+  {
+   "query": "musica triste hello darkness my old friend",
+   "set": "C",
+   "empty": true,
+   "ms": 8.160799999997835,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para cuando estás haciendo tarea",
+   "set": "C",
+   "empty": true,
+   "ms": 12.529951000004075,
+   "suggestions": []
+  },
+  {
+   "query": "pop rock queen baltimora",
+   "set": "C",
+   "empty": true,
+   "ms": 11.82758099999046,
+   "suggestions": []
+  },
+  {
+   "query": "música tradicional venezolana",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "rock para viajar 4",
+   "set": "C",
+   "empty": true,
+   "ms": 13.933468999995966,
+   "suggestions": []
+  },
+  {
+   "query": "musica de up",
+   "set": "C",
+   "empty": true,
+   "ms": 35.12140200000431,
+   "suggestions": [
+    {
+     "type": "track",
+     "label": "Música En Ti",
+     "context": "Candy66 · B-Sides"
+    }
+   ]
+  },
+  {
+   "query": "folk metal celta",
+   "set": "C",
+   "empty": true,
+   "ms": 17.156463000006624,
+   "suggestions": []
+  },
+  {
+   "query": "beat para rap",
+   "set": "C",
+   "empty": true,
+   "ms": 12.8925040000031,
+   "suggestions": []
+  },
+  {
+   "query": "gaita que vaina tan buena",
+   "set": "C",
+   "empty": true,
+   "ms": 10.180072000002838,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de uriel henao",
+   "set": "C",
+   "empty": true,
+   "ms": 12.873668999993242,
+   "suggestions": []
+  },
+  {
+   "query": "musica nueva del kimiko",
+   "set": "C",
+   "empty": true,
+   "ms": 14.84900300001027,
+   "suggestions": []
+  },
+  {
+   "query": "rock para tomar whisky",
+   "set": "C",
+   "empty": true,
+   "ms": 12.317089000003762,
+   "suggestions": []
+  },
+  {
+   "query": "black metal muffin",
+   "set": "C",
+   "empty": true,
+   "ms": 14.454275999989477,
+   "suggestions": []
+  },
+  {
+   "query": "death metal técnico bandas",
+   "set": "C",
+   "empty": true,
+   "ms": 12.286563000001479,
+   "suggestions": []
+  },
+  {
+   "query": "art pop arte",
+   "set": "C",
+   "empty": true,
+   "ms": 15.864732000001823,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para cuando quieres volver con tu ex",
+   "set": "C",
+   "empty": true,
+   "ms": 8.670489999989513,
+   "suggestions": []
+  },
+  {
+   "query": "algo para aprender",
+   "set": "C",
+   "empty": true,
+   "ms": 15.36856099999568,
+   "suggestions": []
+  },
+  {
+   "query": "cantautor venezolano de música llanera",
+   "set": "C",
+   "empty": true,
+   "ms": 8.113433000005898,
+   "suggestions": []
+  },
+  {
+   "query": "metal industrial pesado",
+   "set": "C",
+   "empty": true,
+   "ms": 11.622608999998192,
+   "suggestions": []
+  },
+  {
+   "query": "musica tensa lenta",
+   "set": "C",
+   "empty": true,
+   "ms": 17.27873499999987,
+   "suggestions": []
+  },
+  {
+   "query": "dark ambient music para dormir",
+   "set": "C",
+   "empty": true,
+   "ms": 8.99223499999789,
+   "suggestions": []
+  },
+  {
+   "query": "musica rapida eminem",
+   "set": "C",
+   "empty": true,
+   "ms": 13.64104600000428,
+   "suggestions": []
+  },
+  {
+   "query": "música sin música",
+   "set": "C",
+   "empty": true,
+   "ms": 15.611992000005557,
+   "suggestions": []
+  },
+  {
+   "query": "musica de dormir",
+   "set": "C",
+   "empty": true,
+   "ms": 20.786264000009396,
+   "suggestions": []
+  },
+  {
+   "query": "canciones alegres ukulele",
+   "set": "C",
+   "empty": true,
+   "ms": 10.302426999987802,
+   "suggestions": []
+  },
+  {
+   "query": "musica gotica oscura instrumental",
+   "set": "C",
+   "empty": true,
+   "ms": 8.816917999996804,
+   "suggestions": []
+  },
+  {
+   "query": "bambuco hay que sacar el diablo",
+   "set": "C",
+   "empty": true,
+   "ms": 8.82993500000157,
+   "suggestions": []
+  },
+  {
+   "query": "musica para bailar judios",
+   "set": "C",
+   "empty": true,
+   "ms": 10.573228999986895,
+   "suggestions": []
+  },
+  {
+   "query": "música épica que dure 1 hora",
+   "set": "C",
+   "empty": true,
+   "ms": 12.127525999996578,
+   "suggestions": []
+  },
+  {
+   "query": "Guerrulla",
+   "set": "C",
+   "empty": true,
+   "ms": 14.597454999995534,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Guerrilla",
+     "context": "Maracay, Aragua"
+    }
+   ]
+  },
+  {
+   "query": "Venezuela demo",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "musica triste rap",
+   "set": "C",
+   "empty": true,
+   "ms": 18.12866600000416,
+   "suggestions": []
+  },
+  {
+   "query": "grupos de cantantes venezolanos",
+   "set": "C",
+   "empty": true,
+   "ms": 9.87820200000715,
+   "suggestions": []
+  },
+  {
+   "query": "musica relajante handpan",
+   "set": "C",
+   "empty": true,
+   "ms": 10.509760000000824,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de los kipus",
+   "set": "C",
+   "empty": true,
+   "ms": 19.378249000001233,
+   "suggestions": []
+  },
+  {
+   "query": "merengue que levante la mano",
+   "set": "C",
+   "empty": true,
+   "ms": 10.059179000003496,
+   "suggestions": []
+  },
+  {
+   "query": "playlist para mixear en spotify",
+   "set": "C",
+   "empty": true,
+   "ms": 10.213132000004407,
+   "suggestions": []
+  },
+  {
+   "query": "bolero venezolano dulce",
+   "set": "C",
+   "empty": true,
+   "ms": 11.390945000006468,
+   "suggestions": []
+  },
+  {
+   "query": "death metal sinfónico",
+   "set": "C",
+   "empty": true,
+   "ms": 15.187111999999615,
+   "suggestions": []
+  },
+  {
+   "query": "beat quevedo type",
+   "set": "C",
+   "empty": true,
+   "ms": 15.853341000009095,
+   "suggestions": []
+  },
+  {
+   "query": "Abolitiona",
+   "set": "C",
+   "empty": true,
+   "ms": 14.39539700000023,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Abolición",
+     "context": "El Tigre, Anzoategui"
+    }
+   ]
+  },
+  {
+   "query": "música para yoga en casa",
+   "set": "C",
+   "empty": true,
+   "ms": 11.011606000000029,
+   "suggestions": []
+  },
+  {
+   "query": "metal mix instrumental",
+   "set": "C",
+   "empty": true,
+   "ms": 12.789332999993348,
+   "suggestions": []
+  },
+  {
+   "query": "psicodélico música",
+   "set": "C",
+   "empty": true,
+   "ms": 14.532639999990351,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para workout",
+   "set": "C",
+   "empty": true,
+   "ms": 12.698077000008198,
+   "suggestions": []
+  },
+  {
+   "query": "art pop",
+   "set": "C",
+   "empty": true,
+   "ms": 10.10908899999049,
+   "suggestions": []
+  },
+  {
+   "query": "musica para orar a solas con dios cristiana",
+   "set": "C",
+   "empty": true,
+   "ms": 7.613505000001169,
+   "suggestions": []
+  },
+  {
+   "query": "música de los propios",
+   "set": "C",
+   "empty": true,
+   "ms": 22.251858000003267,
+   "suggestions": []
+  },
+  {
+   "query": "musica relajante bosque",
+   "set": "C",
+   "empty": true,
+   "ms": 11.545492000004742,
+   "suggestions": []
+  },
+  {
+   "query": "música vieja frank reyes",
+   "set": "C",
+   "empty": true,
+   "ms": 13.60897999998997,
+   "suggestions": []
+  },
+  {
+   "query": "bandas de grunge actuales",
+   "set": "C",
+   "empty": true,
+   "ms": 11.241525000004913,
+   "suggestions": []
+  },
+  {
+   "query": "jazz rock classic",
+   "set": "C",
+   "empty": true,
+   "ms": 15.395492000010563,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica para hollow knight",
+   "set": "C",
+   "empty": true,
+   "ms": 8.942925000010291,
+   "suggestions": []
+  },
+  {
+   "query": "música música para la playa",
+   "set": "C",
+   "empty": true,
+   "ms": 10.00171599999885,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica yo quiero un heroe",
+   "set": "C",
+   "empty": true,
+   "ms": 9.30612999999721,
+   "suggestions": []
+  },
+  {
+   "query": "avant garde pop",
+   "set": "C",
+   "empty": true,
+   "ms": 19.41163200000301,
+   "suggestions": []
+  },
+  {
+   "query": "disco",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "música triste flauta meme",
+   "set": "C",
+   "empty": true,
+   "ms": 13.359579000010854,
+   "suggestions": []
+  },
+  {
+   "query": "música qué música quieres escuchar",
+   "set": "C",
+   "empty": true,
+   "ms": 12.140029999995022,
+   "suggestions": []
+  },
+  {
+   "query": "musica de zhamira",
+   "set": "C",
+   "empty": true,
+   "ms": 21.871985000005225,
+   "suggestions": []
+  },
+  {
+   "query": "musica nueva tendencia",
+   "set": "C",
+   "empty": true,
+   "ms": 12.683609999992768,
+   "suggestions": []
+  },
+  {
+   "query": "musica venezolana para dormir",
+   "set": "C",
+   "empty": true,
+   "ms": 9.435253999996348,
+   "suggestions": []
+  },
+  {
+   "query": "grupos norteños de xalapa veracruz",
+   "set": "C",
+   "empty": true,
+   "ms": 8.836953999998514,
+   "suggestions": []
+  },
+  {
+   "query": "n3ctar",
+   "set": "C",
+   "empty": true,
+   "ms": 34.440889999998035,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "Néctar",
+     "context": "Jorge Espinoza"
+    }
+   ]
+  },
+  {
+   "query": "trap queen dubstep",
+   "set": "C",
+   "empty": true,
+   "ms": 16.115065000005416,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de ivy queen",
+   "set": "C",
+   "empty": true,
+   "ms": 15.650784000012209,
+   "suggestions": []
+  },
+  {
+   "query": "música cristiana de venezuela",
+   "set": "C",
+   "empty": true,
+   "ms": 10.315654999998515,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de los bukis",
+   "set": "C",
+   "empty": true,
+   "ms": 18.70605500000238,
+   "suggestions": []
+  },
+  {
+   "query": "recomiendame nueva musica",
+   "set": "C",
+   "empty": true,
+   "ms": 11.365573999995831,
+   "suggestions": []
+  },
+  {
+   "query": "quebec deathcore bands",
+   "set": "C",
+   "empty": true,
+   "ms": 11.036355999996886,
+   "suggestions": []
+  },
+  {
+   "query": "musica peruana tipo wendy sulca",
+   "set": "C",
+   "empty": true,
+   "ms": 9.54391900000337,
+   "suggestions": []
+  },
+  {
+   "query": "latin jazz funk",
+   "set": "C",
+   "empty": true,
+   "ms": 18.792583000002196,
+   "suggestions": []
+  },
+  {
+   "query": "musica venezolana el zamuro y el avion",
+   "set": "C",
+   "empty": true,
+   "ms": 9.97381100000348,
+   "suggestions": []
+  },
+  {
+   "query": "musica para bailar hot",
+   "set": "C",
+   "empty": true,
+   "ms": 12.071341999995639,
+   "suggestions": []
+  },
+  {
+   "query": "PPocz & Pacheko",
+   "set": "C",
+   "empty": true,
+   "ms": 22.899357999995118,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Pocz & Pacheko",
+     "context": "Caracas"
+    }
+   ]
+  },
+  {
+   "query": "musica suave andina",
+   "set": "C",
+   "empty": true,
+   "ms": 15.087526000002981,
+   "suggestions": []
+  },
+  {
+   "query": "rock and roll venezolano",
+   "set": "C",
+   "empty": true,
+   "ms": 15.263526999988244,
+   "suggestions": []
+  },
+  {
+   "query": "Jody Ju",
+   "set": "C",
+   "empty": true,
+   "ms": 12.068411000000197,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Joudy",
+     "context": "San Cristóbal, Táchira"
+    },
+    {
+     "type": "album",
+     "label": "Joudy Ju",
+     "context": "Joudy In"
+    }
+   ]
+  },
+  {
+   "query": "musica romantica uruguaya",
+   "set": "C",
+   "empty": true,
+   "ms": 10.083463000002666,
+   "suggestions": []
+  },
+  {
+   "query": "musica oscura para escribir",
+   "set": "C",
+   "empty": true,
+   "ms": 9.681377000000793,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica grefg",
+   "set": "C",
+   "empty": true,
+   "ms": 15.138088000006974,
+   "suggestions": []
+  },
+  {
+   "query": "musica de paz",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "palo por ese",
+   "set": "C",
+   "empty": true,
+   "ms": 16.689734999992652,
+   "suggestions": []
+  },
+  {
+   "query": "música alegre para bailar infantil",
+   "set": "C",
+   "empty": true,
+   "ms": 16.887254999994184,
+   "suggestions": []
+  },
+  {
+   "query": "playlist para leer wattpad hot",
+   "set": "C",
+   "empty": true,
+   "ms": 16.631359999999404,
+   "suggestions": []
+  },
+  {
+   "query": "bandas de musica",
+   "set": "C",
+   "empty": true,
+   "ms": 21.058880000011413,
+   "suggestions": []
+  },
+  {
+   "query": "escuchar musica fuerte es un delito",
+   "set": "C",
+   "empty": true,
+   "ms": 13.131703999999445,
+   "suggestions": []
+  },
+  {
+   "query": "canciones queen",
+   "set": "C",
+   "empty": true,
+   "ms": 25.999525999999605,
+   "suggestions": []
+  },
+  {
+   "query": "bandas venezolanas de reggae",
+   "set": "C",
+   "empty": true,
+   "ms": 10.62673599999107,
+   "suggestions": []
+  },
+  {
+   "query": "acid jazz classic",
+   "set": "C",
+   "empty": true,
+   "ms": 22.00239999999758,
+   "suggestions": []
+  },
+  {
+   "query": "musica sin tu presencia conmigo no va",
+   "set": "C",
+   "empty": true,
+   "ms": 12.923967999988236,
+   "suggestions": []
+  },
+  {
+   "query": "bandas parecidas a sleeping with sirens",
+   "set": "C",
+   "empty": true,
+   "ms": 8.680777000001399,
+   "suggestions": []
+  },
+  {
+   "query": "caramelos",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "black metal colombia",
+   "set": "C",
+   "empty": true,
+   "ms": 14.407888999994611,
+   "suggestions": []
+  },
+  {
+   "query": "artistas venezolanos baladas 2",
+   "set": "C",
+   "empty": true,
+   "ms": 10.170782999994117,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para orar y alabar a dios",
+   "set": "C",
+   "empty": true,
+   "ms": 8.927384999988135,
+   "suggestions": []
+  },
+  {
+   "query": "musica vieja que da miedo",
+   "set": "C",
+   "empty": true,
+   "ms": 11.427639999994426,
+   "suggestions": []
+  },
+  {
+   "query": "zumba musica lenta",
+   "set": "C",
+   "empty": true,
+   "ms": 17.670756000006804,
+   "suggestions": []
+  },
+  {
+   "query": "playlist para invierno",
+   "set": "C",
+   "empty": true,
+   "ms": 14.266088000003947,
+   "suggestions": []
+  },
+  {
+   "query": "música vieja de ozuna",
+   "set": "C",
+   "empty": true,
+   "ms": 18.154389999996056,
+   "suggestions": []
+  },
+  {
+   "query": "salsa para malandros y fresas",
+   "set": "C",
+   "empty": true,
+   "ms": 10.677143000008073,
+   "suggestions": []
+  },
+  {
+   "query": "playlist para un día lluvioso",
+   "set": "C",
+   "empty": true,
+   "ms": 10.87866399998893,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de guillermo dávila",
+   "set": "C",
+   "empty": true,
+   "ms": 11.511068000007072,
+   "suggestions": []
+  },
+  {
+   "query": "música con bajos fuerte y alto",
+   "set": "C",
+   "empty": true,
+   "ms": 15.365149999997811,
+   "suggestions": []
+  },
+  {
+   "query": "algo para navidad",
+   "set": "C",
+   "empty": true,
+   "ms": 22.24493600000278,
+   "suggestions": []
+  },
+  {
+   "query": "música para karen",
+   "set": "C",
+   "empty": true,
+   "ms": 19.624151999989408,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para xv años baile sorpresa",
+   "set": "C",
+   "empty": true,
+   "ms": 13.957408999995096,
+   "suggestions": []
+  },
+  {
+   "query": "rock venezolano de los 80 y 90",
+   "set": "C",
+   "empty": true,
+   "ms": 13.887824000004912,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para hacer tiktalk",
+   "set": "C",
+   "empty": true,
+   "ms": 11.187659000002895,
+   "suggestions": []
+  },
+  {
+   "query": "polo coriano",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con carros",
+   "set": "C",
+   "empty": true,
+   "ms": 13.620349000004353,
+   "suggestions": []
+  },
+  {
+   "query": "The pusj",
+   "set": "C",
+   "empty": true,
+   "ms": 5.896870999989915,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar de ximena sariñana",
+   "set": "C",
+   "empty": true,
+   "ms": 9.032007000001613,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para cuando alguien te gusta",
+   "set": "C",
+   "empty": true,
+   "ms": 9.715251000001444,
+   "suggestions": []
+  },
+  {
+   "query": "new wave para bailar",
+   "set": "C",
+   "empty": true,
+   "ms": 14.365549000009196,
+   "suggestions": []
+  },
+  {
+   "query": "jisus",
+   "set": "C",
+   "empty": true,
+   "ms": 10.197094999995898,
+   "suggestions": [
+    {
+     "type": "person",
+     "label": "Jesús",
+     "context": null
+    },
+    {
+     "type": "person",
+     "label": "Jesús Cordero",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "música de qué tipo",
+   "set": "C",
+   "empty": true,
+   "ms": 24.89635900000576,
+   "suggestions": []
+  },
+  {
+   "query": "musica de los 90 en español",
+   "set": "C",
+   "empty": true,
+   "ms": 17.26837499999965,
+   "suggestions": []
+  },
+  {
+   "query": "banda sonora que paso ayer 2",
+   "set": "C",
+   "empty": true,
+   "ms": 9.541968999998062,
+   "suggestions": []
+  },
+  {
+   "query": "a tribe called quest jazz rap",
+   "set": "C",
+   "empty": true,
+   "ms": 10.778383999990183,
+   "suggestions": []
+  },
+  {
+   "query": "musica sin internet",
+   "set": "C",
+   "empty": true,
+   "ms": 15.569411000004038,
+   "suggestions": []
+  },
+  {
+   "query": "musica para zumba enganchados movidos",
+   "set": "C",
+   "empty": true,
+   "ms": 8.426355000003241,
+   "suggestions": []
+  },
+  {
+   "query": "bossa nova populares",
+   "set": "C",
+   "empty": true,
+   "ms": 14.38055400000303,
+   "suggestions": []
+  },
+  {
+   "query": "música relajante fuerte",
+   "set": "C",
+   "empty": true,
+   "ms": 14.632886000006692,
+   "suggestions": []
+  },
+  {
+   "query": "nu metal 90 2000",
+   "set": "C",
+   "empty": true,
+   "ms": 19.22328199999174,
+   "suggestions": []
+  },
+  {
+   "query": "música cristiana mixtas",
+   "set": "C",
+   "empty": true,
+   "ms": 13.285992999997688,
+   "suggestions": []
+  },
+  {
+   "query": "musica suave mañana",
+   "set": "C",
+   "empty": true,
+   "ms": 16.123792999991565,
+   "suggestions": []
+  },
+  {
+   "query": "canciones tristes de sebastián yatra",
+   "set": "C",
+   "empty": true,
+   "ms": 9.300119999999879,
+   "suggestions": []
+  },
+  {
+   "query": "que significa correr",
+   "set": "C",
+   "empty": true,
+   "ms": 13.105036000008113,
+   "suggestions": []
+  },
+  {
+   "query": "musica suave matheus e kauan",
+   "set": "C",
+   "empty": true,
+   "ms": 10.430283999987296,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental ya no estas mas a mi lado corazon",
+   "set": "C",
+   "empty": true,
+   "ms": 8.03215500000806,
+   "suggestions": []
+  },
+  {
+   "query": "' OR 1=1--",
+   "set": "C",
+   "empty": true,
+   "ms": 9.746184000003268,
+   "suggestions": []
+  },
+  {
+   "query": "funko pop spiderman",
+   "set": "C",
+   "empty": true,
+   "ms": 15.625505999996676,
+   "suggestions": []
+  },
+  {
+   "query": "musica suave y alegre",
+   "set": "C",
+   "empty": true,
+   "ms": 16.354075000010198,
+   "suggestions": []
+  },
+  {
+   "query": "musica vamos pa la playa",
+   "set": "C",
+   "empty": true,
+   "ms": 11.872061999994912,
+   "suggestions": []
+  },
+  {
+   "query": "musica venezolana que es",
+   "set": "C",
+   "empty": true,
+   "ms": 12.645888999992167,
+   "suggestions": []
+  },
+  {
+   "query": "horae",
+   "set": "C",
+   "empty": true,
+   "ms": 27.419120000005933,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "+horas",
+     "context": "Carzé"
+    },
+    {
+     "type": "person",
+     "label": "Horacio Avedaño",
+     "context": null
+    },
+    {
+     "type": "track",
+     "label": "Las Horas",
+     "context": "Carlos Baute · Espiral"
+    }
+   ]
+  },
+  {
+   "query": "Batoni",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con vibras de playa",
+   "set": "C",
+   "empty": true,
+   "ms": 10.044250999999349,
+   "suggestions": []
+  },
+  {
+   "query": "indie pop psicodélico",
+   "set": "C",
+   "empty": true,
+   "ms": 14.078369000009843,
+   "suggestions": []
+  },
+  {
+   "query": "canciones tristes de stray kids",
+   "set": "C",
+   "empty": true,
+   "ms": 10.319329999998445,
+   "suggestions": []
+  },
+  {
+   "query": "musica triste en ingles love is gone",
+   "set": "C",
+   "empty": true,
+   "ms": 8.677460999999312,
+   "suggestions": []
+  },
+  {
+   "query": "musica para una foto en la playa",
+   "set": "C",
+   "empty": true,
+   "ms": 10.336433000004035,
+   "suggestions": []
+  },
+  {
+   "query": "death metal progresivo decessus",
+   "set": "C",
+   "empty": true,
+   "ms": 9.09915799999726,
+   "suggestions": []
+  },
+  {
+   "query": "glam rock o que é",
+   "set": "C",
+   "empty": true,
+   "ms": 22.16975299999467,
+   "suggestions": []
+  },
+  {
+   "query": "musica de los ochenta bailable",
+   "set": "C",
+   "empty": true,
+   "ms": 10.461137000005692,
+   "suggestions": []
+  },
+  {
+   "query": "canciones que a mí me gustan",
+   "set": "C",
+   "empty": true,
+   "ms": 10.429866000005859,
+   "suggestions": []
+  },
+  {
+   "query": "pop rock que es",
+   "set": "C",
+   "empty": true,
+   "ms": 17.683316999988165,
+   "suggestions": []
+  },
+  {
+   "query": "ethereal dawn",
+   "set": "C",
+   "empty": true,
+   "ms": 15.022519999998622,
+   "suggestions": []
+  },
+  {
+   "query": "musica romantica zoe",
+   "set": "C",
+   "empty": true,
+   "ms": 14.065549999999348,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental guitarra para trabajar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.174872999996296,
+   "suggestions": []
+  },
+  {
+   "query": "WFest",
+   "set": "C",
+   "empty": true,
+   "ms": 8.33667200000491,
+   "suggestions": []
+  },
+  {
+   "query": "musica para leer y concentrarse",
+   "set": "C",
+   "empty": true,
+   "ms": 9.891493999995873,
+   "suggestions": []
+  },
+  {
+   "query": "Maga Bo",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "musica nueva ola mix",
+   "set": "C",
+   "empty": true,
+   "ms": 14.32741499999247,
+   "suggestions": []
+  },
+  {
+   "query": "hip hop en ingles",
+   "set": "C",
+   "empty": true,
+   "ms": 20.509092000007513,
+   "suggestions": []
+  },
+  {
+   "query": "musica para subir una foto en la playa",
+   "set": "C",
+   "empty": true,
+   "ms": 8.965106000003289,
+   "suggestions": []
+  },
+  {
+   "query": "que beneficios tiene escuchar musica clasica",
+   "set": "C",
+   "empty": true,
+   "ms": 8.659572000004118,
+   "suggestions": []
+  },
+  {
+   "query": "musica para escuchar variada",
+   "set": "C",
+   "empty": true,
+   "ms": 9.26902500000142,
+   "suggestions": []
+  },
+  {
+   "query": "ambient music",
+   "set": "C",
+   "empty": true,
+   "ms": 15.400248999998439,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con pictogramas",
+   "set": "C",
+   "empty": true,
+   "ms": 10.339867000002414,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con kalimba instrumento",
+   "set": "C",
+   "empty": true,
+   "ms": 9.279086000009556,
+   "suggestions": []
+  },
+  {
+   "query": "música romántica de los 80 y 90 español",
+   "set": "C",
+   "empty": true,
+   "ms": 9.03514800000994,
+   "suggestions": []
+  },
+  {
+   "query": "musica alegre y divertida para trabajar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.224317999993218,
+   "suggestions": []
+  },
+  {
+   "query": "musica alegre de fin de año",
+   "set": "C",
+   "empty": true,
+   "ms": 12.04717000000528,
+   "suggestions": []
+  },
+  {
+   "query": "quebrantado metalcore",
+   "set": "C",
+   "empty": true,
+   "ms": 12.881599000000278,
+   "suggestions": []
+  },
+  {
+   "query": "musica clasica oscura misteriosa y hermosa",
+   "set": "C",
+   "empty": true,
+   "ms": 7.98859700000321,
+   "suggestions": []
+  },
+  {
+   "query": "bandas sonoras de videojuegos",
+   "set": "C",
+   "empty": true,
+   "ms": 10.10483199999726,
+   "suggestions": []
+  },
+  {
+   "query": "musica de xeron",
+   "set": "C",
+   "empty": true,
+   "ms": 25.67523799999617,
+   "suggestions": []
+  },
+  {
+   "query": "punk venezolano",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de zoo",
+   "set": "C",
+   "empty": true,
+   "ms": 24.992915000009816,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "Canciones De Amor",
+     "context": "José Luis Rodríguez"
+    }
+   ]
+  },
+  {
+   "query": "canciones con groserías",
+   "set": "C",
+   "empty": true,
+   "ms": 13.730363999988185,
+   "suggestions": []
+  },
+  {
+   "query": "cumbia para bailar mix",
+   "set": "C",
+   "empty": true,
+   "ms": 10.701923999993596,
+   "suggestions": []
+  },
+  {
+   "query": "música antigua reggaeton",
+   "set": "C",
+   "empty": true,
+   "ms": 13.176099000003887,
+   "suggestions": []
+  },
+  {
+   "query": "noise",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "musica nueva agosto 2025",
+   "set": "C",
+   "empty": true,
+   "ms": 12.572305000008782,
+   "suggestions": []
+  },
+  {
+   "query": "dark folk blues",
+   "set": "C",
+   "empty": true,
+   "ms": 18.183906999998726,
+   "suggestions": []
+  },
+  {
+   "query": "musica con c",
+   "set": "C",
+   "empty": true,
+   "ms": 12.91842300001008,
+   "suggestions": []
+  },
+  {
+   "query": "arte pop photoshop",
+   "set": "C",
+   "empty": true,
+   "ms": 17.096407000004547,
+   "suggestions": []
+  },
+  {
+   "query": "que musica escuchar mientras estudias",
+   "set": "C",
+   "empty": true,
+   "ms": 9.234393999999156,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con j de bad bunny",
+   "set": "C",
+   "empty": true,
+   "ms": 11.653290999995079,
+   "suggestions": []
+  },
+  {
+   "query": "musica que baila lamine yamal",
+   "set": "C",
+   "empty": true,
+   "ms": 10.398170000000391,
+   "suggestions": []
+  },
+  {
+   "query": "bolero venezolano musica",
+   "set": "C",
+   "empty": true,
+   "ms": 12.531774999995832,
+   "suggestions": []
+  },
+  {
+   "query": "musica relajante japonesa agua",
+   "set": "C",
+   "empty": true,
+   "ms": 9.793740000008256,
+   "suggestions": []
+  },
+  {
+   "query": "grupos de rock de los 80",
+   "set": "C",
+   "empty": true,
+   "ms": 18.271355999997468,
+   "suggestions": []
+  },
+  {
+   "query": "música que te hagan llorar",
+   "set": "C",
+   "empty": true,
+   "ms": 13.188609999997425,
+   "suggestions": []
+  },
+  {
+   "query": "easy listening blues",
+   "set": "C",
+   "empty": true,
+   "ms": 13.899116999993566,
+   "suggestions": []
+  },
+  {
+   "query": "electrónica panzer",
+   "set": "C",
+   "empty": true,
+   "ms": 16.47851400000218,
+   "suggestions": []
+  },
+  {
+   "query": "drill de uñas inalambrico",
+   "set": "C",
+   "empty": true,
+   "ms": 12.28731400000106,
+   "suggestions": []
+  },
+  {
+   "query": "musica tipo sade",
+   "set": "C",
+   "empty": true,
+   "ms": 19.86761899999692,
+   "suggestions": []
+  },
+  {
+   "query": "acid jazz que es",
+   "set": "C",
+   "empty": true,
+   "ms": 17.95234600000549,
+   "suggestions": []
+  },
+  {
+   "query": "boom bap drums",
+   "set": "C",
+   "empty": true,
+   "ms": 18.16743800000404,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de los mundiales de shakira",
+   "set": "C",
+   "empty": true,
+   "ms": 9.29705200000899,
+   "suggestions": []
+  },
+  {
+   "query": "musica de vallenato de despecho",
+   "set": "C",
+   "empty": true,
+   "ms": 10.301224999988335,
+   "suggestions": []
+  },
+  {
+   "query": "canciones que jenni rivera le dedicó a trino",
+   "set": "C",
+   "empty": true,
+   "ms": 8.060548999987077,
+   "suggestions": []
+  },
+  {
+   "query": "musica triste de violin meme",
+   "set": "C",
+   "empty": true,
+   "ms": 11.164877999995952,
+   "suggestions": []
+  },
+  {
+   "query": "guaracha para bailar",
+   "set": "C",
+   "empty": true,
+   "ms": 11.149853999988409,
+   "suggestions": []
+  },
+  {
+   "query": "death metal melodico finlandia",
+   "set": "C",
+   "empty": true,
+   "ms": 9.351582999996026,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental kpop",
+   "set": "C",
+   "empty": true,
+   "ms": 11.639447000008659,
+   "suggestions": []
+  },
+  {
+   "query": "musica vieja cristiana para escuchar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.975604999999632,
+   "suggestions": []
+  },
+  {
+   "query": "musica tipo naruto",
+   "set": "C",
+   "empty": true,
+   "ms": 16.91624099999899,
+   "suggestions": []
+  },
+  {
+   "query": "canciones parecidas al makabelico",
+   "set": "C",
+   "empty": true,
+   "ms": 8.64321499998914,
+   "suggestions": []
+  },
+  {
+   "query": "canciones alegres para trabajar en español",
+   "set": "C",
+   "empty": true,
+   "ms": 7.9794309999997495,
+   "suggestions": []
+  },
+  {
+   "query": "musica barroca oscura",
+   "set": "C",
+   "empty": true,
+   "ms": 11.743541999996523,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con zapatillas",
+   "set": "C",
+   "empty": true,
+   "ms": 10.467311999993399,
+   "suggestions": []
+  },
+  {
+   "query": "bolero beat 90 bpm",
+   "set": "C",
+   "empty": true,
+   "ms": 13.740049999993062,
+   "suggestions": []
+  },
+  {
+   "query": "musica para cuando se van a casar",
+   "set": "C",
+   "empty": true,
+   "ms": 10.708841999992728,
+   "suggestions": []
+  },
+  {
+   "query": "electronica con tambores venezolanos",
+   "set": "C",
+   "empty": true,
+   "ms": 8.889224999991711,
+   "suggestions": []
+  },
+  {
+   "query": "ambiente para dormir",
+   "set": "C",
+   "empty": true,
+   "ms": 14.086819999996806,
+   "suggestions": []
+  },
+  {
+   "query": "power metal colombiano",
+   "set": "C",
+   "empty": true,
+   "ms": 12.81192999999621,
+   "suggestions": []
+  },
+  {
+   "query": "música zen para meditar",
+   "set": "C",
+   "empty": true,
+   "ms": 14.25179899999057,
+   "suggestions": []
+  },
+  {
+   "query": "musica venezolana del 2000",
+   "set": "C",
+   "empty": true,
+   "ms": 13.754044000001159,
+   "suggestions": []
+  },
+  {
+   "query": "bandas de jazz moderno",
+   "set": "C",
+   "empty": true,
+   "ms": 14.473954000000958,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con ukelele faciles",
+   "set": "C",
+   "empty": true,
+   "ms": 9.160911999992095,
+   "suggestions": []
+  },
+  {
+   "query": "country cristiano",
+   "set": "C",
+   "empty": true,
+   "ms": 16.441511999990325,
+   "suggestions": []
+  },
+  {
+   "query": "musica de quince años de niña a mujer",
+   "set": "C",
+   "empty": true,
+   "ms": 9.594834999996237,
+   "suggestions": []
+  },
+  {
+   "query": "pop latino canciones famosas",
+   "set": "C",
+   "empty": true,
+   "ms": 9.600717000008444,
+   "suggestions": []
+  },
+  {
+   "query": "musica para cuando juega colombia",
+   "set": "C",
+   "empty": true,
+   "ms": 8.647146000002977,
+   "suggestions": []
+  },
+  {
+   "query": "bandas de rock venezolanas del 2000",
+   "set": "C",
+   "empty": true,
+   "ms": 9.34884899998724,
+   "suggestions": []
+  },
+  {
+   "query": "musica de los elementos de la tabla periodica",
+   "set": "C",
+   "empty": true,
+   "ms": 9.048896000007517,
+   "suggestions": []
+  },
+  {
+   "query": "salsa para tequeños",
+   "set": "C",
+   "empty": true,
+   "ms": 18.021970000001602,
+   "suggestions": []
+  },
+  {
+   "query": "musica para bailar niños de 8 a 10 años",
+   "set": "C",
+   "empty": true,
+   "ms": 8.279997000005096,
+   "suggestions": []
+  },
+  {
+   "query": "salsa para jamon planchado",
+   "set": "C",
+   "empty": true,
+   "ms": 9.64948400000867,
+   "suggestions": []
+  },
+  {
+   "query": "musica romantica rancheras",
+   "set": "C",
+   "empty": true,
+   "ms": 10.21240500001295,
+   "suggestions": []
+  },
+  {
+   "query": "musica alegre urbana",
+   "set": "C",
+   "empty": true,
+   "ms": 13.507707000011578,
+   "suggestions": []
+  },
+  {
+   "query": "musica sin usar youtube",
+   "set": "C",
+   "empty": true,
+   "ms": 12.380887999999686,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar indirectas de amor",
+   "set": "C",
+   "empty": true,
+   "ms": 8.126172000003862,
+   "suggestions": []
+  },
+  {
+   "query": "musica sin diente",
+   "set": "C",
+   "empty": true,
+   "ms": 18.41328499998781,
+   "suggestions": []
+  },
+  {
+   "query": "musica vieja jhonny rivera",
+   "set": "C",
+   "empty": true,
+   "ms": 12.319256000002497,
+   "suggestions": []
+  },
+  {
+   "query": "musica de cristiano ronaldo",
+   "set": "C",
+   "empty": true,
+   "ms": 11.24240099999588,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar a tu crush",
+   "set": "C",
+   "empty": true,
+   "ms": 8.899627000006149,
+   "suggestions": []
+  },
+  {
+   "query": "musica para cuando no tienes fuerzas",
+   "set": "C",
+   "empty": true,
+   "ms": 9.048022000002675,
+   "suggestions": []
+  },
+  {
+   "query": "gangsta's paradise rap edition",
+   "set": "C",
+   "empty": true,
+   "ms": 9.292352999997092,
+   "suggestions": []
+  },
+  {
+   "query": "blues venezolano",
+   "set": "C",
+   "empty": true,
+   "ms": 20.737624000001233,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "Un Buen Venezolano",
+     "context": "Simón Díaz"
+    }
+   ]
+  },
+  {
+   "query": "musica romantica karina",
+   "set": "C",
+   "empty": true,
+   "ms": 10.7461789999943,
+   "suggestions": []
+  },
+  {
+   "query": "la música está fuerte que no te puedo escuchar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.458946999991895,
+   "suggestions": []
+  },
+  {
+   "query": "música para bailar grand funk",
+   "set": "C",
+   "empty": true,
+   "ms": 11.853059999994002,
+   "suggestions": []
+  },
+  {
+   "query": "algo para llorar",
+   "set": "C",
+   "empty": true,
+   "ms": 16.70668000000296,
+   "suggestions": []
+  },
+  {
+   "query": "musica vieja afro",
+   "set": "C",
+   "empty": true,
+   "ms": 16.493934999991325,
+   "suggestions": []
+  },
+  {
+   "query": "aggrotech industrial",
+   "set": "C",
+   "empty": true,
+   "ms": 13.553952000002027,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica motivacional instrumental",
+   "set": "C",
+   "empty": true,
+   "ms": 8.210334999996121,
+   "suggestions": []
+  },
+  {
+   "query": "musica relajante bonitas",
+   "set": "C",
+   "empty": true,
+   "ms": 10.841276000006474,
+   "suggestions": []
+  },
+  {
+   "query": "algo para cumpleaños",
+   "set": "C",
+   "empty": true,
+   "ms": 15.897746000002371,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de omar courtz",
+   "set": "C",
+   "empty": true,
+   "ms": 13.391524999999092,
+   "suggestions": []
+  },
+  {
+   "query": "canciones alegres navideñas",
+   "set": "C",
+   "empty": true,
+   "ms": 12.980630999998539,
+   "suggestions": []
+  },
+  {
+   "query": "full metal latino",
+   "set": "C",
+   "empty": true,
+   "ms": 18.50001699999848,
+   "suggestions": []
+  },
+  {
+   "query": "musica con gemini",
+   "set": "C",
+   "empty": true,
+   "ms": 16.22619499999564,
+   "suggestions": []
+  },
+  {
+   "query": "canciones tristes antiguas",
+   "set": "C",
+   "empty": true,
+   "ms": 10.240454999991925,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental de relajacion",
+   "set": "C",
+   "empty": true,
+   "ms": 9.612922000000253,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental flauta",
+   "set": "C",
+   "empty": true,
+   "ms": 10.269084999992629,
+   "suggestions": []
+  },
+  {
+   "query": "musica para leer fantasia oscura",
+   "set": "C",
+   "empty": true,
+   "ms": 8.749764000007417,
+   "suggestions": []
+  },
+  {
+   "query": "canciones parecidas a jamaica bam bam",
+   "set": "C",
+   "empty": true,
+   "ms": 8.200748000002932,
+   "suggestions": []
+  },
+  {
+   "query": "aor que es",
+   "set": "C",
+   "empty": true,
+   "ms": 15.780570000002626,
+   "suggestions": []
+  },
+  {
+   "query": "musica para escuchar ricardo arjona",
+   "set": "C",
+   "empty": true,
+   "ms": 8.748187999997754,
+   "suggestions": []
+  },
+  {
+   "query": "rock para entrenamiento",
+   "set": "C",
+   "empty": true,
+   "ms": 12.002978000004077,
+   "suggestions": []
+  },
+  {
+   "query": "canciones que digan",
+   "set": "C",
+   "empty": true,
+   "ms": 14.747953999991296,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para bailar 2025",
+   "set": "C",
+   "empty": true,
+   "ms": 10.806175000005169,
+   "suggestions": []
+  },
+  {
+   "query": "musica lenta sensual",
+   "set": "C",
+   "empty": true,
+   "ms": 14.681750999996439,
+   "suggestions": []
+  },
+  {
+   "query": "musica con melodica",
+   "set": "C",
+   "empty": true,
+   "ms": 14.163602000000537,
+   "suggestions": []
+  },
+  {
+   "query": "música de los solitarios",
+   "set": "C",
+   "empty": true,
+   "ms": 17.344286999999895,
+   "suggestions": []
+  },
+  {
+   "query": "galerón a la virgen del valle",
+   "set": "C",
+   "empty": true,
+   "ms": 13.800789999993867,
+   "suggestions": []
+  },
+  {
+   "query": "hard rock que es marca",
+   "set": "C",
+   "empty": true,
+   "ms": 14.734253000002354,
+   "suggestions": []
+  },
+  {
+   "query": "musica kpop",
+   "set": "C",
+   "empty": true,
+   "ms": 16.90735599999607,
+   "suggestions": []
+  },
+  {
+   "query": "canciones que un hombre no debería cantar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.847623999987263,
+   "suggestions": []
+  },
+  {
+   "query": "música venezolana bonita",
+   "set": "C",
+   "empty": true,
+   "ms": 14.195828999989317,
+   "suggestions": []
+  },
+  {
+   "query": "musica mais rapida da historia",
+   "set": "C",
+   "empty": true,
+   "ms": 11.999057000008179,
+   "suggestions": []
+  },
+  {
+   "query": "pasaje del terror que te insultan",
+   "set": "C",
+   "empty": true,
+   "ms": 9.331158000000869,
+   "suggestions": []
+  },
+  {
+   "query": "metal sinfónico violín",
+   "set": "C",
+   "empty": true,
+   "ms": 12.067789000007906,
+   "suggestions": []
+  },
+  {
+   "query": "musica para imaginar que estas en la playa",
+   "set": "C",
+   "empty": true,
+   "ms": 8.646652000010363,
+   "suggestions": []
+  },
+  {
+   "query": "canciones alegres reggaeton",
+   "set": "C",
+   "empty": true,
+   "ms": 9.598191000011866,
+   "suggestions": []
+  },
+  {
+   "query": "una musica lenta la banda al rojo vivo",
+   "set": "C",
+   "empty": true,
+   "ms": 9.071584999997867,
+   "suggestions": []
+  },
+  {
+   "query": "goregrind",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "musica para cuando estas enamorado",
+   "set": "C",
+   "empty": true,
+   "ms": 8.713636000000406,
+   "suggestions": []
+  },
+  {
+   "query": "canciones alegres para zumba",
+   "set": "C",
+   "empty": true,
+   "ms": 9.98381099999824,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica baki",
+   "set": "C",
+   "empty": true,
+   "ms": 15.110746000005747,
+   "suggestions": []
+  },
+  {
+   "query": "bachata para beber romo",
+   "set": "C",
+   "empty": true,
+   "ms": 10.234296000009635,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de peso pluma",
+   "set": "C",
+   "empty": true,
+   "ms": 15.16410999999789,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental zamba",
+   "set": "C",
+   "empty": true,
+   "ms": 10.862334000004921,
+   "suggestions": []
+  },
+  {
+   "query": "avant garde o que é",
+   "set": "C",
+   "empty": true,
+   "ms": 17.80717499999446,
+   "suggestions": []
+  },
+  {
+   "query": "deathcore metal",
+   "set": "C",
+   "empty": true,
+   "ms": 18.51274399999238,
+   "suggestions": []
+  },
+  {
+   "query": "musica con ritmo para hacer ejercicio",
+   "set": "C",
+   "empty": true,
+   "ms": 8.840341000002809,
+   "suggestions": []
+  },
+  {
+   "query": "xxtenations musica fuerte",
+   "set": "C",
+   "empty": true,
+   "ms": 11.374787000007927,
+   "suggestions": []
+  },
+  {
+   "query": "canciones parecidas a wonderwall",
+   "set": "C",
+   "empty": true,
+   "ms": 9.079733999999007,
+   "suggestions": []
+  },
+  {
+   "query": "rock para concentrarse",
+   "set": "C",
+   "empty": true,
+   "ms": 12.086953999998514,
+   "suggestions": []
+  },
+  {
+   "query": "cantante de cumbia venezolano",
+   "set": "C",
+   "empty": true,
+   "ms": 10.460777000000235,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar hombres mujeriegos",
+   "set": "C",
+   "empty": true,
+   "ms": 8.776631000000634,
+   "suggestions": []
+  },
+  {
+   "query": "música para xbox",
+   "set": "C",
+   "empty": true,
+   "ms": 19.24309999999241,
+   "suggestions": []
+  },
+  {
+   "query": "musica para carro grave",
+   "set": "C",
+   "empty": true,
+   "ms": 10.95335399999749,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar en notas de ig",
+   "set": "C",
+   "empty": true,
+   "ms": 8.626032999993186,
+   "suggestions": []
+  },
+  {
+   "query": "playlist para running",
+   "set": "C",
+   "empty": true,
+   "ms": 13.29167600000801,
+   "suggestions": []
+  },
+  {
+   "query": "zane musica oscura",
+   "set": "C",
+   "empty": true,
+   "ms": 16.438515000001644,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar al amor de tu vida",
+   "set": "C",
+   "empty": true,
+   "ms": 8.057136000003084,
+   "suggestions": []
+  },
+  {
+   "query": "descarga mbps que significa",
+   "set": "C",
+   "empty": true,
+   "ms": 9.759524000008241,
+   "suggestions": []
+  },
+  {
+   "query": "punk rock girl queers",
+   "set": "C",
+   "empty": true,
+   "ms": 12.93542900000466,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de los ecos",
+   "set": "C",
+   "empty": true,
+   "ms": 22.43274499999825,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "Canciones De Amor",
+     "context": "José Luis Rodríguez"
+    }
+   ]
+  },
+  {
+   "query": "Abolitino",
+   "set": "C",
+   "empty": true,
+   "ms": 14.598236000005272,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Abolición",
+     "context": "El Tigre, Anzoategui"
+    }
+   ]
+  },
+  {
+   "query": "jazz cuatro venezolano",
+   "set": "C",
+   "empty": true,
+   "ms": 13.05643900000723,
+   "suggestions": []
+  },
+  {
+   "query": "salsa para raviolis de espinacas y ricotta",
+   "set": "C",
+   "empty": true,
+   "ms": 8.58267600000545,
+   "suggestions": []
+  },
+  {
+   "query": "musica venezolana para colorear",
+   "set": "C",
+   "empty": true,
+   "ms": 9.002441000004183,
+   "suggestions": []
+  },
+  {
+   "query": "malagueña salerosa antonio aguilar",
+   "set": "C",
+   "empty": true,
+   "ms": 12.118430000002263,
+   "suggestions": []
+  },
+  {
+   "query": "4tor",
+   "set": "C",
+   "empty": true,
+   "ms": 0.009693999993032776,
+   "suggestions": []
+  },
+  {
+   "query": "música nueva afro",
+   "set": "C",
+   "empty": true,
+   "ms": 19.4176129999978,
+   "suggestions": []
+  },
+  {
+   "query": "noise 8",
+   "set": "C",
+   "empty": true,
+   "ms": 10.380101000002469,
+   "suggestions": []
+  },
+  {
+   "query": "death toll fnf",
+   "set": "C",
+   "empty": true,
+   "ms": 17.63928799999121,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para gym",
+   "set": "C",
+   "empty": true,
+   "ms": 15.813291999991634,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de los dos carnales",
+   "set": "C",
+   "empty": true,
+   "ms": 11.332081999993534,
+   "suggestions": []
+  },
+  {
+   "query": "música rápida de",
+   "set": "C",
+   "empty": true,
+   "ms": 20.207638000007137,
+   "suggestions": []
+  },
+  {
+   "query": "Abddon",
+   "set": "C",
+   "empty": true,
+   "ms": 9.05594900000142,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Natastor",
+     "context": "Caracas"
+    },
+    {
+     "type": "artist",
+     "label": "Abaddon",
+     "context": "Valencia"
+    }
+   ]
+  },
+  {
+   "query": "idm para firefox",
+   "set": "C",
+   "empty": true,
+   "ms": 17.273692000002484,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental china",
+   "set": "C",
+   "empty": true,
+   "ms": 10.55124600000272,
+   "suggestions": []
+  },
+  {
+   "query": "musica para cuando te rompen el corazon",
+   "set": "C",
+   "empty": true,
+   "ms": 8.81896200000483,
+   "suggestions": []
+  },
+  {
+   "query": "cbd",
+   "set": "C",
+   "empty": true,
+   "ms": 0.008533000000170432,
+   "suggestions": []
+  },
+  {
+   "query": "música suave tranquilizante",
+   "set": "C",
+   "empty": true,
+   "ms": 10.128981000001659,
+   "suggestions": []
+  },
+  {
+   "query": "canciones tristes en español para llorar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.321016000001691,
+   "suggestions": []
+  },
+  {
+   "query": "pbuck",
+   "set": "C",
+   "empty": true,
+   "ms": 8.908342000009725,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Puck",
+     "context": "Caracas"
+    }
+   ]
+  },
+  {
+   "query": "musica para stories carro",
+   "set": "C",
+   "empty": true,
+   "ms": 11.152367999995477,
+   "suggestions": []
+  },
+  {
+   "query": "musica para bailar gasolina",
+   "set": "C",
+   "empty": true,
+   "ms": 9.262524999998277,
+   "suggestions": []
+  },
+  {
+   "query": "musica romantica jesse y joy mix",
+   "set": "C",
+   "empty": true,
+   "ms": 9.524552999995649,
+   "suggestions": []
+  },
+  {
+   "query": "la musica está fuerte no te puedo escuchar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.233735999994678,
+   "suggestions": []
+  },
+  {
+   "query": "musica sin audio",
+   "set": "C",
+   "empty": true,
+   "ms": 18.28162500000326,
+   "suggestions": []
+  },
+  {
+   "query": "musica para escuchar trabajando alegre",
+   "set": "C",
+   "empty": true,
+   "ms": 8.369601000013063,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica motivadora",
+   "set": "C",
+   "empty": true,
+   "ms": 11.29501899999741,
+   "suggestions": []
+  },
+  {
+   "query": "blues que sana el alma adoracion",
+   "set": "C",
+   "empty": true,
+   "ms": 9.324485999997705,
+   "suggestions": []
+  },
+  {
+   "query": "grupos de grunge",
+   "set": "C",
+   "empty": true,
+   "ms": 20.067917999986093,
+   "suggestions": []
+  },
+  {
+   "query": "musica para bailar vals en boda",
+   "set": "C",
+   "empty": true,
+   "ms": 9.205144999999902,
+   "suggestions": []
+  },
+  {
+   "query": "death metal progresivo bandas",
+   "set": "C",
+   "empty": true,
+   "ms": 9.435576000003493,
+   "suggestions": []
+  },
+  {
+   "query": "tambor venezolano guaracha",
+   "set": "C",
+   "empty": true,
+   "ms": 10.198125000009895,
+   "suggestions": []
+  },
+  {
+   "query": "Venezie",
+   "set": "C",
+   "empty": true,
+   "ms": 9.315875000000233,
+   "suggestions": []
+  },
+  {
+   "query": "doom metal paradise lost",
+   "set": "C",
+   "empty": true,
+   "ms": 11.446228000000701,
+   "suggestions": []
+  },
+  {
+   "query": "imagenes de black metal depresivo",
+   "set": "C",
+   "empty": true,
+   "ms": 9.290192000000388,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica de thegrefg",
+   "set": "C",
+   "empty": true,
+   "ms": 12.568482000002405,
+   "suggestions": []
+  },
+  {
+   "query": "salsa para untar con galletas",
+   "set": "C",
+   "empty": true,
+   "ms": 9.595619999992778,
+   "suggestions": []
+  },
+  {
+   "query": "música de los huracanes del norte",
+   "set": "C",
+   "empty": true,
+   "ms": 11.414458000013838,
+   "suggestions": []
+  },
+  {
+   "query": "musica para orar sin interrupciones",
+   "set": "C",
+   "empty": true,
+   "ms": 8.655590000009397,
+   "suggestions": []
+  },
+  {
+   "query": "musica relajante arabe",
+   "set": "C",
+   "empty": true,
+   "ms": 11.65268699999433,
+   "suggestions": []
+  },
+  {
+   "query": "Sal sal",
+   "set": "C",
+   "empty": true,
+   "ms": 10.21337699999276,
+   "suggestions": []
+  },
+  {
+   "query": "Jose Manue Coraspe",
+   "set": "C",
+   "empty": true,
+   "ms": 16.621322999999393,
+   "suggestions": []
+  },
+  {
+   "query": "musica tipo daft punk",
+   "set": "C",
+   "empty": true,
+   "ms": 12.56520399999863,
+   "suggestions": []
+  },
+  {
+   "query": "música clásica para meditar",
+   "set": "C",
+   "empty": true,
+   "ms": 12.160673000005772,
+   "suggestions": []
+  },
+  {
+   "query": "hip hop que tipo de musica es",
+   "set": "C",
+   "empty": true,
+   "ms": 10.442769000001135,
+   "suggestions": []
+  },
+  {
+   "query": "musica nueva romeo",
+   "set": "C",
+   "empty": true,
+   "ms": 18.105339999994612,
+   "suggestions": []
+  },
+  {
+   "query": "musica nueva de rawayana",
+   "set": "C",
+   "empty": true,
+   "ms": 13.844291999994311,
+   "suggestions": []
+  },
+  {
+   "query": "canciones que canto xavi en la casa de los famosos",
+   "set": "C",
+   "empty": true,
+   "ms": 7.947245000003022,
+   "suggestions": []
+  },
+  {
+   "query": "noisecore playlist",
+   "set": "C",
+   "empty": true,
+   "ms": 17.292803999996977,
+   "suggestions": []
+  },
+  {
+   "query": "cantautor manny",
+   "set": "C",
+   "empty": true,
+   "ms": 19.859878999996,
+   "suggestions": []
+  },
+  {
+   "query": "canciones tristes navidad",
+   "set": "C",
+   "empty": true,
+   "ms": 10.561641000007512,
+   "suggestions": []
+  },
+  {
+   "query": "canciones que te hacen llorar",
+   "set": "C",
+   "empty": true,
+   "ms": 9.433160000000498,
+   "suggestions": []
+  },
+  {
+   "query": "rock venezolano años 80",
+   "set": "C",
+   "empty": true,
+   "ms": 15.49431999999797,
+   "suggestions": []
+  },
+  {
+   "query": "death metal brasil",
+   "set": "C",
+   "empty": true,
+   "ms": 15.782644000006258,
+   "suggestions": []
+  },
+  {
+   "query": "MDT",
+   "set": "C",
+   "empty": true,
+   "ms": 0.01296100000035949,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para hermanos en español",
+   "set": "C",
+   "empty": true,
+   "ms": 9.13083199999528,
+   "suggestions": []
+  },
+  {
+   "query": "pop latino mix 2025",
+   "set": "C",
+   "empty": true,
+   "ms": 14.773348000002443,
+   "suggestions": []
+  },
+  {
+   "query": "playlist para limpiar tu cuarto",
+   "set": "C",
+   "empty": true,
+   "ms": 10.381865000003017,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con el cuatro",
+   "set": "C",
+   "empty": true,
+   "ms": 16.04295999999158,
+   "suggestions": []
+  },
+  {
+   "query": "a que llamamos musica de camara",
+   "set": "C",
+   "empty": true,
+   "ms": 10.0236339999974,
+   "suggestions": []
+  },
+  {
+   "query": "musica de los años 50",
+   "set": "C",
+   "empty": true,
+   "ms": 22.40066200000001,
+   "suggestions": []
+  },
+  {
+   "query": "industrial para dibujar",
+   "set": "C",
+   "empty": true,
+   "ms": 11.1685099999886,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con una sola cuerda guitarra",
+   "set": "C",
+   "empty": true,
+   "ms": 8.445478000008734,
+   "suggestions": []
+  },
+  {
+   "query": "joropo venezolanos",
+   "set": "C",
+   "empty": true,
+   "ms": 33.96058100000664,
+   "suggestions": [
+    {
+     "type": "track",
+     "label": "Joropo Venezolano",
+     "context": "Hipolito Arrieta · Llanero Siempre Llanero"
+    }
+   ]
+  },
+  {
+   "query": "que musica escuchar cuando estas aburrido",
+   "set": "C",
+   "empty": true,
+   "ms": 8.567790000000969,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para hacer oficio",
+   "set": "C",
+   "empty": true,
+   "ms": 10.093428000007407,
+   "suggestions": []
+  },
+  {
+   "query": "polo margariteño",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "salsa para yuca frita",
+   "set": "C",
+   "empty": true,
+   "ms": 11.309566000010818,
+   "suggestions": []
+  },
+  {
+   "query": "música vieja tangos",
+   "set": "C",
+   "empty": true,
+   "ms": 17.180466000005254,
+   "suggestions": []
+  },
+  {
+   "query": "playlist para entrenar",
+   "set": "C",
+   "empty": true,
+   "ms": 12.868293000006815,
+   "suggestions": []
+  },
+  {
+   "query": "sweet 74",
+   "set": "C",
+   "empty": true,
+   "ms": 10.778636000002734,
+   "suggestions": []
+  },
+  {
+   "query": "wisin y yandel canciones para dedicar",
+   "set": "C",
+   "empty": true,
+   "ms": 9.150144999992335,
+   "suggestions": []
+  },
+  {
+   "query": "dancehall venezolano",
+   "set": "C",
+   "empty": true,
+   "ms": 13.670523000007961,
+   "suggestions": []
+  },
+  {
+   "query": "salsa para recordar mix",
+   "set": "C",
+   "empty": true,
+   "ms": 11.639933999991626,
+   "suggestions": []
+  },
+  {
+   "query": "canciones parecidas a julio jaramillo",
+   "set": "C",
+   "empty": true,
+   "ms": 9.28127300000051,
+   "suggestions": []
+  },
+  {
+   "query": "música sin querer",
+   "set": "C",
+   "empty": true,
+   "ms": 20.06587099999888,
+   "suggestions": []
+  },
+  {
+   "query": "gabán ave llanera",
+   "set": "C",
+   "empty": true,
+   "ms": 17.463780999998562,
+   "suggestions": []
+  },
+  {
+   "query": "OverkrainOverkrain",
+   "set": "C",
+   "empty": true,
+   "ms": 14.28922700000112,
+   "suggestions": []
+  },
+  {
+   "query": "joropo para dibujar",
+   "set": "C",
+   "empty": true,
+   "ms": 14.488696999993408,
+   "suggestions": []
+  },
+  {
+   "query": "rock venezolano 80 y 90",
+   "set": "C",
+   "empty": true,
+   "ms": 14.144562999994378,
+   "suggestions": []
+  },
+  {
+   "query": "glitch que series tiene",
+   "set": "C",
+   "empty": true,
+   "ms": 10.817542999997386,
+   "suggestions": []
+  },
+  {
+   "query": "música vieja de jaime zavala",
+   "set": "C",
+   "empty": true,
+   "ms": 10.275829999998678,
+   "suggestions": []
+  },
+  {
+   "query": "música nueva luna",
+   "set": "C",
+   "empty": true,
+   "ms": 20.711890999999014,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental franco de vita",
+   "set": "C",
+   "empty": true,
+   "ms": 9.035659000001033,
+   "suggestions": []
+  },
+  {
+   "query": "salsa para orula",
+   "set": "C",
+   "empty": true,
+   "ms": 16.42487400000391,
+   "suggestions": []
+  },
+  {
+   "query": "grupo venezolano funk",
+   "set": "C",
+   "empty": true,
+   "ms": 12.989392000003136,
+   "suggestions": []
+  },
+  {
+   "query": "Overkrainv",
+   "set": "C",
+   "empty": true,
+   "ms": 15.743295000007492,
+   "suggestions": []
+  },
+  {
+   "query": "musica con instrumentos",
+   "set": "C",
+   "empty": true,
+   "ms": 11.561311999990721,
+   "suggestions": []
+  },
+  {
+   "query": "musica con zampoña y charango",
+   "set": "C",
+   "empty": true,
+   "ms": 9.533659000007901,
+   "suggestions": []
+  },
+  {
+   "query": "jazz progresivo",
+   "set": "C",
+   "empty": true,
+   "ms": 20.639962000001105,
+   "suggestions": []
+  },
+  {
+   "query": "musica romantica los terricolas",
+   "set": "C",
+   "empty": true,
+   "ms": 10.020703000001959,
+   "suggestions": []
+  },
+  {
+   "query": "musica para leer la biblia",
+   "set": "C",
+   "empty": true,
+   "ms": 11.06057200000214,
+   "suggestions": []
+  },
+  {
+   "query": "brutal death metal mexicano",
+   "set": "C",
+   "empty": true,
+   "ms": 10.065747000000556,
+   "suggestions": []
+  },
+  {
+   "query": "Seguridad Nacional",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "cold wave paragraph",
+   "set": "C",
+   "empty": true,
+   "ms": 14.044804999997723,
+   "suggestions": []
+  },
+  {
+   "query": "musica lenta harmonia do samba",
+   "set": "C",
+   "empty": true,
+   "ms": 9.550390000003972,
+   "suggestions": []
+  },
+  {
+   "query": "johnny pacheco guaguanco pal que sabe",
+   "set": "C",
+   "empty": true,
+   "ms": 8.669179000004078,
+   "suggestions": []
+  },
+  {
+   "query": "metelli",
+   "set": "C",
+   "empty": true,
+   "ms": 8.878683999995701,
+   "suggestions": []
+  },
+  {
+   "query": "sweet 75",
+   "set": "C",
+   "empty": true,
+   "ms": 10.491530999992392,
+   "suggestions": []
+  },
+  {
+   "query": "canciones tristes videos tristes",
+   "set": "C",
+   "empty": true,
+   "ms": 9.405297000004794,
+   "suggestions": []
+  },
+  {
+   "query": "canciones que inspiran en ingles",
+   "set": "C",
+   "empty": true,
+   "ms": 9.667491000000155,
+   "suggestions": []
+  },
+  {
+   "query": "música antigua para bebés",
+   "set": "C",
+   "empty": true,
+   "ms": 12.703852000006009,
+   "suggestions": []
+  },
+  {
+   "query": "musica relajante bambu",
+   "set": "C",
+   "empty": true,
+   "ms": 12.009917000003043,
+   "suggestions": []
+  },
+  {
+   "query": "jazz musica venezolana",
+   "set": "C",
+   "empty": true,
+   "ms": 13.57422699999006,
+   "suggestions": []
+  },
+  {
+   "query": "musica para hacer ejercicio 2026",
+   "set": "C",
+   "empty": true,
+   "ms": 8.924686999991536,
+   "suggestions": []
+  },
+  {
+   "query": "ethereal dress",
+   "set": "C",
+   "empty": true,
+   "ms": 18.72276299999794,
+   "suggestions": []
+  },
+  {
+   "query": "death metal peruano",
+   "set": "C",
+   "empty": true,
+   "ms": 15.291289000000688,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de sin bandera",
+   "set": "C",
+   "empty": true,
+   "ms": 13.31793399999151,
+   "suggestions": []
+  },
+  {
+   "query": "Revoltas",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "musica con piano para dormir",
+   "set": "C",
+   "empty": true,
+   "ms": 9.40240300000005,
+   "suggestions": []
+  },
+  {
+   "query": "musica que parte el alma",
+   "set": "C",
+   "empty": true,
+   "ms": 13.907414000001154,
+   "suggestions": []
+  },
+  {
+   "query": "gaita venezolano instrumental",
+   "set": "C",
+   "empty": true,
+   "ms": 9.401209000003291,
+   "suggestions": []
+  },
+  {
+   "query": "los mesp",
+   "set": "C",
+   "empty": true,
+   "ms": 6.069000999996206,
+   "suggestions": []
+  },
+  {
+   "query": "metal gear solid",
+   "set": "C",
+   "empty": true,
+   "ms": 20.032892999995966,
+   "suggestions": []
+  },
+  {
+   "query": "canciones tristes de zootopia",
+   "set": "C",
+   "empty": true,
+   "ms": 11.364888999989489,
+   "suggestions": []
+  },
+  {
+   "query": "drill type beat",
+   "set": "C",
+   "empty": true,
+   "ms": 19.673423000000184,
+   "suggestions": []
+  },
+  {
+   "query": "aguinaldo oh luna que brilla en diciembre",
+   "set": "C",
+   "empty": true,
+   "ms": 8.823750000010477,
+   "suggestions": []
+  },
+  {
+   "query": "musica con p",
+   "set": "C",
+   "empty": true,
+   "ms": 13.99280799999542,
+   "suggestions": []
+  },
+  {
+   "query": "descarga que es",
+   "set": "C",
+   "empty": true,
+   "ms": 18.159224000002723,
+   "suggestions": []
+  },
+  {
+   "query": "corrio para que",
+   "set": "C",
+   "empty": true,
+   "ms": 21.627402000012808,
+   "suggestions": []
+  },
+  {
+   "query": "musica fria y sin sentimientos",
+   "set": "C",
+   "empty": true,
+   "ms": 10.289990999997826,
+   "suggestions": []
+  },
+  {
+   "query": "música de cámara sevilla",
+   "set": "C",
+   "empty": true,
+   "ms": 12.679296999995131,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de eddy herrera",
+   "set": "C",
+   "empty": true,
+   "ms": 11.458899999997811,
+   "suggestions": []
+  },
+  {
+   "query": "bachata venezolano",
+   "set": "C",
+   "empty": true,
+   "ms": 14.71454800000356,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con frecuencia 432 hz",
+   "set": "C",
+   "empty": true,
+   "ms": 9.743946000002325,
+   "suggestions": []
+  },
+  {
+   "query": "musica para manejar uber",
+   "set": "C",
+   "empty": true,
+   "ms": 11.338652999998885,
+   "suggestions": []
+  },
+  {
+   "query": "música para yo cantar",
+   "set": "C",
+   "empty": true,
+   "ms": 14.090840000004391,
+   "suggestions": []
+  },
+  {
+   "query": "musica playa alegre",
+   "set": "C",
+   "empty": true,
+   "ms": 14.68992900000012,
+   "suggestions": []
+  },
+  {
+   "query": "drones maracaibo",
+   "set": "C",
+   "empty": true,
+   "ms": 20.26412700000219,
+   "suggestions": []
+  },
+  {
+   "query": "algo para trabajar",
+   "set": "C",
+   "empty": true,
+   "ms": 12.813813000000664,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para recordar a un ser querido que murio",
+   "set": "C",
+   "empty": true,
+   "ms": 13.768414000005578,
+   "suggestions": []
+  },
+  {
+   "query": "Jose Manuel Coraspe",
+   "set": "C",
+   "empty": true,
+   "ms": 19.82524299999932,
+   "suggestions": []
+  },
+  {
+   "query": "musica jinete sin cabeza",
+   "set": "C",
+   "empty": true,
+   "ms": 13.296226999998908,
+   "suggestions": []
+  },
+  {
+   "query": "Gabaldon",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "musica zombie",
+   "set": "C",
+   "empty": true,
+   "ms": 15.781036999993376,
+   "suggestions": []
+  },
+  {
+   "query": "calipso que es en la odisea",
+   "set": "C",
+   "empty": true,
+   "ms": 12.611548000000766,
+   "suggestions": []
+  },
+  {
+   "query": "bandas de universidades americanas",
+   "set": "C",
+   "empty": true,
+   "ms": 9.577290999994148,
+   "suggestions": []
+  },
+  {
+   "query": "latin funk mix",
+   "set": "C",
+   "empty": true,
+   "ms": 19.584059000000707,
+   "suggestions": []
+  },
+  {
+   "query": "musica como achar",
+   "set": "C",
+   "empty": true,
+   "ms": 15.564064999998664,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental oficina",
+   "set": "C",
+   "empty": true,
+   "ms": 9.75943499999994,
+   "suggestions": []
+  },
+  {
+   "query": "bandas parecidas a jungle",
+   "set": "C",
+   "empty": true,
+   "ms": 11.743686000001617,
+   "suggestions": []
+  },
+  {
+   "query": "musica de los melodicos años 80",
+   "set": "C",
+   "empty": true,
+   "ms": 11.334751999995206,
+   "suggestions": []
+  },
+  {
+   "query": "jazz para estudiar",
+   "set": "C",
+   "empty": true,
+   "ms": 16.62572799999907,
+   "suggestions": []
+  },
+  {
+   "query": "musica que yo me voy palla",
+   "set": "C",
+   "empty": true,
+   "ms": 12.24585200000729,
+   "suggestions": []
+  },
+  {
+   "query": "musica de los saja boys",
+   "set": "C",
+   "empty": true,
+   "ms": 17.490302000005613,
+   "suggestions": []
+  },
+  {
+   "query": "musica venezolana con arpa",
+   "set": "C",
+   "empty": true,
+   "ms": 10.806624000004376,
+   "suggestions": []
+  },
+  {
+   "query": "musica venezolana bailable mix",
+   "set": "C",
+   "empty": true,
+   "ms": 9.24326000000292,
+   "suggestions": []
+  },
+  {
+   "query": "bandas de rock alternativo",
+   "set": "C",
+   "empty": true,
+   "ms": 11.765557000006083,
+   "suggestions": []
+  },
+  {
+   "query": "ópera clásica",
+   "set": "C",
+   "empty": true,
+   "ms": 14.915842000002158,
+   "suggestions": []
+  },
+  {
+   "query": "ebm que nota es",
+   "set": "C",
+   "empty": true,
+   "ms": 18.85655900000711,
+   "suggestions": []
+  },
+  {
+   "query": "musica de barcelona sur oscura",
+   "set": "C",
+   "empty": true,
+   "ms": 9.87215299998934,
+   "suggestions": []
+  },
+  {
+   "query": "playlist kpop para bañarse",
+   "set": "C",
+   "empty": true,
+   "ms": 12.740037000010489,
+   "suggestions": []
+  },
+  {
+   "query": "folk rock en español",
+   "set": "C",
+   "empty": true,
+   "ms": 21.119103999997606,
+   "suggestions": []
+  },
+  {
+   "query": "musica venezolana violin",
+   "set": "C",
+   "empty": true,
+   "ms": 34.71532699999807,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "Musica Venezolana Vol. 1",
+     "context": "Sir Augusto Ramírez"
+    },
+    {
+     "type": "album",
+     "label": "Musica Venezolana Vol. 2",
+     "context": "Sir Augusto Ramírez"
+    },
+    {
+     "type": "album",
+     "label": "Musica Venezolana Vol. 3",
+     "context": "Grupo Tradiciones"
+    }
+   ]
+  },
+  {
+   "query": "aor question paper",
+   "set": "C",
+   "empty": true,
+   "ms": 31.21828600000299,
+   "suggestions": []
+  },
+  {
+   "query": "Cayayo Trc",
+   "set": "C",
+   "empty": true,
+   "ms": 24.355160999999498,
+   "suggestions": []
+  },
+  {
+   "query": "just dance soda pop para niños",
+   "set": "C",
+   "empty": true,
+   "ms": 13.741920999993454,
+   "suggestions": []
+  },
+  {
+   "query": "musica con mariachi alegre",
+   "set": "C",
+   "empty": true,
+   "ms": 11.093897999991896,
+   "suggestions": []
+  },
+  {
+   "query": "we will rock you para niños",
+   "set": "C",
+   "empty": true,
+   "ms": 12.842256000003545,
+   "suggestions": []
+  },
+  {
+   "query": "musica sin final youtube",
+   "set": "C",
+   "empty": true,
+   "ms": 11.110654000003706,
+   "suggestions": []
+  },
+  {
+   "query": "LeCinema",
+   "set": "C",
+   "empty": true,
+   "ms": 10.221294000002672,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Le' Cinema",
+     "context": "Caracas, Distrito Capital"
+    }
+   ]
+  },
+  {
+   "query": "The pushkos",
+   "set": "C",
+   "empty": true,
+   "ms": 16.431915000008303,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "De Pushkos",
+     "context": "Caracas"
+    }
+   ]
+  },
+  {
+   "query": "musica para bañarse y relajarse",
+   "set": "C",
+   "empty": true,
+   "ms": 9.090626000004704,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica y de suspenso",
+   "set": "C",
+   "empty": true,
+   "ms": 13.623682999997982,
+   "suggestions": []
+  },
+  {
+   "query": "acid jazz latino",
+   "set": "C",
+   "empty": true,
+   "ms": 17.475625999999465,
+   "suggestions": []
+  },
+  {
+   "query": "playlist para leer wattpad",
+   "set": "C",
+   "empty": true,
+   "ms": 11.237408999993932,
+   "suggestions": []
+  },
+  {
+   "query": "musica como pudiste",
+   "set": "C",
+   "empty": true,
+   "ms": 15.547160000001895,
+   "suggestions": []
+  },
+  {
+   "query": "pop rock venezuela",
+   "set": "C",
+   "empty": true,
+   "ms": 16.570358999990276,
+   "suggestions": []
+  },
+  {
+   "query": "malagueña que tipo de musica es",
+   "set": "C",
+   "empty": true,
+   "ms": 9.865649999992456,
+   "suggestions": []
+  },
+  {
+   "query": "bandas de black metal venezolanas",
+   "set": "C",
+   "empty": true,
+   "ms": 9.918130000005476,
+   "suggestions": []
+  },
+  {
+   "query": "nueva trova rosarina",
+   "set": "C",
+   "empty": true,
+   "ms": 14.605314999993425,
+   "suggestions": []
+  },
+  {
+   "query": "musica que colocan en la casa de alofoke",
+   "set": "C",
+   "empty": true,
+   "ms": 8.689652000000933,
+   "suggestions": []
+  },
+  {
+   "query": "musica de los 60",
+   "set": "C",
+   "empty": true,
+   "ms": 42.36087499999849,
+   "suggestions": [
+    {
+     "type": "track",
+     "label": "Música En Ti",
+     "context": "Candy66 · B-Sides"
+    }
+   ]
+  },
+  {
+   "query": "recomiéndame una música",
+   "set": "C",
+   "empty": true,
+   "ms": 15.32427800000005,
+   "suggestions": []
+  },
+  {
+   "query": "música nueva de xavi 2025",
+   "set": "C",
+   "empty": true,
+   "ms": 15.08938799999305,
+   "suggestions": []
+  },
+  {
+   "query": "musica oscura en ingles",
+   "set": "C",
+   "empty": true,
+   "ms": 24.67294099999708,
+   "suggestions": []
+  },
+  {
+   "query": "musica para voley playa",
+   "set": "C",
+   "empty": true,
+   "ms": 21.749236000003293,
+   "suggestions": []
+  },
+  {
+   "query": "musica vikinga oscura",
+   "set": "C",
+   "empty": true,
+   "ms": 12.585831000003964,
+   "suggestions": []
+  },
+  {
+   "query": "Vebne",
+   "set": "C",
+   "empty": true,
+   "ms": 7.954723000002559,
+   "suggestions": []
+  },
+  {
+   "query": "musica romantica latina de los 70 y 80",
+   "set": "C",
+   "empty": true,
+   "ms": 9.10329100000672,
+   "suggestions": []
+  },
+  {
+   "query": "musica de los originales del vigia mix",
+   "set": "C",
+   "empty": true,
+   "ms": 9.202659000002313,
+   "suggestions": []
+  },
+  {
+   "query": "folk rock paraguayo",
+   "set": "C",
+   "empty": true,
+   "ms": 14.58312599999772,
+   "suggestions": []
+  },
+  {
+   "query": "experimental pop type beat",
+   "set": "C",
+   "empty": true,
+   "ms": 10.589709999985644,
+   "suggestions": []
+  },
+  {
+   "query": "fangio corrió para ferrari",
+   "set": "C",
+   "empty": true,
+   "ms": 12.722991000002366,
+   "suggestions": []
+  },
+  {
+   "query": "musica para carro automotivo",
+   "set": "C",
+   "empty": true,
+   "ms": 9.619682000004104,
+   "suggestions": []
+  },
+  {
+   "query": "metal queen",
+   "set": "C",
+   "empty": true,
+   "ms": 19.954263999999966,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "METAL QUEST",
+     "context": "Hagane"
+    }
+   ]
+  },
+  {
+   "query": "musica como paso",
+   "set": "C",
+   "empty": true,
+   "ms": 18.432280000008177,
+   "suggestions": []
+  },
+  {
+   "query": "canciones parecidas a iris",
+   "set": "C",
+   "empty": true,
+   "ms": 11.518142000000807,
+   "suggestions": []
+  },
+  {
+   "query": "musica de los expedientes secretos x",
+   "set": "C",
+   "empty": true,
+   "ms": 9.620242999997572,
+   "suggestions": []
+  },
+  {
+   "query": "noise questions",
+   "set": "C",
+   "empty": true,
+   "ms": 20.332181999998284,
+   "suggestions": []
+  },
+  {
+   "query": "Un cancionero",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "glitch karts",
+   "set": "C",
+   "empty": true,
+   "ms": 15.00693199998932,
+   "suggestions": []
+  },
+  {
+   "query": "musica suave kpop",
+   "set": "C",
+   "empty": true,
+   "ms": 18.411767000012333,
+   "suggestions": []
+  },
+  {
+   "query": "noise que es en ingles",
+   "set": "C",
+   "empty": true,
+   "ms": 13.473372000007657,
+   "suggestions": []
+  },
+  {
+   "query": "Pesonsl",
+   "set": "C",
+   "empty": true,
+   "ms": 9.877147999999579,
+   "suggestions": []
+  },
+  {
+   "query": "polos margariteños",
+   "set": "C",
+   "empty": true,
+   "ms": 37.02344199999061,
+   "suggestions": [
+    {
+     "type": "track",
+     "label": "Polo margariteño",
+     "context": "Ilan Chester · Tesoros de la música venezolana, Volumen 2: Costas"
+    },
+    {
+     "type": "track",
+     "label": "Los margariteños",
+     "context": "Simón Díaz · Dedicado a las mariposas locas"
+    },
+    {
+     "type": "track",
+     "label": "El polo margariteño",
+     "context": "Quinteto Contrapunto · Contrapunto: Vol. II"
+    }
+   ]
+  },
+  {
+   "query": "música de wayuu",
+   "set": "C",
+   "empty": true,
+   "ms": 23.952728000003844,
+   "suggestions": []
+  },
+  {
+   "query": "drone metal live",
+   "set": "C",
+   "empty": true,
+   "ms": 19.4482849999913,
+   "suggestions": []
+  },
+  {
+   "query": "salsa para llorar de despecho",
+   "set": "C",
+   "empty": true,
+   "ms": 11.16926899999089,
+   "suggestions": []
+  },
+  {
+   "query": "musica sin senos no hay paraiso",
+   "set": "C",
+   "empty": true,
+   "ms": 9.046421000006376,
+   "suggestions": []
+  },
+  {
+   "query": "death metal angola",
+   "set": "C",
+   "empty": true,
+   "ms": 15.344472000011592,
+   "suggestions": []
+  },
+  {
+   "query": "musica llanera venezolana",
+   "set": "C",
+   "empty": true,
+   "ms": 10.551691000000574,
+   "suggestions": []
+  },
+  {
+   "query": "musica triste de dragon ball z",
+   "set": "C",
+   "empty": true,
+   "ms": 10.901531000010436,
+   "suggestions": []
+  },
+  {
+   "query": "música para que los bebés duerman",
+   "set": "C",
+   "empty": true,
+   "ms": 9.555561999994097,
+   "suggestions": []
+  },
+  {
+   "query": "guitarra electroacustica para principiantes",
+   "set": "C",
+   "empty": true,
+   "ms": 8.116301999994903,
+   "suggestions": []
+  },
+  {
+   "query": "cji",
+   "set": "C",
+   "empty": true,
+   "ms": 0.011991000006673858,
+   "suggestions": []
+  },
+  {
+   "query": "musica nueva electrónica",
+   "set": "C",
+   "empty": true,
+   "ms": 13.236478000006173,
+   "suggestions": []
+  },
+  {
+   "query": "que es el black metal atmosferico",
+   "set": "C",
+   "empty": true,
+   "ms": 9.127301000000443,
+   "suggestions": []
+  },
+  {
+   "query": "pop rock venezolano",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "mambo que es en argentina",
+   "set": "C",
+   "empty": true,
+   "ms": 12.252942999999505,
+   "suggestions": []
+  },
+  {
+   "query": "musica sin videos para escuchar",
+   "set": "C",
+   "empty": true,
+   "ms": 9.137570000006235,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para quince años",
+   "set": "C",
+   "empty": true,
+   "ms": 12.719490000003134,
+   "suggestions": []
+  },
+  {
+   "query": "wtfest",
+   "set": "C",
+   "empty": true,
+   "ms": 8.834386000002269,
+   "suggestions": []
+  },
+  {
+   "query": "ethereal wave liis",
+   "set": "C",
+   "empty": true,
+   "ms": 16.10905699999421,
+   "suggestions": []
+  },
+  {
+   "query": "musica romantica graciosa",
+   "set": "C",
+   "empty": true,
+   "ms": 10.000423000004957,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con notas altas en español",
+   "set": "C",
+   "empty": true,
+   "ms": 9.081254999997327,
+   "suggestions": []
+  },
+  {
+   "query": "Will p",
+   "set": "C",
+   "empty": true,
+   "ms": 9.63877799999318,
+   "suggestions": [
+    {
+     "type": "person",
+     "label": "Ill-P",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "musica epica tecno",
+   "set": "C",
+   "empty": true,
+   "ms": 16.059143999998923,
+   "suggestions": []
+  },
+  {
+   "query": "música cristiana para hacer ejercicio",
+   "set": "C",
+   "empty": true,
+   "ms": 13.60800599999493,
+   "suggestions": []
+  },
+  {
+   "query": "power metal quest fest 2025",
+   "set": "C",
+   "empty": true,
+   "ms": 11.076052000003983,
+   "suggestions": []
+  },
+  {
+   "query": "afrobeat venezolano",
+   "set": "C",
+   "empty": true,
+   "ms": 13.98150500000338,
+   "suggestions": []
+  },
+  {
+   "query": "musica vieja guardia de los 80 mix",
+   "set": "C",
+   "empty": true,
+   "ms": 10.064930000007735,
+   "suggestions": []
+  },
+  {
+   "query": "musica para bailar zumba movida mix 2020",
+   "set": "C",
+   "empty": true,
+   "ms": 8.289101999995182,
+   "suggestions": []
+  },
+  {
+   "query": "musica rock rapida",
+   "set": "C",
+   "empty": true,
+   "ms": 14.744059999997262,
+   "suggestions": []
+  },
+  {
+   "query": "que es el death metal tecnico",
+   "set": "C",
+   "empty": true,
+   "ms": 9.814989999998943,
+   "suggestions": []
+  },
+  {
+   "query": "musica jazz suave y alegre",
+   "set": "C",
+   "empty": true,
+   "ms": 12.048607000004267,
+   "suggestions": []
+  },
+  {
+   "query": "quebraditos punk rock",
+   "set": "C",
+   "empty": true,
+   "ms": 12.90422199999739,
+   "suggestions": []
+  },
+  {
+   "query": "musica tipo hollywood 1 hora",
+   "set": "C",
+   "empty": true,
+   "ms": 9.609690999990562,
+   "suggestions": []
+  },
+  {
+   "query": "Capriles",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "musica rapida infantil",
+   "set": "C",
+   "empty": true,
+   "ms": 11.526889999993728,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica de batalla",
+   "set": "C",
+   "empty": true,
+   "ms": 13.218746999991708,
+   "suggestions": []
+  },
+  {
+   "query": "cantautor venezolano carlos",
+   "set": "C",
+   "empty": true,
+   "ms": 9.92561899998691,
+   "suggestions": []
+  },
+  {
+   "query": "música venezolana del llano",
+   "set": "C",
+   "empty": true,
+   "ms": 11.915746999991825,
+   "suggestions": []
+  },
+  {
+   "query": "musica rapida para dinamica",
+   "set": "C",
+   "empty": true,
+   "ms": 9.43800100000226,
+   "suggestions": []
+  },
+  {
+   "query": "musica venezolana recia",
+   "set": "C",
+   "empty": true,
+   "ms": 11.986621000003652,
+   "suggestions": []
+  },
+  {
+   "query": "acid jazz para trabajar",
+   "set": "C",
+   "empty": true,
+   "ms": 10.072092000002158,
+   "suggestions": []
+  },
+  {
+   "query": "musica para tocar no carro",
+   "set": "C",
+   "empty": true,
+   "ms": 9.600982999996631,
+   "suggestions": []
+  },
+  {
+   "query": "bandas de folk metal",
+   "set": "C",
+   "empty": true,
+   "ms": 16.76133399999526,
+   "suggestions": []
+  },
+  {
+   "query": "los mesoneros",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de niños",
+   "set": "C",
+   "empty": true,
+   "ms": 25.90992799999367,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "Canciones de videos",
+     "context": "Prieto Gang"
+    }
+   ]
+  },
+  {
+   "query": "playlist para concentrarse y estudiar",
+   "set": "C",
+   "empty": true,
+   "ms": 10.135175000003073,
+   "suggestions": []
+  },
+  {
+   "query": "canciones que empiezan con x",
+   "set": "C",
+   "empty": true,
+   "ms": 9.575883000012254,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica workout",
+   "set": "C",
+   "empty": true,
+   "ms": 13.94575199999963,
+   "suggestions": []
+  },
+  {
+   "query": "musica con indirectas",
+   "set": "C",
+   "empty": true,
+   "ms": 13.185146000003442,
+   "suggestions": []
+  },
+  {
+   "query": "canciones tristes hoja en blanco",
+   "set": "C",
+   "empty": true,
+   "ms": 9.415379999991274,
+   "suggestions": []
+  },
+  {
+   "query": "Cronics",
+   "set": "C",
+   "empty": true,
+   "ms": 10.89073699999426,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Crónica",
+     "context": "San Félix - Ciudad Guayana"
+    },
+    {
+     "type": "album",
+     "label": "Crónicas",
+     "context": "Juan Francisco"
+    },
+    {
+     "type": "album",
+     "label": "Crónicas De Una",
+     "context": "Braulio Polanco"
+    }
+   ]
+  },
+  {
+   "query": "dark metal baladas",
+   "set": "C",
+   "empty": true,
+   "ms": 13.675929000004544,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de los caballeros del zodiaco",
+   "set": "C",
+   "empty": true,
+   "ms": 9.256334999998217,
+   "suggestions": []
+  },
+  {
+   "query": "bolero best price",
+   "set": "C",
+   "empty": true,
+   "ms": 14.813388000009581,
+   "suggestions": []
+  },
+  {
+   "query": "black metal videoclips",
+   "set": "C",
+   "empty": true,
+   "ms": 12.33769200000097,
+   "suggestions": []
+  },
+  {
+   "query": "canciones parecidas a mirar la luna",
+   "set": "C",
+   "empty": true,
+   "ms": 9.077077000009012,
+   "suggestions": []
+  },
+  {
+   "query": "musica con notas altas en ingles",
+   "set": "C",
+   "empty": true,
+   "ms": 10.113627999991877,
+   "suggestions": []
+  },
+  {
+   "query": "groove death metal drum track",
+   "set": "C",
+   "empty": true,
+   "ms": 9.679857000010088,
+   "suggestions": []
+  },
+  {
+   "query": "guitarra electroacústica barata",
+   "set": "C",
+   "empty": true,
+   "ms": 8.844792000003508,
+   "suggestions": []
+  },
+  {
+   "query": "recomiéndame más música latina nueva como la de junior h",
+   "set": "C",
+   "empty": true,
+   "ms": 7.71144600000116,
+   "suggestions": []
+  },
+  {
+   "query": "música vieja joe vera",
+   "set": "C",
+   "empty": true,
+   "ms": 15.54488400000264,
+   "suggestions": []
+  },
+  {
+   "query": "rap gangsta paradise",
+   "set": "C",
+   "empty": true,
+   "ms": 12.737103999999817,
+   "suggestions": []
+  },
+  {
+   "query": "rock&pop paraguay",
+   "set": "C",
+   "empty": true,
+   "ms": 17.926531999997678,
+   "suggestions": []
+  },
+  {
+   "query": "que musica escuchar para bajar el cortisol",
+   "set": "C",
+   "empty": true,
+   "ms": 8.380658000009134,
+   "suggestions": []
+  },
+  {
+   "query": "dubstep rapido",
+   "set": "C",
+   "empty": true,
+   "ms": 20.909119000003557,
+   "suggestions": []
+  },
+  {
+   "query": "musica heavy epica",
+   "set": "C",
+   "empty": true,
+   "ms": 15.435161999994307,
+   "suggestions": []
+  },
+  {
+   "query": "música infantil venezolana",
+   "set": "C",
+   "empty": true,
+   "ms": 12.65538199999719,
+   "suggestions": []
+  },
+  {
+   "query": "música vieja de olimpo cárdenas",
+   "set": "C",
+   "empty": true,
+   "ms": 9.691462999995565,
+   "suggestions": []
+  },
+  {
+   "query": "electroacústica yamaha",
+   "set": "C",
+   "empty": true,
+   "ms": 11.261633999994956,
+   "suggestions": []
+  },
+  {
+   "query": "djent que es",
+   "set": "C",
+   "empty": true,
+   "ms": 13.800354000006337,
+   "suggestions": []
+  },
+  {
+   "query": "canciones alegres que motivan",
+   "set": "C",
+   "empty": true,
+   "ms": 9.537614000000758,
+   "suggestions": []
+  },
+  {
+   "query": "musica para bailar reggaeton perreo",
+   "set": "C",
+   "empty": true,
+   "ms": 8.683304999998654,
+   "suggestions": []
+  },
+  {
+   "query": "canciones tristes grupo laberinto",
+   "set": "C",
+   "empty": true,
+   "ms": 9.676780000008876,
+   "suggestions": []
+  },
+  {
+   "query": "metalcore cristiano en español",
+   "set": "C",
+   "empty": true,
+   "ms": 10.169781999997213,
+   "suggestions": []
+  },
+  {
+   "query": "musica romantica viejitas pero buenas",
+   "set": "C",
+   "empty": true,
+   "ms": 8.36117099999683,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica fin del mundo",
+   "set": "C",
+   "empty": true,
+   "ms": 11.810159000000567,
+   "suggestions": []
+  },
+  {
+   "query": "musica nueva campesina",
+   "set": "C",
+   "empty": true,
+   "ms": 12.825320000003558,
+   "suggestions": []
+  },
+  {
+   "query": "musica de edad oscura pvz2",
+   "set": "C",
+   "empty": true,
+   "ms": 12.296521999989636,
+   "suggestions": []
+  },
+  {
+   "query": "musica triste juego del calamar",
+   "set": "C",
+   "empty": true,
+   "ms": 9.956508999996004,
+   "suggestions": []
+  },
+  {
+   "query": "musica para hombre",
+   "set": "C",
+   "empty": true,
+   "ms": 15.96310400000948,
+   "suggestions": []
+  },
+  {
+   "query": "jazz latino alegre",
+   "set": "C",
+   "empty": true,
+   "ms": 17.127877000006265,
+   "suggestions": []
+  },
+  {
+   "query": "musica para relajar perros en el carro",
+   "set": "C",
+   "empty": true,
+   "ms": 8.690554999993765,
+   "suggestions": []
+  },
+  {
+   "query": "bolero que pasara si tu me dejas",
+   "set": "C",
+   "empty": true,
+   "ms": 8.830883999995422,
+   "suggestions": []
+  },
+  {
+   "query": "musica que se escucha en colombia",
+   "set": "C",
+   "empty": true,
+   "ms": 8.874417000013636,
+   "suggestions": []
+  },
+  {
+   "query": "experimentales",
+   "set": "C",
+   "empty": true,
+   "ms": 17.577660000009928,
+   "suggestions": [
+    {
+     "type": "organization",
+     "label": "Experimental",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "rock venezolano exitos",
+   "set": "C",
+   "empty": true,
+   "ms": 12.718799000009312,
+   "suggestions": []
+  },
+  {
+   "query": "adoración significado bíblico",
+   "set": "C",
+   "empty": true,
+   "ms": 11.590056000000914,
+   "suggestions": []
+  },
+  {
+   "query": "latina medios barquisimeto",
+   "set": "C",
+   "empty": true,
+   "ms": 10.233715000009397,
+   "suggestions": []
+  },
+  {
+   "query": "doink",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "art rock mix",
+   "set": "C",
+   "empty": true,
+   "ms": 15.51344799999788,
+   "suggestions": []
+  },
+  {
+   "query": "pop punk latino",
+   "set": "C",
+   "empty": true,
+   "ms": 19.80886499999906,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de nino bravo",
+   "set": "C",
+   "empty": true,
+   "ms": 14.964766000004602,
+   "suggestions": []
+  },
+  {
+   "query": "musica oriental que es",
+   "set": "C",
+   "empty": true,
+   "ms": 13.466507999997702,
+   "suggestions": []
+  },
+  {
+   "query": "algo para felicitar cumpleaños",
+   "set": "C",
+   "empty": true,
+   "ms": 12.520252000002074,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar ingles amor",
+   "set": "C",
+   "empty": true,
+   "ms": 8.825341999996454,
+   "suggestions": []
+  },
+  {
+   "query": "industria del metal",
+   "set": "C",
+   "empty": true,
+   "ms": 23.770151999997324,
+   "suggestions": []
+  },
+  {
+   "query": "metalcore chile",
+   "set": "C",
+   "empty": true,
+   "ms": 18.34726499998942,
+   "suggestions": []
+  },
+  {
+   "query": "canciones que kendrick lamar canto en el super bowl",
+   "set": "C",
+   "empty": true,
+   "ms": 8.438366000002134,
+   "suggestions": []
+  },
+  {
+   "query": "musica romantica xd",
+   "set": "C",
+   "empty": true,
+   "ms": 14.056892000007792,
+   "suggestions": []
+  },
+  {
+   "query": "google recomiéndame música",
+   "set": "C",
+   "empty": true,
+   "ms": 12.447291999997105,
+   "suggestions": []
+  },
+  {
+   "query": "canciones parecidas a otras",
+   "set": "C",
+   "empty": true,
+   "ms": 10.522335999994539,
+   "suggestions": []
+  },
+  {
+   "query": "folklore margariteño",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "musica tipos",
+   "set": "C",
+   "empty": true,
+   "ms": 16.373966999992263,
+   "suggestions": []
+  },
+  {
+   "query": "música antigua romántica",
+   "set": "C",
+   "empty": true,
+   "ms": 12.556393999999273,
+   "suggestions": []
+  },
+  {
+   "query": "opera que linea de metro es",
+   "set": "C",
+   "empty": true,
+   "ms": 10.96001100000285,
+   "suggestions": []
+  },
+  {
+   "query": "Caceroloops",
+   "set": "C",
+   "empty": true,
+   "ms": 14.680248000004212,
+   "suggestions": [
+    {
+     "type": "artist",
+     "label": "Caseroloops",
+     "context": "Barquisimeto"
+    }
+   ]
+  },
+  {
+   "query": "guitarra electroacustica que cuerdas usar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.636973999993643,
+   "suggestions": []
+  },
+  {
+   "query": "noise 9",
+   "set": "C",
+   "empty": true,
+   "ms": 10.098029000000679,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental fausto papetti exitos",
+   "set": "C",
+   "empty": true,
+   "ms": 8.368352000004961,
+   "suggestions": []
+  },
+  {
+   "query": "coldwave que es",
+   "set": "C",
+   "empty": true,
+   "ms": 20.07579899999837,
+   "suggestions": []
+  },
+  {
+   "query": "música de los diablitos",
+   "set": "C",
+   "empty": true,
+   "ms": 19.2243870000093,
+   "suggestions": []
+  },
+  {
+   "query": "metal power doterra para que serve",
+   "set": "C",
+   "empty": true,
+   "ms": 8.855027000012342,
+   "suggestions": []
+  },
+  {
+   "query": "metal instrumental japones",
+   "set": "C",
+   "empty": true,
+   "ms": 10.774434999999357,
+   "suggestions": []
+  },
+  {
+   "query": "musica romantica mexicana",
+   "set": "C",
+   "empty": true,
+   "ms": 11.045071999993525,
+   "suggestions": []
+  },
+  {
+   "query": "musica tipo coldplay",
+   "set": "C",
+   "empty": true,
+   "ms": 15.58665500000643,
+   "suggestions": []
+  },
+  {
+   "query": "jazz que significa",
+   "set": "C",
+   "empty": true,
+   "ms": 15.543550999995205,
+   "suggestions": []
+  },
+  {
+   "query": "musica que fatalidad",
+   "set": "C",
+   "empty": true,
+   "ms": 13.06663899999694,
+   "suggestions": []
+  },
+  {
+   "query": "canciones parecidas a welcome to jamrock",
+   "set": "C",
+   "empty": true,
+   "ms": 8.218821000002208,
+   "suggestions": []
+  },
+  {
+   "query": "coctail",
+   "set": "C",
+   "empty": true,
+   "ms": 9.113662000003387,
+   "suggestions": []
+  },
+  {
+   "query": "<script>alert(1)</script>",
+   "set": "C",
+   "empty": true,
+   "ms": 20.273411999995005,
+   "suggestions": []
+  },
+  {
+   "query": "musica venezolana cecilia todd",
+   "set": "C",
+   "empty": true,
+   "ms": 9.168892000001506,
+   "suggestions": []
+  },
+  {
+   "query": "grupos de rock",
+   "set": "C",
+   "empty": true,
+   "ms": 20.807952999995905,
+   "suggestions": []
+  },
+  {
+   "query": "musica para carros mix",
+   "set": "C",
+   "empty": true,
+   "ms": 12.446168000009493,
+   "suggestions": []
+  },
+  {
+   "query": "Wil pink",
+   "set": "C",
+   "empty": true,
+   "ms": 10.239577000000281,
+   "suggestions": [
+    {
+     "type": "person",
+     "label": "Wil Punk",
+     "context": null
+    }
+   ]
+  },
+  {
+   "query": "música relajante que se escuche el agua",
+   "set": "C",
+   "empty": true,
+   "ms": 8.31759899998724,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de los minions",
+   "set": "C",
+   "empty": true,
+   "ms": 16.803542000008747,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con goku",
+   "set": "C",
+   "empty": true,
+   "ms": 15.40918899999815,
+   "suggestions": []
+  },
+  {
+   "query": "musica alegre romantica",
+   "set": "C",
+   "empty": true,
+   "ms": 11.453422000005958,
+   "suggestions": []
+  },
+  {
+   "query": "VenezuelaDw",
+   "set": "C",
+   "empty": true,
+   "ms": 15.946179000005941,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "De Venezuela",
+     "context": "José Luis Rodríguez"
+    },
+    {
+     "type": "album",
+     "label": "Venezuela",
+     "context": "Carlos Baute"
+    },
+    {
+     "type": "album",
+     "label": "The Venezuelan Zing Son Vol. 1",
+     "context": "Los Amigos Invisibles"
+    }
+   ]
+  },
+  {
+   "query": "venezuelademo",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "darkwave sabbat",
+   "set": "C",
+   "empty": true,
+   "ms": 16.138729999991483,
+   "suggestions": []
+  },
+  {
+   "query": "música sin un tono definido",
+   "set": "C",
+   "empty": true,
+   "ms": 11.267607999994652,
+   "suggestions": []
+  },
+  {
+   "query": "musica de los zañartu",
+   "set": "C",
+   "empty": true,
+   "ms": 22.658832000000984,
+   "suggestions": []
+  },
+  {
+   "query": "musica triste y suave",
+   "set": "C",
+   "empty": true,
+   "ms": 17.732987999988836,
+   "suggestions": []
+  },
+  {
+   "query": "musica vieja arcangel",
+   "set": "C",
+   "empty": true,
+   "ms": 12.318845999994664,
+   "suggestions": []
+  },
+  {
+   "query": "musica para xv años vals",
+   "set": "C",
+   "empty": true,
+   "ms": 13.379511999999522,
+   "suggestions": []
+  },
+  {
+   "query": "Pungo",
+   "set": "C",
+   "empty": true,
+   "ms": 11.058690999998362,
+   "suggestions": [
+    {
+     "type": "album",
+     "label": "EN PUNGA",
+     "context": "Akapellah"
+    },
+    {
+     "type": "album",
+     "label": "Y Punto!",
+     "context": "Gran Coquivacoa"
+    },
+    {
+     "type": "album",
+     "label": "...Y Punto",
+     "context": "Punto Sur"
+    }
+   ]
+  },
+  {
+   "query": "musica para king boxing",
+   "set": "C",
+   "empty": true,
+   "ms": 11.036600999999791,
+   "suggestions": []
+  },
+  {
+   "query": "musica para graduados",
+   "set": "C",
+   "empty": true,
+   "ms": 11.806949999998324,
+   "suggestions": []
+  },
+  {
+   "query": "algo para hacer yoga",
+   "set": "C",
+   "empty": true,
+   "ms": 12.816701000003377,
+   "suggestions": []
+  },
+  {
+   "query": "música para una cumpleañera",
+   "set": "C",
+   "empty": true,
+   "ms": 10.99541400000453,
+   "suggestions": []
+  },
+  {
+   "query": "Vew",
+   "set": "C",
+   "empty": true,
+   "ms": 0.011392000000341795,
+   "suggestions": []
+  },
+  {
+   "query": "playlist para fiestas infantiles",
+   "set": "C",
+   "empty": true,
+   "ms": 8.797838999991654,
+   "suggestions": []
+  },
+  {
+   "query": "banda sonora que he hecho yo para merecer esto",
+   "set": "C",
+   "empty": true,
+   "ms": 8.342149999996764,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con o vistas",
+   "set": "C",
+   "empty": true,
+   "ms": 12.538920999999391,
+   "suggestions": []
+  },
+  {
+   "query": "death roll wage war",
+   "set": "C",
+   "empty": true,
+   "ms": 14.409519000008004,
+   "suggestions": []
+  },
+  {
+   "query": "parallel drum and bass",
+   "set": "C",
+   "empty": true,
+   "ms": 16.002160999996704,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para que los bebés se duerman",
+   "set": "C",
+   "empty": true,
+   "ms": 8.425254000001587,
+   "suggestions": []
+  },
+  {
+   "query": "glitch production",
+   "set": "C",
+   "empty": true,
+   "ms": 14.787681999994675,
+   "suggestions": []
+  },
+  {
+   "query": "musica suave romantica para trabajar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.660877000002074,
+   "suggestions": []
+  },
+  {
+   "query": "música clásica para trabajar alegre",
+   "set": "C",
+   "empty": true,
+   "ms": 12.825899999996182,
+   "suggestions": []
+  },
+  {
+   "query": "salsa para guiso",
+   "set": "C",
+   "empty": true,
+   "ms": 17.347377999991295,
+   "suggestions": []
+  },
+  {
+   "query": "folk rock que es",
+   "set": "C",
+   "empty": true,
+   "ms": 16.448580000011134,
+   "suggestions": []
+  },
+  {
+   "query": "fusión latina 2025 hasta que duela",
+   "set": "C",
+   "empty": true,
+   "ms": 13.233938000004855,
+   "suggestions": []
+  },
+  {
+   "query": "que escuchar cuando estas triste",
+   "set": "C",
+   "empty": true,
+   "ms": 8.916076000008616,
+   "suggestions": []
+  },
+  {
+   "query": "canciones alegres rock en español",
+   "set": "C",
+   "empty": true,
+   "ms": 9.23437799999374,
+   "suggestions": []
+  },
+  {
+   "query": "musica como pasan los años",
+   "set": "C",
+   "empty": true,
+   "ms": 12.616133000003174,
+   "suggestions": []
+  },
+  {
+   "query": "golpe y estribillo hernan marin",
+   "set": "C",
+   "empty": true,
+   "ms": 9.535474000003887,
+   "suggestions": []
+  },
+  {
+   "query": "industrial paraguaya",
+   "set": "C",
+   "empty": true,
+   "ms": 12.512693000011495,
+   "suggestions": []
+  },
+  {
+   "query": "playlist para limpiar tu cuarto reggaeton",
+   "set": "C",
+   "empty": true,
+   "ms": 8.397572000001674,
+   "suggestions": []
+  },
+  {
+   "query": "musica para escuchar mientras te bañas",
+   "set": "C",
+   "empty": true,
+   "ms": 12.645154999991064,
+   "suggestions": []
+  },
+  {
+   "query": "joropo para zapatear",
+   "set": "C",
+   "empty": true,
+   "ms": 13.178621000013663,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica trap",
+   "set": "C",
+   "empty": true,
+   "ms": 16.886980000010226,
+   "suggestions": []
+  },
+  {
+   "query": "bandas sonoras mas famosas",
+   "set": "C",
+   "empty": true,
+   "ms": 9.978951000011875,
+   "suggestions": []
+  },
+  {
+   "query": "xuxa musica lenta",
+   "set": "C",
+   "empty": true,
+   "ms": 18.98208899999736,
+   "suggestions": []
+  },
+  {
+   "query": "musica classica rapida famosa",
+   "set": "C",
+   "empty": true,
+   "ms": 8.892554999998538,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar para volver con tu ex",
+   "set": "C",
+   "empty": true,
+   "ms": 8.164069999998901,
+   "suggestions": []
+  },
+  {
+   "query": "música de cámara zombie",
+   "set": "C",
+   "empty": true,
+   "ms": 13.60364099999424,
+   "suggestions": []
+  },
+  {
+   "query": "musica full bajos",
+   "set": "C",
+   "empty": true,
+   "ms": 16.150712000002386,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de camilo sesto",
+   "set": "C",
+   "empty": true,
+   "ms": 12.525277000007918,
+   "suggestions": []
+  },
+  {
+   "query": "musica vieja yandel",
+   "set": "C",
+   "empty": true,
+   "ms": 15.20339400001103,
+   "suggestions": []
+  },
+  {
+   "query": "música para escuchar karol g",
+   "set": "C",
+   "empty": true,
+   "ms": 11.989227000012761,
+   "suggestions": []
+  },
+  {
+   "query": "darkwave electronic",
+   "set": "C",
+   "empty": true,
+   "ms": 15.776685999997426,
+   "suggestions": []
+  },
+  {
+   "query": "pasaje para españa ida y vuelta",
+   "set": "C",
+   "empty": true,
+   "ms": 8.961986000009347,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar en un aniversario",
+   "set": "C",
+   "empty": true,
+   "ms": 8.428045000007842,
+   "suggestions": []
+  },
+  {
+   "query": "quiero música épica",
+   "set": "C",
+   "empty": true,
+   "ms": 15.02761200000532,
+   "suggestions": []
+  },
+  {
+   "query": "musica de reinaldo arma",
+   "set": "C",
+   "empty": true,
+   "ms": 14.908609000005526,
+   "suggestions": []
+  },
+  {
+   "query": "rock para rodar en moto",
+   "set": "C",
+   "empty": true,
+   "ms": 14.555565999995451,
+   "suggestions": []
+  },
+  {
+   "query": "future punk",
+   "set": "C",
+   "empty": true,
+   "ms": 15.145198000012897,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con yoselin tamara",
+   "set": "C",
+   "empty": true,
+   "ms": 9.574491000006674,
+   "suggestions": []
+  },
+  {
+   "query": "death metal exitos",
+   "set": "C",
+   "empty": true,
+   "ms": 18.481575999991037,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar sobrinos",
+   "set": "C",
+   "empty": true,
+   "ms": 8.824156999995466,
+   "suggestions": []
+  },
+  {
+   "query": "grindcore",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "jazz funk para iniciantes",
+   "set": "C",
+   "empty": true,
+   "ms": 10.679284999991069,
+   "suggestions": []
+  },
+  {
+   "query": "musica coral para dormir",
+   "set": "C",
+   "empty": true,
+   "ms": 10.679905999975745,
+   "suggestions": []
+  },
+  {
+   "query": "baladas románticas de los 70 80 y 90 en español",
+   "set": "C",
+   "empty": true,
+   "ms": 9.505840999976499,
+   "suggestions": []
+  },
+  {
+   "query": "un poco de musica suave zion",
+   "set": "C",
+   "empty": true,
+   "ms": 11.930087999993702,
+   "suggestions": []
+  },
+  {
+   "query": "musica para no escuchar ruidos",
+   "set": "C",
+   "empty": true,
+   "ms": 9.142131000000518,
+   "suggestions": []
+  },
+  {
+   "query": "musica alegre bachatas",
+   "set": "C",
+   "empty": true,
+   "ms": 11.298176000011154,
+   "suggestions": []
+  },
+  {
+   "query": "musica triste uuuu",
+   "set": "C",
+   "empty": true,
+   "ms": 17.842012999986764,
+   "suggestions": []
+  },
+  {
+   "query": "black metal quechua",
+   "set": "C",
+   "empty": true,
+   "ms": 13.778214999998454,
+   "suggestions": []
+  },
+  {
+   "query": "guasasa guasasa salsa",
+   "set": "C",
+   "empty": true,
+   "ms": 10.691105000005336,
+   "suggestions": []
+  },
+  {
+   "query": "guaguancó santeria",
+   "set": "C",
+   "empty": true,
+   "ms": 15.113853999995627,
+   "suggestions": []
+  },
+  {
+   "query": "musica relajante animales",
+   "set": "C",
+   "empty": true,
+   "ms": 11.480855000001611,
+   "suggestions": []
+  },
+  {
+   "query": "musica para bailar dia de muertos",
+   "set": "C",
+   "empty": true,
+   "ms": 9.2681229999871,
+   "suggestions": []
+  },
+  {
+   "query": "musica relajante instrumental cristiana",
+   "set": "C",
+   "empty": true,
+   "ms": 8.17855799998506,
+   "suggestions": []
+  },
+  {
+   "query": "deathcore que significa en español",
+   "set": "C",
+   "empty": true,
+   "ms": 9.0448810000089,
+   "suggestions": []
+  },
+  {
+   "query": "musica de niños para fiesta",
+   "set": "C",
+   "empty": true,
+   "ms": 11.640940999990562,
+   "suggestions": []
+  },
+  {
+   "query": "recomiendame musica para escuchar",
+   "set": "C",
+   "empty": true,
+   "ms": 8.89197199998307,
+   "suggestions": []
+  },
+  {
+   "query": "gaita para mi madre",
+   "set": "C",
+   "empty": true,
+   "ms": 13.420488999981899,
+   "suggestions": []
+  },
+  {
+   "query": "musica de camara para niños",
+   "set": "C",
+   "empty": true,
+   "ms": 10.296174999995856,
+   "suggestions": []
+  },
+  {
+   "query": "musica vieja guardia salsa",
+   "set": "C",
+   "empty": true,
+   "ms": 10.6584440000006,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental para niños",
+   "set": "C",
+   "empty": true,
+   "ms": 12.35332599998219,
+   "suggestions": []
+  },
+  {
+   "query": "jazz queen poster",
+   "set": "C",
+   "empty": true,
+   "ms": 17.931230999995023,
+   "suggestions": []
+  },
+  {
+   "query": "musica triste juan gabriel",
+   "set": "C",
+   "empty": true,
+   "ms": 10.504997999989428,
+   "suggestions": []
+  },
+  {
+   "query": "musica antigua venezolana",
+   "set": "C",
+   "empty": true,
+   "ms": 11.10521599999629,
+   "suggestions": []
+  },
+  {
+   "query": "grupos de heavy metal de los 80 y 90",
+   "set": "C",
+   "empty": true,
+   "ms": 10.297269000002416,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para una hija",
+   "set": "C",
+   "empty": true,
+   "ms": 13.749422000022605,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con yandel",
+   "set": "C",
+   "empty": true,
+   "ms": 13.481147000013152,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de los reinos",
+   "set": "C",
+   "empty": true,
+   "ms": 19.249065999989398,
+   "suggestions": []
+  },
+  {
+   "query": "rock para llorar",
+   "set": "C",
+   "empty": true,
+   "ms": 17.506796000001486,
+   "suggestions": []
+  },
+  {
+   "query": "música que da gusto escuchar",
+   "set": "C",
+   "empty": true,
+   "ms": 12.390256999991834,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de unicornio",
+   "set": "C",
+   "empty": true,
+   "ms": 14.433800000027986,
+   "suggestions": []
+  },
+  {
+   "query": "música para niños de 6 años",
+   "set": "C",
+   "empty": true,
+   "ms": 11.342685000010533,
+   "suggestions": []
+  },
+  {
+   "query": "música san gregoriana",
+   "set": "C",
+   "empty": true,
+   "ms": 14.830859999987297,
+   "suggestions": []
+  },
+  {
+   "query": "glitch para subir de nivel skyrim",
+   "set": "C",
+   "empty": true,
+   "ms": 9.120758999983082,
+   "suggestions": []
+  },
+  {
+   "query": "new age que es bebida",
+   "set": "C",
+   "empty": true,
+   "ms": 11.204323000012664,
+   "suggestions": []
+  },
+  {
+   "query": "música para limpiar la casa energeticamente",
+   "set": "C",
+   "empty": true,
+   "ms": 8.505227999994531,
+   "suggestions": []
+  },
+  {
+   "query": "musica que ofende a los hombres",
+   "set": "C",
+   "empty": true,
+   "ms": 10.202841000020271,
+   "suggestions": []
+  },
+  {
+   "query": "disco para esmerilar",
+   "set": "C",
+   "empty": true,
+   "ms": 14.667323000001488,
+   "suggestions": []
+  },
+  {
+   "query": "playlist para ouvir no trabalho",
+   "set": "C",
+   "empty": true,
+   "ms": 8.862438999989536,
+   "suggestions": []
+  },
+  {
+   "query": "música para grabar",
+   "set": "C",
+   "empty": true,
+   "ms": 15.7961559999967,
+   "suggestions": []
+  },
+  {
+   "query": "música cristiana para orar",
+   "set": "C",
+   "empty": true,
+   "ms": 12.159742999996524,
+   "suggestions": []
+  },
+  {
+   "query": "corrio para que pudiera caminar",
+   "set": "C",
+   "empty": true,
+   "ms": 9.17848099998082,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de franco de vita",
+   "set": "C",
+   "empty": true,
+   "ms": 11.76913400000194,
+   "suggestions": []
+  },
+  {
+   "query": "onda nueva cuatro",
+   "set": "C",
+   "empty": true,
+   "ms": 18.73483299999498,
+   "suggestions": []
+  },
+  {
+   "query": "cantante candela",
+   "set": "C",
+   "empty": true,
+   "ms": 16.007490999996662,
+   "suggestions": []
+  },
+  {
+   "query": "metal que explota con el agua",
+   "set": "C",
+   "empty": true,
+   "ms": 10.163154000008944,
+   "suggestions": []
+  },
+  {
+   "query": "musica nueva kpop",
+   "set": "C",
+   "empty": true,
+   "ms": 18.49651300002006,
+   "suggestions": []
+  },
+  {
+   "query": "canciones parecidas a kumbala",
+   "set": "C",
+   "empty": true,
+   "ms": 10.049640999990515,
+   "suggestions": []
+  },
+  {
+   "query": "musica rapida aerobica",
+   "set": "C",
+   "empty": true,
+   "ms": 11.083765999996103,
+   "suggestions": []
+  },
+  {
+   "query": "música para sanar y liberar",
+   "set": "C",
+   "empty": true,
+   "ms": 10.41425000000163,
+   "suggestions": []
+  },
+  {
+   "query": "canciones parecidas a golden de huntrix",
+   "set": "C",
+   "empty": true,
+   "ms": 8.408047000004444,
+   "suggestions": []
+  },
+  {
+   "query": "jazz blaze",
+   "set": "C",
+   "empty": true,
+   "ms": 15.45501899998635,
+   "suggestions": []
+  },
+  {
+   "query": "que musica escuchar para estudiar bigdanbaby",
+   "set": "C",
+   "empty": true,
+   "ms": 8.1243550000072,
+   "suggestions": []
+  },
+  {
+   "query": "musica que le gusta a los perros",
+   "set": "C",
+   "empty": true,
+   "ms": 10.398168999992777,
+   "suggestions": []
+  },
+  {
+   "query": "dream pop mix",
+   "set": "C",
+   "empty": true,
+   "ms": 15.809391999995569,
+   "suggestions": []
+  },
+  {
+   "query": "banda sonora paradise serie",
+   "set": "C",
+   "empty": true,
+   "ms": 10.152880999987246,
+   "suggestions": []
+  },
+  {
+   "query": "musica vieja merengue",
+   "set": "C",
+   "empty": true,
+   "ms": 12.741441999998642,
+   "suggestions": []
+  },
+  {
+   "query": "brutal death metal bandcamp",
+   "set": "C",
+   "empty": true,
+   "ms": 9.416116999986116,
+   "suggestions": []
+  },
+  {
+   "query": "musica suave para escuchar romantica",
+   "set": "C",
+   "empty": true,
+   "ms": 8.329082999989623,
+   "suggestions": []
+  },
+  {
+   "query": "musica de antes",
+   "set": "C",
+   "empty": false,
+   "ms": 0,
+   "suggestions": []
+  },
+  {
+   "query": "rock suave venezolano",
+   "set": "C",
+   "empty": true,
+   "ms": 14.044365000008838,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para ir a la playa",
+   "set": "C",
+   "empty": true,
+   "ms": 10.426123000012012,
+   "suggestions": []
+  },
+  {
+   "query": "funk y soul classics",
+   "set": "C",
+   "empty": true,
+   "ms": 15.516933000006247,
+   "suggestions": []
+  },
+  {
+   "query": "indie rock para dormir",
+   "set": "C",
+   "empty": true,
+   "ms": 12.22961199999554,
+   "suggestions": []
+  },
+  {
+   "query": "musica epica navidad",
+   "set": "C",
+   "empty": true,
+   "ms": 12.967562000005273,
+   "suggestions": []
+  },
+  {
+   "query": "doom metal depresivo",
+   "set": "C",
+   "empty": true,
+   "ms": 13.892193000006955,
+   "suggestions": []
+  },
+  {
+   "query": "black metal atmosferico instrumental",
+   "set": "C",
+   "empty": true,
+   "ms": 8.439681999996537,
+   "suggestions": []
+  },
+  {
+   "query": "música funky tipo",
+   "set": "C",
+   "empty": true,
+   "ms": 18.00106599999708,
+   "suggestions": []
+  },
+  {
+   "query": "musica triste bad bunny",
+   "set": "C",
+   "empty": true,
+   "ms": 11.883170999994036,
+   "suggestions": []
+  },
+  {
+   "query": "algo para leer",
+   "set": "C",
+   "empty": true,
+   "ms": 19.769429999985732,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con quenacho",
+   "set": "C",
+   "empty": true,
+   "ms": 11.457801000011386,
+   "suggestions": []
+  },
+  {
+   "query": "música para un ser querido que falleció",
+   "set": "C",
+   "empty": true,
+   "ms": 8.370416000019759,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para dedicar vocaloid",
+   "set": "C",
+   "empty": true,
+   "ms": 9.437753000005614,
+   "suggestions": []
+  },
+  {
+   "query": "mambo makito",
+   "set": "C",
+   "empty": true,
+   "ms": 15.047343000012916,
+   "suggestions": []
+  },
+  {
+   "query": "dark ambient academia",
+   "set": "C",
+   "empty": true,
+   "ms": 11.883509000006597,
+   "suggestions": []
+  },
+  {
+   "query": "heavy rock español",
+   "set": "C",
+   "empty": true,
+   "ms": 22.325603000004776,
+   "suggestions": []
+  },
+  {
+   "query": "musica para pilotar carro",
+   "set": "C",
+   "empty": true,
+   "ms": 16.772446999995736,
+   "suggestions": []
+  },
+  {
+   "query": "música muy fuerte de volumen",
+   "set": "C",
+   "empty": true,
+   "ms": 18.570799999986775,
+   "suggestions": []
+  },
+  {
+   "query": "dancehall queen baile",
+   "set": "C",
+   "empty": true,
+   "ms": 18.842076000000816,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para vals",
+   "set": "C",
+   "empty": true,
+   "ms": 24.018544999998994,
+   "suggestions": []
+  },
+  {
+   "query": "música para ya",
+   "set": "C",
+   "empty": true,
+   "ms": 22.239280000008876,
+   "suggestions": []
+  },
+  {
+   "query": "musica que induce al sueño",
+   "set": "C",
+   "empty": true,
+   "ms": 13.066717999987304,
+   "suggestions": []
+  },
+  {
+   "query": "experimental questions",
+   "set": "C",
+   "empty": true,
+   "ms": 11.792356999998447,
+   "suggestions": []
+  },
+  {
+   "query": "musica jazz y blues",
+   "set": "C",
+   "empty": true,
+   "ms": 20.75608399999328,
+   "suggestions": []
+  },
+  {
+   "query": "musica sin interrupciones romantica",
+   "set": "C",
+   "empty": true,
+   "ms": 9.433380000002217,
+   "suggestions": []
+  },
+  {
+   "query": "house para dormir",
+   "set": "C",
+   "empty": true,
+   "ms": 21.426382000005106,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para cuando alguien muere",
+   "set": "C",
+   "empty": true,
+   "ms": 10.6910429999989,
+   "suggestions": []
+  },
+  {
+   "query": "que dias se puede escuchar musica fuerte",
+   "set": "C",
+   "empty": true,
+   "ms": 8.569061999995029,
+   "suggestions": []
+  },
+  {
+   "query": "canciones alegres de mariachis",
+   "set": "C",
+   "empty": true,
+   "ms": 10.134955000015907,
+   "suggestions": []
+  },
+  {
+   "query": "algo para estudiar",
+   "set": "C",
+   "empty": true,
+   "ms": 16.30427399999462,
+   "suggestions": []
+  },
+  {
+   "query": "música para mayores",
+   "set": "C",
+   "empty": true,
+   "ms": 34.59360100000049,
+   "suggestions": [
+    {
+     "type": "track",
+     "label": "Música Para Las Flores",
+     "context": "IV Parlamento · Pobrecito"
+    }
+   ]
+  },
+  {
+   "query": "musica romantica sebastian yatra",
+   "set": "C",
+   "empty": true,
+   "ms": 8.719433000020217,
+   "suggestions": []
+  },
+  {
+   "query": "escuchar la música que dice",
+   "set": "C",
+   "empty": true,
+   "ms": 11.541124999988824,
+   "suggestions": []
+  },
+  {
+   "query": "calipso queriendote",
+   "set": "C",
+   "empty": true,
+   "ms": 14.910776999982772,
+   "suggestions": []
+  },
+  {
+   "query": "blackened death metal o que é",
+   "set": "C",
+   "empty": true,
+   "ms": 9.417255999986082,
+   "suggestions": []
+  },
+  {
+   "query": "canciones alegres y positivas + motivadoras",
+   "set": "C",
+   "empty": true,
+   "ms": 8.154467999993358,
+   "suggestions": []
+  },
+  {
+   "query": "música venezolana joropo",
+   "set": "C",
+   "empty": true,
+   "ms": 14.376085999974748,
+   "suggestions": []
+  },
+  {
+   "query": "grupos de opera",
+   "set": "C",
+   "empty": true,
+   "ms": 25.164518999983557,
+   "suggestions": []
+  },
+  {
+   "query": "banda sonora para dormir",
+   "set": "C",
+   "empty": true,
+   "ms": 10.805889000010211,
+   "suggestions": []
+  },
+  {
+   "query": "musica como jose teve um sonho",
+   "set": "C",
+   "empty": true,
+   "ms": 10.65117199998349,
+   "suggestions": []
+  },
+  {
+   "query": "música funk vieja",
+   "set": "C",
+   "empty": true,
+   "ms": 18.81294999999227,
+   "suggestions": []
+  },
+  {
+   "query": "metal sinfonico para trabajar",
+   "set": "C",
+   "empty": true,
+   "ms": 9.530418999987887,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con mas aura",
+   "set": "C",
+   "empty": true,
+   "ms": 11.840169000002788,
+   "suggestions": []
+  },
+  {
+   "query": "recomiéndame más música latina nueva como la de myke towers",
+   "set": "C",
+   "empty": true,
+   "ms": 8.297020999976667,
+   "suggestions": []
+  },
+  {
+   "query": "musica alegre japonesa",
+   "set": "C",
+   "empty": true,
+   "ms": 12.191514000005554,
+   "suggestions": []
+  },
+  {
+   "query": "comercio industrial venezolano",
+   "set": "C",
+   "empty": true,
+   "ms": 10.001986000017496,
+   "suggestions": []
+  },
+  {
+   "query": "música alegre quiero escuchar",
+   "set": "C",
+   "empty": true,
+   "ms": 11.996843000000808,
+   "suggestions": []
+  },
+  {
+   "query": "musica instrumental niños alegre",
+   "set": "C",
+   "empty": true,
+   "ms": 13.148703999991994,
+   "suggestions": []
+  },
+  {
+   "query": "canciones de los lobos",
+   "set": "C",
+   "empty": true,
+   "ms": 20.29255500002182,
+   "suggestions": []
+  },
+  {
+   "query": "salsa para fideos",
+   "set": "C",
+   "empty": true,
+   "ms": 17.247869000013452,
+   "suggestions": []
+  },
+  {
+   "query": "música de alex zurdo sin ti",
+   "set": "C",
+   "empty": true,
+   "ms": 11.351420999999391,
+   "suggestions": []
+  },
+  {
+   "query": "musica para alegrar la mañana",
+   "set": "C",
+   "empty": true,
+   "ms": 9.483310999989044,
+   "suggestions": []
+  },
+  {
+   "query": "bandas de indie rock en español",
+   "set": "C",
+   "empty": true,
+   "ms": 10.189605999999912,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para xv años",
+   "set": "C",
+   "empty": true,
+   "ms": 14.912344000011217,
+   "suggestions": []
+  },
+  {
+   "query": "black metal queen headboard",
+   "set": "C",
+   "empty": true,
+   "ms": 10.48135899999761,
+   "suggestions": []
+  },
+  {
+   "query": "música para jugar al juego de la silla",
+   "set": "C",
+   "empty": true,
+   "ms": 8.871095000009518,
+   "suggestions": []
+  },
+  {
+   "query": "música para que los niños se duerman",
+   "set": "C",
+   "empty": true,
+   "ms": 8.917946000001393,
+   "suggestions": []
+  },
+  {
+   "query": "rock para naufragios",
+   "set": "C",
+   "empty": true,
+   "ms": 13.290967000008095,
+   "suggestions": []
+  },
+  {
+   "query": "canciones con gritos",
+   "set": "C",
+   "empty": true,
+   "ms": 13.074327999987872,
+   "suggestions": []
+  },
+  {
+   "query": "aggrotech songs",
+   "set": "C",
+   "empty": true,
+   "ms": 17.539762000000337,
+   "suggestions": []
+  },
+  {
+   "query": "musica con que se acompaña los salmos crucigrama",
+   "set": "C",
+   "empty": true,
+   "ms": 7.893777000019327,
+   "suggestions": []
+  },
+  {
+   "query": "música para relajar bebés ansiedad",
+   "set": "C",
+   "empty": true,
+   "ms": 12.765574999997625,
+   "suggestions": []
+  },
+  {
+   "query": "nueva canción para leo messi",
+   "set": "C",
+   "empty": true,
+   "ms": 12.856026999972528,
+   "suggestions": []
+  },
+  {
+   "query": "country music",
+   "set": "C",
+   "empty": true,
+   "ms": 13.871707999991486,
+   "suggestions": []
+  },
+  {
+   "query": "death metal 1",
+   "set": "C",
+   "empty": true,
+   "ms": 16.080775000009453,
+   "suggestions": []
+  },
+  {
+   "query": "canciones oaxaqueñas alegres",
+   "set": "C",
+   "empty": true,
+   "ms": 12.73342900001444,
+   "suggestions": []
+  },
+  {
+   "query": "música para carro de som propaganda",
+   "set": "C",
+   "empty": true,
+   "ms": 8.59908600000199,
+   "suggestions": []
+  },
+  {
+   "query": "musica para bailar infantil moderna",
+   "set": "C",
+   "empty": true,
+   "ms": 8.515809000004083,
+   "suggestions": []
+  },
+  {
+   "query": "drum bass bateria",
+   "set": "C",
+   "empty": true,
+   "ms": 16.284347999986494,
+   "suggestions": []
+  },
+  {
+   "query": "musica con s",
+   "set": "C",
+   "empty": true,
+   "ms": 14.643050000013318,
+   "suggestions": []
+  },
+  {
+   "query": "dejate querer joropo",
+   "set": "C",
+   "empty": true,
+   "ms": 13.495014000014635,
+   "suggestions": []
+  },
+  {
+   "query": "canciones para cuando no sabes como te sientes",
+   "set": "C",
+   "empty": true,
+   "ms": 8.333832000003895,
+   "suggestions": []
+  },
+  {
+   "query": "folk celta ponte da barca 2025",
+   "set": "C",
+   "empty": true,
+   "ms": 9.138091999979224,
+   "suggestions": []
+  },
+  {
+   "query": "música de los minions",
+   "set": "C",
+   "empty": true,
+   "ms": 21.456286000000546,
+   "suggestions": []
+  }
+ ],
+ "missesA": [
+  {
+   "cat": "edit2",
+   "kind": "artist",
+   "target": "NEKROPOLIS",
+   "query": "nekrpoli",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "artist",
+   "target": "Chrysallis",
+   "query": "hrysllis",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "artist",
+   "target": "Trío Marea",
+   "query": "triomrea",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "artist",
+   "target": "Miguel Siso",
+   "query": "miguel siobs",
+   "got": [
+    "person:Miguel Ríos"
+   ]
+  },
+  {
+   "cat": "edit2",
+   "kind": "artist",
+   "target": "The Revoir",
+   "query": "therevor",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "album",
+   "target": "Ana Bolena",
+   "query": "na boena",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "album",
+   "target": "The Express",
+   "query": "the epvxress",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "album",
+   "target": "Una Vez Más",
+   "query": "una vezas",
+   "got": [
+    "album:Vegas",
+    "person:A. Vegas",
+    "track:Las Vegas"
+   ]
+  },
+  {
+   "cat": "edit2",
+   "kind": "album",
+   "target": "Top Hits Vol. 2",
+   "query": "top hits vrl",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "album",
+   "target": "SAME AS ME",
+   "query": "same asm",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "album",
+   "target": "Hold On Me",
+   "query": "old n me",
+   "got": []
+  },
+  {
+   "cat": "stop",
+   "kind": "album",
+   "target": "En El Hood",
+   "query": "en hood",
+   "got": []
+  },
+  {
+   "cat": "stop",
+   "kind": "album",
+   "target": "Crushing War Noise / Sexual Intrusive Thoughts / BxFxTxG / Rupture of an Aneuvrysm to the Coronary Sinus / ExFxMxBxF / Slovak Misanthrope",
+   "query": "crushing war noise sexual intrusive thoughts bxfxtxg rupture of an aneuvrysm to coronary sinus exfxmxbxf slovak misanthrope",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "organization",
+   "target": "Ripo Audio",
+   "query": "roi audio",
+   "got": []
+  },
+  {
+   "cat": "edit1",
+   "kind": "person",
+   "target": "David Z.",
+   "query": "davidz",
+   "got": [
+    "person:David",
+    "person:David L.",
+    "person:David A."
+   ]
+  },
+  {
+   "cat": "edit2",
+   "kind": "person",
+   "target": "Leonard Braus",
+   "query": "leornd braus",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "person",
+   "target": "Pablo Esaá",
+   "query": "bplo esaa",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "person",
+   "target": "Steve Marino",
+   "query": "steve marnmio",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "person",
+   "target": "Jørgen Munkeby",
+   "query": "jørgenu nkeby",
+   "got": []
+  },
+  {
+   "cat": "edit1",
+   "kind": "track",
+   "target": "Bailables Mexicanos a) La Barca De Oro (R. Martínez) b) Las Mañanitas (Esparta Oteo) c) Rancho Grande (Uranga/Del Moral/Ramos) d) Cucurrucucu Paloma (Tomas Méndez) e) Guadalajara",
+   "query": "bailables mexicanos a la barca de oro r martinez b las mannnitas esparta oteo c rancho grande uranga del moral ramos d cucurrucucu paloma tomas mendez e guadalajara",
+   "got": []
+  },
+  {
+   "cat": "edit1",
+   "kind": "track",
+   "target": "La Primavera",
+   "query": "la priymavera",
+   "got": [
+    "album:De primavera",
+    "album:Primavera",
+    "track:En Primavera"
+   ]
+  },
+  {
+   "cat": "edit1",
+   "kind": "track",
+   "target": "Cadena Mexicana A) La Calandria (Manuel Hernandez) B) Asi Se Quiere A Jalisco (E. Cortazar/M. Esperón) C) Juan Charrasqueado (Victor Cordero) D) La Raspa",
+   "query": "cadena mexicana a la calanria manuel hernandez b asi se quiere a jalisco e cortazar m esperon c juan charrasqueado victor cordero d la raspa",
+   "got": []
+  },
+  {
+   "cat": "edit1",
+   "kind": "track",
+   "target": "Tonada",
+   "query": "tonda",
+   "got": [
+    "artist:Los Honda",
+    "artist:Tonka",
+    "album:Tunda"
+   ]
+  },
+  {
+   "cat": "edit2",
+   "kind": "track",
+   "target": "Me Robaron",
+   "query": "m robaon",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "track",
+   "target": "Bailables Mexicanos a) La Barca De Oro (R. Martínez) b) Las Mañanitas (Esparta Oteo) c) Rancho Grande (Uranga/Del Moral/Ramos) d) Cucurrucucu Paloma (Tomas Méndez) e) Guadalajara",
+   "query": "baliables mexicanos a la barca de oro r martinez b las mananitas esparta oteo c rancho grande uranga del moral ramos d cucurrucucu palomva tomas mendez e guadalajara",
+   "got": []
+  },
+  {
+   "cat": "edit2",
+   "kind": "track",
+   "target": "La Primavera",
+   "query": "la primvkera",
+   "got": [
+    "album:De primavera",
+    "album:Los Primera",
+    "album:Primavera"
+   ]
+  },
+  {
+   "cat": "edit2",
+   "kind": "track",
+   "target": "Cadena Mexicana A) La Calandria (Manuel Hernandez) B) Asi Se Quiere A Jalisco (E. Cortazar/M. Esperón) C) Juan Charrasqueado (Victor Cordero) D) La Raspa",
+   "query": "cadena mexiicana a la calandria manuel hernandez b asi se quiere a jalisco e cortazar m esperon c juan chprrasqueado victor cordero d la raspa",
+   "got": []
+  },
+  {
+   "cat": "stop",
+   "kind": "track",
+   "target": "Cadena Mexicana A) La Calandria (Manuel Hernandez) B) Asi Se Quiere A Jalisco (E. Cortazar/M. Esperón) C) Juan Charrasqueado (Victor Cordero) D) La Raspa",
+   "query": "cadena mexicana a la calandria manuel hernandez b asi se quiere a jalisco cortazar m esperon c juan charrasqueado victor cordero d la raspa",
+   "got": []
+  },
+  {
+   "cat": "stop",
+   "kind": "track",
+   "target": "El de cien",
+   "query": "el cien",
+   "got": []
+  },
+  {
+   "cat": "stop",
+   "kind": "track",
+   "target": "V.a.l.e",
+   "query": "v l e",
+   "got": []
+  },
+  {
+   "cat": "stop",
+   "kind": "track",
+   "target": "Le Sacre du Printemps - Revised version for Orchestra (published 1947) / Part 2: The Sacrifice: Mystic Circles of the Young Girls",
+   "query": "le sacre du printemps revised version for orchestra published 1947 part 2 the sacrifice mystic circles the young girls",
+   "got": []
+  }
+ ]
+}

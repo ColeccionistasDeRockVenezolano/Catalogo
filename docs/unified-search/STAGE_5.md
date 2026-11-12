@@ -56,6 +56,12 @@ retención en la API (no duplica: la función toma un candado). `systemctl --use
 Ver la tabla de la propuesta. En resumen: agrupación semántica con Laya cuando haya ≥ 1.000 búsquedas con muestra; alarmas por tendencia tras ≥ 4 semanas
 en modo `on` de la etapa 4; cohortes con dos versiones con tráfico comparable; reentrenamiento tras un lote de etiquetas revisado por Brian.
 
+## Adenda · «¿Quisiste decir…?» (2026-11-12)
+
+Brian pidió implementarla «20/20, encendida y evaluada». Sugerencia aparte con 0 resultados, bandera `CRV_DID_YOU_MEAN` (encendida en producción),
+motor `crv-did-you-mean-0.2.0` (`src/search/did-you-mean*.ts`), release `…-buscador-sugerencia`. Evaluación contra criterios congelados:
+8 de 9 cumplen; **el 5 (precisión manual ≥ 85 %) no: 67 %**. Detalle, intentos y límites en [stage5/fuzzy/RESULTADOS.md](stage5/fuzzy/RESULTADOS.md).
+
 ## Límites
 
 - El seguimiento antes/después de la bandeja es una lectura: la exposición cambia y no se atribuye causalidad. Con el volumen actual será anecdótico.

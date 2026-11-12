@@ -882,3 +882,11 @@ sección «Operación» del panel, bandeja de mejora (`src/search/improvement.ts
 La retención de la analítica ya no la programa la API: la corre `crv-buscador-retencion.timer` (cada hora, `ops/buscador/`, copiado a `~/.config/systemd/user/`).
 Migraciones 0133 (`search_job_status`) y 0134 (`search_improvement_cases`), solo esquema `ingest`. Manual: `docs/unified-search/OPERACION.md`; estado: `docs/unified-search/STAGE_5.md`.
 Vuelta atrás: restaurar el `fijado.conf` anterior, `daemon-reload`, reiniciar `crv-api`; opcionalmente `systemctl --user disable --now crv-buscador-retencion.timer`.
+
+## Buscador: «¿Quisiste decir…?» · 2026-11-12
+
+Release `/home/brian/apps/crv-release/crv-api-2026-11-12-buscador-sugerencia` = `…-buscador-operacion` + `src/search/did-you-mean.ts`, `did-you-mean-service.ts`,
+`searchIndexEntries` en `src/api/search-index.ts` y el cableado en `src/api/routes/search.ts`. `fijado.conf` apunta a ella (copia del anterior en
+`.deploy-backup/fijado.conf.2026-11-12-operacion`). Drop-in `~/.config/systemd/user/crv-api.service.d/zz-buscador-sugerencia.conf` con `CRV_DID_YOU_MEAN=on`.
+Sin migraciones. Vuelta atrás rápida: `CRV_DID_YOU_MEAN=off`, `daemon-reload`, reiniciar `crv-api`; o restaurar el `fijado.conf` anterior.
+Evaluación: `docs/unified-search/stage5/fuzzy/RESULTADOS.md` (criterio 5 sin cumplir, 67 %).

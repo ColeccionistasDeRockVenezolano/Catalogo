@@ -30,6 +30,7 @@ Todas se cambian en un drop-in de `~/.config/systemd/user/crv-api.service.d/`, l
 | Mostrar el plan sin servirlo | `CRV_QUERY_PLAN=shadow` | Se calcula y se anota; `/search/plan` responde `disabled`; la web no muestra el bloque |
 | Servir el plan | `CRV_QUERY_PLAN=on` | `/search/plan` responde; la página de búsqueda muestra «Interpretado como…» |
 | Sugerencias / métricas / recomendaciones | `CRV_DISCOVERY_ENABLED`, `CRV_DISCOVERY_METRICS_ENABLED` (exige `CRV_DISCOVERY_METRICS_SECRET` ≥ 32 caracteres), `CRV_RECOMMENDATIONS_ENABLED` | Ver `src/config/env.ts` |
+| «¿Quisiste decir…?» | `CRV_DID_YOU_MEAN=off` (en `zz-buscador-sugerencia.conf`; encendida = `on`) | `/search` deja de devolver `didYouMean`; los resultados no cambian |
 | Retención | `systemctl --user disable --now crv-buscador-retencion.timer` | Los datos no se podan hasta reactivarla (no se pierde nada) |
 | Trabajos de fondo de la API | `CRV_BACKGROUND_JOBS=false` | No hay colector ni latido (solo para instancias sin catálogo) |
 

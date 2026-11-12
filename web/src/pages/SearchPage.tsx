@@ -54,6 +54,8 @@ function narrowerQueries(q: string): string[] {
 
 const PLAN_LIMIT = 8;
 /** Resultados del plan interpretado («ska de los 80»): se explican y avisan de las fichas que no se pudieron evaluar por falta de dato. */
+const DID_YOU_MEAN_KIND: Record<SearchEntityType, string> = { artist: "Artista", album: "Disco", track: "Canción", person: "Persona", organization: "Organización" };
+
 function PlanBlock({ plan }: { plan: PlanSearch }) {
   const it = plan.interpretation;
   if (!it) return null;
@@ -237,6 +239,15 @@ export function SearchPage() {
             hint="Prueba con otro nombre, revisa la ortografía o explora el catálogo. Las búsquedas sin resultados se revisan para añadir nombres que falten."
             action={(
               <div className="search-empty__actions">
+                {data?.didYouMean?.length ? (
+                  <p className="search-empty__line"><span>¿Quisiste decir</span>
+                    {data.didYouMean.map((hit) => (
+                      <button key={`${hit.type}:${hit.id}`} type="button" className="search-chip" title={hit.context ? `${DID_YOU_MEAN_KIND[hit.type]} · ${hit.context}` : DID_YOU_MEAN_KIND[hit.type]} onClick={() => searchFor(hit.label)}>
+                        {hit.label}{hit.type === "artist" ? "" : <span className="search-chip__count">{DID_YOU_MEAN_KIND[hit.type]}</span>}
+                      </button>
+                    ))}<span>?</span>
+                  </p>
+                ) : null}
                 {narrower.length ? (
                   <p className="search-empty__line"><span>Buscar solo</span>
                     {narrower.map((word) => <button key={word} type="button" className="search-chip" onClick={() => searchFor(word)}>{word}</button>)}

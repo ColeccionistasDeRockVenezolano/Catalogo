@@ -340,6 +340,14 @@ async function scanIds(kind: IndexedKind, q: string, limit: number): Promise<num
   return tiers.flat().slice(0, limit);
 }
 
+/**
+ * Las entradas del índice de un tipo (solo lectura), en su orden de relevancia. Las usa la sugerencia aproximada
+ * («¿Quisiste decir…?»); el array se sustituye entero en cada recarga, así que quien lo guarde puede usarlo de clave.
+ */
+export async function searchIndexEntries(kind: IndexedKind): Promise<readonly SearchIndexEntry[]> {
+  return (await indexFor(kind)).entries;
+}
+
 /** Versión del índice (sube con cada carga): clave para cachés de resultados. */
 export function searchIndexVersion(): number {
   return version;

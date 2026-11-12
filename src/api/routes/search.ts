@@ -9,6 +9,8 @@ import { GATED_MODE_VERSION } from "../../search/query-interpretation/gated.js";
 import { randomUUID } from "node:crypto";
 import { searchCollector, confirmationSchema, type SearchSnapshot } from "../../search/observability.js";
 import { recordJob, SEARCH_JOBS } from "../../search/job-status.js";
+import { didYouMean } from "../../search/did-you-mean-service.js";
+import { DID_YOU_MEAN_VERSION, didYouMeanEnabled } from "../../search/did-you-mean.js";
 import { INTENTION_VERSION, OBSERVABILITY_VERSION } from "../../search/contracts.js";
 import { searchSample } from "../../search/privacy.js";
 import { searchIndexVersion } from "../search-index.js";
@@ -79,6 +81,9 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
         : { ok: true, detail: { pending: searchCollector.status().pending, lost: q.lost, persisted: q.persisted } });
     }, SEARCH_JOBS.collector.cadenceSecs * 1000).unref()
     : null;
+  // El índice aproximado de «¿Quisiste decir…?» se construye la primera vez que hace falta (~0,3 s): se adelanta tras el arranque
+  // para que no lo pague un visitante.
+  if (backgroundJobs && didYouMeanEnabled()) setTimeout(() => { void didYouMean("precalentamiento del indice aproximado"); }, 20_000).unref();
   app.addHook("onClose", async () => {
     if (flushTimer) clearInterval(flushTimer);
     if (heartbeatTimer) clearInterval(heartbeatTimer);
@@ -131,6 +136,8 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
           }).describe("Coincidencias conocidas por tipo (tope 200); la paginación se apoya en este número."),
           emotion: z.object({ emotion: emotionSchema, artists: z.array(emotionArtistSchema) }).nullable()
             .describe("Intención emocional de la consulta («música para tener sexo» → cachonda). Solo en la búsqueda principal."),
+          didYouMean: z.array(searchHitSchema)
+            .describe("«¿Quisiste decir…?»: nombres parecidos a una consulta sin resultados (errata de una a tres letras). Vacío si hay resultados, la bandera está apagada o nada se parece."),
         }),
       },
     },
@@ -173,6 +180,16 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
       snapshot.counts["emotional_artists"] = emotion?.artists.length ?? 0;
       snapshot.entities = ALL_SEARCH_TYPES.flatMap(type => result[type].map(hit => ({ type, id: hit.id })));
       snapshot.outcome = Object.values(snapshot.counts).some(n => n > 0) ? "results" : "empty";
+      // «¿Quisiste decir…?»: solo si la búsqueda principal no encontró nada. Es una sugerencia aparte: la consulta sigue contando
+      // como vacía (el resultado y el resumen no cambian) y quien la sigue hace una búsqueda nueva con el nombre sugerido.
+      let suggestions: Awaited<ReturnType<typeof didYouMean>>["hits"] = [];
+      if (didYouMeanEnabled() && !requestedTypes && snapshot.outcome === "empty") {
+        const attempt = await didYouMean(q);
+        suggestions = attempt.hits;
+        snapshot.timings["did_you_mean"] = attempt.ms;
+        snapshot.counts["did_you_mean"] = suggestions.length;
+        snapshot.versions["did_you_mean"] = `${DID_YOU_MEAN_VERSION}:${suggestions.length ? "suggested" : "none"}`;
+      }
       snapshot.resultReason = snapshot.outcome === "empty" ? "legacy_literal_no_matches" : "legacy_matches_without_full_constraint_validation";
       snapshot.intention.interpretation = intent ? "partial" : "unrecognized";
       // Legacy categories mix activities and emotion. Keep their match as an
@@ -181,7 +198,7 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
       snapshot.intention.capabilities = [];
       // Preserve the whole sanitized request as pending: legacy matching cannot prove full semantic understanding.
       snapshot.intention.pending = [{ text: searchSample(q).sample, reason: "legacy_interpreter_no_full_plan" }];
-      return { ...result, emotion };
+      return { ...result, emotion, didYouMean: suggestions.map(hit => ({ ...hit, imageUrl: null })) };
     } catch (error) {
       snapshot.incident = incidentFor(error);
       throw error;
