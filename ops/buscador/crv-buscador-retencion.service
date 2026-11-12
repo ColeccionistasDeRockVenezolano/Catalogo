@@ -1,0 +1,18 @@
+[Unit]
+Description=CRV buscador: agregación y retención de la analítica de búsquedas (30 días de detalle, 180 de contadores)
+Wants=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/brian/apps/Coleccionistas De Rock Venezolano
+Environment=PATH=/home/brian/.local/node-v24.20.0-linux-x64/bin:/usr/bin:/bin
+# Máquina compartida: un núcleo, E/S ociosa y memoria acotada.
+Nice=19
+IOSchedulingClass=idle
+CPUQuota=100%
+MemoryHigh=512M
+MemoryMax=768M
+TimeoutStartSec=300
+# Deja latido en ingest.search_job_status (trabajo «retention»); el panel Administrar › Buscador › Operación lo muestra.
+ExecStart=/home/brian/.local/node-v24.20.0-linux-x64/bin/npx tsx src/cli/index.ts search:retain

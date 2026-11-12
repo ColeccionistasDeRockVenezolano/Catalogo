@@ -6,6 +6,8 @@
 import { runDoctor } from "../doctor/index.js";
 import { migrateUp, migrateDownAll } from "../db/migrate.js";
 import { closeDb } from "../db/client.js";
+import { retainSearchAnalytics } from "../search/observability.js";
+import { recordJob } from "../search/job-status.js";
 import { moduleLogger } from "../logger/index.js";
 import { seedSources, listSources, proposeSource, approveSource, LINKS_XLSX_PATH } from "../ingest/sources.js";
 import { runObserve } from "../fetcher/observe.js";
@@ -1192,6 +1194,22 @@ async function main(): Promise<number> {
       return 0;
     }
 
+    case "search:retain": {
+      // Etapa 5 (reducida): retención y agregación de la analítica del buscador como tarea programada,
+      // con un solo dueño (timer crv-buscador-retencion). Deja latido en ingest.search_job_status.
+      const started = Date.now();
+      try {
+        await retainSearchAnalytics();
+      } catch {
+        await recordJob("retention", { ok: false, code: "retention_failed" });
+        console.error("search:retain: falló la retención de analítica del buscador");
+        return 1;
+      }
+      await recordJob("retention", { ok: true, detail: { ms: Date.now() - started } });
+      console.log(`search:retain: agregación y retención aplicadas en ${Date.now() - started} ms`);
+      return 0;
+    }
+
     case "er:prune": {
       const numberFlag = (name: string): number | undefined => {
         const raw = args.find((arg) => arg.startsWith(`--${name}=`))?.slice(name.length + 3);
@@ -1362,6 +1380,8 @@ CRV CLI
                              retención (30 días por defecto): borra del diario de cambios las entradas de tablas
                              soft (colas, claims, revisiones) y vacía prompt y respuestas de las corridas de IA;
                              el diario del catálogo (strict) se conserva siempre
+  search:retain              agrega y poda la analítica del buscador (30 días de detalle, 180 de contadores) y deja latido;
+                             lo corre el timer crv-buscador-retencion cada hora
   er:prune [--dry-run] [--keep-full-days=N] [--max-rows=N]
                              retención de decisiones de resolución: compacta (no borra) el dossier de candidatas
                              de las decisiones más viejas que la ventana (ER_DECISION_FULL_DAYS, 3 días por defecto):

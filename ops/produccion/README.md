@@ -872,3 +872,13 @@ Qué hace `shadow`: si el modo «solo si coinciden» respondió y el plan es sol
 Pasar a `on` exige la revisión A/B de Brian y reconstruir la web (no reconstruida: `web/dist` es del 2026-11-04). Detalles y evidencia: `docs/unified-search/STAGE_4.md`.
 Se dejó una búsqueda de prueba («power metal playlist») en `ingest.search_attempts`.
 Vuelta atrás: `CRV_QUERY_PLAN=off` o retirar el drop-in y reiniciar; para la release anterior, restaurar el `fijado.conf` de `.deploy-backup/`, `daemon-reload`, reiniciar.
+
+## Buscador etapa 5 (versión reducida): operación y bandeja de mejora · 2026-11-12
+
+Release `/home/brian/apps/crv-release/crv-api-2026-11-12-buscador-operacion` = `…-buscador-plan` + latido de trabajos (`src/search/job-status.ts`),
+sección «Operación» del panel, bandeja de mejora (`src/search/improvement.ts`, ruta `/search/administration/improvement`) y `search:retain` en el CLI.
+`fijado.conf` apunta a ella (copia del anterior en `.deploy-backup/fijado.conf.2026-11-12-plan`). El `app.ts` de la release lleva solo el registro de la ruta nueva.
+
+La retención de la analítica ya no la programa la API: la corre `crv-buscador-retencion.timer` (cada hora, `ops/buscador/`, copiado a `~/.config/systemd/user/`).
+Migraciones 0133 (`search_job_status`) y 0134 (`search_improvement_cases`), solo esquema `ingest`. Manual: `docs/unified-search/OPERACION.md`; estado: `docs/unified-search/STAGE_5.md`.
+Vuelta atrás: restaurar el `fijado.conf` anterior, `daemon-reload`, reiniciar `crv-api`; opcionalmente `systemctl --user disable --now crv-buscador-retencion.timer`.

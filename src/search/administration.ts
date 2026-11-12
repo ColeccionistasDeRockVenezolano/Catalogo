@@ -8,11 +8,12 @@ import { dailyCycleAt } from "../shared/daily-cycle.js";
 import { OBSERVABILITY_VERSION } from "./contracts.js";
 import { DAILY_SAMPLE_LIMIT, searchCollector } from "./observability.js";
 import { resourceFieldAdministration, resourceFieldStatus } from "./resource-field-review.js";
+import { searchOperation } from "./job-status.js";
 
 export async function searchAdministration() {
   const db = getPool();
   const cycle = dailyCycleAt();
-  const [summary, combinations, queries, outcomes, latencies, daily, legacy, decisions, discovery, jobs] = await Promise.all([
+  const [summary, combinations, queries, outcomes, latencies, daily, legacy, decisions, discovery, jobs, operation] = await Promise.all([
     db.query(`SELECT count(*)::int AS total,count(*) FILTER(WHERE sample IS NOT NULL)::int AS sampled,
       count(*) FILTER(WHERE snapshot->'intention'->'capabilities' ? 'direct')::int AS direct,
       count(*) FILTER(WHERE snapshot->'intention'->'capabilities' ? 'emotional')::int AS emotional,
@@ -57,6 +58,7 @@ export async function searchAdministration() {
     db.query("SELECT state AS status,count(*)::int AS count FROM ingest.artist_search_suggestions GROUP BY state"),
     db.query("SELECT kind,count(*)::int AS count FROM ingest.discovery_metric_events GROUP BY kind"),
     db.query("SELECT * FROM ingest.discovery_metric_jobs ORDER BY started_at DESC LIMIT 5"),
+    searchOperation(),
   ]);
   const registry = JSON.parse(await readFile(path.join(projectRoot(import.meta.url), "docs/unified-search/resources.json"), "utf8")) as { checkedAt: string; resources: Array<{ id: string; resource: string; availability: string; status: string; nextTask: string; stagePriority: string }> };
   let resourceUses: { resources: Array<{ id:string; disposition:string; reason:string }> } = { resources:[] };
@@ -84,7 +86,7 @@ export async function searchAdministration() {
     sampling: { maximumExamplesPerEditorialDay: DAILY_SAMPLE_LIMIT, directEntityNavigationsSampled: false, policy: "problematic-first-up-to-daily-cap-v1" },
     version: OBSERVABILITY_VERSION, dailyCycle: cycle, generatedAt: new Date().toISOString(), periodDays: 30,
     summary: summary.rows[0], combinations: combinations.rows, queries: queries.rows, outcomes: outcomes.rows,
-    latencies: latencies.rows, daily: daily.rows, quality: searchCollector.status(),
+    latencies: latencies.rows, daily: daily.rows, quality: searchCollector.status(), operation,
     legacy: { version: "0072_search_misses", includesPreviews: true, additive: false, seriesCut: "unavailable", rows: legacy.rows.map(row => ({ ...row, normalized_query: sanitizeSearchText(row.normalized_query), sample_query: sanitizeSearchText(row.sample_query) })) },
     suggestions: { decisions: decisions.rows, funnel: discovery.rows, jobs: jobs.rows, seriesCut: "UTC; separate from Caracas confirmed searches" },
     limitations: ["Lógica heredada: sin plan semántico completo ni Laya de consultas", "Grupos exactos sanitizados; similitud semántica pendiente de etapa 5", "Calidad del buffer desde el arranque del proceso; pérdidas al reiniciar no cuantificables", "30 días de detalle; 180 días de contadores sin muestras", "No se suman contadores solapados ni se equiparan sesiones con personas"],

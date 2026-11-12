@@ -401,6 +401,11 @@ export const searchApi = {
   laya: (signal?: AbortSignal) => request<Awaited<ReturnType<typeof import("../../../src/search/laya-models").layaAdministration>>>("/search/administration/laya", { ...(signal ? { signal } : {}) }),
   layaActivation: (body: import("zod").input<typeof import("../../../src/search/laya-models").activationRequestSchema>) =>
     request<{ runId: number; result: { id: number; task: string; modelId: string; action: string } }>("/search/administration/laya/activations", { method: "POST", body }),
+  improvement: (signal?: AbortSignal) => request<import("../../../src/search/improvement").ImprovementState>("/search/administration/improvement", { ...(signal ? { signal } : {}) }),
+  improvementOpen: (body: import("zod").input<typeof import("../../../src/search/improvement").openCaseSchema>) =>
+    request<{ id: number; reviewId: number | null }>("/search/administration/improvement", { method: "POST", body }),
+  improvementClose: (id: number, body: import("zod").input<typeof import("../../../src/search/improvement").closeCaseSchema>) =>
+    request<{ id: number; status: string }>(`/search/administration/improvement/${id}/close`, { method: "POST", body }),
   observe: (q: string, onSearchReceipt: (receipt: string) => void, signal?: AbortSignal) => request<SearchResults>("/search", { query: { q, limit: 20 }, onSearchReceipt, ...(signal ? { signal } : {}) }),
   confirm: (body: import("../../../src/search/observability").Confirmation) => request<{status:string}>("/search/confirmations", { method: "POST", body }),
   search: (q: string, types?: string[], limit = 20, signal?: AbortSignal) =>

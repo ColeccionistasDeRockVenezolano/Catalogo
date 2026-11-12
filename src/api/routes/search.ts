@@ -7,7 +7,8 @@ import { decide, structuredFor } from "../../search/query-plan/service.js";
 import { executeStructured, planMode, STRUCTURED_PLAN_VERSION } from "../../search/query-plan/structured.js";
 import { GATED_MODE_VERSION } from "../../search/query-interpretation/gated.js";
 import { randomUUID } from "node:crypto";
-import { searchCollector, confirmationSchema, retainSearchAnalytics, type SearchSnapshot } from "../../search/observability.js";
+import { searchCollector, confirmationSchema, type SearchSnapshot } from "../../search/observability.js";
+import { recordJob, SEARCH_JOBS } from "../../search/job-status.js";
 import { INTENTION_VERSION, OBSERVABILITY_VERSION } from "../../search/contracts.js";
 import { searchSample } from "../../search/privacy.js";
 import { searchIndexVersion } from "../search-index.js";
@@ -67,12 +68,20 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
   // analítica que pertenece al catálogo.
   const backgroundJobs = getEnv().CRV_BACKGROUND_JOBS;
   const flushTimer = backgroundJobs ? setInterval(() => { void searchCollector.flush(); }, 5000).unref() : null;
-  const retentionTimer = backgroundJobs
-    ? setInterval(() => { void retainSearchAnalytics().catch(() => app.log.warn({ code: "search_retention_failed" }, "falló la retención de analítica")); }, 60 * 60_000).unref()
+  // La retención ya no vive aquí: la corre el timer crv-buscador-retencion (`crv search:retain`), con un solo dueño y
+  // aunque la API esté parada. Esta instancia solo deja el latido del colector (cada 5 min, sin texto de consultas).
+  let lastFailed = searchCollector.quality.failed;
+  const heartbeatTimer = backgroundJobs
+    ? setInterval(() => {
+      const q = searchCollector.quality, failed = q.failed > lastFailed;
+      lastFailed = q.failed;
+      void recordJob("collector", failed ? { ok: false, code: "analytics_write_failed" }
+        : { ok: true, detail: { pending: searchCollector.status().pending, lost: q.lost, persisted: q.persisted } });
+    }, SEARCH_JOBS.collector.cadenceSecs * 1000).unref()
     : null;
   app.addHook("onClose", async () => {
     if (flushTimer) clearInterval(flushTimer);
-    if (retentionTimer) clearInterval(retentionTimer);
+    if (heartbeatTimer) clearInterval(heartbeatTimer);
     await searchCollector.flush();
     for (let i = 0; i < 20 && searchCollector.status().pending; i++) {
       const failed = searchCollector.quality.failed;

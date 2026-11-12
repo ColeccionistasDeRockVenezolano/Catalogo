@@ -67,6 +67,7 @@ import { registerChangeRoutes } from "./routes/changes.js";
 import { registerCurationRoutes } from "./routes/curation.js";
 import { registerEmotionCurationRoutes } from "./routes/emotion-curation.js";
 import { registerSearchHumanReviewRoutes } from "./routes/search-human-review.js";
+import { registerSearchImprovementRoutes } from "./routes/search-improvement.js";
 import { registerCurationActionRoutes } from "./routes/curation-actions.js";
 import { registerCurationAutofixRoutes } from "./routes/curation-autofix.js";
 import { registerImageCandidateRoutes } from "./routes/image-candidates.js";
@@ -231,6 +232,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   await registerCurationRoutes(app);
   await registerEmotionCurationRoutes(app);
   await registerSearchHumanReviewRoutes(app);
+  await registerSearchImprovementRoutes(app);
   await registerCurationActionRoutes(app);
   await registerCurationAutofixRoutes(app);
   await registerImageCandidateRoutes(app);

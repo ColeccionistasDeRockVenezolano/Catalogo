@@ -11,7 +11,7 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { Link, NavLink, useSearchParams } from "react-router-dom";
 import {
-  BookOpen, ChartLineUp, Database, Gauge, Heart, Info, LockSimple, MagnifyingGlass, MagnifyingGlassMinus, Scales, SignIn, Sparkle, Tag, TreeStructure, type Icon,
+  BookOpen, ChartLineUp, Database, Gauge, Heart, Heartbeat, Info, LockSimple, MagnifyingGlass, MagnifyingGlassMinus, Scales, SignIn, Sparkle, Tag, TreeStructure, type Icon,
 } from "@phosphor-icons/react";
 import { SearchKnowledgeReview } from "../components/SearchKnowledgeReview";
 import { ResourceFieldTable } from "../components/ResourceFieldTable";
@@ -23,7 +23,7 @@ import { aliasWrites, ApiError, searchApi, type EntityPath } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useToast } from "../lib/ToastContext";
 import { aliasTypeLabel } from "../lib/labels";
-import { formatCount } from "../lib/curation";
+import { formatCount, relativeTime } from "../lib/curation";
 import { OperatorDialog } from "../components/OperatorSettings";
 import { ErrorState } from "../components/StateViews";
 import { RowsSkeleton } from "../components/Skeletons";
@@ -36,6 +36,7 @@ import "../styles/search-administration.css";
 import "../styles/curation-emotions.css";
 
 type Administration = Awaited<ReturnType<typeof searchApi.administration>>;
+type ImprovementState = import("../../../src/search/improvement").ImprovementState;
 
 const qualityNames: Record<string, string> = { received: "Eventos recibidos", queued: "Encolados", duplicates: "Duplicados", excluded: "Excluidos", lost: "Perdidos", failed: "Intentos de escritura fallidos", invalid: "Recibos inválidos", requests: "Peticiones elegibles", previews: "Peticiones sin confirmación", receiptsExpired: "Recibos caducados", persisted: "Intentos persistidos", lastFlush: "Último vaciado", pending: "Pendientes", receipts: "Recibos en memoria", version: "Versión" };
 const metrics = { unresolved_entities: "Entidades no resueltas", undetermined_entities: "Resolución aún no determinada", total: "Búsquedas confirmadas", direct: "Directas", emotional: "Emocionales", contextual: "Contextuales", mixed: "Combinadas", unidentified: "Interpretación pendiente", incidents: "Con incidente técnico", failures: "Fallos terminales", empty: "Sin resultados", navigations: "Navegaciones directas", cache_hits: "Respuestas de caché" };
@@ -55,6 +56,7 @@ interface SectionSpec {
 const SECTIONS: readonly SectionSpec[] = [
   { key: "Resumen", label: "Resumen", group: "Lecturas", icon: Gauge, intro: "Cómo se está usando el buscador en los últimos 30 días y qué conviene atender." },
   { key: "Consultas y patrones", label: "Consultas", group: "Lecturas", icon: MagnifyingGlass, intro: "Las consultas confirmadas más frecuentes, agrupadas por texto exacto." },
+  { key: "Estado de operación", label: "Operación", group: "Lecturas", icon: Heartbeat, intro: "Si los trabajos del buscador corren: retención, colector, intérprete y banderas. Distingue «sin datos» de «proceso detenido»." },
   { key: "Sugerencias", label: "Sugerencias", group: "Lecturas", icon: Sparkle, intro: "Qué sugerencias se exponen y cómo responde la gente a ellas." },
   { key: "Alimentación", label: "Fuentes", group: "Lecturas", icon: Database, intro: "Las fuentes que alimentan el conocimiento del buscador y su estado de revisión." },
   { key: "Sin resultados", label: "Sin resultados", group: "Decidir", icon: MagnifyingGlassMinus, intro: "Lo que la gente buscó y no encontró. Si la consulta es otra forma de escribir una ficha que existe, añádela como alias y la próxima vez aparecerá." },
@@ -138,6 +140,7 @@ export function SearchAdministrationPage() {
           : section.key === "Conocimiento" ? (Number.isSafeInteger(reviewId) && reviewId > 0
             ? <SearchKnowledgeReview key={reviewId} id={reviewId} onClose={() => setParams({ seccion: "Conocimiento" })} />
             : <SearchKnowledgePanel />)
+          : section.key === "Estado de operación" ? <Operation data={data} />
           : section.key === "Sugerencias" ? <Suggestions data={data} />
           : <Feeding data={data} />}
       </section>
@@ -202,6 +205,11 @@ function Overview({ data, queue, onOpen }: { data: Administration; queue: EmptyR
   if (unresolved) attention.push({ text: `${formatCount(unresolved)} búsquedas no pudieron resolverse a una ficha concreta.`, action: "Ver consultas", key: "Consultas y patrones" });
   if (data.resources.fieldReviewStatus === "needs_review") attention.push({ text: "La revisión de campos de las fuentes necesita revalidarse.", action: "Ver fuentes", key: "Alimentación" });
   if (incidents) attention.push({ text: `${formatCount(incidents)} búsquedas tuvieron un incidente técnico.`, action: "Ver consultas", key: "Consultas y patrones" });
+  for (const job of data.operation.jobs) {
+    if (job.state === "detenido" || job.state === "con_error") attention.push({ text: `${job.label}: ${JOB_STATE[job.state].label.toLowerCase()}${job.lastOkAt ? ` (último correcto ${relativeTime(job.lastOkAt)})` : ""}.`, action: "Ver operación", key: "Estado de operación" });
+  }
+  if (data.operation.interpreter.configured && data.operation.interpreter.reachable === false) attention.push({ text: "El intérprete de consultas no responde; el buscador sigue con la lógica de siempre.", action: "Ver operación", key: "Estado de operación" });
+  if (data.quality.lost > 0) attention.push({ text: `El colector perdió ${formatCount(data.quality.lost)} eventos desde el arranque del proceso.`, action: "Ver operación", key: "Estado de operación" });
 
   return (
     <>
@@ -243,6 +251,54 @@ function Overview({ data, queue, onOpen }: { data: Administration; queue: EmptyR
         <p>Contadores del proceso actual, buffer máximo de 5.000; vaciado cada 5 segundos. Los reinicios pueden perder recibos y eventos pendientes.</p>
         <dl className="search-admin__metrics">{Object.entries(data.quality).map(([key, value]) => <div key={key}><dt>{qualityNames[key] ?? key}</dt><dd>{String(value ?? "Sin volcado")}</dd></div>)}</dl>
         <ul>{data.limitations.map((text: string) => <li key={text}>{text}</li>)}</ul>
+      </About>
+    </>
+  );
+}
+
+const JOB_STATE: Record<"al_dia" | "sin_datos" | "detenido" | "con_error", { label: string; badge: string }> = {
+  al_dia: { label: "Al día", badge: "badge--teal" },
+  sin_datos: { label: "Sin datos", badge: "" },
+  detenido: { label: "Proceso detenido", badge: "badge--red" },
+  con_error: { label: "Con error", badge: "badge--red" },
+};
+const PLAN_MODE: Record<string, string> = { off: "Apagado", shadow: "Sombra (se calcula y no se muestra)", on: "Encendido" };
+
+function Operation({ data }: { data: Administration }) {
+  const op = data.operation;
+  const cadence = (secs: number) => secs % 3600 === 0 ? `cada ${secs / 3600} h` : `cada ${Math.round(secs / 60)} min`;
+  return (
+    <>
+      <section className="search-admin__block" aria-labelledby="op-jobs">
+        <h3 id="op-jobs">Trabajos</h3>
+        <div className="search-admin__table"><table><thead><tr><th>Trabajo</th><th>Estado</th><th>Último correcto</th><th>Último error</th><th>Ejecuciones</th></tr></thead><tbody>
+          {op.jobs.map((job) => (
+            <tr key={job.job}>
+              <td>{job.label}<br /><small>{cadence(job.cadenceSecs)}</small></td>
+              <td><span className={`badge ${JOB_STATE[job.state].badge}`}>{JOB_STATE[job.state].label}</span></td>
+              <td>{job.lastOkAt ? relativeTime(job.lastOkAt) : "Nunca"}</td>
+              <td>{job.lastErrorAt ? `${relativeTime(job.lastErrorAt)} · ${job.lastError ?? "error"}` : "—"}</td>
+              <td>{formatCount(job.runs)}{job.failures ? ` (${formatCount(job.failures)} fallidas)` : ""}</td>
+            </tr>
+          ))}
+        </tbody></table></div>
+      </section>
+
+      <section className="search-admin__block" aria-labelledby="op-flags">
+        <h3 id="op-flags">Interpretación y plan</h3>
+        <dl className="search-admin__metrics">
+          <div><dt>Modo «solo si coinciden»</dt><dd>{op.flags.gated ? "Activo" : "Apagado"}</dd></div>
+          <div><dt>Plan de género y década</dt><dd>{PLAN_MODE[op.flags.plan] ?? op.flags.plan}</dd></div>
+          <div><dt>Intérprete</dt><dd>{!op.interpreter.configured ? "No configurado" : op.interpreter.reachable ? "Responde" : "No responde"}</dd></div>
+          {op.interpreter.laya ? <div><dt>Laya</dt><dd>{op.interpreter.laya}</dd></div> : null}
+          {op.interpreter.student ? <div><dt>Estudiante</dt><dd>{op.interpreter.student}</dd></div> : null}
+        </dl>
+      </section>
+
+      <About title="Cómo se lee">
+        <p>«Sin datos» significa que el trabajo aún no ha dejado latido. «Proceso detenido» significa que lo dejó antes y lleva más de {op.staleFactor} veces su cadencia sin un latido correcto. «Con error» significa que su último intento falló.</p>
+        <p>La retención y agregación las corre el temporizador <code>crv-buscador-retencion</code> cada hora, aunque la API esté parada. El colector deja un latido propio cada 5 minutos mientras la API está viva.</p>
+        <p>Los contadores del colector (Resumen › Cómo se calcula) son del proceso actual y se reinician con la API. El latido solo guarda estados y códigos, nunca texto de consultas.</p>
       </About>
     </>
   );
@@ -290,24 +346,36 @@ const ALIAS_TARGETS: ReadonlyArray<{ kind: "artist" | "album" | "person" | "orga
 ];
 
 function EmptyQueue({ queue }: { queue: EmptyRow[] }) {
+  const { notify } = useToast();
   const [assigning, setAssigning] = useState<string | null>(null);
+  const [diagnosing, setDiagnosing] = useState<string | null>(null);
   const [done, setDone] = useState<Record<string, string>>({});
-  if (!queue.length) return <p className="search-admin__calm">No hay consultas sin resultados en este periodo.</p>;
+  const cases = useAsync((signal) => searchApi.improvement(signal), []);
+  const openByQuery = useMemo(() => new Map((cases.data?.cases ?? []).filter((item) => item.status === "open").map((item) => [item.query.trim().toLocaleLowerCase("es"), item])), [cases.data]);
   return (
     <>
+      {!queue.length ? <p className="search-admin__calm">No hay consultas sin resultados en este periodo.</p> : (
       <ol className="miss-queue">
-        {queue.map((row) => (
+        {queue.map((row) => {
+          const open = openByQuery.get(row.query.trim().toLocaleLowerCase("es"));
+          return (
           <li key={row.key} className={`miss-queue__row${done[row.key] ? " is-done" : ""}`}>
             <div className="miss-queue__main">
               <span className="miss-queue__query">«{row.query}»</span>
               <span className="miss-queue__meta">{formatCount(row.misses)} {row.misses === 1 ? "vez" : "veces"} · {row.source}</span>
+              {open ? <span className="badge badge--amber">Caso abierto: {cases.data?.diagnoses.find((d) => d.key === open.diagnosis)?.label}</span> : null}
               {done[row.key] ? <span className="miss-queue__done">{done[row.key]}</span> : null}
             </div>
             <div className="miss-queue__actions">
               <Link className="btn btn--sm btn--ghost" to={`/?q=${encodeURIComponent(row.query)}`}>Probar búsqueda</Link>
               {done[row.key] ? null : (
-                <button type="button" className="btn btn--sm" aria-expanded={assigning === row.key} onClick={() => setAssigning(assigning === row.key ? null : row.key)}>
+                <button type="button" className="btn btn--sm" aria-expanded={assigning === row.key} onClick={() => { setDiagnosing(null); setAssigning(assigning === row.key ? null : row.key); }}>
                   Añadir como alias…
+                </button>
+              )}
+              {open ? null : (
+                <button type="button" className="btn btn--sm btn--ghost" aria-expanded={diagnosing === row.key} onClick={() => { setAssigning(null); setDiagnosing(diagnosing === row.key ? null : row.key); }}>
+                  Diagnosticar…
                 </button>
               )}
             </div>
@@ -315,13 +383,92 @@ function EmptyQueue({ queue }: { queue: EmptyRow[] }) {
               <AliasAssign query={row.query} onCancel={() => setAssigning(null)}
                 onDone={(text) => { setAssigning(null); setDone((prev) => ({ ...prev, [row.key]: text })); }} />
             ) : null}
+            {diagnosing === row.key && cases.data ? (
+              <DiagnoseForm query={row.query} diagnoses={cases.data.diagnoses} onCancel={() => setDiagnosing(null)}
+                onDone={(text) => { setDiagnosing(null); notify("success", text); cases.reload(); }} />
+            ) : null}
           </li>
-        ))}
-      </ol>
+          );
+        })}
+      </ol>)}
+      <ImprovementCases state={cases.data ?? null} error={cases.error} reload={cases.reload} />
       <About title="De dónde salen">
-        <p>Se juntan las consultas confirmadas que terminaron vacías y el registro histórico de búsquedas sin resultados (0072, que incluye previas y no se suma al total nuevo). El mismo texto aparece una sola vez, con su mayor conteo.</p>
+        <p>Se juntan las consultas confirmadas que terminaron vacías y el registro histórico de búsquedas sin resultados (0072, que incluye previas y no se suma al total nuevo). El mismo texto aparece una sola vez, con su mayor conteo. Solo se puede diagnosticar una consulta que esté en el registro histórico: la bandeja no guarda texto nuevo.</p>
+        <p>Diagnosticar es una decisión humana. No agrupa consultas ni supone que dos búsquedas distintas sean equivalentes. «Falta conocimiento» abre una tarea en la cola de curaduría; las demás causas se atienden con las acciones que ya existen (como el alias).</p>
       </About>
     </>
+  );
+}
+
+function DiagnoseForm({ query, diagnoses, onCancel, onDone }: { query: string; diagnoses: ImprovementState["diagnoses"]; onCancel: () => void; onDone: (text: string) => void }) {
+  const { notify } = useToast();
+  const [diagnosis, setDiagnosis] = useState<string>(diagnoses[0]!.key);
+  const [note, setNote] = useState("");
+  const [busy, setBusy] = useState(false);
+  const chosen = diagnoses.find((item) => item.key === diagnosis);
+  async function submit() {
+    setBusy(true);
+    try {
+      const res = await searchApi.improvementOpen({ query, diagnosis: diagnosis as ImprovementState["diagnoses"][number]["key"], note });
+      onDone(res.reviewId ? `Caso abierto y tarea de curaduría #${res.reviewId} creada.` : "Caso abierto.");
+    } catch (error) {
+      notify("error", error instanceof ApiError ? error.message : "No se pudo abrir el caso.");
+    } finally { setBusy(false); }
+  }
+  return (
+    <div className="miss-queue__assign" role="group" aria-label={`Diagnosticar «${query}»`}>
+      <label>Causa
+        <select value={diagnosis} onChange={(event) => setDiagnosis(event.target.value)}>
+          {diagnoses.map((item) => <option key={item.key} value={item.key}>{item.label}</option>)}
+        </select>
+      </label>
+      {chosen?.opensTask ? <p className="search-admin__calm">Abrirá una tarea en la cola de curaduría para reunir la evidencia.</p> : null}
+      <label>Nota
+        <input type="text" maxLength={1000} value={note} onChange={(event) => setNote(event.target.value)} placeholder="Qué se espera encontrar (opcional)" />
+      </label>
+      <div className="miss-queue__actions">
+        <button type="button" className="btn btn--sm" disabled={busy} onClick={submit}>{busy ? "Guardando…" : "Abrir caso"}</button>
+        <button type="button" className="btn btn--sm btn--ghost" onClick={onCancel}>Cancelar</button>
+      </div>
+    </div>
+  );
+}
+
+function ImprovementCases({ state, error, reload }: { state: ImprovementState | null; error: string | null | undefined; reload: () => void }) {
+  const { notify } = useToast();
+  const [busy, setBusy] = useState<number | null>(null);
+  if (error) return <p role="alert">No se pudieron leer los casos de mejora: {error}</p>;
+  if (!state || !state.cases.length) return null;
+  const label = (key: string) => state.diagnoses.find((item) => item.key === key)?.label ?? key;
+  async function close(id: number, status: "resolved" | "discarded") {
+    setBusy(id);
+    try { await searchApi.improvementClose(id, { status }); reload(); }
+    catch (err) { notify("error", err instanceof ApiError ? err.message : "No se pudo cerrar el caso."); }
+    finally { setBusy(null); }
+  }
+  return (
+    <section className="search-admin__block" aria-labelledby="improvement-cases">
+      <h3 id="improvement-cases">Casos de mejora</h3>
+      <div className="search-admin__table"><table><thead><tr><th>Consulta</th><th>Causa</th><th>Estado</th><th>Antes / después</th><th></th></tr></thead><tbody>
+        {state.cases.map((item) => (
+          <tr key={item.id}>
+            <td>«{item.query}»<br /><small>{item.openedBy} · {relativeTime(item.openedAt)}</small></td>
+            <td>{label(item.diagnosis)}{item.reviewId ? <><br /><small>Tarea de curaduría #{item.reviewId}{item.reviewStatus ? ` (${item.reviewStatus})` : ""}</small></> : null}</td>
+            <td><span className={`badge ${item.status === "open" ? "badge--amber" : item.status === "resolved" ? "badge--teal" : ""}`}>{item.status === "open" ? "Abierto" : item.status === "resolved" ? "Resuelto" : "Descartado"}</span></td>
+            <td>{formatCount(item.missesAtOpen)} vacías al abrir{item.missesSinceClose !== null ? <><br />{formatCount(item.missesSinceClose)} vacías desde que se resolvió</> : null}</td>
+            <td>{item.status === "open" ? (
+              <span className="miss-queue__actions">
+                <button type="button" className="btn btn--sm" disabled={busy === item.id} onClick={() => close(item.id, "resolved")}>Resolver</button>
+                <button type="button" className="btn btn--sm btn--ghost" disabled={busy === item.id} onClick={() => close(item.id, "discarded")}>Descartar</button>
+              </span>
+            ) : null}</td>
+          </tr>
+        ))}
+      </tbody></table></div>
+      <About title="Cómo leer «antes / después»">
+        <p>«Vacías al abrir» es el conteo del registro de consultas sin resultados al diagnosticar. «Desde que se resolvió» cuenta las que se sumaron después de cerrar el caso. Es una lectura, no una medida de efecto: la exposición de la consulta cambia con el tiempo y no se atribuye causalidad.</p>
+      </About>
+    </section>
   );
 }
 
