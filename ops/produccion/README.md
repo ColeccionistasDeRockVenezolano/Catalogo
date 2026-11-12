@@ -860,3 +860,15 @@ Se dejó una búsqueda de prueba («ska venezolano de los 80») en `ingest.searc
 Vuelta atrás: registrar la desactivación (`scripts/stage3/activate.ts query_interpretation crv-query-gated-1.10.0 deactivate <actor> <motivo>`)
 o poner `CRV_QUERY_GATED=0`; para volver a la release anterior, copiar `.deploy-backup/fijado.conf.2026-11-08` de la release nueva como
 `fijado.conf`, retirar `zz-buscador-gated.conf`, `daemon-reload` y reiniciar `crv-api`; `systemctl --user disable --now crv-query-interpreter`.
+
+## Buscador etapa 4 (parte estructurada): modo sombra · 2026-11-12
+
+Release `/home/brian/apps/crv-release/crv-api-2026-11-12-buscador-plan` = `…2026-11-11-buscador-gated` + `src/search/query-plan/*`, `gated-service.ts`
+(`interpretShared`) y la ruta `/search` (anotación en sombra + `GET /search/plan`). Drop-ins de `crv-api`: `fijado.conf` (WorkingDirectory de la release;
+copia del anterior en `.deploy-backup/fijado.conf.2026-11-11-gated`) y `zz-buscador-plan.conf` (`CRV_QUERY_PLAN=shadow`).
+
+Qué hace `shadow`: si el modo «solo si coinciden» respondió y el plan es solo género/década, lo ejecuta y anota qué habría devuelto
+(`versions.plan`, `counts.plan_artist/plan_album`) en el resumen de la búsqueda; no cambia nada de lo que ve el visitante. `on` sirve además `/search/plan`.
+Pasar a `on` exige la revisión A/B de Brian y reconstruir la web (no reconstruida: `web/dist` es del 2026-11-04). Detalles y evidencia: `docs/unified-search/STAGE_4.md`.
+Se dejó una búsqueda de prueba («power metal playlist») en `ingest.search_attempts`.
+Vuelta atrás: `CRV_QUERY_PLAN=off` o retirar el drop-in y reiniciar; para la release anterior, restaurar el `fijado.conf` de `.deploy-backup/`, `daemon-reload`, reiniciar.

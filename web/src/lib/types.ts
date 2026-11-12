@@ -50,6 +50,14 @@ export interface EmotionMatch {
   artists: EmotionArtist[];
 }
 
+/** Etapa 4 · parte estructurada: resultados del plan (género/década) pedidos aparte a /search/plan. */
+export interface PlanSearch {
+  applied: boolean; reason?: string; version: string;
+  interpretation: { require: string[]; exclude: string[]; prefer: string[]; anyOf: string[][]; decade: string | null } | null;
+  artist: SearchHit[]; album: SearchHit[]; totals: { artist: number; album: number };
+  withoutData: { genre?: { artist: number; album: number }; year?: { artist: number; album: number } };
+}
+
 export type SearchResults = Record<SearchEntityType, SearchHit[]> & { emotion?: EmotionMatch | null; totals?: Partial<Record<SearchEntityType, number>> };
 
 // ---------- artists ----------

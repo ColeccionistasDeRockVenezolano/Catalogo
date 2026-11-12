@@ -10,7 +10,7 @@ import { ErrorState, EmptyState } from "../components/StateViews";
 import { RowsSkeleton } from "../components/Skeletons";
 import { CatalogSearchInput } from "../components/CatalogSearchInput";
 import { Pagination } from "../components/Pagination";
-import type { SearchEntityType, SearchHit } from "../lib/types";
+import type { PlanSearch, SearchEntityType, SearchHit } from "../lib/types";
 import { mediaImage } from "../lib/media";
 import "../styles/search-results.css";
 import { useOperator } from "../lib/OperatorContext";
@@ -52,6 +52,47 @@ function narrowerQueries(q: string): string[] {
   return words.length > 1 ? [...new Set(words)].slice(0, 4) : [];
 }
 
+const PLAN_LIMIT = 8;
+/** Resultados del plan interpretado («ska de los 80»): se explican y avisan de las fichas que no se pudieron evaluar por falta de dato. */
+function PlanBlock({ plan }: { plan: PlanSearch }) {
+  const it = plan.interpretation;
+  if (!it) return null;
+  const parts = [
+    it.require.length ? it.require.join(" + ") : null,
+    it.anyOf.length ? it.anyOf.map(group => group.join(" o ")).join(" + ") : null,
+    it.decade ? `década ${it.decade}` : null,
+    it.exclude.length ? `sin ${it.exclude.join(", ")}` : null,
+    it.prefer.length ? `mejor si es ${it.prefer.join(", ")}` : null,
+  ].filter(Boolean);
+  const gaps = [
+    plan.withoutData.genre ? `${plan.withoutData.genre.artist} artistas y ${plan.withoutData.genre.album} discos sin género registrado` : null,
+    plan.withoutData.year ? `${plan.withoutData.year.artist} artistas y ${plan.withoutData.year.album} discos sin año` : null,
+  ].filter(Boolean);
+  const groups = [["artist", "Artistas"], ["album", "Discos"]] as const;
+  return (
+    <div className="search-group search-group--plan">
+      <h2>Interpretado como: {parts.join(" · ")}</h2>
+      <p className="search-plan-note">
+        Según los datos registrados en el catálogo.{gaps.length ? ` No aparecen ${gaps.join(" ni ")}: que falten no significa que no cumplan.` : ""}
+      </p>
+      {groups.map(([type, title]) => plan[type].length > 0 ? (
+        <div key={type} className="search-plan-group">
+          <h3>{title} <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({plan.totals[type] >= 200 ? "200+" : plan.totals[type]})</span></h3>
+          {plan[type].slice(0, PLAN_LIMIT).map(hit => (
+            <Link key={`plan-${hit.type}-${hit.id}`} className="search-hit search-hit--media" to={entityHref(hit.type, hit.id, hit.albumId ?? undefined)}>
+              <HitThumb hit={hit} />
+              <span className="search-hit__text">
+                <span className="label">{hit.label}</span>
+                {hit.context ? <span className="context">{hit.context}</span> : null}
+              </span>
+            </Link>
+          ))}
+        </div>
+      ) : null)}
+    </div>
+  );
+}
+
 export function SearchPage() {
   const [params, setParams] = useSearchParams();
   const urlQuery = params.get("q") ?? "";
@@ -81,6 +122,13 @@ export function SearchPage() {
   const data = response?.query === q ? response.results : null;
   const error = (response?.query === q ? response.error : undefined) ?? loadError;
   const awaitingCurrentResults = hasMinimumQuery && response?.query !== q && !error;
+  // Etapa 4 · segundo tiempo: resultados interpretados (género/década). Solo en la página completa; si falla o no aplica, no se ve nada.
+  const wantPlan = showFullResults && hasMinimumQuery && inputQuery === q;
+  const { data: planData, loading: planLoading } = useAsync(
+    async signal => wantPlan ? { query: q, plan: await searchApi.plan(q, signal) } : null,
+    [q, wantPlan],
+  );
+  const plan = planData?.query === q && planData.plan?.applied ? planData.plan : null;
   useDiscoverySearchMetric(inputQuery, Boolean(data) && inputQuery === q && !loading && !error, !isAdmin && !isChecking);
   useEffect(() => {
     if (!operation || !response?.receipt || response.attempt !== operation.attempt || response.query !== inputQuery || loading || isAdmin || isChecking) return;
@@ -126,7 +174,7 @@ export function SearchPage() {
   // y devuelve artistas del catálogo que la expresan (tags y opiniones).
   const emotionMatch = data?.emotion && data.emotion.artists.length > 0 ? data.emotion : null;
   const hasAnyResult = data
-    ? GROUP_ORDER.some((type) => data[type].length > 0) || Boolean(emotionMatch)
+    ? GROUP_ORDER.some((type) => data[type].length > 0) || Boolean(emotionMatch) || Boolean(plan && plan.totals.artist + plan.totals.album > 0)
     : false;
   const presentTypes = data ? GROUP_ORDER.filter((type) => data[type].length > 0) : [];
   // Un filtro que ya no tiene resultados (otra consulta) vuelve a «Todos».
@@ -182,6 +230,8 @@ export function SearchPage() {
           <RowsSkeleton rows={6} label="Buscando…" />
         ) : error ? (
           <ErrorState message={error} onRetry={() => showAllResults("enter", true)} />
+        ) : !hasAnyResult && wantPlan && planLoading ? (
+          <RowsSkeleton rows={6} label="Buscando…" />
         ) : !hasAnyResult ? (
           <EmptyState title={`Sin resultados para «${q}»`}
             hint="Prueba con otro nombre, revisa la ortografía o explora el catálogo. Las búsquedas sin resultados se revisan para añadir nombres que falten."
@@ -213,6 +263,7 @@ export function SearchPage() {
                 ))}
               </div>
             ) : null}
+            {plan && !shownType ? <PlanBlock plan={plan} /> : null}
             {emotionMatch && !shownType ? (
               <div className="search-group search-group--emotion">
                 <h2>Por emoción: {emotionLabel(emotionMatch.emotion)} <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({emotionMatch.artists.length})</span></h2>

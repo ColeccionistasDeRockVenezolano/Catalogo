@@ -392,6 +392,11 @@ export const searchApi = {
       return { results: null, receipt, error: error instanceof Error ? error.message : "No se pudo consultar el catálogo", clientIncident: error instanceof ApiError ? undefined : error instanceof SyntaxError ? "invalid_response" as const : "network" as const };
     }
   },
+  /** Segundo tiempo de la búsqueda: resultados del plan estructurado si el modo «solo si coinciden» respondió. Un fallo devuelve null y la búsqueda sigue igual. */
+  plan: (q: string, signal?: AbortSignal) => request<import("./types").PlanSearch>("/search/plan", { query: { q, limit: 20 }, ...(signal ? { signal } : {}) }).catch(error => {
+    if (signal?.aborted) throw error;
+    return null;
+  }),
   administration: (signal?: AbortSignal) => request<import("../../../src/search/administration").SearchAdministration>("/search/administration", { ...(signal ? { signal } : {}) }),
   laya: (signal?: AbortSignal) => request<Awaited<ReturnType<typeof import("../../../src/search/laya-models").layaAdministration>>>("/search/administration/laya", { ...(signal ? { signal } : {}) }),
   layaActivation: (body: import("zod").input<typeof import("../../../src/search/laya-models").activationRequestSchema>) =>

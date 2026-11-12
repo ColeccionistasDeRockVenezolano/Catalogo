@@ -2,7 +2,9 @@ import { decideKnowledge, knowledgeDecisionSchema, knowledgeReviewDetail, publis
 import { knowledgeAdministration } from "../../search/knowledge-administration.js";
 import { searchAdministration } from "../../search/administration.js";
 import { activationRequestSchema, isLayaActive, layaAdministration, recordLayaActivation } from "../../search/laya-models.js";
-import { gatedConfig, interpretGated } from "../../search/query-interpretation/gated-service.js";
+import { gatedConfig, interpretShared } from "../../search/query-interpretation/gated-service.js";
+import { decide, structuredFor } from "../../search/query-plan/service.js";
+import { executeStructured, planMode, STRUCTURED_PLAN_VERSION } from "../../search/query-plan/structured.js";
 import { GATED_MODE_VERSION } from "../../search/query-interpretation/gated.js";
 import { randomUUID } from "node:crypto";
 import { searchCollector, confirmationSchema, retainSearchAnalytics, type SearchSnapshot } from "../../search/observability.js";
@@ -187,6 +189,36 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
     }
   });
 
+  /**
+   * Etapa 4 · parte estructurada. Segundo tiempo de la búsqueda: /search responde al instante y el cliente pide aquí, con la misma
+   * consulta, los resultados del plan cuando hay acuerdo y solo género/década. Con CRV_QUERY_PLAN distinto de `on` responde `applied:false`.
+   */
+  const planHitSchema = searchHitSchema.extend({ type: z.enum(["artist", "album"]) });
+  const unknownSchema = z.object({ artist: z.number().int(), album: z.number().int() });
+  server.get("/search/plan", {
+    schema: {
+      tags: ["search"],
+      summary: "Resultados del plan estructurado (género/década) cuando el modo «solo si coinciden» respondió; si no, applied=false.",
+      querystring: searchQuerySchema.pick({ q: true, limit: true }),
+      response: { 200: z.object({
+        applied: z.boolean(), reason: z.string().optional(), version: z.string(),
+        interpretation: z.object({ require: z.array(z.string()), exclude: z.array(z.string()), prefer: z.array(z.string()), anyOf: z.array(z.array(z.string())), decade: z.string().nullable() }).nullable(),
+        artist: z.array(planHitSchema), album: z.array(planHitSchema),
+        totals: z.object({ artist: z.number().int(), album: z.number().int() }),
+        withoutData: z.object({ genre: unknownSchema.optional(), year: unknownSchema.optional() }),
+      }) },
+    },
+  }, async (request, reply) => {
+    reply.header("cache-control", "no-store");
+    if (!isLocalRequest(request) && (!perIp.take(clientIp(request)) || !total.take("all"))) {
+      reply.header("retry-after", "60");
+      throw new ApiError(429, "rate_limited", "Demasiadas búsquedas seguidas; espera un momento");
+    }
+    const out = await structuredFor(request.query.q, request.query.limit);
+    const none = { artist: [], album: [], totals: { artist: 0, album: 0 }, withoutData: {}, version: STRUCTURED_PLAN_VERSION, interpretation: null };
+    return out.applied ? { applied: true, ...out.result } : { applied: false, reason: out.reason, ...none };
+  });
+
   server.get("/search/knowledge/:kind/:id", { schema: { params: z.object({ kind: z.enum(["artist", "album", "track"]), id: z.coerce.number().int().positive() }) } }, async (request, reply) => {
     reply.header("Cache-Control", "no-store");
     return { evidence: await publishedKnowledge(request.params.kind, request.params.id) };
@@ -242,11 +274,23 @@ async function annotateGated(q: string, snapshot: SearchSnapshot): Promise<void>
   try {
     const cfg = gatedConfig();
     if (!cfg || !(await isLayaActive("query_interpretation", GATED_MODEL_ID))) return;
-    const r = await interpretGated(q, cfg);
+    const r = await interpretShared(q, cfg);
     if (!r) return;
     snapshot.timings["gated_interpretation"] = r.ms;
     snapshot.versions["model"] = `${GATED_MODE_VERSION}:${r.outcome.answered ? "agree" : "abstain"}`;
     if (r.outcome.answered) snapshot.intention = r.legacyIntention;
+    // Etapa 4 · parte estructurada: en `shadow` se ejecuta el plan y se anota qué habría devuelto (nadie lo ve); en `on` solo se anota si era servible.
+    const mode = planMode();
+    if (mode === "off") return;
+    const d = decide(r);
+    snapshot.versions["plan"] = `${STRUCTURED_PLAN_VERSION}:${d.servable ? "servable" : d.reason}`;
+    if (d.servable && mode === "shadow") {
+      const out = await executeStructured(d.plan, 20);
+      if (!("refusal" in out)) {
+        snapshot.counts["plan_artist"] = out.totals.artist; snapshot.counts["plan_album"] = out.totals.album;
+        snapshot.timings["plan_retrieval"] = out.ms;
+      }
+    }
   } catch { /* la anotación es opcional */ }
 }
 

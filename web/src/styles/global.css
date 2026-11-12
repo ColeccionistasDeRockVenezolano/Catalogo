@@ -638,6 +638,9 @@ section:first-child > .similar-reason { margin-top: 0; }
 .search-hit .context { color: var(--text-faint); font-size: 12.5px; }
 /* Bloque «Por emoción»: la consulta pidió una emoción, no un nombre. */
 .search-group--emotion { border-left: 2px solid color-mix(in srgb, var(--red) 55%, transparent); padding-left: 14px; }
+.search-group--plan { border-left: 2px solid color-mix(in srgb, var(--red) 55%, transparent); padding-left: 14px; }
+.search-plan-note { color: var(--text-faint); font-size: 12.5px; margin: -4px 0 12px; }
+.search-plan-group h3 { font-size: 13px; margin: 14px 0 6px; color: var(--text-faint); font-weight: 600; }
 .search-emotion-note { color: var(--text-faint); font-size: 12.5px; margin: -4px 0 12px; }
 .search-hit .context { display: inline-flex; flex-wrap: wrap; gap: 4px 10px; justify-content: flex-end; align-items: baseline; }
 .search-hit__shout { color: var(--text-faint); font-style: italic; opacity: 0.85; }

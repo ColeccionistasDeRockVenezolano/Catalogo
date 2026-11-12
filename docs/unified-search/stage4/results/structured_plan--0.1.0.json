@@ -1,0 +1,44 @@
+{
+ "version": "crv-structured-plan-0.1.0",
+ "lot4": {
+  "version": "crv-structured-plan-0.1.0",
+  "dataset": "docs/unified-search/stage3/datasets/query-real-human-test-4-adjudicated.json",
+  "evaluatedAt": "2026-11-12T04:23:44.926Z",
+  "cases": 256,
+  "agreed": 110,
+  "servable": 18,
+  "refusals": {
+   "unsupported_condition": 19,
+   "not_query_valid": 71,
+   "entities": 2
+  },
+  "executed": 18,
+  "withResults": 15,
+  "hitsChecked": 441,
+  "violatingQueries": 0,
+  "violatingHits": 0,
+  "currentEmpty": 16,
+  "rescued": 13,
+  "planEmpty": 3,
+  "msP95": 134,
+  "oracleSelfCheck": {
+   "hits": 20,
+   "flagged": 20
+  }
+ },
+ "liveDev": {
+  "queries": 879,
+  "answered": 499,
+  "servable": 70,
+  "reasons": {
+   "abstain:disagreement": 380,
+   "ok": 70,
+   "refused:not_query_valid": 297,
+   "refused:unsupported_condition": 112,
+   "refused:entities": 20
+  },
+  "msP50": 338.6587090000394,
+  "msP95": 710.6219189999993,
+  "failures": 0
+ }
+}

@@ -81,6 +81,27 @@ export async function interpretGated(q: string, cfg: GatedConfig | null = gatedC
   try { return await run(text, cfg); } finally { inflight--; }
 }
 
+/**
+ * La misma consulta se interpreta una sola vez aunque la pidan /search (anotación) y /search/plan a la vez: las llamadas
+ * simultáneas comparten la promesa. Solo en memoria, 10 min y 500 entradas; un fallo (null) no se recuerda.
+ */
+const SHARED_TTL_MS = 10 * 60_000, SHARED_MAX = 500;
+const shared = new Map<string, { at: number; p: Promise<GatedResult | null> }>();
+export function interpretShared(q: string, cfg: GatedConfig | null = gatedConfig()): Promise<GatedResult | null> {
+  if (!cfg) return Promise.resolve(null);
+  const key = q.trim().toLowerCase().replace(/\s+/gu, " ");
+  const now = Date.now();
+  const had = shared.get(key);
+  if (had && now - had.at < SHARED_TTL_MS) return had.p;
+  if (shared.size >= SHARED_MAX) {
+    for (const [k, v] of shared) if (now - v.at >= SHARED_TTL_MS) shared.delete(k);
+    if (shared.size >= SHARED_MAX) shared.delete(shared.keys().next().value as string);
+  }
+  const p: Promise<GatedResult | null> = interpretGated(q, cfg).then(r => { if (!r && shared.get(key)?.p === p) shared.delete(key); return r; });
+  shared.set(key, { at: now, p });
+  return p;
+}
+
 async function run(text: string, cfg: GatedConfig): Promise<GatedResult | null> {
   const t0 = performance.now();
   try {
@@ -107,4 +128,4 @@ async function run(text: string, cfg: GatedConfig): Promise<GatedResult | null> 
 }
 
 /** Solo para pruebas: reinicia los recursos cargados. */
-export function resetGatedForTests() { loaded = null; }
+export function resetGatedForTests() { loaded = null; shared.clear(); }
