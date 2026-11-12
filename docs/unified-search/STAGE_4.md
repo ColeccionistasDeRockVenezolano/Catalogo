@@ -65,7 +65,7 @@ de artista no entran (ya las resuelve el índice actual) y la mayoría de las mi
 | Criterio | Estado |
 | --- | --- |
 | 0 resultados que violen un requisito o exclusión | **Cumple** (0 de 474) |
-| Revisión A/B humana: no peor en ≥ 90 % | **Pendiente de Brian**: [stage4/hoja-ab-lote4.md](stage4/hoja-ab-lote4.md) (15 consultas del lote reservado). Con tan pocas consultas servibles conviene ampliarla con las que reúna la fase sombra |
+| Revisión A/B humana: no peor en ≥ 90 % | **Pendiente de Brian**. Comparación objetiva previa (no sustituye la revisión): de las 70 consultas servibles de la pasada en vivo, el plan rescata 60 (el buscador actual devolvía 0), 4 tienen resultados en ambos, 6 quedan vacías en ambos y **0 pierden** resultados; además el bloque se muestra **encima** de los resultados actuales, no en su lugar. Un caso a vigilar: «disco» (palabra del nombre de discos, 106 coincidencias actuales) frente al género Disco (47). Hoja: [stage4/hoja-ab-lote4.md](stage4/hoja-ab-lote4.md) (15 consultas del lote reservado). Con tan pocas consultas servibles conviene ampliarla con las que reúna la fase sombra |
 | Latencia de `/search` sin aumento | **Cumple** (opción A) |
 | Sin guardar más texto de consultas | **Cumple** (la caché de interpretación vive en memoria, 10 min) |
 
@@ -73,8 +73,7 @@ de artista no entran (ya las resuelve el índice actual) y la mayoría de las mi
 
 - API: release `/home/brian/apps/crv-release/crv-api-2026-11-12-buscador-plan` (= `…2026-11-11-buscador-gated` + estas piezas), drop-ins
   `fijado.conf` y `zz-buscador-plan.conf` (`CRV_QUERY_PLAN=shadow`). Copia del `fijado.conf` anterior en `.deploy-backup/`.
-- **Web: no se ha reconstruido.** `web/dist` es del 2026-11-04 y reconstruirlo publicaría también otros cambios de `web/src` posteriores
-  que no son de esta etapa. El bloque nuevo está en el código, tipado y listo para el próximo despliegue web.
+- **Web: no se ha publicado.** El build de verificación (`npm run build`, que escribe `dist/` y no toca lo publicado) compila con el bloque nuevo. La web pública sale de `dist-public` (`npm run build:public`); publicarla subiría también 17 commits de `web/src` posteriores al 2026-11-04 (chat, portada, analítica, radio) que no son de esta etapa. El bloque nuevo está en el código, tipado y listo para el próximo despliegue web.
 - Se dejó una búsqueda de prueba («power metal playlist») en `ingest.search_attempts` al verificar de punta a punta.
 
 ## Para pasar a `on`
