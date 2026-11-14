@@ -15,6 +15,7 @@ import { clientMessages as herraClientMessages, translate as herraTranslate } fr
 import { getPool } from "../db/client.js";
 import { ACTIVATION_TTL_DAYS } from "../api/community/validation.js";
 import { analyticsInit } from "./hotjar.js";
+import { landingTemplateVersion } from "./release-version.js";
 
 export type LandingPage = "roadmap" | "colaborar" | "login" | "registro" | "activar" | "admin" | "account" | "radio-embed";
 export type AccountSaved = "profile" | "password" | "both";
@@ -103,7 +104,7 @@ export async function renderLanding(page: LandingPage, lang: LandingLanguage, to
   const locals = {
     acquisitionPage: ({ roadmap: 'roadmap', colaborar: 'collaborate', login: 'login', registro: 'register', activar: 'activate' } as Partial<Record<LandingPage, string>>)[page] ?? '',
     ...data, lang, t, langOptions, ogLocale: lang === "es" ? "es_ES" : "en_US", publicCriticalCss,
-    assetVersion: "roadmap-20261106b", radioClientVersion: "crv-2026-11-10-meter1-recovery5-zapato3", basePath: "", projectBase: "", pageOrigin: origin, canonicalUrl: `${origin}/${page === "roadmap" ? "" : page}`,
+    assetVersion: landingTemplateVersion(), radioClientVersion: landingTemplateVersion(), basePath: "", projectBase: "", pageOrigin: origin, canonicalUrl: `${origin}/${page === "roadmap" ? "" : page}`,
     showLoginLinks: data.project.show_login === 1, showVisitCounter: data.project.visitor_counter === 1,
     visibilityMode: session ? "full" : data.project.visibility_mode, isAdmin: false, projectAdmin, currentUser,
     landingMode,
@@ -126,5 +127,5 @@ export async function renderLanding(page: LandingPage, lang: LandingLanguage, to
   const publicHtml = page === "roadmap" || page === "colaborar"
     ? html.replace("</body>", `${analyticsInit}</body>`)
     : html;
-  return publicHtml.replace("</head>", `<style>${css}</style></head>`);
+  return publicHtml.replace("</head>", `<meta name="crv-template-version" content="${landingTemplateVersion()}"><style>${css}</style></head>`);
 }

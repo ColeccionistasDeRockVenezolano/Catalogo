@@ -18,11 +18,12 @@
 import net from "node:net";
 import { createHash } from "node:crypto";
 import http from "node:http";
-import { createReadStream, existsSync, statSync } from "node:fs";
+import { createReadStream, existsSync } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { MEDIA_WIDTHS, OPTIMIZABLE_EXTENSIONS, optimizerAvailable, optimizerCommand, runOptimizer, variantPath } from "./media-variants.mjs";
+import { landingAssets } from "./landing-assets.mjs";
 
 const directory = path.dirname(fileURLToPath(import.meta.url));
 const webMode = process.env.CRV_WEB_MODE ?? "catalog";
@@ -32,17 +33,10 @@ if (webMode !== "catalog" && webMode !== "landing") {
 const redirectUnprefixed = process.env.CRV_WEB_REDIRECT_UNPREFIXED === "1"
   || process.env.CRV_WEB_REDIRECT_UNPREFIXED === "true";
 const dist = path.join(directory, process.env.CRV_WEB_DIST ?? "dist-public");
+const publishedLanding = landingAssets(path.join(dist, "landing"), [fileURLToPath(import.meta.url), fileURLToPath(new URL('./landing-assets.mjs', import.meta.url))]);
 
-// Widget de La Rockola: se compila aparte (scripts/build-rockola.mjs) y se sirve
-// como bundle estático. La versión de la URL sale de su mtime: al recompilar
-// cambia sola y el navegador no puede quedarse con la copia anterior.
+// El widget de La Rockola comparte el versionado por contenido de la portada.
 const liveReload = process.env.CRV_LIVE_RELOAD === "1";
-function rockolaVersion() {
-  for (const candidate of [path.join(dist, "landing", "rockola.js"), path.join(directory, "public", "landing", "rockola.js")]) {
-    try { return Math.round(statSync(candidate).mtimeMs).toString(36); } catch { /* prueba la siguiente ruta */ }
-  }
-  return "0";
-}
 const media = path.join(directory, "public", "media");
 const host = process.env.CRV_WEB_HOST ?? "127.0.0.1";
 const port = Number(process.env.CRV_WEB_PORT ?? "3120");
@@ -183,9 +177,11 @@ async function serveLanding(req, res, page, lang, searchParams) {
   // Con <base>, un ancla relativa saldría del panel.
   if (page === "admin") html = html.replaceAll('href="#', `href="${prefix}/${adminDocPath}${lang === "en" ? "?lang=en" : ""}#`);
   html = html.replace(/<li><a(?: class="[^"]*")? href="\/kanban">[\s\S]*?<\/a><\/li>/g, "");
-  if (page === "roadmap") html = html.replace("</head>", `<link rel="stylesheet" href="${prefix}/landing/rockola.css?v=${rockolaVersion()}"></head>`);
-  const scripts = page === "radio-embed" ? ["radio-embed.js"] : page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "admin" ? ["landing-session.js"] : page === "account" ? ["account.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js", `rockola.js?v=${rockolaVersion()}`, ...(liveReload ? ["dev-reload.js"] : [])] : ["registro-activar.js"];
+  if (page === "roadmap") html = html.replace("</head>", `<link rel="stylesheet" href="${prefix}/landing/rockola.css"></head>`);
+  const scripts = page === "radio-embed" ? ["radio-embed.js"] : page === "login" ? ["login.js"] : page === "colaborar" ? ["collaborate-submit.js", "landing-session.js"] : page === "admin" ? ["landing-session.js"] : page === "account" ? ["account.js", "landing-session.js"] : page === "roadmap" ? ["roadmap-collab.js", "landing-session.js", "rockola.js", ...(liveReload ? ["dev-reload.js"] : [])] : ["registro-activar.js"];
   html = html.replace("</body>", `${scripts.map((src) => `<script src="${prefix}/landing/${src}" defer></script>`).join("")}</body>`);
+  const publication = publishedLanding.prepareHtml(html, prefix);
+  html = publication.html;
   const body = Buffer.from(html);
   const remember = webMode === "landing" && queryLang(searchParams) && queryLang(searchParams) !== cookieLang(req)
     ? { "set-cookie": langSetCookie(req, lang) } : {};
@@ -198,7 +194,7 @@ async function serveLanding(req, res, page, lang, searchParams) {
       .replace("connect-src 'self'", "connect-src 'self' https://*.hotjar.com https://*.hotjar.io wss://*.hotjar.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com")
       .replace("frame-src ", "frame-src https://vars.hotjar.com ");
   }
-  res.writeHead(200, { "content-type": MIME_TYPES[".html"], "content-length": body.length, "cache-control": privateResponse ? "no-store" : "no-cache", ...remember, ...headers });
+  res.writeHead(200, { "content-type": MIME_TYPES[".html"], "content-length": body.length, "cache-control": privateResponse ? "no-store" : "no-cache", "x-crv-page-version": publication.version, ...remember, ...headers });
   return res.end(req.method === "HEAD" ? undefined : body);
 }
 
@@ -605,11 +601,13 @@ async function serveFile(req, res, pathname, searchParams) {
     const baseHref = basePath === "/" ? "/" : `${basePath}/`;
     const injected = html.replace("<head>",
       `<head><base href="${baseHref}"><meta name="crv-api-base" content="${apiPath}">`);
-    const body = Buffer.from(injected);
+    const publication = publishedLanding.prepareHtml(injected, basePath === "/" ? "" : basePath);
+    const body = Buffer.from(publication.html);
     res.writeHead(200, {
       "content-type": MIME_TYPES[".html"],
       "content-length": body.length,
       "cache-control": "no-cache",
+      "x-crv-page-version": publication.version,
       ...SECURITY_HEADERS,
     });
     if (req.method === "HEAD") return res.end();

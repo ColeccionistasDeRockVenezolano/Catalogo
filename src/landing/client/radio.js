@@ -319,6 +319,8 @@ function createRadioPlaybackMeter() {
   // Pausa del visitante: apaga la intencion de escuchar y ningun relevo la
   // vuelve a encender.
   var userPaused = false;
+  // El actualizador de la portada espera a una pausa voluntaria para recargar.
+  window.CRVRadioCanReload = function () { return !started || userPaused; };
   var videoResumeButton = null, playRequestVersion = 0;
   var fadeTimer = null;
   var UNLOCK_EVENTS = ['pointerdown', 'keydown', 'touchstart', 'pointerup', 'touchend', 'click'];
