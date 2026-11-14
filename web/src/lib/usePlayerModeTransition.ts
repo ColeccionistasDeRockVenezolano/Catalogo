@@ -24,10 +24,25 @@ export function usePlayerModeTransition(panel: RefObject<HTMLElement>, mode: str
     const rect = panel.current?.getBoundingClientRect();
     if (rect && rect.width && rect.height) from.current = rect;
   }, [panel]);
+  const previousMode = useRef(mode);
   useLayoutEffect(() => {
     const old = from.current;
     from.current = null;
-    if (!old || prefersReducedMotion()) return;
+    const entering = previousMode.current !== mode;
+    previousMode.current = mode;
+    if (prefersReducedMotion()) return;
+    if (!old) {
+      // Sin caja de origen fiable (se cambió de página, o el hueco desapareció):
+      // la ventana flotante entra con el mismo rebote en todos los reproductores.
+      if (!entering || mode !== "floating") return;
+      const frame = requestAnimationFrame(() => {
+        panel.current?.animate([
+          { opacity: 0, transform: "scale(0.85)" },
+          { opacity: 1, transform: "scale(1)" },
+        ], { ...PLAYER_POP, composite: "add" });
+      });
+      return () => cancelAnimationFrame(frame);
+    }
     const frame = requestAnimationFrame(() => {
       const element = panel.current;
       if (!element) return;

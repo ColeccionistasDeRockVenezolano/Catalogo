@@ -43,7 +43,7 @@ export const AlbumYoutubePlayer = forwardRef<AlbumYoutubePlayerHandle, AlbumYout
         <img src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} alt="" loading="lazy" />
         <span><Play size={28} weight="fill" /> Reproducir {title}</span>
       </button> : null}
-      <VideoSlot owner={owner} />
+      <VideoSlot owner={owner} embed />
     </div>;
   },
 );

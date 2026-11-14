@@ -192,14 +192,14 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
           {inlineTheater ? <button type="button" onClick={cinema} aria-label="Modo cine" title="Modo cine"><MonitorPlay size={18} /></button> : null}
           {!compact && !inlineTheater ? <button type="button" onClick={floating ? () => ui.resize(false) : float} aria-label={floating ? "Poner en miniatura" : "Video flotante"} title={floating ? "Miniatura flotante" : "Modo flotante"}><PictureInPicture size={18} /></button> : null}
           {modal && source.theater ? <button type="button" onClick={restore} aria-label="Salir del modo cine" title="Volver al reproductor de la ficha"><ArrowsInSimple size={18} /></button> : null}
-          {floating && !compact ? <button type="button" onClick={restore} aria-label={source.video ? "Abrir en modal" : "Volver al reproductor"}><ArrowsOutSimple size={18} /></button> : null}
+          {floating && !compact ? <button type="button" onClick={restore} aria-label={source.video ? "Modo cine" : "Volver al reproductor"} title={source.video ? "Modo cine" : "Volver al reproductor"}><ArrowsOutSimple size={18} /></button> : null}
           {floating || modal ? <button type="button" onClick={stop} aria-label="Cerrar reproductor"><X size={18} /></button> : null}
         </div>
       </div>
       <div className="listen-embed__frame" style={source.embed.height ? { height: source.embed.height } : { aspectRatio: "16 / 9", minHeight: 200 }}>
         <iframe ref={attachIframe} key={generation} src={source.embed.src} title={`${source.subject} en ${source.label}`} loading="eager" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" onLoad={() => setLoaded(true)} onFocus={activate} />
       </div>
-      {compact ? <button type="button" className="media-player__expand" onClick={event => ui.resize(true, event.detail !== 0)} aria-label="Mostrar reproductor pequeño"><ArrowsOutSimple size={16} /> Mostrar controles</button> : <div className="media-player__footer"><a href={source.url} target="_blank" rel="noreferrer">Abrir en {source.label}<ArrowSquareOut size={14} /></a>{floating ? <button type="button" onClick={restore}><ArrowsInSimple size={16} /> {source.video ? "Modal" : "Volver"}</button> : inlineTheater ? <button type="button" onClick={cinema}><MonitorPlay size={16} /> Modo cine</button> : <button type="button" onClick={float}><Minus size={16} /> Miniatura</button>}</div>}
+      {compact ? <button type="button" className="media-player__expand" onClick={event => ui.resize(true, event.detail !== 0)} aria-label="Mostrar reproductor pequeño"><ArrowsOutSimple size={16} /> Mostrar controles</button> : <div className="media-player__footer"><a href={source.url} target="_blank" rel="noreferrer">Abrir en {source.label}<ArrowSquareOut size={14} /></a>{floating ? <button type="button" onClick={restore}><ArrowsInSimple size={16} /> {source.video ? "Modo cine" : "Volver"}</button> : inlineTheater ? <button type="button" onClick={cinema}><MonitorPlay size={16} /> Modo cine</button> : <button type="button" onClick={float}><Minus size={16} /> Miniatura</button>}</div>}
     </div>
   </dialog>, document.body);
 }

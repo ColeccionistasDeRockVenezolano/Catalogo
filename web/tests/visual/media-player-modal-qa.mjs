@@ -86,7 +86,7 @@ try {
     await page.mouse.click(2, 2);
     await expect(page.locator(".catalog-video-player--miniature")).toBeVisible();
     await page.getByRole("button", { name: "Mostrar reproductor pequeño" }).click();
-    await page.getByRole("button", { name: "Abrir en modal", exact: true }).click();
+    await page.getByRole("button", { name: "Modo cine", exact: true }).click();
     await expect(page.locator("dialog:modal")).toHaveCount(1);
     await page.getByRole("slider", { name: "Posición del video" }).fill("50");
     await page.getByRole("button", { name: "+10 s", exact: true }).click();
