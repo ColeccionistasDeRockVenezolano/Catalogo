@@ -1,3 +1,4 @@
+import { PLAYER_POP, prefersReducedMotion } from "./usePlayerModeTransition";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type KeyboardEvent, type PointerEvent, type RefObject } from "react";
 
 interface Point { x: number; y: number; }
@@ -95,11 +96,11 @@ export function useFloatingVideo(panel: RefObject<HTMLElement>, active: boolean)
         target = { x: old.rect.x + (side === "right" ? old.rect.width - element.offsetWidth : 0), y: old.rect.y + (old.rect.y + old.rect.height > window.innerHeight / 2 ? old.rect.height - element.offsetHeight : 0) };
       }
       target = move(target);
-      if (old?.animate && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (old?.animate && !prefersReducedMotion()) {
         animation.current = element.animate([
           { transform: `translate3d(${old.rect.x}px, ${old.rect.y}px, 0) scale(${old.rect.width / element.offsetWidth}, ${old.rect.height / element.offsetHeight})` },
           { transform: `translate3d(${target.x}px, ${target.y}px, 0)` },
-        ], { duration: 180, easing: "cubic-bezier(0.23, 1, 0.32, 1)" });
+        ], PLAYER_POP);
       }
     };
     measure();

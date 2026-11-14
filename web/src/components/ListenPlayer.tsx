@@ -64,9 +64,12 @@ export function EmbedPanel({ option, subject, fullElsewhere, previewNote = true,
   const target = option.targets.find(item => item.key === chosenKey) ?? option.targets[0];
   const { register, show } = useExternalMedia();
   const { pathname, search } = useLocation();
-  const source = useMemo(() => target ? ({ id: target.key, subject, label: platformMeta(option.platform).label, url: target.url, path: `${pathname}${search}`, embed: target.embed,
-    video: !embeddedVideo && (target.embed.height === null || /embed\.tidal\.com\/videos\//.test(target.embed.src)),
-  }) : null, [target, subject, option.platform, pathname, search, embeddedVideo]);
+  const source = useMemo(() => {
+    if (!target) return null;
+    const isVideo = target.embed.height === null || /embed\.tidal\.com\/videos\//.test(target.embed.src);
+    return { id: target.key, subject, label: platformMeta(option.platform).label, url: target.url, path: `${pathname}${search}`, embed: target.embed,
+      video: !embeddedVideo && isVideo, theater: embeddedVideo && isVideo };
+  }, [target, subject, option.platform, pathname, search, embeddedVideo]);
   const slot = useCallback((node: HTMLDivElement | null) => {
     if (source && (!source.video || opened)) register(source, node);
   }, [source, opened, register]);

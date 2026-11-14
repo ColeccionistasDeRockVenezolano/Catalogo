@@ -1,12 +1,13 @@
 import { createContext, useCallback, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ArrowClockwise, ArrowSquareOut, ArrowsInSimple, ArrowsOutSimple, DotsSix, Pause, PictureInPicture, Play, PushPin, SkipBack, SkipForward, SpeakerHigh, SpeakerSlash, X } from "@phosphor-icons/react";
+import { ArrowClockwise, ArrowSquareOut, ArrowsInSimple, ArrowsOutSimple, DotsSix, MonitorPlay, Pause, PictureInPicture, Play, PushPin, SkipBack, SkipForward, SpeakerHigh, SpeakerSlash, X } from "@phosphor-icons/react";
 import { loadYoutubeIframeApi, type YoutubePlayback, type YoutubePlayer } from "../lib/youtube";
 import { formatDuration } from "../lib/labels";
 import { showWithoutFocus, useFloatingVideo } from "../lib/useFloatingVideo";
 import { claimMedia, releaseMedia } from "../lib/exclusive-media";
 import { useInlineMediaPosition } from "../lib/useInlineMediaPosition";
+import { usePlayerModeTransition } from "../lib/usePlayerModeTransition";
 import { ExternalMediaProvider } from "./ExternalMediaPlayer";
 import { ErrorBoundary, ErrorNotice } from "./ErrorBoundary";
 import { tryMediaOperation } from "../lib/media-operation";
@@ -17,9 +18,13 @@ interface VideoSession { video: CatalogVideo; owner: string; path: string; autop
 interface VideoContextValue {
   session: VideoSession | null;
   floating: boolean;
+  /** Incrustado en su hueco de la página (solo fichas de disco y perfil de artista). */
+  inline: boolean;
   playback: YoutubePlayback | null;
   play: (video: CatalogVideo, owner: string, seconds?: number, autoplay?: boolean, tracks?: readonly CatalogVideoTrack[]) => void;
   float: () => void;
+  /** Del reproductor incrustado al modo cine (modal), sin perder la reproducción. */
+  cinema: () => void;
   restore: () => void;
   close: () => void;
   registerSlot: (owner: string, node: HTMLDivElement | null) => void;
@@ -31,13 +36,19 @@ export function useVideoPlayer() {
   return value;
 }
 
-/** The iframe stays mounted when the native dialog becomes a floating window. */
+/**
+ * The iframe stays mounted when the native dialog becomes a floating window.
+ * Modos (Brian, 2026-11-13): incrustado solo en la ficha del disco, con botón
+ * «Modo cine»; el modo cine ofrece pasar a flotante. Audiovisuales y la
+ * portada abren directamente en modo cine con la opción flotante.
+ */
 export function VideoProvider({ children }: { children: ReactNode }) {
   const { pathname, search } = useLocation();
   const navigate = useNavigate();
   const mediaOwner = useId();
   const [session, setSession] = useState<VideoSession | null>(null);
   const [floating, setFloating] = useState(false);
+  const [theater, setTheater] = useState(false);
   const [playback, setPlayback] = useState<YoutubePlayback | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [retry, setRetry] = useState(0);
@@ -63,13 +74,15 @@ export function VideoProvider({ children }: { children: ReactNode }) {
     setSlotRevision(value => value + 1);
   }, []);
   const slot = session ? slots.current.get(session.owner) : undefined;
-  const inline = Boolean(session?.video.album && slot && !floating && pathname === session.path.split("?")[0]);
-  const isFloating = Boolean(session && (floating || (session.video.album && !inline)));
+  const canEmbed = Boolean(session?.video.album && slot && pathname === session.path.split("?")[0]);
+  const inline = canEmbed && !floating && !theater;
+  const isFloating = Boolean(session && (floating || (session.video.album && !canEmbed)));
+  const captureMode = usePlayerModeTransition(panel, !session ? "none" : isFloating ? "floating" : inline ? "inline" : "cinema");
   const stop = useCallback(() => {
     tryMediaOperation(() => player.current?.pauseVideo(), "YouTube");
     const iframe = panel.current?.querySelector("iframe");
     if (iframe) iframe.src = "about:blank";
-    setSession(null); setPlayback(null); setMessage(null); setFloating(false);
+    setSession(null); setPlayback(null); setMessage(null); setFloating(false); setTheater(false);
     pendingStart.current = null;
     releaseMedia(mediaOwner);
   }, [mediaOwner]);
@@ -92,19 +105,27 @@ export function VideoProvider({ children }: { children: ReactNode }) {
       pendingStart.current = seconds ?? (autoplay ? 0 : null);
       setPlayback(null);
     }
+    if (session) captureMode();
     setSession({ video, owner, path: `${pathname}${search}`, autoplay, tracks });
-    setFloating(false);
-  }, [mediaOwner, stop, pathname, search, session?.video.videoId, controlPlayer]);
+    setFloating(false); setTheater(false);
+  }, [mediaOwner, stop, pathname, search, session, controlPlayer, captureMode]);
   const restore = useCallback(() => {
     if (session?.video.album && `${pathname}${search}` !== session.path) navigate(session.path);
-    setFloating(false);
-  }, [session, pathname, search, navigate]);
+    captureMode();
+    setFloating(false); setTheater(false);
+  }, [session, pathname, search, navigate, captureMode]);
+  const cinema = useCallback(() => {
+    captureMode();
+    setTheater(true); setFloating(false);
+    requestAnimationFrame(() => panel.current?.focus({ preventScroll: true }));
+  }, [captureMode]);
   const float = useCallback(() => {
+    captureMode();
     setFloating(true);
     requestAnimationFrame(() => panel.current?.querySelector<HTMLButtonElement>(".catalog-video-player__move")?.focus({ preventScroll: true }));
-  }, []);
+  }, [captureMode]);
   const originPath = session?.path;
-  useEffect(() => { if (originPath && pathname !== originPath.split("?")[0]) setFloating(true); }, [pathname, originPath]);
+  useEffect(() => { if (originPath && pathname !== originPath.split("?")[0]) { captureMode(); setFloating(true); } }, [pathname, originPath, captureMode]);
   const playbackReady = playback !== null;
   useEffect(() => {
     if (!playbackReady || !player.current) return;
@@ -149,7 +170,14 @@ export function VideoProvider({ children }: { children: ReactNode }) {
   const pauseIntent = playing || playback?.state === 3;
   const duration = playback?.duration ?? 0;
   const claimPlayback = useCallback(() => claimMedia(mediaOwner, stop), [mediaOwner, stop]);
-  const value = useMemo(() => ({ session, floating: isFloating, playback, play, float, restore, close, registerSlot }), [session, isFloating, playback, play, float, restore, close, registerSlot]);
+  const value = useMemo(() => ({ session, floating: isFloating, inline, playback, play, float, cinema, restore, close, registerSlot }), [session, isFloating, inline, playback, play, float, cinema, restore, close, registerSlot]);
+  // Escape o clic fuera: la ventana ampliada se reduce; el cine abierto desde
+  // la ficha vuelve a incrustarse; el resto pasa a flotante.
+  const dismiss = (floatingUI: ReturnType<typeof useFloatingVideo>) => {
+    if (isFloating && floatingUI.expanded) floatingUI.resize(false, false);
+    else if (!isFloating && canEmbed) restore();
+    else float();
+  };
   return <VideoContext.Provider value={value}>
     <ExternalMediaProvider>{children}
     {session ? <ErrorBoundary resetKey={`${session.video.videoId}:${retry}`} onError={() => { player.current = null; setPlayback(null); releaseMedia(mediaOwner); }}
@@ -159,12 +187,12 @@ export function VideoProvider({ children }: { children: ReactNode }) {
       </div>, inline && slot ? slot : document.body)}>
       <VideoLayer panel={panel} dialog={dialog} floating={isFloating} inline={inline} slot={slot}>
       {(floatingUI, compact, inlinePosition) => createPortal(<dialog ref={dialog} className={`video-layer${isFloating ? " video-layer--floating" : inline ? " video-layer--inline" : ""}`} aria-label={`Reproductor: ${session.video.title}`}
-      onCancel={event => { event.preventDefault(); if (isFloating && floatingUI.expanded) floatingUI.resize(false, false); else float(); }}
-      onClick={event => { if (event.target === event.currentTarget && !isFloating && !inline) float(); }}>
+      onCancel={event => { event.preventDefault(); dismiss(floatingUI); }}
+      onClick={event => { if (event.target === event.currentTarget && !isFloating && !inline) dismiss(floatingUI); }}>
       <aside ref={panel} tabIndex={-1} className={`catalog-video-player media-player ${isFloating ? "catalog-video-player--floating" : inline ? "catalog-video-player--inline" : "catalog-video-player--modal"}${compact ? " catalog-video-player--miniature" : ""}${floatingUI.dragging ? " catalog-video-player--dragging" : ""}`} style={isFloating ? floatingUI.style : inline ? inlinePosition : undefined} aria-label={`Reproductor de video: ${session.video.title}`}
         onClickCapture={floatingUI.onClickCapture}
         onKeyDown={event => {
-          if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); if (isFloating && floatingUI.expanded) floatingUI.resize(false, false); else float(); return; }
+          if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); if (!inline) dismiss(floatingUI); return; }
           if ((event.target as HTMLElement).closest("input, textarea, select, a, button, [contenteditable=true]")) return;
           if (event.key === " " || event.key.toLowerCase() === "k") { event.preventDefault(); togglePlayback(); }
           if (event.key.toLowerCase() === "m") { event.preventDefault(); setMuted(value => !value); }
@@ -175,7 +203,9 @@ export function VideoProvider({ children }: { children: ReactNode }) {
           <div className="media-player__identity"><strong>{session.video.title}</strong>{!compact ? <span>YouTube · {status}</span> : null}</div>
           <div className="media-player__actions">
             {isFloating && !compact ? <button type="button" className={floatingUI.pinned ? "is-active" : undefined} onClick={floatingUI.togglePinned} aria-pressed={floatingUI.pinned} aria-label={floatingUI.pinned ? "Desanclar reproductor" : "Anclar reproductor"} title="Mantener el tamaño pequeño al navegar"><PushPin size={18} weight={floatingUI.pinned ? "fill" : "regular"} /></button> : null}
-            {!compact ? <button type="button" onClick={isFloating ? () => floatingUI.resize(false) : float} aria-label={isFloating ? "Poner en miniatura" : "Video flotante"} title="Miniatura flotante"><PictureInPicture size={18} /></button> : null}
+            {inline ? <button type="button" onClick={cinema} aria-label="Modo cine" title="Modo cine"><MonitorPlay size={18} /></button> : null}
+            {!compact && !inline ? <button type="button" onClick={isFloating ? () => floatingUI.resize(false) : float} aria-label={isFloating ? "Poner en miniatura" : "Video flotante"} title={isFloating ? "Miniatura flotante" : "Modo flotante"}><PictureInPicture size={18} /></button> : null}
+            {!isFloating && !inline && canEmbed ? <button type="button" onClick={restore} aria-label="Salir del modo cine" title="Volver al reproductor del disco"><ArrowsInSimple size={18} /></button> : null}
             {isFloating && !compact ? <button type="button" onClick={restore} aria-label={session.video.album ? "Volver al disco" : "Abrir en modal"} title={session.video.album ? "Volver al disco" : "Abrir en modal"}>{session.video.album ? <ArrowsInSimple size={18} /> : <ArrowsOutSimple size={18} />}</button> : null}
             <button type="button" className="catalog-video-player__close" onClick={close} aria-label="Cerrar video" title="Cerrar y detener reproducción"><X size={20} /></button>
           </div>
@@ -235,11 +265,11 @@ function VideoLayer({ panel, dialog, floating, inline, slot, children }: {
   return children(ui, floating && !ui.expanded, position);
 }
 
-/** Only album slots can host an embedded video. Other pages retain a modal entry point. */
+/** Only album slots can host an embedded video. Other pages open in cinema mode. */
 export function VideoSlot({ owner }: { owner: string }) {
-  const { session, floating, restore, registerSlot } = useVideoPlayer();
+  const { session, floating, inline, restore, registerSlot } = useVideoPlayer();
   const ref = useCallback((node: HTMLDivElement | null) => registerSlot(owner, node), [owner, registerSlot]);
-  return <div ref={ref} className={`catalog-video-slot${session?.owner === owner && session.video.album && !floating ? " catalog-video-slot--embedded" : ""}`}>
+  return <div ref={ref} className={`catalog-video-slot${session?.owner === owner && inline ? " catalog-video-slot--embedded" : ""}`}>
     {session?.owner === owner && (floating || !session.video.album) ? <button type="button" className="btn" onClick={restore}><ArrowsOutSimple size={18} /> {session.video.album ? "Volver al reproductor" : "Ampliar video"}</button> : null}
   </div>;
 }

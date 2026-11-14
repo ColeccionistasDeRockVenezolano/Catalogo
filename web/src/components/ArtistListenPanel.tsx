@@ -50,7 +50,7 @@ export function ArtistListenPanel({ subject, links, options, selected, onChange 
       {selected ? (
         <div className="artist-listen__player" aria-label={`${subject} en ${platformMeta(selected.platform).label}`}>
           {selected.targets[0]?.label ? <p className="artist-listen__video-title">{selected.targets[0].label}</p> : null}
-          <EmbedPanel key={selected.platform} option={selected} subject={subject} fullElsewhere={null} previewNote={false} />
+          <EmbedPanel embeddedVideo key={selected.platform} option={selected} subject={subject} fullElsewhere={null} previewNote={false} />
           <a className="artist-listen__external" href={selected.targets[0]!.url} target="_blank" rel="noreferrer noopener">
             Abrir en {platformMeta(selected.platform).label}<ArrowSquareOut size={13} aria-hidden="true" />
           </a>

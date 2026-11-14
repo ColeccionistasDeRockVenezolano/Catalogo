@@ -101,6 +101,14 @@ try {
     await page.getByRole("button", { name: "Reproducir video", exact: true }).click();
     await page.evaluate(() => { window.__albumFrame = document.querySelector(".catalog-video-player iframe"); });
     if (capture) await page.screenshot({ path: `${capture}/album-${width}.png`, animations: "disabled" });
+    // Incrustado solo ofrece el modo cine; el flotante se abre desde el cine.
+    await expect(page.getByRole("button", { name: "Video flotante", exact: true })).toHaveCount(0);
+    await page.getByRole("button", { name: "Modo cine", exact: true }).click();
+    await expect(page.locator(".catalog-video-player--modal")).toBeVisible();
+    assert.equal(await page.evaluate(() => window.__albumFrame === document.querySelector(".catalog-video-player iframe")), true, "el modo cine conserva el iframe");
+    await page.keyboard.press("Escape");
+    await expect(page.locator(".catalog-video-player--inline")).toBeVisible();
+    await page.getByRole("button", { name: "Modo cine", exact: true }).click();
     await page.getByRole("button", { name: "Video flotante", exact: true }).click();
     await page.getByRole("link", { name: "Otra página", exact: true }).click();
     await expect(page.locator(".catalog-video-player--miniature")).toBeVisible();
@@ -108,6 +116,7 @@ try {
     await page.getByRole("button", { name: "Mostrar reproductor pequeño" }).click();
     await page.getByRole("button", { name: "Volver al disco", exact: true }).click();
     await expect(page.locator(".catalog-video-player--inline")).toBeVisible();
+    await page.getByRole("button", { name: "Modo cine", exact: true }).click();
     await page.getByRole("button", { name: "Video flotante", exact: true }).click();
     await page.getByRole("link", { name: "Inicio", exact: true }).click();
     // Native audio is directly usable and replaces the video on interaction.
@@ -117,6 +126,9 @@ try {
     await expect(page.locator("dialog:modal")).toHaveCount(1);
     await page.locator("dialog:modal").click({ position: { x: 2, y: 2 } });
     await expect(page.locator(".listen-embed--compact.media-player--video")).toBeVisible();
+    // El cambio de modo rebota (PLAYER_POP); se mide la caja final.
+    await page.waitForTimeout(50);
+    await page.locator(".listen-embed--compact.media-player--video").evaluate(node => Promise.all(node.getAnimations().map(animation => animation.finished.catch(() => undefined))));
     const playlistBox = await page.locator(".listen-embed--compact.media-player--video .listen-embed__frame").boundingBox();
     assert.ok(Math.abs(playlistBox.height - playlistBox.width * 9 / 16) < 1, "external video miniature keeps 16:9");
     await page.getByRole("button", { name: "Mostrar reproductor pequeño" }).click();

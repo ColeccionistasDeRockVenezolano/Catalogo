@@ -12,6 +12,9 @@
   border-radius: var(--radius-sm);
 }
 .video-layer {
+  /* Efecto único de los reproductores; igual a PLAYER_POP en lib/usePlayerModeTransition.ts. */
+  --player-pop-duration: 150ms;
+  --player-pop-ease: cubic-bezier(0.18, 0.89, 0.32, 1.28);
   position: fixed;
   inset: 0;
   width: 100%;
@@ -47,7 +50,7 @@
 .video-layer .catalog-video-player--floating {
   width: min(360px, calc(100vw - 24px - env(safe-area-inset-left) - env(safe-area-inset-right)));
 }
-.video-layer .catalog-video-player--miniature { width: min(224px, calc(100vw - 24px)); transition: 0.15s cubic-bezier(0.18, 0.89, 0.32, 1.28);}
+.video-layer .catalog-video-player--miniature { width: min(224px, calc(100vw - 24px)); }
 .video-layer .catalog-video-player--inline { max-width: none; }
 .video-layer .catalog-video-player__screen { min-height: 200px; }
 .video-layer .catalog-video-player--floating .catalog-video-player__screen { min-height: 0; aspect-ratio: 16 / 9; }
@@ -106,10 +109,20 @@ html[data-catalog-theme=studio] .video-layer .catalog-video-player__playback > b
   .video-player__queue button:hover, .video-player__mute:hover { background: var(--surface-3); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  @starting-style {
-    .video-layer:modal .catalog-video-player--modal { opacity: 0; transform: translateY(8px); }
+  /* Mismo rebote al cambiar de tamaño en cualquier modo. La posición (transform,
+     top/left) no se transiciona: seguiría con retraso al arrastrar o al hacer
+     scroll; los cambios de modo los anima usePlayerModeTransition. */
+  .video-layer .catalog-video-player--floating, .video-layer .catalog-video-player--modal,
+  .video-layer .media-player.listen-embed--floating, .video-layer .media-player.media-player--modal {
+    transition: width var(--player-pop-duration) var(--player-pop-ease), opacity var(--player-pop-duration) ease-out;
   }
-  .video-layer:modal .catalog-video-player--modal { transition: opacity 200ms cubic-bezier(0.23, 1, 0.32, 1), transform 200ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .video-layer .catalog-video-player--dragging, .video-layer .media-player.listen-embed--dragging { transition: none; }
+  @starting-style {
+    .video-layer:modal .catalog-video-player--modal, .video-layer:modal .media-player.media-player--modal { opacity: 0; transform: scale(0.96); }
+  }
+  .video-layer:modal .catalog-video-player--modal, .video-layer:modal .media-player.media-player--modal {
+    transition: width var(--player-pop-duration) var(--player-pop-ease), opacity var(--player-pop-duration) ease-out, transform var(--player-pop-duration) var(--player-pop-ease);
+  }
 }
 @media (max-width: 760px) {
   .video-layer { padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }

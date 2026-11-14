@@ -1,17 +1,20 @@
 import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
-import { ArrowSquareOut, ArrowsInSimple, ArrowsOutSimple, DotsSix, Minus, PictureInPicture, PushPin, X } from "@phosphor-icons/react";
+import { ArrowSquareOut, ArrowsInSimple, ArrowsOutSimple, DotsSix, Minus, MonitorPlay, PictureInPicture, PushPin, X } from "@phosphor-icons/react";
 import type { EmbedSpec } from "../lib/embeds";
 import { claimMedia, releaseMedia } from "../lib/exclusive-media";
 import { showWithoutFocus, useFloatingVideo } from "../lib/useFloatingVideo";
 import { useInlineMediaPosition } from "../lib/useInlineMediaPosition";
+import { usePlayerModeTransition } from "../lib/usePlayerModeTransition";
 import { ErrorBoundary, ErrorNotice } from "./ErrorBoundary";
 import { tryMediaOperation } from "../lib/media-operation";
 
 export interface ExternalMediaSource { id: string; subject: string; label: string; url: string; path: string; embed: EmbedSpec; video: boolean;
   /** Abre directamente el reproductor flotante grande (p. ej. «Un disco para hoy»). */
-  float?: boolean; }
+  float?: boolean;
+  /** Video incrustado en su ficha (disco o artista): botón «Modo cine» y, desde el cine, flotante. */
+  theater?: boolean; }
 interface Registry {
   register: (source: ExternalMediaSource, slot: HTMLDivElement | null) => void;
   show: (id: string) => void;
@@ -92,6 +95,8 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
   const ui = useFloatingVideo(panel, floating);
   const compact = floating && !ui.expanded;
   const inlinePosition = useInlineMediaPosition(panel, slot, !floating && !modal);
+  const inlineTheater = Boolean(source.theater) && !floating && !modal;
+  const captureMode = usePlayerModeTransition(panel, hidden ? "hidden" : floating ? "floating" : modal ? "cinema" : "inline");
   const stop = useCallback(() => {
     tryMediaOperation(() => widget.current?.pause(), source.label);
     // unbind also reads src to determine postMessage's target origin.
@@ -114,11 +119,20 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
   }, [shown, source.video, source.float, activate]);
   const [expandOnShow, setExpandOnShow] = useState(0);
   useEffect(() => { if (expandOnShow && floating) ui.resize(true, false); }, [expandOnShow, floating]); // eslint-disable-line react-hooks/exhaustive-deps
-  const float = () => { activate(); setMode("floating"); };
+  const float = () => { captureMode(); activate(); setMode("floating"); };
+  const cinema = () => { captureMode(); activate(); setMode("modal"); };
   const restore = () => {
     if (source.float) { ui.resize(true); return; }
     if (!slot) navigate(source.path);
+    captureMode();
     setMode(source.video ? "modal" : "inline");
+  };
+  // Escape o clic fuera: la ventana ampliada se reduce; el cine abierto desde
+  // la ficha vuelve a incrustarse; el resto pasa a flotante.
+  const dismiss = () => {
+    if (floating && ui.expanded) ui.resize(false, false);
+    else if (modal && source.theater) { captureMode(); setMode("inline"); }
+    else float();
   };
   // Cross-origin widgets receive clicks inside their own document. Focus intent
   // claims exclusivity before playback; SoundCloud PLAY also covers auto-next.
@@ -167,15 +181,17 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
 
   if (hidden) return null;
   return createPortal(<dialog ref={dialog} className={`video-layer video-layer--external${modal ? "" : floating ? " video-layer--floating" : " video-layer--inline"}`} aria-label={`${source.subject} en ${source.label}`}
-    onCancel={event => { event.preventDefault(); if (floating && ui.expanded) ui.resize(false, false); else float(); }}
-    onClick={event => { if (modal && event.target === event.currentTarget) float(); }}>
+    onCancel={event => { event.preventDefault(); dismiss(); }}
+    onClick={event => { if (modal && event.target === event.currentTarget) dismiss(); }}>
     <div ref={panel} className={`listen-embed media-player${source.embed.height === null || source.video ? " media-player--video" : ""}${loaded ? " is-loaded" : ""}${floating ? " listen-embed--floating" : ""}${compact ? " listen-embed--compact" : ""}${modal ? " media-player--modal" : ""}${ui.dragging ? " listen-embed--dragging" : ""}`} style={floating ? ui.style : modal ? undefined : inlinePosition} onClickCapture={ui.onClickCapture}>
       <div className="listen-embed__toolbar media-player__toolbar">
         {floating ? <button type="button" className="listen-embed__move" {...ui.gestures} aria-label="Mover reproductor"><DotsSix size={18} /></button> : null}
         <div className="media-player__identity"><strong>{source.subject}</strong><span>{source.label}{engaged ? " · Sesión activa" : ""}</span></div>
         <div className="media-player__actions">
           {floating && !compact ? <button type="button" className={ui.pinned ? "is-active" : undefined} onClick={ui.togglePinned} aria-label={ui.pinned ? "Desanclar reproductor" : "Anclar reproductor"} aria-pressed={ui.pinned} title="Mantener el tamaño pequeño al navegar"><PushPin size={18} weight={ui.pinned ? "fill" : "regular"} /></button> : null}
-          {!compact ? <button type="button" onClick={floating ? () => ui.resize(false) : float} aria-label={floating ? "Poner en miniatura" : "Video flotante"} title="Miniatura flotante"><PictureInPicture size={18} /></button> : null}
+          {inlineTheater ? <button type="button" onClick={cinema} aria-label="Modo cine" title="Modo cine"><MonitorPlay size={18} /></button> : null}
+          {!compact && !inlineTheater ? <button type="button" onClick={floating ? () => ui.resize(false) : float} aria-label={floating ? "Poner en miniatura" : "Video flotante"} title={floating ? "Miniatura flotante" : "Modo flotante"}><PictureInPicture size={18} /></button> : null}
+          {modal && source.theater ? <button type="button" onClick={restore} aria-label="Salir del modo cine" title="Volver al reproductor de la ficha"><ArrowsInSimple size={18} /></button> : null}
           {floating && !compact ? <button type="button" onClick={restore} aria-label={source.video ? "Abrir en modal" : "Volver al reproductor"}><ArrowsOutSimple size={18} /></button> : null}
           {floating || modal ? <button type="button" onClick={stop} aria-label="Cerrar reproductor"><X size={18} /></button> : null}
         </div>
@@ -183,7 +199,7 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
       <div className="listen-embed__frame" style={source.embed.height ? { height: source.embed.height } : { aspectRatio: "16 / 9", minHeight: 200 }}>
         <iframe ref={attachIframe} key={generation} src={source.embed.src} title={`${source.subject} en ${source.label}`} loading="eager" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" onLoad={() => setLoaded(true)} onFocus={activate} />
       </div>
-      {compact ? <button type="button" className="media-player__expand" onClick={event => ui.resize(true, event.detail !== 0)} aria-label="Mostrar reproductor pequeño"><ArrowsOutSimple size={16} /> Mostrar controles</button> : <div className="media-player__footer"><a href={source.url} target="_blank" rel="noreferrer">Abrir en {source.label}<ArrowSquareOut size={14} /></a>{floating ? <button type="button" onClick={restore}><ArrowsInSimple size={16} /> {source.video ? "Modal" : "Volver"}</button> : <button type="button" onClick={float}><Minus size={16} /> Miniatura</button>}</div>}
+      {compact ? <button type="button" className="media-player__expand" onClick={event => ui.resize(true, event.detail !== 0)} aria-label="Mostrar reproductor pequeño"><ArrowsOutSimple size={16} /> Mostrar controles</button> : <div className="media-player__footer"><a href={source.url} target="_blank" rel="noreferrer">Abrir en {source.label}<ArrowSquareOut size={14} /></a>{floating ? <button type="button" onClick={restore}><ArrowsInSimple size={16} /> {source.video ? "Modal" : "Volver"}</button> : inlineTheater ? <button type="button" onClick={cinema}><MonitorPlay size={16} /> Modo cine</button> : <button type="button" onClick={float}><Minus size={16} /> Miniatura</button>}</div>}
     </div>
   </dialog>, document.body);
 }
