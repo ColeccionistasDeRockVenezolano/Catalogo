@@ -116,6 +116,10 @@ html[data-catalog-theme=studio] .video-layer .catalog-video-player__playback > b
   .video-layer .media-player.listen-embed--floating, .video-layer .media-player.media-player--modal {
     transition: width var(--player-pop-duration) var(--player-pop-ease), opacity var(--player-pop-duration) ease-out;
   }
+  /* Rebote original de la miniatura (Brian): transiciona todas las propiedades,
+     también la posición, al entrar en miniatura. Va antes de --dragging para
+     que el arrastre siga sin retraso. */
+  .video-layer .catalog-video-player--miniature { transition: var(--player-pop-duration) var(--player-pop-ease); }
   .video-layer .catalog-video-player--dragging, .video-layer .media-player.listen-embed--dragging { transition: none; }
   @starting-style {
     .video-layer:modal .catalog-video-player--modal, .video-layer:modal .media-player.media-player--modal { opacity: 0; transform: scale(0.96); }
