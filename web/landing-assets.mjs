@@ -45,5 +45,15 @@ export function landingAssets(root, extraFiles = []) {
       html = html.replace('</body>', `<script src="${prefix}/landing/release-update.js" defer></script></body>`);
       return { html: this.versionHtml(html, prefix), version: pageVersion };
     },
+    prepareCatalogHtml(html, prefix = '') {
+      // Vite ya versiona módulos y CSS por nombre. Solo firmamos el documento;
+      // jamás añadimos ?v= a /assets ni cambiamos sus nombres o importaciones.
+      const pageVersion = createHash('sha256').update(version).update(html).digest('hex').slice(0, 20);
+      const updaterHash = versions.get('release-update.js');
+      if (!updaterHash) throw new Error('Falta landing/release-update.js en el build del catálogo');
+      const boot = `<meta name="crv-page-version" content="${pageVersion}"><script src="${prefix}/landing/release-update.js?v=${updaterHash}"></script>`;
+      // Instala el coordinador antes de que Vite ejecute sus módulos diferidos.
+      return { html: html.replace(/<head(?:\s[^>]*)?>/i, head => head + boot), version: pageVersion };
+    },
   };
 }

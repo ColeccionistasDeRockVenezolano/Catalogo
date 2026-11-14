@@ -52,6 +52,15 @@ if [[ "$restart_api" == yes ]]; then
   fi
 fi
 
+# Un gateway fijado sirve un build de su propio release; compilar el árbol
+# compartido y reiniciarlo dejaría publicada la versión anterior.
+web_dir="$(systemctl --user show crv-web -p WorkingDirectory --value)"
+if [[ -n "$web_dir" && "$web_dir" != "$ROOT/web" ]]; then
+  echo "✗ crv-web está fijada a $web_dir; este deploy no actualizaría ese build." >&2
+  echo "  Publica un release del catálogo: docs/LANDING_CACHE.md, «Catálogo y Vite»." >&2
+  exit 1
+fi
+
 echo "› build público (web/dist-public)"
 (cd "$ROOT/web" && npm run build:public)
 

@@ -63,3 +63,57 @@ canción y recarga tras pausa. Es emulación, no una prueba física de Safari.
 En el despliegue, comprobar que `X-CRV-Page-Version` coincide con la meta,
 que los recursos locales tienen hash y responden 200, y que la lista blanca
 de la Fase 2B se mantiene. No se añade ninguna ruta.
+
+## Catálogo y Vite
+
+El gateway de modo `catalog` firma el `index.html` original de Vite y añade
+la meta/cabecera de versión y el actualizador antes de los módulos. El
+documento y sus rutas SPA se sirven con `no-cache`. Los nombres e imports
+de `/assets` se conservan exactamente como los genera Vite, sin `?v=`
+adicional; esos archivos mantienen `max-age=31536000, immutable`. La caché
+de datos (`x-crv-cache-version`) es independiente y no se modifica.
+
+`reloadForNewBuild` delega en `CRVRequestBuildReload` si el documento incluye
+el coordinador. La detección periódica, `vite:preloadError` y ErrorBoundary
+comparten la misma recarga pendiente y el límite de 30 segundos existente.
+En documentos sin coordinador se conserva la recuperación anterior.
+El actualizador captura también el aviso de Vite antes de los listeners de
+bundles antiguos. Esto permite activar el mecanismo sobre los módulos que
+ya están publicados, sin recompilarlos ni alterar sus hashes.
+
+También se protegen campos fuera de formularios, editores marcados como
+modificados, audio/video, widgets externos abiertos, guardados por fetch y
+trabajos que cancelen `crv:before-build-reload`. Los reproductores externos
+no siempre exponen su estado; el catálogo espera hasta cerrar el player.
+Las cookies, sesiones, almacenamiento de preferencias, URL y filtros se
+conservan. Una pestaña que aún no cargó el mecanismo lo recibe al navegar
+o recargar el documento por primera vez.
+
+Para publicar el catálogo:
+
+1. Crear un checkout limpio del commit que se publica, con dependencias
+   enlazadas y `public/media` apuntando al almacén existente; nunca compilar
+   desde el árbol compartido con trabajo pendiente.
+2. Ejecutar `npm --prefix web run build:public` en ese checkout. Mantener
+   también los archivos de `assets/` del build anterior que no existan en
+   el nuevo. Si hay un nombre coincidente, verificar que sus bytes son
+   iguales: un hash no puede identificar contenido distinto.
+3. Arrancar el gateway del release en un puerto de ensayo. Comprobar GET y
+   HEAD de una ruta SPA, carga de módulos, protecciones de recarga y caché
+   inmutable de `/assets`. Los servicios de API y la base no cambian.
+4. Fijar `crv-web` al directorio `web` del nuevo release y reiniciarlo.
+   Conservar el directorio y el build anteriores para volver atrás. El
+   script histórico `scripts/deploy.sh` se niega a compilar otro árbol si
+   el gateway está fijado, para no anunciar una publicación que no ocurrió.
+
+Pruebas adicionales:
+
+```sh
+./scripts/with-node22.sh node --test scripts/checks/catalog-release.test.mjs
+npm test -- web/tests/unit/stale-build.test.ts
+```
+
+La prueba del catálogo compila dos builds reales de Vite y los intercambia
+con una pestaña abierta, en escritorio, iPad y Android emulados. Verifica
+imports del build anterior, nombres intactos, preservación de URL y filtros,
+bloqueo por player y una única recarga al liberar ese bloqueo.

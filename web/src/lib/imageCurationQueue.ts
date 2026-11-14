@@ -153,6 +153,9 @@ window.addEventListener("beforeunload", event => {
   // Una vez recibido el 202, cerrar el navegador no afecta al trabajador.
   if (jobs.some(job => job.status === "sending")) { event.preventDefault(); event.returnValue = ""; }
 });
+window.addEventListener("crv:before-build-reload", event => {
+  if (jobs.some(job => job.status === "sending")) event.preventDefault();
+});
 window.addEventListener("crv-session-changed", () => { epoch++; jobs = []; tasks.clear(); submitting.clear(); fetchingEpoch = null; failedPolls = 0; connection = { loading: false, error: null }; emit(); if (enabled && getSessionCsrf()) void refreshImageQueue(); });
 window.addEventListener("focus", () => { void refreshImageQueue(); });
 document.addEventListener("visibilitychange", () => { if (!document.hidden) void refreshImageQueue(); });

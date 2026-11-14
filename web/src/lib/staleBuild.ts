@@ -25,6 +25,8 @@ export function isChunkLoadError(error: unknown): boolean {
 
 /** Recarga una vez por ventana; devuelve false si ya se intentó hace poco. */
 export function reloadForNewBuild(): boolean {
+  const coordinator = (window as Window & { CRVRequestBuildReload?: () => boolean }).CRVRequestBuildReload;
+  if (coordinator) return coordinator();
   try {
     const last = Number(sessionStorage.getItem(RELOAD_KEY) ?? 0);
     if (Date.now() - last < RELOAD_WINDOW_MS) return false;

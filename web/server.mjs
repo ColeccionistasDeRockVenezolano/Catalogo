@@ -596,6 +596,16 @@ async function serveFile(req, res, pathname, searchParams) {
   // Se inyecta <base> y la base de API para que funcionen igual en /crv y en
   // la raíz del dominio, sin `../` que se escapen al host equivocado.
   const ext = path.extname(file).toLowerCase();
+  if (ext === ".html" && webMode === "catalog" && file === path.join(dist, "index.html")) {
+    const publication = publishedLanding.prepareCatalogHtml(await readFile(file, "utf8"), basePath === "/" ? "" : basePath);
+    const body = Buffer.from(publication.html);
+    res.writeHead(200, {
+      "content-type": MIME_TYPES[".html"], "content-length": body.length,
+      "cache-control": "no-cache", "x-crv-page-version": publication.version,
+      ...SECURITY_HEADERS,
+    });
+    return res.end(req.method === "HEAD" ? undefined : body);
+  }
   if (ext === ".html" && relativePath.startsWith("landing/")) {
     const html = await readFile(file, "utf8");
     const baseHref = basePath === "/" ? "/" : `${basePath}/`;
