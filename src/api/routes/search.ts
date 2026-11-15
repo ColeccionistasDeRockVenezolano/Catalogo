@@ -19,8 +19,8 @@ import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { ALL_SEARCH_TYPES, searchEntityTypeSchema } from "../schemas.js";
 import { globalSearch } from "../repositories/search.js";
-import { detectEmotionIntent, emotionArtists } from "../repositories/emotions.js";
-import { emotionArtistSchema, emotionSchema } from "./emotions.js";
+import { detectEmotionIntent, emotionAlbumCount, emotionAlbums, emotionArtistCount, emotionArtists, emotionFallbackMode } from "../repositories/emotions.js";
+import { emotionAlbumSchema, emotionArtistSchema, emotionSchema } from "./emotions.js";
 import { ApiError, badRequest } from "../http-errors.js";
 import { clientIp, isLocalRequest } from "../auth.js";
 import { createWindowLimiter } from "../rate-limit.js";
@@ -134,7 +134,10 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
             album: z.number().int().nonnegative(), track: z.number().int().nonnegative(),
             organization: z.number().int().nonnegative(),
           }).describe("Coincidencias conocidas por tipo (tope 200); la paginación se apoya en este número."),
-          emotion: z.object({ emotion: emotionSchema, artists: z.array(emotionArtistSchema) }).nullable()
+          emotion: z.object({ emotion: emotionSchema, artists: z.array(emotionArtistSchema),
+            albums: z.array(emotionAlbumSchema).optional().describe("Discos por emoción (respaldo por capas; solo con CRV_EMOTION_FALLBACK=on)."),
+            totals: z.object({ artist: z.number().int().nonnegative(), album: z.number().int().nonnegative() })
+              .describe("Todos los artistas y discos con esa emoción (las listas traen solo la primera página).") }).nullable()
             .describe("Intención emocional de la consulta («música para tener sexo» → cachonda). Solo en la búsqueda principal."),
           didYouMean: z.array(searchHitSchema)
             .describe("«¿Quisiste decir…?»: nombres parecidos a una consulta sin resultados (errata de una a tres letras). Vacío si hay resultados, la bandera está apagada o nada se parece."),
@@ -169,17 +172,30 @@ export async function registerSearchRoutes(app: FastifyInstance): Promise<void> 
       const intent = requestedTypes ? null : detectEmotionIntent(q);
       snapshot.timings["interpretation"] = performance.now() - interpretationStarted;
       const emotionStarted = performance.now();
-      const emotion = intent ? { emotion: intent, artists: await emotionArtists(intent, limit) } : null;
+      const fallbackMode = emotionFallbackMode();
+      const [fallbackAlbums, emotionArtistHits, artistTotal, albumTotal] = intent ? await Promise.all([
+        fallbackMode !== "off" ? emotionAlbums(intent, limit) : Promise.resolve([]),
+        emotionArtists(intent, limit),
+        emotionArtistCount(intent),
+        fallbackMode === "on" ? emotionAlbumCount(intent) : Promise.resolve(0),
+      ]) : [[], [], 0, 0];
+      const emotion = intent
+        ? { emotion: intent, artists: emotionArtistHits, ...(fallbackMode === "on" ? { albums: fallbackAlbums } : {}),
+            totals: { artist: artistTotal, album: albumTotal } }
+        : null;
       snapshot.timings["emotion_retrieval"] = performance.now() - emotionStarted;
       // Solo el buscador principal (sin `types`) y solo el público: los
       // administradores y los scripts no son la señal que se quiere medir.
       if (!requestedTypes && request.viewer?.role !== "admin" && !isLocalRequest(request)
         && ALL_SEARCH_TYPES.every((type) => result[type].length === 0)
-        && !(emotion && emotion.artists.length > 0)) recordSearchMiss(q);
+        && !(emotion && (emotion.artists.length > 0 || (emotion.albums?.length ?? 0) > 0))) recordSearchMiss(q);
       snapshot.counts = Object.fromEntries(ALL_SEARCH_TYPES.map(type => [type, result[type].length]));
       snapshot.counts["emotional_artists"] = emotion?.artists.length ?? 0;
+      if (emotion?.albums) snapshot.counts["emotional_albums"] = emotion.albums.length;
       snapshot.entities = ALL_SEARCH_TYPES.flatMap(type => result[type].map(hit => ({ type, id: hit.id })));
       snapshot.outcome = Object.values(snapshot.counts).some(n => n > 0) ? "results" : "empty";
+      // En sombra solo se mide: no cambia el resultado ni el desenlace de la consulta.
+      if (fallbackMode === "shadow") snapshot.counts["emotional_albums_shadow"] = fallbackAlbums.length;
       // «¿Quisiste decir…?»: solo si la búsqueda principal no encontró nada. Es una sugerencia aparte: la consulta sigue contando
       // como vacía (el resultado y el resumen no cambian) y quien la sigue hace una búsqueda nueva con el nombre sugerido.
       let suggestions: Awaited<ReturnType<typeof didYouMean>>["hits"] = [];

@@ -10,7 +10,9 @@ import { ErrorState, EmptyState } from "../components/StateViews";
 import { RowsSkeleton } from "../components/Skeletons";
 import { CatalogSearchInput } from "../components/CatalogSearchInput";
 import { Pagination } from "../components/Pagination";
-import type { PlanSearch, SearchEntityType, SearchHit } from "../lib/types";
+import { planNote, planSummary } from "../lib/catalogSearchSuggestions";
+import type { EmotionAlbum, EmotionMatch, PlanSearch, SearchEntityType, SearchHit } from "../lib/types";
+import { useDailyCycle } from "../lib/DailyCycleContext";
 import { mediaImage } from "../lib/media";
 import "../styles/search-results.css";
 import { useOperator } from "../lib/OperatorContext";
@@ -59,24 +61,11 @@ const DID_YOU_MEAN_KIND: Record<SearchEntityType, string> = { artist: "Artista",
 function PlanBlock({ plan }: { plan: PlanSearch }) {
   const it = plan.interpretation;
   if (!it) return null;
-  const parts = [
-    it.require.length ? it.require.join(" + ") : null,
-    it.anyOf.length ? it.anyOf.map(group => group.join(" o ")).join(" + ") : null,
-    it.decade ? `década ${it.decade}` : null,
-    it.exclude.length ? `sin ${it.exclude.join(", ")}` : null,
-    it.prefer.length ? `mejor si es ${it.prefer.join(", ")}` : null,
-  ].filter(Boolean);
-  const gaps = [
-    plan.withoutData.genre ? `${plan.withoutData.genre.artist} artistas y ${plan.withoutData.genre.album} discos sin género registrado` : null,
-    plan.withoutData.year ? `${plan.withoutData.year.artist} artistas y ${plan.withoutData.year.album} discos sin año` : null,
-  ].filter(Boolean);
   const groups = [["artist", "Artistas"], ["album", "Discos"]] as const;
   return (
     <div className="search-group search-group--plan">
-      <h2>Interpretado como: {parts.join(" · ")}</h2>
-      <p className="search-plan-note">
-        Según los datos registrados en el catálogo.{gaps.length ? ` No aparecen ${gaps.join(" ni ")}: que falten no significa que no cumplan.` : ""}
-      </p>
+      <h2>Interpretado como: {planSummary(it)}</h2>
+      <p className="search-plan-note">{planNote(plan)}</p>
       {groups.map(([type, title]) => plan[type].length > 0 ? (
         <div key={type} className="search-plan-group">
           <h3>{title} <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({plan.totals[type] >= 200 ? "200+" : plan.totals[type]})</span></h3>
@@ -91,6 +80,66 @@ function PlanBlock({ plan }: { plan: PlanSearch }) {
           ))}
         </div>
       ) : null)}
+    </div>
+  );
+}
+
+const emotionTotal = (match: EmotionMatch) =>
+  (match.totals?.artist ?? match.artists.length) + (match.totals?.album ?? match.albums?.length ?? 0);
+
+/** «Por emoción»: el total real y los discos paginados en el orden barajado del día (el de la primera página). */
+function EmotionBlock({ match }: { match: EmotionMatch }) {
+  const { cycle } = useDailyCycle();
+  const groupRef = useRef<HTMLDivElement>(null);
+  const firstAlbums = match.albums ?? [];
+  const albumTotal = match.totals?.album ?? firstAlbums.length;
+  const [offset, setOffset] = useState(0);
+  const [page, setPage] = useState<{ key: string; albums: EmotionAlbum[] } | null>(null);
+  const pageKey = `${match.emotion}:${offset}`;
+  useEffect(() => { setOffset(0); }, [match.emotion]);
+  useEffect(() => {
+    if (offset === 0) return;
+    const controller = new AbortController();
+    searchApi.emotionAlbums(match.emotion, PAGE_SIZE, offset, cycle?.date, controller.signal).then(
+      result => { if (!controller.signal.aborted) setPage({ key: pageKey, albums: result.data }); },
+      () => { if (!controller.signal.aborted) setPage({ key: pageKey, albums: [] }); },
+    );
+    return () => controller.abort();
+  }, [match.emotion, offset, cycle?.date, pageKey]);
+  const albums = offset === 0 ? firstAlbums : page?.key === pageKey ? page.albums : null;
+  return (
+    <div className="search-group search-group--emotion" ref={groupRef}>
+      <h2>Por emoción: {emotionLabel(match.emotion)} <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({emotionTotal(match).toLocaleString("es-VE")})</span></h2>
+      {match.artists.length > 0 && offset === 0 ? <>
+        <p className="search-emotion-note">Estos artistas expresan esa emoción según las etiquetas y opiniones de sus oyentes.</p>
+        {match.artists.map((artist) => (
+          <Link key={`emotion-artist-${artist.id}`} className="search-hit" to={entityHref("artist", artist.id)}>
+            <span className="label">{artist.name}</span>
+            <span className="context">
+              {artist.tags.length > 0 ? <span>{artist.tags.map((tag) => tag.tag).join(" · ")}</span> : null}
+              {artist.shouts.length > 0 ? <span className="search-hit__shout">«{artist.shouts[0]!.slice(0, 90)}»</span> : null}
+            </span>
+          </Link>
+        ))}
+      </> : null}
+      {albumTotal > 0 ? (
+        <>
+          <p className="search-emotion-note">Discos que se sienten así ({albumTotal.toLocaleString("es-VE")}): primero lo que dice la gente; «típico del género» cuando el disco aún no tiene comentarios propios. El orden cambia cada día.</p>
+          {albums === null ? <RowsSkeleton rows={4} /> : albums.map((album) => (
+            <Link key={`emotion-album-${album.id}`} className="search-hit" to={entityHref("album", album.id)}>
+              <span className="label">{album.title}</span>
+              <span className="context">
+                <span>{album.artistName}</span>
+                {album.traits.length > 0 ? <span>{album.traits.slice(0, 3).map(trait => trait.replace(/\s*\(según fuentes?\)/i, "")).join(" · ")}</span> : null}
+                {album.typicalOfGenre ? <span className="search-hit__basis">típico del género</span> : null}
+              </span>
+            </Link>
+          ))}
+          {albumTotal > firstAlbums.length ? (
+            <Pagination limit={PAGE_SIZE} offset={offset} total={albumTotal} onOffsetChange={setOffset} scrollTargetRef={groupRef} />
+          ) : null}
+        </>
+      ) : null}
     </div>
   );
 }
@@ -174,7 +223,7 @@ export function SearchPage() {
   const home = useHomeData();
   // «música para tener sexo» no es un nombre: la API detecta la emoción pedida
   // y devuelve artistas del catálogo que la expresan (tags y opiniones).
-  const emotionMatch = data?.emotion && data.emotion.artists.length > 0 ? data.emotion : null;
+  const emotionMatch = data?.emotion && (data.emotion.artists.length > 0 || (data.emotion.albums?.length ?? 0) > 0) ? data.emotion : null;
   const hasAnyResult = data
     ? GROUP_ORDER.some((type) => data[type].length > 0) || Boolean(emotionMatch) || Boolean(plan && plan.totals.artist + plan.totals.album > 0)
     : false;
@@ -198,7 +247,8 @@ export function SearchPage() {
     return () => { cancelled = true; };
   }, [q, paginatedType, offset]);
   useEffect(() => { setOffset(0); setPageHits(null); }, [q, shownType]);
-  const total = presentTypes.reduce((sum, type) => sum + totalFor(type, data![type].length), 0);
+  // «Todos» cuenta lo mismo que el desplegable: coincidencias por nombre + la emoción.
+  const total = presentTypes.reduce((sum, type) => sum + totalFor(type, data![type].length), 0) + (emotionMatch ? emotionTotal(emotionMatch) : 0);
   const narrower = narrowerQueries(q);
 
   return (
@@ -275,21 +325,7 @@ export function SearchPage() {
               </div>
             ) : null}
             {plan && !shownType ? <PlanBlock plan={plan} /> : null}
-            {emotionMatch && !shownType ? (
-              <div className="search-group search-group--emotion">
-                <h2>Por emoción: {emotionLabel(emotionMatch.emotion)} <span className="mono" style={{ color: "var(--text-faint)", fontWeight: 400 }}>({emotionMatch.artists.length})</span></h2>
-                <p className="search-emotion-note">Estos artistas expresan esa emoción según las etiquetas y opiniones de sus oyentes.</p>
-                {emotionMatch.artists.map((artist) => (
-                  <Link key={`emotion-artist-${artist.id}`} className="search-hit" to={entityHref("artist", artist.id)}>
-                    <span className="label">{artist.name}</span>
-                    <span className="context">
-                      {artist.tags.length > 0 ? <span>{artist.tags.map((tag) => tag.tag).join(" · ")}</span> : null}
-                      {artist.shouts.length > 0 ? <span className="search-hit__shout">«{artist.shouts[0]!.slice(0, 90)}»</span> : null}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            ) : null}
+            {emotionMatch && !shownType ? <EmotionBlock match={emotionMatch} /> : null}
             {visibleTypes.map((type) => {
               const base = data![type];
               const usingPage = paginatedType === type && pageHits?.query === q && pageHits.type === type && pageHits.offset === offset;

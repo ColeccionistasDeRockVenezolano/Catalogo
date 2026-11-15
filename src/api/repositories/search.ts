@@ -50,12 +50,33 @@ function seriesNumber(label: string): { prefix: string; n: number } | null {
   return { prefix: match[1]!.trim().toLowerCase(), n: Number(match[2]) };
 }
 
-function sortSeries(hits: SearchHit[]): SearchHit[] {
-  const parsed = hits.map((hit) => seriesNumber(hit.label));
-  if (parsed.some((value) => value === null)) return hits;
-  const prefixes = new Set(parsed.map((value) => value!.prefix));
-  if (prefixes.size !== 1) return hits;
-  return [...hits].sort((left, right) => seriesNumber(left.label)!.n - seriesNumber(right.label)!.n);
+/**
+ * Cada serie (mismo texto + número final, sin distinguir mayúsculas) se ordena por número dentro de su bloque,
+ * en la posición de su primera aparición; lo que no es serie conserva el orden del índice.
+ * Antes, si había dos series («Venezuelademo N» y «VenezuelaDemo Disco N») o un título suelto,
+ * no se ordenaba nada y salían 1, 10, 11… 19, 2, 20.
+ */
+export function sortSeries<T extends { label: string }>(hits: T[]): T[] {
+  const groups = new Map<string, { hit: T; n: number }[]>();
+  for (const hit of hits) {
+    const parsed = seriesNumber(hit.label);
+    if (!parsed) continue;
+    const group = groups.get(parsed.prefix) ?? [];
+    group.push({ hit, n: parsed.n });
+    groups.set(parsed.prefix, group);
+  }
+  const emitted = new Set<string>();
+  const out: T[] = [];
+  for (const hit of hits) {
+    const parsed = seriesNumber(hit.label);
+    const group = parsed ? groups.get(parsed.prefix)! : null;
+    if (!parsed || !group || group.length < 2) { out.push(hit); continue; }
+    if (emitted.has(parsed.prefix)) continue;
+    emitted.add(parsed.prefix);
+    // Orden estable: mismo número → orden del índice.
+    out.push(...group.map((entry, index) => ({ ...entry, index })).sort((a, b) => a.n - b.n || a.index - b.index).map(entry => entry.hit));
+  }
+  return out;
 }
 
 /** Hits de una entidad indexada: el orden lo manda el índice (los que empiezan primero). */

@@ -9,7 +9,7 @@ import { useAsync } from "../lib/useAsync";
 import { useDailyAsync } from "../lib/useDailyAsync";
 import { useDailyCycle } from "../lib/DailyCycleContext";
 import { dailyRandom } from "../../../src/shared/daily-cycle";
-import { entitySuggestions, genreSuggestions, SUGGESTION_GROUP_LABELS, useCatalogSuggestions, type CatalogSuggestion } from "../lib/catalogSearchSuggestions";
+import { DERIVED_CATEGORIES, didYouMeanSuggestions, emotionSuggestions, formatResultsTotal, resultsTotal, entitySuggestions, genreSuggestions, planSuggestions, SUGGESTION_GROUP_LABELS, useCatalogSuggestions, useQueryPlan, type CatalogSuggestion } from "../lib/catalogSearchSuggestions";
 import type { SearchResults } from "../lib/types";
 import { SearchExampleHint } from "./SearchExampleHint";
 import { RotatingSearchExample, useRotatingSearchExample } from "./RotatingSearchExample";
@@ -102,16 +102,37 @@ export function CatalogSearchInput({ scope, value, onChange, label, placeholder,
   const minimum = scope === "catalog" ? 1 : 2;
   const hasQuery = query.length >= minimum;
   const search = useCatalogSuggestions(scope, value);
-  const loading = hasQuery && (scope === "catalog" ? resultsLoading || resultsQuery !== query : search.loading);
+  const resultsPending = hasQuery && (scope === "catalog" ? resultsLoading || resultsQuery !== query : search.loading);
   const searchError = scope === "catalog" ? resultsError : search.error;
-  const suggestions = useMemo(() => !hasQuery ? [] : [
-    ...entitySuggestions(scope === "catalog" ? (resultsQuery === query && !resultsLoading ? results : null) : search.data, scope),
-    ...genreSuggestions(catalogGenres.data, query, scope),
-  ], [hasQuery, scope, resultsQuery, query, resultsLoading, results, search.data, catalogGenres.data]);
+  // Etapa 4: el plan (género/década) llega aparte; no retrasa las coincidencias por nombre.
+  const queryPlan = useQueryPlan(query, scope === "catalog" && hasQuery);
+  const byName = useMemo(() => {
+    if (!hasQuery) return [];
+    const current = scope === "catalog" ? (resultsQuery === query && !resultsLoading ? results : null) : search.data;
+    return [...entitySuggestions(current, scope), ...genreSuggestions(catalogGenres.data, query, scope), ...emotionSuggestions(current, scope)];
+  }, [hasQuery, scope, resultsQuery, query, resultsLoading, results, search.data, catalogGenres.data]);
+  // Sin nada que mostrar, se espera al plan antes de dar la consulta por vacía o de ofrecer una errata (evita parpadeos).
+  const waitingPlan = !byName.length && queryPlan.loading && !resultsPending;
+  const loading = resultsPending || waitingPlan;
+  const suggestions = useMemo(() => {
+    if (!hasQuery) return [];
+    const found = [...byName, ...planSuggestions(queryPlan.plan, scope)];
+    if (found.length || waitingPlan) return found;
+    // «¿Quisiste decir…?» solo cuando no hay nada que mostrar (la API ya lo envía únicamente con 0 resultados).
+    return didYouMeanSuggestions(scope === "catalog" ? (resultsQuery === query && !resultsLoading ? results : null) : null, scope);
+  }, [hasQuery, byName, queryPlan.plan, waitingPlan, scope, resultsQuery, query, resultsLoading, results]);
+  // Total real (lo que se verá al dar Enter), no el número de sugerencias visibles. Sin datos de la API, se cuentan las sugerencias.
+  const currentResults = scope === "catalog" ? (resultsQuery === query && !resultsLoading ? results : null) : search.data;
+  const realTotal = resultsTotal(currentResults, scope);
+  const namedSuggestions = suggestions.filter(option => !DERIVED_CATEGORIES.has(option.category)).length;
+  const countLabel = realTotal && realTotal.total > 0 ? formatResultsTotal(realTotal)
+    : namedSuggestions ? `${namedSuggestions} ${namedSuggestions === 1 ? "resultado" : "resultados"}` : null;
   const groups = useMemo(() => {
     const categories = [...new Set(suggestions.map(option => option.category))];
-    return categories.map(category => ({ category, label: SUGGESTION_GROUP_LABELS[category] ?? category,
-      items: suggestions.filter(option => option.category === category) }));
+    return categories.map(category => {
+      const items = suggestions.filter(option => option.category === category);
+      return { category, label: items[0]!.groupLabel ?? SUGGESTION_GROUP_LABELS[category] ?? category, count: items[0]!.groupCount ?? null, note: items[0]!.groupNote ?? null, items };
+    });
   }, [suggestions]);
   const status = !hasQuery ? `Escribe al menos ${minimum} caracteres para ver sugerencias.`
     : loading ? "Buscando sugerencias…" : searchError ? "No se pudieron cargar las sugerencias. Prueba de nuevo."
@@ -161,31 +182,32 @@ export function CatalogSearchInput({ scope, value, onChange, label, placeholder,
           {hasQuery ? <div className="catalog-suggestions__header">
             <MagnifyingGlass size={14} aria-hidden="true" />
             <span>Sugerencias para <strong>«{query}»</strong></span>
-            {!loading && !searchError && suggestions.length ? <span className="catalog-suggestions__count">{suggestions.length} {suggestions.length === 1 ? "resultado" : "resultados"}</span> : null}
+            {!loading && !searchError && countLabel ? <span className="catalog-suggestions__count">{countLabel}</span> : null}
           </div> : null}
           {status ? <Autocomplete.Status className="catalog-suggestions__status">{status}</Autocomplete.Status> : null}
           {searchError && !loading ? <button type="button" className="btn btn--sm" onClick={scope === "catalog" ? onRetryResults : search.retry}>Reintentar sugerencias</button> : null}
           <Autocomplete.List className="catalog-suggestions__list" aria-label="Coincidencias del catálogo">
             {(group: typeof groups[number]) => <Autocomplete.Group key={group.category} items={group.items} className="catalog-suggestions__group">
-              <Autocomplete.GroupLabel className="catalog-suggestions__group-label">{group.label}</Autocomplete.GroupLabel>
+              <Autocomplete.GroupLabel className="catalog-suggestions__group-label">{group.label}{group.count ? <span className="catalog-suggestions__group-count"> ({group.count})</span> : null}</Autocomplete.GroupLabel>
               <Autocomplete.Collection>
                 {(option: CatalogSuggestion) => {
-                  const Icon = SUGGESTION_ICONS[option.category] ?? Tag;
+                  const Icon = SUGGESTION_ICONS[option.kind ?? option.category] ?? Tag;
                   return <Autocomplete.Item key={option.key} value={option}
                     className="catalog-suggestions__option" data-category={option.category} onClick={() => {
                       const match = /^(artist|person|album|track|organization)-(\d+)$/.exec(option.key);
                       if (match) onEntitySelection?.(match[1]!, Number(match[2]));
-                      updateOpen(false); navigate(option.href);
+                      updateOpen(false); void navigate(option.href);
                     }}>
                     <span className="catalog-suggestions__icon" aria-hidden="true"><Icon size={19} /></span>
                     <span className="catalog-suggestions__text">
                       <span className="catalog-suggestions__name"><HighlightedName name={option.label} query={query} /></span>
                       {option.context ? <span className="catalog-suggestions__context">{option.context}</span> : null}
                     </span>
-                    <span className="catalog-suggestions__category">{SUGGESTION_TYPE_LABELS[option.category] ?? option.category}</span>
+                    <span className="catalog-suggestions__category">{SUGGESTION_TYPE_LABELS[option.kind ?? option.category] ?? option.kind ?? option.category}</span>
                   </Autocomplete.Item>;
                 }}
               </Autocomplete.Collection>
+              {group.note ? <p className="catalog-suggestions__note">{group.note}</p> : null}
             </Autocomplete.Group>}
           </Autocomplete.List>
           {hasQuery && onShowAllResults ? <button type="button" className="catalog-suggestions__all" onClick={() => {
