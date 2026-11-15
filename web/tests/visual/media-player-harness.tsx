@@ -25,9 +25,11 @@ function Controls() {
     ])}>Reproducir video de prueba</button>
     <Link className="btn" to="/otra-pagina">Otra página</Link>
     <Link className="btn" to="/album">Disco de prueba</Link>
+    <Link className="btn" to="/artista">Artista de prueba</Link>
     <Link className="btn" to="/">Inicio</Link>
     <Routes>
       <Route path="/" element={<><h2>Audio</h2><EmbedPanel option={audio} subject="Audio de prueba" fullElsewhere={null} /><h2>Lista de videos</h2><EmbedPanel option={playlist} subject="Lista de prueba" fullElsewhere={null} /></>} />
+      <Route path="/artista" element={<><h2>Página del artista</h2><EmbedPanel option={playlist} subject="Artista de prueba" fullElsewhere={null} embeddedVideo /></>} />
       <Route path="/otra-pagina" element={<h2>Contenido de otra página</h2>} />
       <Route path="/album" element={<AlbumYoutubePlayer videoId={first.videoId} title="Álbum de prueba" albumId={57} tracks={[{ video: { ...first, album: { id: 57, title: "Álbum de prueba" } }, title: "Primera pista", seconds: 0 }]} onPlaybackChange={onPlayback} />} />
     </Routes>

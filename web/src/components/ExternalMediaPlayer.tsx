@@ -30,7 +30,8 @@ export function useExternalMedia() {
 export function ExternalMediaProvider({ children }: { children: ReactNode }) {
   const [sources, setSources] = useState<ExternalMediaSource[]>([]);
   const slots = useRef(new Map<string, HTMLDivElement>());
-  const active = useRef<string | null>(null);
+  // Only an explicitly floated widget may outlive its page slot.
+  const retained = useRef<string | null>(null);
   const [, setRevision] = useState(0);
   const [shown, setShown] = useState<{ id: string; revision: number } | null>(null);
   const register = useCallback((source: ExternalMediaSource, slot: HTMLDivElement | null) => {
@@ -40,14 +41,14 @@ export function ExternalMediaProvider({ children }: { children: ReactNode }) {
     } else slots.current.delete(source.id);
     // React may detach and reattach a ref in the same commit or StrictMode pass.
     queueMicrotask(() => {
-      setSources(previous => previous.filter(item => slots.current.has(item.id) || active.current === item.id));
+      setSources(previous => previous.filter(item => slots.current.has(item.id) || retained.current === item.id));
       setRevision(value => value + 1);
     });
   }, []);
   const show = useCallback((id: string) => setShown(value => ({ id, revision: (value?.revision ?? 0) + 1 })), []);
-  const activate = useCallback((id: string | null) => { active.current = id; }, []);
+  const activate = useCallback((id: string | null) => { retained.current = id; }, []);
   const remove = useCallback((id: string) => {
-    if (active.current === id) active.current = null;
+    if (retained.current === id) retained.current = null;
     if (!slots.current.has(id)) setSources(previous => previous.filter(item => item.id !== id));
   }, []);
   return <Context.Provider value={{ register, show }}>{children}{sources.map(source => <ErrorBoundary key={source.id}
@@ -90,7 +91,7 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
   const [generation, setGeneration] = useState(0);
   const [engaged, setEngaged] = useState(false);
   const [hidden, setHidden] = useState(Boolean(source.float));
-  const floating = mode === "floating" || !slot;
+  const floating = mode === "floating";
   const modal = mode === "modal" && !floating;
   const ui = useFloatingVideo(panel, floating);
   const compact = floating && !ui.expanded;
@@ -108,22 +109,24 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
     setHidden(source.video || Boolean(source.float));
   }, [source.id, source.video, source.float, source.label, onRelease]);
   const activate = useCallback(() => {
-    claimMedia(source.id, stop); onActive(source.id); setEngaged(true);
-  }, [source.id, stop, onActive]);
+    claimMedia(source.id, stop); setEngaged(true);
+  }, [source.id, stop]);
   useEffect(() => () => releaseMedia(source.id), [source.id]);
   useEffect(() => {
     if (!shown) return;
     setHidden(false);
-    if (source.float) { activate(); setMode("floating"); setExpandOnShow(shown); return; }
+    activate();
+    if (source.float) { onActive(source.id); setMode("floating"); setExpandOnShow(shown); return; }
     setMode(source.video ? "modal" : "inline");
-  }, [shown, source.video, source.float, activate]);
+  }, [shown, source.id, source.video, source.float, activate, onActive]);
   const [expandOnShow, setExpandOnShow] = useState(0);
   useEffect(() => { if (expandOnShow && floating) ui.resize(true, false); }, [expandOnShow, floating]); // eslint-disable-line react-hooks/exhaustive-deps
-  const float = () => { captureMode(); activate(); setMode("floating"); };
-  const cinema = () => { captureMode(); activate(); setMode("modal"); };
+  const float = () => { captureMode(); activate(); onActive(source.id); setMode("floating"); };
+  const cinema = () => { captureMode(); activate(); onActive(null); setMode("modal"); };
   const restore = () => {
     if (source.float) { ui.resize(true); return; }
-    if (!slot) navigate(source.path);
+    if (!slot) void navigate(source.path);
+    onActive(null);
     captureMode();
     setMode(source.video ? "modal" : "inline");
   };
@@ -179,7 +182,7 @@ function ExternalPlayer({ source, slot, shown, onActive, onRelease }: {
     return () => { node.close(); document.body.style.overflow = overflow; };
   }, [modal, hidden]);
 
-  if (hidden) return null;
+  if (hidden || (!slot && !floating)) return null;
   return createPortal(<dialog ref={dialog} className={`video-layer video-layer--external${modal ? "" : floating ? " video-layer--floating" : " video-layer--inline"}`} aria-label={`${source.subject} en ${source.label}`}
     onCancel={event => { event.preventDefault(); dismiss(); }}
     onClick={event => { if (modal && event.target === event.currentTarget) dismiss(); }}>

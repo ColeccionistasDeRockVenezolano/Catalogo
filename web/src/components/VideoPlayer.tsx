@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowClockwise, ArrowSquareOut, ArrowsInSimple, ArrowsOutSimple, DotsSix, MonitorPlay, Pause, PictureInPicture, Play, PushPin, SkipBack, SkipForward, SpeakerHigh, SpeakerSlash, X } from "@phosphor-icons/react";
@@ -59,6 +59,7 @@ export function VideoProvider({ children }: { children: ReactNode }) {
   const [retry, setRetry] = useState(0);
   const [volume, setVolume] = useState(100);
   const [muted, setMuted] = useState(false);
+  const lastAudibleVolume = useRef(100);
   const dialog = useRef<HTMLDialogElement>(null);
   const panel = useRef<HTMLElement>(null);
   const player = useRef<YoutubePlayer | null>(null);
@@ -84,7 +85,7 @@ export function VideoProvider({ children }: { children: ReactNode }) {
   const embeddable = Boolean(session?.embeddable);
   const canEmbed = Boolean(embeddable && slot && pathname === session?.path.split("?")[0]);
   const inline = canEmbed && !floating && !theater;
-  const isFloating = Boolean(session && (floating || (embeddable && !canEmbed)));
+  const isFloating = Boolean(session && floating);
   const captureMode = usePlayerModeTransition(panel, !session ? "none" : isFloating ? "floating" : inline ? "inline" : "cinema");
   const stop = useCallback(() => {
     tryMediaOperation(() => player.current?.pauseVideo(), "YouTube");
@@ -118,7 +119,7 @@ export function VideoProvider({ children }: { children: ReactNode }) {
     setFloating(false); setTheater(false);
   }, [mediaOwner, stop, pathname, search, session, controlPlayer, captureMode]);
   const restore = useCallback(() => {
-    if (session?.embeddable && `${pathname}${search}` !== session.path) navigate(session.path);
+    if (session?.embeddable && `${pathname}${search}` !== session.path) void navigate(session.path);
     captureMode();
     setFloating(false); setTheater(false);
   }, [session, pathname, search, navigate, captureMode]);
@@ -128,12 +129,16 @@ export function VideoProvider({ children }: { children: ReactNode }) {
     requestAnimationFrame(() => panel.current?.focus({ preventScroll: true }));
   }, [captureMode]);
   const float = useCallback(() => {
+    claimMedia(mediaOwner, stop);
     captureMode();
     setFloating(true);
     requestAnimationFrame(() => panel.current?.querySelector<HTMLButtonElement>(".catalog-video-player__move")?.focus({ preventScroll: true }));
-  }, [captureMode]);
+  }, [captureMode, mediaOwner, stop]);
   const originPath = session?.path;
-  useEffect(() => { if (originPath && pathname !== originPath.split("?")[0]) setFloating(true); }, [pathname, originPath]);
+  useEffect(() => {
+    // A route change must not opt an inline or cinema session into floating.
+    if (originPath && pathname !== originPath.split("?")[0] && !floating) stop();
+  }, [pathname, originPath, floating, stop]);
   const playbackReady = playback !== null;
   useEffect(() => {
     if (!playbackReady || !player.current) return;
@@ -142,6 +147,26 @@ export function VideoProvider({ children }: { children: ReactNode }) {
       if (muted) target.mute?.(); else target.unMute?.();
     });
   }, [playbackReady, session?.video.videoId, volume, muted, controlPlayer]);
+
+  const changeVolume = (value: number) => {
+    const next = Math.max(0, Math.min(100, value));
+    if (next > 0) lastAudibleVolume.current = next;
+    setVolume(next); setMuted(next === 0);
+    controlPlayer(target => {
+      target.setVolume?.(next);
+      if (next === 0) target.mute?.(); else target.unMute?.();
+    });
+  };
+  const toggleMute = () => {
+    const nextMuted = !(muted || volume === 0);
+    const restoredVolume = volume || lastAudibleVolume.current;
+    setMuted(nextMuted);
+    if (!nextMuted) setVolume(restoredVolume);
+    controlPlayer(target => {
+      if (nextMuted) target.mute?.();
+      else { target.setVolume?.(restoredVolume); target.unMute?.(); }
+    });
+  };
 
   const playing = playback?.state === 1;
   const tracks = session?.tracks ?? [];
@@ -203,7 +228,7 @@ export function VideoProvider({ children }: { children: ReactNode }) {
           if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); if (!inline) dismiss(floatingUI); return; }
           if ((event.target as HTMLElement).closest("input, textarea, select, a, button, [contenteditable=true]")) return;
           if (event.key === " " || event.key.toLowerCase() === "k") { event.preventDefault(); togglePlayback(); }
-          if (event.key.toLowerCase() === "m") { event.preventDefault(); setMuted(value => !value); }
+          if (event.key.toLowerCase() === "m") { event.preventDefault(); toggleMute(); }
           if (event.key === "ArrowLeft" || event.key === "ArrowRight") { event.preventDefault(); seek((playback?.seconds ?? 0) + (event.key === "ArrowLeft" ? -10 : 10)); }
         }}>
         <div className="catalog-video-player__toolbar media-player__toolbar">
@@ -224,31 +249,76 @@ export function VideoProvider({ children }: { children: ReactNode }) {
         {compact ? <div className="media-player__mini-controls"><button type="button" onClick={togglePlayback} disabled={!playback} aria-label={pauseIntent ? "Pausar video" : "Reproducir video"}>{pauseIntent ? <Pause size={18} weight="fill" /> : <Play size={18} weight="fill" />}</button><button type="button" className="media-player__expand" onClick={event => floatingUI.resize(true, event.detail !== 0)} aria-label="Mostrar reproductor pequeño"><ArrowsOutSimple size={16} /> Controles</button></div> : null}
         <div className="catalog-video-player__details" hidden={compact}>
           {message ? <div className="video-player__error" role="status"><p>{message}</p><button type="button" className="btn btn--sm" onClick={() => { pendingStart.current = playback?.seconds ?? 0; setRetry(value => value + 1); }}><ArrowClockwise size={16} /> Reintentar</button></div> : null}
-          <div className="catalog-video-player__playback">
-            <button type="button" className="catalog-video-player__skip" onClick={() => skipTo(trackIndex - 1)} disabled={!playback || trackIndex <= 0} aria-label="Pista anterior" title={tracks[trackIndex - 1]?.title ?? "Pista anterior"}><SkipBack size={20} weight="fill" /></button>
-            <button type="button" onClick={togglePlayback} disabled={!playback} aria-label={pauseIntent ? "Pausar video" : "Reproducir video"} title={pauseIntent ? "Pausar" : "Reproducir"}>{pauseIntent ? <Pause size={22} weight="fill" /> : <Play size={22} weight="fill" />}</button>
-            <button type="button" className="catalog-video-player__skip" onClick={() => skipTo(nextIndex)} disabled={!playback || nextIndex < 0 || nextIndex >= tracks.length} aria-label="Próxima pista" title={tracks[nextIndex]?.title ?? "Próxima pista"}><SkipForward size={20} weight="fill" /></button>
-            <div><strong>{tracks[trackIndex]?.title ?? session.video.title}</strong><span>{status}</span></div>
+          <header className="catalog-video-player__track">
+            <strong title={tracks[trackIndex]?.title ?? session.video.title}>{tracks[trackIndex]?.title ?? session.video.title}</strong>
+            <span role="status">{status}</span>
+          </header>
+          <div className="catalog-video-player__playback" role="group" aria-label="Controles de reproducción">
+            <button type="button" className="catalog-video-player__skip" onClick={() => skipTo(trackIndex - 1)} disabled={!playback || trackIndex <= 0} aria-label="Pista anterior" title={tracks[trackIndex - 1]?.title ?? "Pista anterior"}><SkipBack size={26} /></button>
+            <button type="button" className="catalog-video-player__skip" disabled={!playback} onClick={() => seek((playback?.seconds ?? 0) - 10)} aria-label="Retroceder 10 segundos" title="Retroceder 10 segundos"><TenSecondIcon /></button>
+            <button type="button" className="catalog-video-player__play" onClick={togglePlayback} disabled={!playback} aria-label={pauseIntent ? "Pausar video" : "Reproducir video"} title={pauseIntent ? "Pausar" : "Reproducir"}>{pauseIntent ? <Pause size={30} weight="fill" /> : <Play size={30} weight="fill" />}</button>
+            <button type="button" className="catalog-video-player__skip" disabled={!playback} onClick={() => seek((playback?.seconds ?? 0) + 10)} aria-label="Avanzar 10 segundos" title="Avanzar 10 segundos"><TenSecondIcon forward /></button>
+            <button type="button" className="catalog-video-player__skip" onClick={() => skipTo(nextIndex)} disabled={!playback || nextIndex < 0 || nextIndex >= tracks.length} aria-label="Próxima pista" title={tracks[nextIndex]?.title ?? "Próxima pista"}><SkipForward size={26} /></button>
           </div>
-          <div className="video-player__timeline">
+          <div className="video-player__timeline" style={{ "--seek-fill": `${duration ? Math.min(100, Math.max(0, (playback?.seconds ?? 0) / duration * 100)) : 0}%` } as CSSProperties}>
+            <span>{formatDuration(Math.floor(playback?.seconds ?? 0))}</span>
             <input type="range" min={0} max={duration || 1} step={1} value={Math.min(duration || 1, playback?.seconds ?? 0)} disabled={!duration} aria-label="Posición del video" aria-valuetext={`${formatDuration(Math.floor(playback?.seconds ?? 0))} de ${formatDuration(Math.floor(duration))}`} onChange={event => seek(Number(event.target.value))} />
-            <div><span>{formatDuration(Math.floor(playback?.seconds ?? 0))}</span><span>{duration ? formatDuration(Math.floor(duration)) : "—:—"}</span></div>
+            <span>{duration ? formatDuration(Math.floor(duration)) : "—:—"}</span>
+            <PlayerVolume volume={volume} muted={muted} onMute={toggleMute} onChange={changeVolume} />
           </div>
-          {!isFloating ? <div className="video-player__extras">
-            <button type="button" className="btn btn--sm" disabled={!playback} onClick={() => seek((playback?.seconds ?? 0) - 10)}>−10 s</button>
-            <button type="button" className="btn btn--sm" disabled={!playback} onClick={() => seek((playback?.seconds ?? 0) + 10)}>+10 s</button>
-            <button type="button" className="video-player__mute" onClick={() => setMuted(value => !value)} aria-label={muted ? "Activar sonido" : "Silenciar"} aria-pressed={muted}>{muted ? <SpeakerSlash size={20} /> : <SpeakerHigh size={20} />}</button>
-            <input type="range" min={0} max={100} value={muted ? 0 : volume} aria-label="Volumen" onChange={event => { setVolume(Number(event.target.value)); setMuted(false); }} />
-          </div> : null}
           {!isFloating && tracks.length > 1 ? <details className="video-player__queue"><summary>Pistas y capítulos · {tracks.length}</summary><ol>{tracks.map((track, index) => <li key={`${track.video.videoId}:${track.seconds}:${index}`}><button type="button" aria-current={index === trackIndex ? "true" : undefined} onClick={() => skipTo(index)}><span>{track.title}</span><time>{formatDuration(track.seconds)}</time></button></li>)}</ol></details> : null}
           <div className="catalog-video-player__caption"><div>
             <a href={`https://www.youtube.com/watch?v=${session.video.videoId}`} target="_blank" rel="noreferrer">Abrir desde YouTube <ArrowSquareOut size={14} /></a>
-            {session.video.album ? <Link to={`/discos/${session.video.album.id}`} onClick={float}>Ver el disco</Link> : <button type="button" className="video-player__origin" onClick={() => { float(); navigate(session.path); }}>Ver origen</button>}
+            {session.video.album ? <Link to={`/discos/${session.video.album.id}`} onClick={float}>Ver el disco</Link> : <button type="button" className="video-player__origin" onClick={() => { float(); void navigate(session.path); }}>Ver origen</button>}
           </div></div>
         </div>
       </aside>
     </dialog>, document.body)}</VideoLayer></ErrorBoundary> : null}</ExternalMediaProvider>
   </VideoContext.Provider>;
+}
+
+/** Matching circular arrows; only the paths mirror, keeping the number readable. */
+function TenSecondIcon({ forward = false }: { forward?: boolean }) {
+  return <svg className="catalog-video-player__ten-seconds" viewBox="0 0 32 32" aria-hidden="true">
+    <g transform={forward ? "translate(32 0) scale(-1 1)" : undefined}><path d="M8.22 9.22A11 11 0 1 1 5 17" /><path d="M8.22 3.72v5.5h5.5" /></g>
+    <text x="16" y="20.5">10</text>
+  </svg>;
+}
+
+function PlayerVolume({ volume, muted, onMute, onChange }: { volume: number; muted: boolean; onMute: () => void; onChange: (value: number) => void }) {
+  const popup = useRef<HTMLDivElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const sliderId = useId();
+  const [open, setOpen] = useState(false);
+  const silent = muted || volume === 0;
+  useEffect(() => {
+    const dismiss = (event: PointerEvent) => {
+      if (!popup.current?.contains(event.target as Node)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", dismiss);
+    return () => document.removeEventListener("pointerdown", dismiss);
+  }, []);
+  return <div ref={popup} className="catalog-video-player__volume" data-open={open || undefined}
+    onPointerEnter={event => { if (event.pointerType === "mouse" || event.pointerType === "pen") setOpen(true); }}
+    onPointerLeave={event => { if (event.pointerType !== "touch" && !event.currentTarget.querySelector(":focus-visible")) setOpen(false); }}
+    onFocusCapture={event => { if (event.target.matches(":focus-visible")) setOpen(true); }}
+    onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setOpen(false); }}
+    onKeyDown={event => {
+      if (event.key !== "Escape") return;
+      event.preventDefault(); event.stopPropagation();
+      trigger.current?.focus(); setOpen(false);
+    }}>
+    <button ref={trigger} type="button" className="catalog-video-player__volume-trigger"
+      onPointerDown={event => { if (event.pointerType === "touch") setOpen(true); }}
+      onClick={onMute} aria-label={silent ? "Activar sonido" : "Silenciar"} aria-pressed={silent}
+      aria-expanded={open} aria-controls={sliderId} title={silent ? "Activar sonido" : "Silenciar"}>
+      {silent ? <SpeakerSlash size={21} /> : <SpeakerHigh size={21} />}
+    </button>
+    <div id={sliderId} className="catalog-video-player__volume-popup" hidden={!open}>
+      <output aria-hidden="true">{muted ? 0 : volume}%</output>
+      <input type="range" min={0} max={100} value={muted ? 0 : volume} aria-label="Volumen" aria-valuetext={`${muted ? 0 : volume} por ciento`} onChange={event => onChange(Number(event.target.value))} />
+    </div>
+  </div>;
 }
 
 /** Positioning and dialog effects belong to the player's boundary, above routes. */
