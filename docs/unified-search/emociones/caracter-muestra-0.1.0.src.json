@@ -1,0 +1,806 @@
+{
+ "version": "crv-genre-feel-sample-0.1.0",
+ "fecha": "2026-11-12",
+ "analista": "Claude",
+ "estado": "propuesta_para_revision_de_brian",
+ "policy": "caracter_tipico_del_genero_fallback_no_afirmacion_sobre_la_obra",
+ "fuerza": {
+  "definitorio": "lo dicen varias fuentes y forma parte de la identidad del género",
+  "frecuente": "aparece en fuentes pero no siempre",
+  "variable": "depende de la obra o de la época"
+ },
+ "generos": [
+  {
+   "slug": "pasaje",
+   "familia": "joropo",
+   "comparadoCon": [
+    "golpe-llanero",
+    "corrio"
+   ],
+   "caracter": [
+    [
+     "sereno",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "tierno",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "lírico/poético",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "pausado",
+     "energia",
+     null,
+     "definitorio"
+    ]
+   ],
+   "contraste": "Es la cara lenta y cantada del joropo llanero, frente al golpe y el corrío, rápidos y vigorosos.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Joropo_llanero",
+     "la diferenciación entre el pasaje (lento y lírico) y el golpe (rápido y vigoroso)"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Joropo_llanero",
+     "pasaje , este representa un género musical de carácter sereno y se destaca por contener letras poéticas , nobles, que hablan del sentimiento, del amor y de la naturaleza"
+    ],
+    [
+     "https://www.musicallanera.net/resenas/el-pasaje-llanero/",
+     "el pasaje se distingue por su carácter pausado y melódico, evocando emociones profundas y paisajes íntimos"
+    ],
+    [
+     "https://pianospuch.com.ar/joropo-en-piano/",
+     "el «pasaje», de ritmo más lento y carácter melancólico o descriptivo"
+    ],
+    [
+     "https://nautilusrestaurante.co/cultura-personaje-gastronomia-costumbre-del-orinoco/",
+     "un reflejo de su capacidad para la ternura y la melancolía"
+    ]
+   ],
+   "confianza": "alta"
+  },
+  {
+   "slug": "golpe-llanero",
+   "familia": "joropo",
+   "comparadoCon": [
+    "pasaje",
+    "corrio",
+    "contrapunteo"
+   ],
+   "caracter": [
+    [
+     "vigoroso",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "bailable (según fuentes)",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "recio/desafiante",
+     "actitud",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Rápido, instrumental y de baile; opuesto al pasaje sereno.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Joropo_llanero",
+     "el golpe , que corresponde a la música instrumental de tempo rápido"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Joropo_llanero",
+     "el golpe (rápido y vigoroso)"
+    ],
+    [
+     "https://pianospuch.com.ar/joropo-en-piano/",
+     "el «golpe» o «corrío», de ritmo rápido y bailable"
+    ]
+   ],
+   "confianza": "alta",
+   "nota": "«Golpe» por sí solo atrae homónimos (golpe de Estado); se filtraron."
+  },
+  {
+   "slug": "corrio",
+   "familia": "joropo",
+   "comparadoCon": [
+    "golpe-llanero",
+    "pasaje"
+   ],
+   "caracter": [
+    [
+     "animado",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "narrativo",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "orgulloso/valiente",
+     "emocion",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "Más animado que el pasaje; vehículo de coplas que narran la vida del llano.",
+   "fuentes": [
+    [
+     "https://pianospuch.com.ar/joropo-en-piano/",
+     "el «golpe» o «corrío», de ritmo rápido y bailable"
+    ],
+    [
+     "https://nautilusrestaurante.co/cultura-personaje-gastronomia-costumbre-del-orinoco/",
+     "versos octosílabos improvisados que narran historias de la vida en el llano, expresan sentimientos profundos, elogian la belleza de la mujer o el coraje del hombre llanero"
+    ]
+   ],
+   "confianza": "baja",
+   "nota": "Una de las dos fuentes es el sitio de un restaurante (texto divulgativo); buscar fuente musical."
+  },
+  {
+   "slug": "contrapunteo",
+   "familia": "joropo",
+   "comparadoCon": [
+    "golpe-llanero",
+    "corrio"
+   ],
+   "caracter": [
+    [
+     "desafiante",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "picante/humorístico",
+     "actitud",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "frecuente"
+    ]
+   ],
+   "contraste": "Duelo improvisado de copleros, normalmente sobre golpes recios; el carácter viene del duelo verbal.",
+   "fuentes": [
+    [
+     "https://www.musicallanera.co/contrapunteo-llanero/",
+     "el lenguaje suele ser picante y desafiante a su vez, con temas que tratan sobre la amistad, el llano y sus costumbres"
+    ],
+    [
+     "https://www.musicallanera.co/contrapunteo-llanero/",
+     "una piñata de sabiduría, amor, humor y coraje patrio"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Joropo",
+     "las contundentes y violentas propias del joropo llanero, cuyos contrapunteos terminan no pocas veces en lances y peleas"
+    ]
+   ],
+   "confianza": "alta"
+  },
+  {
+   "slug": "golpe-y-estribillo",
+   "familia": "joropo",
+   "comparadoCon": [
+    "golpe-llanero"
+   ],
+   "caracter": [],
+   "contraste": "Las fuentes solo describen su forma (melodía fija en 3/4 y estribillo improvisado en 6/8), no su carácter.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Joropo",
+     "la primera sección o “golpe” es tradicionalmente una melodía fija en ritmo 3/4 [...] la segunda sección o “estribillo” es una melodía improvisada"
+    ]
+   ],
+   "confianza": "sin_caracter",
+   "siguiente": "buscar en fuentes del joropo oriental y central"
+  },
+  {
+   "slug": "gaban",
+   "familia": "joropo",
+   "comparadoCon": [
+    "golpe-llanero"
+   ],
+   "caracter": [],
+   "contraste": "Las fuentes lo nombran como golpe unipartita propicio para improvisar; nada sobre su carácter.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Joropo_llanero",
+     "los golpes unipartitas, caracterizados por una estructura armónica simple, como el gabán [...] son especialmente propicios para el desarrollo de la improvisación"
+    ]
+   ],
+   "confianza": "sin_caracter",
+   "siguiente": "heredaría el carácter de golpe llanero; requiere decisión"
+  },
+  {
+   "slug": "guasa",
+   "familia": "joropo",
+   "comparadoCon": [],
+   "caracter": [
+    [
+     "juguetón/burlón",
+     "actitud",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "nostálgico",
+     "emocion",
+     "mix",
+     "variable"
+    ]
+   ],
+   "contraste": "«Guasa» significa en español chanza o burla; la fuente musical encontrada la describe así.",
+   "fuentes": [
+    [
+     "https://www.laphil.com/works/guasamacabra-la-phil-commission",
+     "“Guasa,” in good Spanish, defines a joking mood [...] even a happy guasa carries a tiny bit of nonchalant nostalgia"
+    ]
+   ],
+   "confianza": "baja",
+   "nota": "Identidad dudosa: la fuente es la nota de una obra orquestal, no un estudio de la guasa tradicional. Se descartó el guasá colombiano (instrumento)."
+  },
+  {
+   "slug": "puntillanto",
+   "familia": "joropo",
+   "comparadoCon": [
+    "polo-oriental",
+    "malaguena"
+   ],
+   "caracter": [
+    [
+     "cadencioso",
+     "energia",
+     null,
+     "frecuente"
+    ]
+   ],
+   "contraste": "Punto marinero de Margarita; las fuentes lo agrupan con el canto oriental, no con el joropo llanero.",
+   "fuentes": [
+    [
+     "https://radio.otilca.org/ocho-anos-sin-francisco-mata-chico-tono/",
+     "el puntillanto o punto marinero cadencioso"
+    ]
+   ],
+   "confianza": "baja",
+   "nota": "En la taxonomía cuelga de joropo, pero las fuentes lo ubican en la música oriental: revisar su familia."
+  },
+  {
+   "slug": "polo-oriental",
+   "familia": "musica-oriental",
+   "comparadoCon": [
+    "malaguena",
+    "jota-oriental",
+    "galeron"
+   ],
+   "caracter": [
+    [
+     "lírico e introspectivo",
+     "emocion",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "doliente/lastimero",
+     "emocion",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "solitario",
+     "emocion",
+     "neg",
+     "variable"
+    ]
+   ],
+   "contraste": "El más introspectivo del oriente; frente a la vivacidad del joropo y la gaita.",
+   "fuentes": [
+    [
+     "https://demasiadasnoches.blogspot.com/2025/06/polo-margariteno-venezuela.html",
+     "el Polo Margariteño se distingue por su carácter lírico e introspectivo"
+    ],
+    [
+     "https://radio.otilca.org/ocho-anos-sin-francisco-mata-chico-tono/",
+     "el polo margariteño dolido y doliente"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Polo_(music)",
+     "the romantically-oriented polo"
+    ],
+    [
+     "https://www.venezuelatuya.com/tradiciones/polos_jotas_y_galerones.htm",
+     "de la triste melancolía de las jotas y malagueñas a la alegre tonada del polo"
+    ]
+   ],
+   "confianza": "media",
+   "nota": "Hay desacuerdo: una fuente lo llama «alegre tonada»; otras, doliente e introspectivo. Se conservan los dos polos."
+  },
+  {
+   "slug": "malaguena",
+   "familia": "musica-oriental",
+   "comparadoCon": [
+    "polo-oriental",
+    "jota-oriental"
+   ],
+   "caracter": [
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "quejumbroso/lánguido",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "triste",
+     "emocion",
+     "neg",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Junto con la jota, la cara triste del cancionero oriental.",
+   "fuentes": [
+    [
+     "https://radio.otilca.org/ocho-anos-sin-francisco-mata-chico-tono/",
+     "la malagueña quejumbrosa y lánguida"
+    ],
+    [
+     "https://www.venezuelatuya.com/tradiciones/polos_jotas_y_galerones.htm",
+     "la triste melancolía de las jotas y malagueñas"
+    ],
+    [
+     "https://grokipedia.com/page/francisco_mata",
+     "languid malagueña"
+    ]
+   ],
+   "confianza": "alta",
+   "nota": "RYM le da «tropical, apasionado», pero su etiqueta «Malagueña» puede ser la flamenca o la cubana: identidad no comprobada, no se usa."
+  },
+  {
+   "slug": "jota-oriental",
+   "familia": "musica-oriental",
+   "comparadoCon": [
+    "malaguena",
+    "polo-oriental"
+   ],
+   "caracter": [
+    [
+     "triste",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "definitorio"
+    ]
+   ],
+   "contraste": "Canto triste de pesca y amor; distinta de la jota aragonesa, más festiva y de humor irónico.",
+   "fuentes": [
+    [
+     "https://mifolkloredevenezuela.blogspot.com/",
+     "Se trata de un canto triste y melancólico que se refiere al tema de la pesca y del amor"
+    ],
+    [
+     "https://www.venezuelatuya.com/tradiciones/polos_jotas_y_galerones.htm",
+     "la triste melancolía de las jotas y malagueñas"
+    ]
+   ],
+   "confianza": "alta"
+  },
+  {
+   "slug": "galeron",
+   "familia": "musica-oriental",
+   "comparadoCon": [
+    "polo-oriental",
+    "malaguena"
+   ],
+   "caracter": [
+    [
+     "alegre/entusiasta",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "desafiante (duelo de décimas)",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "devoto/solemne",
+     "emocion",
+     "neu",
+     "variable"
+    ]
+   ],
+   "contraste": "Canto de décimas en contrapunteo, para velorios, fiestas de cruz y bodas; carácter festivo o devocional según la ocasión.",
+   "fuentes": [
+    [
+     "https://www.clubensayos.com/M%C3%BAsica-y-Cine/El-Galeron/5801947.html",
+     "El galerón es un género que simboliza alegría y entusiasmo"
+    ],
+    [
+     "https://www.clubensayos.com/M%C3%BAsica-y-Cine/El-Galeron/5801947.html",
+     "las letras usualmente se realizan en décimas y hablan de temas patrióticos, religiosos, filosóficos y sentimentales"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Galer%C3%B3n",
+     "usado en velorios y bodas, formado principalmente de décimas"
+    ]
+   ],
+   "confianza": "media"
+  },
+  {
+   "slug": "gaita-oriental",
+   "familia": "musica-oriental",
+   "comparadoCon": [],
+   "caracter": [],
+   "contraste": "Solo aparece en listas de géneros margariteños.",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "siguiente": "búsqueda propia: «gaita margariteña»"
+  },
+  {
+   "slug": "merengue-oriental",
+   "familia": "musica-oriental",
+   "comparadoCon": [],
+   "caracter": [],
+   "contraste": "Solo etiquetas de prensa (diversiones margariteñas).",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "siguiente": "buscar junto a «diversiones margariteñas»"
+  },
+  {
+   "slug": "motivo-guaiqueri",
+   "familia": "musica-oriental",
+   "comparadoCon": [],
+   "caracter": [],
+   "contraste": "Ritmo creado por Francisco «Chico Toño» Mata en 1964; las fuentes cuentan su origen, no su carácter.",
+   "fuentes": [
+    [
+     "https://grokipedia.com/page/francisco_mata",
+     "he innovated the 'Motivo Guaiquerí' rhythm in 1964, debuting it in the track 'La Pesca.'"
+    ]
+   ],
+   "confianza": "sin_caracter"
+  },
+  {
+   "slug": "fulia",
+   "familia": "tambor-afrovenezolano",
+   "comparadoCon": [
+    "sangueo",
+    "tamunangue"
+   ],
+   "caracter": [
+    [
+     "devoto",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "festivo/parrandero",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "comunitario (coro responsorial)",
+     "actitud",
+     "pos",
+     "definitorio"
+    ]
+   ],
+   "contraste": "Canto de velorio de Cruz de Mayo; la barloventeña es de tambor y la oriental, de cuerdas y origen europeo.",
+   "fuentes": [
+    [
+     "https://radio.otilca.org/ritmos-tradicionales-de-venezuela-fulia/",
+     "La Fulía Barloventeña es un género de parranda [...] para las festividades de los meses de mayo y junio (Cruz de Mayo y San Juan)"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Fol%C3%ADa",
+     "Es de carácter responsorial"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Ful%C3%ADa",
+     "Y a la santa cruz en su día Le doy mi salutación Con fervorosa devoción"
+    ]
+   ],
+   "confianza": "media"
+  },
+  {
+   "slug": "sangueo",
+   "familia": "tambor-afrovenezolano",
+   "comparadoCon": [
+    "fulia"
+   ],
+   "caracter": [
+    [
+     "devoto",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Toque de procesión de San Juan; se canta como pago de promesa.",
+   "fuentes": [
+    [
+     "https://radio.otilca.org/ritmos-tradicionales-de-venezuela-el-sangueo/",
+     "los creyentes y parranderos le piden a San Juan Bautista en estas fiestas y para agradecer los favores recibidos [...] deben cantar y bailar al ritmo del SANGUEO"
+    ]
+   ],
+   "confianza": "baja",
+   "siguiente": "una sola fuente; buscar más"
+  },
+  {
+   "slug": "tamunangue",
+   "familia": "golpe-larense",
+   "comparadoCon": [
+    "fulia",
+    "sangueo"
+   ],
+   "caracter": [
+    [
+     "devoto/espiritual",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "fervor creciente",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "Suite ritual de siete sones para San Antonio; también hay tamunangue festivo sin promesa.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Tamunangue",
+     "La motivación del tamunangue es devocional"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Tamunangue",
+     "Cuando el tamunangue es de carácter festivo y no por promesa"
+    ],
+    [
+     "https://thesoundatlas.org/discover/tamunangue",
+     "One of Venezuela's most ancient and spiritually charged music-and-dance traditions"
+    ],
+    [
+     "https://grokipedia.com/page/tamunangue",
+     "creating an atmosphere of escalating fervor and collective catharsis"
+    ]
+   ],
+   "confianza": "alta"
+  },
+  {
+   "slug": "raw-black-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "post-black-metal",
+    "blackened-death-metal"
+   ],
+   "caracter": [
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "crudo/abrasivo",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "hostil",
+     "actitud",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "hipnótico (repetición)",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "triste",
+     "emocion",
+     "neg",
+     "variable"
+    ]
+   ],
+   "contraste": "Lleva al extremo lo primitivo y lo-fi de la segunda ola; menos técnico que el blackened death y sin la luminosidad del post-black.",
+   "fuentes": [
+    [
+     "https://en.wikipedia.org/wiki/Black_metal",
+     "Raw black metal is a subgenre that seeks to amplify the primitive qualities of the second wave of black metal, by giving priority to its lo-fi production values"
+    ],
+    [
+     "https://www.melodigging.com/genre/raw-black-metal",
+     "a deliberately lo‑fi, abrasive substyle of black metal that emphasizes hostile timbres"
+    ],
+    [
+     "https://www.melodigging.com/genre/raw-black-metal",
+     "prized for its intensity, trance‑like repetition, and anti‑gloss stance"
+    ],
+    [
+     "https://www.melodigging.com/genre/raw-black-metal",
+     "Dark Intense Sad Epic Sentimental"
+    ]
+   ],
+   "confianza": "alta"
+  },
+  {
+   "slug": "post-black-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "raw-black-metal",
+    "blackened-death-metal"
+   ],
+   "caracter": [
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "sombrío",
+     "ambiente",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "eufórico/luminoso",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "atmosférico",
+     "ambiente",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "etéreo",
+     "ambiente",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Mezcla la intensidad del black con texturas amplias (shoegaze, post-rock): oscuridad con momentos de euforia.",
+   "fuentes": [
+    [
+     "https://www.melodigging.com/genre/black-metal",
+     "While the mood can be bleak or melancholic, many blackgaze works balance darkness with radiant, almost euphoric uplift"
+    ],
+    [
+     "https://www.melodigging.com/genre/black-metal",
+     "a fusion of black metal’s intensity [...] with shoegaze’s lush, immersive textures and dreamy melodicism"
+    ]
+   ],
+   "confianza": "media",
+   "nota": "Las fuentes hablan de blackgaze, rama principal del post-black; confirmar que el alias CRV lo incluye."
+  },
+  {
+   "slug": "blackened-death-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "raw-black-metal",
+    "post-black-metal"
+   ],
+   "caracter": [
+    [
+     "brutal/agresivo",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "caótico",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "infernal/ocultista",
+     "ambiente",
+     "neg",
+     "frecuente"
+    ]
+   ],
+   "contraste": "La brutalidad del death metal con la atmósfera del black; más técnico que el raw black.",
+   "fuentes": [
+    [
+     "https://thisvsthat.io/black-metal-vs-blackened-death-metal",
+     "Blackened Death Metal combines the aggression and brutality of Death Metal with the atmosphere and aesthetics of Black Metal"
+    ],
+    [
+     "https://thisvsthat.io/black-metal-vs-blackened-death-metal",
+     "Blackened Death Metal tends to have a more technical and intricate musical approach"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Black_metal",
+     "War metal [...] subgenre of blackened death metal"
+    ]
+   ],
+   "confianza": "media"
+  }
+ ]
+}

@@ -5,7 +5,8 @@ import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { paginatedResponseSchema } from "../schemas.js";
-import { EMOTION_VALUES, emotionArtistCount, emotionArtists } from "../repositories/emotions.js";
+import { dailyDateSchema } from "../daily-cycle.js";
+import { EMOTION_VALUES, emotionAlbumCount, emotionAlbums, emotionArtistCount, emotionArtists, emotionFallbackMode } from "../repositories/emotions.js";
 import { ApiError } from "../http-errors.js";
 
 export const emotionSchema = z.enum(EMOTION_VALUES);
@@ -19,6 +20,18 @@ export const emotionArtistSchema = z.object({
   listeners: z.number().int(),
   tags: z.array(z.object({ tag: z.string(), weight: z.number().int() })),
   shouts: z.array(z.string()).describe("Comentarios de oyentes (shouts) que sustentan la emoción."),
+});
+
+export const emotionAlbumSchema = z.object({
+  id: z.number().int(),
+  title: z.string(),
+  artistId: z.number().int(),
+  artistName: z.string(),
+  emotion: emotionSchema,
+  score: z.number().describe("Peso de la emoción en su capa (reseñas 1, descriptores RYM 0,9, género 0,4, género del artista 0,3)."),
+  basis: z.enum(["resenas", "descriptor_rym", "genero", "genero_artista"]),
+  typicalOfGenre: z.boolean().describe("La emoción es la típica de su género: no hay evidencia propia del disco."),
+  traits: z.array(z.string()),
 });
 
 const emotionArtistsQuerySchema = z.object({
@@ -45,6 +58,23 @@ export async function registerEmotionRoutes(app: FastifyInstance): Promise<void>
       emotionArtistCount(emotion),
     ]);
     if (total === 0) throw new ApiError(404, "emotion_empty", `Todavía no hay artistas con «${emotion}»`);
+    return { data, pagination: { limit, offset, total } };
+  });
+
+  server.get("/emotions/:emotion/albums", {
+    schema: {
+      tags: ["emotions"],
+      summary: "Discos con esa emoción (respaldo por capas), barajados cada día; paginación de la búsqueda.",
+      params: z.object({ emotion: emotionSchema }),
+      // La fecha del ciclo diario fija el barajado: la página 2 sigue el orden de la página 1 aunque cambie el día.
+      querystring: emotionArtistsQuerySchema.extend({ date: dailyDateSchema.optional() }),
+      response: { 200: paginatedResponseSchema(emotionAlbumSchema) },
+    },
+  }, async (request) => {
+    const { emotion } = request.params;
+    const { limit, offset, date } = request.query;
+    if (emotionFallbackMode() !== "on") return { data: [], pagination: { limit, offset, total: 0 } };
+    const [data, total] = await Promise.all([emotionAlbums(emotion, limit, offset, date), emotionAlbumCount(emotion)]);
     return { data, pagination: { limit, offset, total } };
   });
 }

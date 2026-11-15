@@ -56,6 +56,14 @@ def parsear(html: str) -> list[dict]:
             if getattr(hermano, "name", None):
                 if hermano.name == "blockquote":
                     break
+                es_texto = hermano.name == "span" and "rendered_text" in (hermano.get("class") or [])
+                # el siguiente descriptor llega antes que un texto propio: esta entrada no tiene
+                # definición (sin este corte se le asignaba la del vecino: kissing→police, etc.)
+                if not es_texto and (
+                    (hermano.name == "a" and "genre" in (hermano.get("class") or []))
+                    or any(not x.find_parent("span", class_="rendered_text")
+                           for x in hermano.find_all("a", class_="genre"))):
+                    break
                 span = hermano if (hermano.name == "span" and "rendered_text" in (hermano.get("class") or [])) \
                     else hermano.find("span", class_="rendered_text")
                 if span:

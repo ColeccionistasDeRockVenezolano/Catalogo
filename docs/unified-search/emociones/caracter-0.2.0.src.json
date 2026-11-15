@@ -1,0 +1,5923 @@
+{
+ "version": "crv-genre-feel-0.2.0",
+ "fecha": "2026-11-12",
+ "analista": "Claude",
+ "estado": "propuesta_para_revision_de_brian",
+ "policy": "caracter_tipico_del_genero_fallback_no_afirmacion_sobre_la_obra",
+ "fuerza": {
+  "definitorio": "lo dicen varias fuentes y forma parte de la identidad del género",
+  "frecuente": "aparece en fuentes pero no siempre",
+  "variable": "depende de la obra o de la época",
+  "heredado": "copiado de un género pariente o de la familia; pesa menos que un rasgo propio"
+ },
+ "generos": [
+  {
+   "slug": "pasaje",
+   "familia": "joropo",
+   "comparadoCon": [
+    "golpe-llanero",
+    "corrio"
+   ],
+   "caracter": [
+    [
+     "sereno",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "tierno",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "lírico/poético",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "pausado",
+     "energia",
+     null,
+     "definitorio"
+    ]
+   ],
+   "contraste": "Es la cara lenta y cantada del joropo llanero, frente al golpe y el corrío, rápidos y vigorosos.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Joropo_llanero",
+     "la diferenciación entre el pasaje (lento y lírico) y el golpe (rápido y vigoroso)"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Joropo_llanero",
+     "pasaje , este representa un género musical de carácter sereno y se destaca por contener letras poéticas , nobles, que hablan del sentimiento, del amor y de la naturaleza"
+    ],
+    [
+     "https://www.musicallanera.net/resenas/el-pasaje-llanero/",
+     "el pasaje se distingue por su carácter pausado y melódico, evocando emociones profundas y paisajes íntimos"
+    ],
+    [
+     "https://pianospuch.com.ar/joropo-en-piano/",
+     "el «pasaje», de ritmo más lento y carácter melancólico o descriptivo"
+    ],
+    [
+     "https://nautilusrestaurante.co/cultura-personaje-gastronomia-costumbre-del-orinoco/",
+     "un reflejo de su capacidad para la ternura y la melancolía"
+    ]
+   ],
+   "confianza": "alta"
+  },
+  {
+   "slug": "golpe-llanero",
+   "familia": "joropo",
+   "comparadoCon": [
+    "pasaje",
+    "corrio",
+    "contrapunteo"
+   ],
+   "caracter": [
+    [
+     "vigoroso",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "bailable (según fuentes)",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "recio/desafiante",
+     "actitud",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Rápido, instrumental y de baile; opuesto al pasaje sereno.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Joropo_llanero",
+     "el golpe , que corresponde a la música instrumental de tempo rápido"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Joropo_llanero",
+     "el golpe (rápido y vigoroso)"
+    ],
+    [
+     "https://pianospuch.com.ar/joropo-en-piano/",
+     "el «golpe» o «corrío», de ritmo rápido y bailable"
+    ]
+   ],
+   "confianza": "alta",
+   "nota": "«Golpe» por sí solo atrae homónimos (golpe de Estado); se filtraron."
+  },
+  {
+   "slug": "corrio",
+   "familia": "joropo",
+   "comparadoCon": [
+    "golpe-llanero",
+    "pasaje"
+   ],
+   "caracter": [
+    [
+     "animado",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "narrativo",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "orgulloso/valiente",
+     "emocion",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "Más animado que el pasaje; vehículo de coplas que narran la vida del llano.",
+   "fuentes": [
+    [
+     "https://pianospuch.com.ar/joropo-en-piano/",
+     "el «golpe» o «corrío», de ritmo rápido y bailable"
+    ],
+    [
+     "https://nautilusrestaurante.co/cultura-personaje-gastronomia-costumbre-del-orinoco/",
+     "versos octosílabos improvisados que narran historias de la vida en el llano, expresan sentimientos profundos, elogian la belleza de la mujer o el coraje del hombre llanero"
+    ]
+   ],
+   "confianza": "baja",
+   "nota": "Una de las dos fuentes es el sitio de un restaurante (texto divulgativo); buscar fuente musical."
+  },
+  {
+   "slug": "contrapunteo",
+   "familia": "joropo",
+   "comparadoCon": [
+    "golpe-llanero",
+    "corrio"
+   ],
+   "caracter": [
+    [
+     "desafiante",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "picante/humorístico",
+     "actitud",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "frecuente"
+    ]
+   ],
+   "contraste": "Duelo improvisado de copleros, normalmente sobre golpes recios; el carácter viene del duelo verbal.",
+   "fuentes": [
+    [
+     "https://www.musicallanera.co/contrapunteo-llanero/",
+     "el lenguaje suele ser picante y desafiante a su vez, con temas que tratan sobre la amistad, el llano y sus costumbres"
+    ],
+    [
+     "https://www.musicallanera.co/contrapunteo-llanero/",
+     "una piñata de sabiduría, amor, humor y coraje patrio"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Joropo",
+     "las contundentes y violentas propias del joropo llanero, cuyos contrapunteos terminan no pocas veces en lances y peleas"
+    ]
+   ],
+   "confianza": "alta"
+  },
+  {
+   "slug": "golpe-y-estribillo",
+   "familia": "joropo",
+   "comparadoCon": [
+    "golpe-llanero"
+   ],
+   "caracter": [
+    [
+     "vigoroso",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "bailable (según fuentes)",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "recio/desafiante",
+     "actitud",
+     "neu",
+     "heredado"
+    ]
+   ],
+   "contraste": "Las fuentes solo describen su forma (melodía fija en 3/4 y estribillo improvisado en 6/8), no su carácter.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Joropo",
+     "la primera sección o “golpe” es tradicionalmente una melodía fija en ritmo 3/4 [...] la segunda sección o “estribillo” es una melodía improvisada"
+    ]
+   ],
+   "confianza": "heredado",
+   "siguiente": "buscar en fuentes del joropo oriental y central",
+   "heredaDe": [
+    "golpe-llanero"
+   ],
+   "nota": "Forma del joropo oriental y guayanés; sin fuentes con carácter. Hereda del golpe.",
+   "revisado": "0.2.0",
+   "herencia": [
+    "golpe-llanero (carácter)"
+   ]
+  },
+  {
+   "slug": "gaban",
+   "familia": "joropo",
+   "comparadoCon": [
+    "golpe-llanero"
+   ],
+   "caracter": [
+    [
+     "vigoroso",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "bailable (según fuentes)",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "recio/desafiante",
+     "actitud",
+     "neu",
+     "heredado"
+    ]
+   ],
+   "contraste": "Las fuentes lo nombran como golpe unipartita propicio para improvisar; nada sobre su carácter.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Joropo_llanero",
+     "los golpes unipartitas, caracterizados por una estructura armónica simple, como el gabán [...] son especialmente propicios para el desarrollo de la improvisación"
+    ],
+    [
+     "https://pdfcoffee.com/pdf-trabajo-de-joropo-pdf-free.html",
+     "presencia de figuras hemiólicas, ya sea por grupos de cuatro corcheas ó de dos corcheas más una negra, así como por figuraciones en blancas, como suele suceder en el Gabán"
+    ]
+   ],
+   "confianza": "heredado",
+   "siguiente": "heredaría el carácter de golpe llanero; requiere decisión",
+   "heredaDe": [
+    "golpe-llanero"
+   ],
+   "nota": "Es un golpe (la fuente lo pone como ejemplo de la rítmica de los golpes): hereda del golpe llanero.",
+   "revisado": "0.2.0",
+   "herencia": [
+    "golpe-llanero (carácter)"
+   ]
+  },
+  {
+   "slug": "guasa",
+   "familia": "joropo",
+   "comparadoCon": [],
+   "caracter": [
+    [
+     "juguetón/burlón",
+     "actitud",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "nostálgico",
+     "emocion",
+     "mix",
+     "variable"
+    ]
+   ],
+   "contraste": "«Guasa» significa en español chanza o burla; la fuente musical encontrada la describe así.",
+   "fuentes": [
+    [
+     "https://www.laphil.com/works/guasamacabra-la-phil-commission",
+     "“Guasa,” in good Spanish, defines a joking mood [...] even a happy guasa carries a tiny bit of nonchalant nostalgia"
+    ]
+   ],
+   "confianza": "baja",
+   "nota": "Identidad dudosa: la fuente es la nota de una obra orquestal, no un estudio de la guasa tradicional. Se descartó el guasá colombiano (instrumento)."
+  },
+  {
+   "slug": "puntillanto",
+   "familia": "musica-oriental",
+   "comparadoCon": [
+    "polo-oriental",
+    "malaguena"
+   ],
+   "caracter": [
+    [
+     "cadencioso",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "rítmico",
+     "energia",
+     null,
+     "frecuente"
+    ]
+   ],
+   "contraste": "Punto marinero de Margarita; las fuentes lo agrupan con el canto oriental, no con el joropo llanero.",
+   "fuentes": [
+    [
+     "https://radio.otilca.org/ocho-anos-sin-francisco-mata-chico-tono/",
+     "el puntillanto o punto marinero cadencioso"
+    ],
+    [
+     "https://grokipedia.com/page/francisco_mata",
+     "the plaintive polo margariteño, languid malagueña, rhythmic puntillanto"
+    ]
+   ],
+   "confianza": "baja",
+   "nota": "Familia cambiada a música oriental: las fuentes lo nombran con el polo y la malagueña de Margarita.",
+   "revisado": "0.2.0"
+  },
+  {
+   "slug": "polo-oriental",
+   "familia": "musica-oriental",
+   "comparadoCon": [
+    "malaguena",
+    "jota-oriental",
+    "galeron"
+   ],
+   "caracter": [
+    [
+     "lírico e introspectivo",
+     "emocion",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "doliente/lastimero",
+     "emocion",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "solitario",
+     "emocion",
+     "neg",
+     "variable"
+    ]
+   ],
+   "contraste": "El más introspectivo del oriente; frente a la vivacidad del joropo y la gaita.",
+   "fuentes": [
+    [
+     "https://demasiadasnoches.blogspot.com/2025/06/polo-margariteno-venezuela.html",
+     "el Polo Margariteño se distingue por su carácter lírico e introspectivo"
+    ],
+    [
+     "https://radio.otilca.org/ocho-anos-sin-francisco-mata-chico-tono/",
+     "el polo margariteño dolido y doliente"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Polo_(music)",
+     "the romantically-oriented polo"
+    ],
+    [
+     "https://www.venezuelatuya.com/tradiciones/polos_jotas_y_galerones.htm",
+     "de la triste melancolía de las jotas y malagueñas a la alegre tonada del polo"
+    ]
+   ],
+   "confianza": "media",
+   "nota": "Hay desacuerdo: una fuente lo llama «alegre tonada»; otras, doliente e introspectivo. Se conservan los dos polos."
+  },
+  {
+   "slug": "malaguena",
+   "familia": "musica-oriental",
+   "comparadoCon": [
+    "polo-oriental",
+    "jota-oriental"
+   ],
+   "caracter": [
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "quejumbroso/lánguido",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "triste",
+     "emocion",
+     "neg",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Junto con la jota, la cara triste del cancionero oriental.",
+   "fuentes": [
+    [
+     "https://radio.otilca.org/ocho-anos-sin-francisco-mata-chico-tono/",
+     "la malagueña quejumbrosa y lánguida"
+    ],
+    [
+     "https://www.venezuelatuya.com/tradiciones/polos_jotas_y_galerones.htm",
+     "la triste melancolía de las jotas y malagueñas"
+    ],
+    [
+     "https://grokipedia.com/page/francisco_mata",
+     "languid malagueña"
+    ]
+   ],
+   "confianza": "alta",
+   "nota": "RYM le da «tropical, apasionado», pero su etiqueta «Malagueña» puede ser la flamenca o la cubana: identidad no comprobada, no se usa."
+  },
+  {
+   "slug": "jota-oriental",
+   "familia": "musica-oriental",
+   "comparadoCon": [
+    "malaguena",
+    "polo-oriental"
+   ],
+   "caracter": [
+    [
+     "triste",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "definitorio"
+    ]
+   ],
+   "contraste": "Canto triste de pesca y amor; distinta de la jota aragonesa, más festiva y de humor irónico.",
+   "fuentes": [
+    [
+     "https://mifolkloredevenezuela.blogspot.com/",
+     "Se trata de un canto triste y melancólico que se refiere al tema de la pesca y del amor"
+    ],
+    [
+     "https://www.venezuelatuya.com/tradiciones/polos_jotas_y_galerones.htm",
+     "la triste melancolía de las jotas y malagueñas"
+    ]
+   ],
+   "confianza": "alta"
+  },
+  {
+   "slug": "galeron",
+   "familia": "musica-oriental",
+   "comparadoCon": [
+    "polo-oriental",
+    "malaguena"
+   ],
+   "caracter": [
+    [
+     "alegre/entusiasta",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "desafiante (duelo de décimas)",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "devoto/solemne",
+     "emocion",
+     "neu",
+     "variable"
+    ]
+   ],
+   "contraste": "Canto de décimas en contrapunteo, para velorios, fiestas de cruz y bodas; carácter festivo o devocional según la ocasión.",
+   "fuentes": [
+    [
+     "https://www.clubensayos.com/M%C3%BAsica-y-Cine/El-Galeron/5801947.html",
+     "El galerón es un género que simboliza alegría y entusiasmo"
+    ],
+    [
+     "https://www.clubensayos.com/M%C3%BAsica-y-Cine/El-Galeron/5801947.html",
+     "las letras usualmente se realizan en décimas y hablan de temas patrióticos, religiosos, filosóficos y sentimentales"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Galer%C3%B3n",
+     "usado en velorios y bodas, formado principalmente de décimas"
+    ]
+   ],
+   "confianza": "media"
+  },
+  {
+   "slug": "gaita-oriental",
+   "familia": "musica-oriental",
+   "comparadoCon": [],
+   "caracter": [
+    [
+     "festivo/parrandero",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "comunitario",
+     "ambiente",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Solo aparece en listas de géneros margariteños.",
+   "fuentes": [
+    [
+     "https://radio.otilca.org/por-que-llamamos-gaita-a-la-gaita-margaritena-iii-parte-el-bululu/",
+     "específicamente al hecho de “parrandear”"
+    ],
+    [
+     "https://sierraalta.substack.com/p/la-gaita-margaritena",
+     "en la familia, en las fiestas, en los encuentros comunitarios y también en el duelo"
+    ]
+   ],
+   "confianza": "baja",
+   "siguiente": "búsqueda propia: «gaita margariteña»",
+   "nota": "Gaita margariteña: parranda de Pascua; también se canta en el duelo.",
+   "revisado": "0.2.0"
+  },
+  {
+   "slug": "merengue-oriental",
+   "familia": "musica-oriental",
+   "comparadoCon": [],
+   "caracter": [
+    [
+     "alegre/festivo",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "bailable",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "Solo etiquetas de prensa (diversiones margariteñas).",
+   "fuentes": [],
+   "confianza": "heredado",
+   "siguiente": "buscar junto a «diversiones margariteñas»",
+   "heredaDe": [
+    "merengue-venezolano"
+   ],
+   "nota": "Sin fuentes con carácter (solo etiquetas de «diversiones margariteñas»). Hereda del merengue venezolano, no de la familia oriental, que es mayormente melancólica.",
+   "revisado": "0.2.0",
+   "herencia": [
+    "merengue-venezolano (carácter)"
+   ]
+  },
+  {
+   "slug": "motivo-guaiqueri",
+   "familia": "musica-oriental",
+   "comparadoCon": [],
+   "caracter": [
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "heredado"
+    ],
+    [
+     "triste",
+     "emocion",
+     "neg",
+     "heredado"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "heredado"
+    ]
+   ],
+   "contraste": "Ritmo creado por Francisco «Chico Toño» Mata en 1964; las fuentes cuentan su origen, no su carácter.",
+   "fuentes": [
+    [
+     "https://grokipedia.com/page/francisco_mata",
+     "he innovated the 'Motivo Guaiquerí' rhythm in 1964, debuting it in the track 'La Pesca.'"
+    ],
+    [
+     "https://grokipedia.com/page/francisco_mata",
+     "he innovated the 'Motivo Guaiquerí' rhythm in 1964"
+    ]
+   ],
+   "confianza": "heredado",
+   "heredaDe": [
+    "musica-oriental"
+   ],
+   "nota": "Ritmo creado por Francisco Mata en 1964; sin fuentes con carácter. Hereda de la familia oriental (ambivalente).",
+   "revisado": "0.2.0",
+   "herencia": [
+    "musica-oriental (carácter)"
+   ]
+  },
+  {
+   "slug": "fulia",
+   "familia": "tambor-afrovenezolano",
+   "comparadoCon": [
+    "sangueo",
+    "tamunangue"
+   ],
+   "caracter": [
+    [
+     "devoto",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "festivo/parrandero",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "comunitario (coro responsorial)",
+     "actitud",
+     "pos",
+     "definitorio"
+    ]
+   ],
+   "contraste": "Canto de velorio de Cruz de Mayo; la barloventeña es de tambor y la oriental, de cuerdas y origen europeo.",
+   "fuentes": [
+    [
+     "https://radio.otilca.org/ritmos-tradicionales-de-venezuela-fulia/",
+     "La Fulía Barloventeña es un género de parranda [...] para las festividades de los meses de mayo y junio (Cruz de Mayo y San Juan)"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Fol%C3%ADa",
+     "Es de carácter responsorial"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Ful%C3%ADa",
+     "Y a la santa cruz en su día Le doy mi salutación Con fervorosa devoción"
+    ]
+   ],
+   "confianza": "media"
+  },
+  {
+   "slug": "sangueo",
+   "familia": "tambor-afrovenezolano",
+   "comparadoCon": [
+    "fulia"
+   ],
+   "caracter": [
+    [
+     "devoto",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Toque de procesión de San Juan; se canta como pago de promesa.",
+   "fuentes": [
+    [
+     "https://radio.otilca.org/ritmos-tradicionales-de-venezuela-el-sangueo/",
+     "los creyentes y parranderos le piden a San Juan Bautista en estas fiestas y para agradecer los favores recibidos [...] deben cantar y bailar al ritmo del SANGUEO"
+    ]
+   ],
+   "confianza": "baja",
+   "siguiente": "una sola fuente; buscar más"
+  },
+  {
+   "slug": "tamunangue",
+   "familia": "golpe-larense",
+   "comparadoCon": [
+    "fulia",
+    "sangueo"
+   ],
+   "caracter": [
+    [
+     "devoto/espiritual",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "fervor creciente",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "Suite ritual de siete sones para San Antonio; también hay tamunangue festivo sin promesa.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Tamunangue",
+     "La motivación del tamunangue es devocional"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Tamunangue",
+     "Cuando el tamunangue es de carácter festivo y no por promesa"
+    ],
+    [
+     "https://thesoundatlas.org/discover/tamunangue",
+     "One of Venezuela's most ancient and spiritually charged music-and-dance traditions"
+    ],
+    [
+     "https://grokipedia.com/page/tamunangue",
+     "creating an atmosphere of escalating fervor and collective catharsis"
+    ]
+   ],
+   "confianza": "alta"
+  },
+  {
+   "slug": "raw-black-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "post-black-metal",
+    "blackened-death-metal"
+   ],
+   "caracter": [
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "crudo/abrasivo",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "hostil",
+     "actitud",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "hipnótico (repetición)",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "triste",
+     "emocion",
+     "neg",
+     "variable"
+    ]
+   ],
+   "contraste": "Lleva al extremo lo primitivo y lo-fi de la segunda ola; menos técnico que el blackened death y sin la luminosidad del post-black.",
+   "fuentes": [
+    [
+     "https://en.wikipedia.org/wiki/Black_metal",
+     "Raw black metal is a subgenre that seeks to amplify the primitive qualities of the second wave of black metal, by giving priority to its lo-fi production values"
+    ],
+    [
+     "https://www.melodigging.com/genre/raw-black-metal",
+     "a deliberately lo‑fi, abrasive substyle of black metal that emphasizes hostile timbres"
+    ],
+    [
+     "https://www.melodigging.com/genre/raw-black-metal",
+     "prized for its intensity, trance‑like repetition, and anti‑gloss stance"
+    ],
+    [
+     "https://www.melodigging.com/genre/raw-black-metal",
+     "Dark Intense Sad Epic Sentimental"
+    ]
+   ],
+   "confianza": "alta"
+  },
+  {
+   "slug": "post-black-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "raw-black-metal",
+    "blackened-death-metal"
+   ],
+   "caracter": [
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "sombrío",
+     "ambiente",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "eufórico/luminoso",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "atmosférico",
+     "ambiente",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "etéreo",
+     "ambiente",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Mezcla la intensidad del black con texturas amplias (shoegaze, post-rock): oscuridad con momentos de euforia.",
+   "fuentes": [
+    [
+     "https://www.melodigging.com/genre/black-metal",
+     "While the mood can be bleak or melancholic, many blackgaze works balance darkness with radiant, almost euphoric uplift"
+    ],
+    [
+     "https://www.melodigging.com/genre/black-metal",
+     "a fusion of black metal’s intensity [...] with shoegaze’s lush, immersive textures and dreamy melodicism"
+    ]
+   ],
+   "confianza": "media",
+   "nota": "Las fuentes hablan de blackgaze, rama principal del post-black; confirmar que el alias CRV lo incluye."
+  },
+  {
+   "slug": "blackened-death-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "raw-black-metal",
+    "post-black-metal"
+   ],
+   "caracter": [
+    [
+     "brutal/agresivo",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "caótico",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "infernal/ocultista",
+     "ambiente",
+     "neg",
+     "frecuente"
+    ]
+   ],
+   "contraste": "La brutalidad del death metal con la atmósfera del black; más técnico que el raw black.",
+   "fuentes": [
+    [
+     "https://thisvsthat.io/black-metal-vs-blackened-death-metal",
+     "Blackened Death Metal combines the aggression and brutality of Death Metal with the atmosphere and aesthetics of Black Metal"
+    ],
+    [
+     "https://thisvsthat.io/black-metal-vs-blackened-death-metal",
+     "Blackened Death Metal tends to have a more technical and intricate musical approach"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Black_metal",
+     "War metal [...] subgenre of blackened death metal"
+    ]
+   ],
+   "confianza": "media"
+  },
+  {
+   "slug": "blues",
+   "familia": "blues",
+   "comparadoCon": [
+    "harmonica-blues",
+    "jazz"
+   ],
+   "caracter": [
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "triste",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "solitario",
+     "emocion",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "sentido/sincero",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "alegre",
+     "emocion",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "La tristeza dicha con franqueza es su centro, aunque admite piezas alegres; el jazz es más juguetón y variable.",
+   "fuentes": [
+    [
+     "https://tunetempest.co.uk/the-harmonica-in-blues/",
+     "melancholic melodies, and heartfelt lyrics to express themes of hardship, love, and resilience"
+    ],
+    [
+     "https://en.m.wikipedia.org/wiki/Blues",
+     "originated from \"blue devils\", meaning melancholy and sadness"
+    ],
+    [
+     "https://rodrigolalonso.blogspot.com/2022/10/blues-estilo-musical.html",
+     "reflejan y expresan sentimientos de tristeza, soledad, marginación"
+    ],
+    [
+     "https://jazzguitartoday.com/2020/06/characteristics-of-the-blues/",
+     "Blues in jazz can be any tempo or mood from sad to happy"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "harmonica-blues",
+   "familia": "blues",
+   "comparadoCon": [
+    "blues"
+   ],
+   "caracter": [
+    [
+     "cálido/expresivo",
+     "ambiente",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "heredado"
+    ],
+    [
+     "triste",
+     "emocion",
+     "neg",
+     "heredado"
+    ],
+    [
+     "solitario",
+     "emocion",
+     "neg",
+     "heredado"
+    ],
+    [
+     "sentido/sincero",
+     "emocion",
+     "pos",
+     "heredado"
+    ]
+   ],
+   "contraste": "Variante instrumental del blues: comparte su carácter y añade el timbre cálido de la armónica.",
+   "fuentes": [
+    [
+     "https://creativemusicalinstrument.com/what-is-the-difference-between-a-blues-harp-and-a-harmonica/",
+     "warm, expressive tone ideal for blues music"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2,
+   "heredaDe": [
+    "blues"
+   ],
+   "herencia": [
+    "blues (carácter)"
+   ]
+  },
+  {
+   "slug": "bolero-beat",
+   "familia": "bolero",
+   "comparadoCon": [
+    "bolero",
+    "beat"
+   ],
+   "caracter": [
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "anhelante",
+     "emocion",
+     "mix",
+     "heredado"
+    ],
+    [
+     "cálido",
+     "ambiente",
+     "pos",
+     "heredado"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "heredado"
+    ]
+   ],
+   "contraste": "Bolero con instrumentación beat de los sesenta.",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Sin fuentes con carácter propio; combina bolero y beat (regla de géneros mezclados).",
+   "heredaDe": [
+    "bolero",
+    "beat"
+   ],
+   "herencia": [
+    "bolero (perfil RYM, 201 discos)",
+    "beat (carácter)"
+   ]
+  },
+  {
+   "slug": "latin-funk",
+   "familia": "funk-y-soul",
+   "comparadoCon": [
+    "funk-y-soul",
+    "jazz-fusion"
+   ],
+   "caracter": [
+    [
+     "sensual",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "fiestero/bailable",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "juguetón",
+     "actitud",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "cálido",
+     "ambiente",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "alegre",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más sensual y caribeño que el funk de origen.",
+   "fuentes": [
+    [
+     "https://www.slowradio.net/slow-latin-funk-fusionando-ritmos-latinos-con-la-elegancia-del-funk-a-paso-tranquilo-3/",
+     "con un ritmo más relajado y sensual"
+    ],
+    [
+     "https://www.melodigging.com/genre/latin-funk",
+     "Latin Funk United States · 1960 s Dancing Happy Chill Sentimental Romantic"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "El perfil RYM (54 discos) coincide: sensual, cálido, juguetón, fiestero.",
+   "comunidadRym": {
+    "discos": 54,
+    "tipico": [
+     [
+      "sensual",
+      0.3
+     ],
+     [
+      "warm",
+      0.32
+     ],
+     [
+      "playful",
+      0.29
+     ],
+     [
+      "rhythmic",
+      0.4
+     ],
+     [
+      "humorous",
+      0.21
+     ],
+     [
+      "dancing",
+      0.14
+     ],
+     [
+      "party",
+      0.24
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "doo-wop",
+   "familia": "funk-y-soul",
+   "comparadoCon": [
+    "funk-y-soul",
+    "rock-and-roll"
+   ],
+   "caracter": [
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "cálido",
+     "ambiente",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "nostálgico",
+     "emocion",
+     "neu",
+     "variable"
+    ]
+   ],
+   "contraste": "Armonías vocales románticas; la nostalgia viene sobre todo de sus resurgimientos.",
+   "fuentes": [
+    [
+     "https://en.wikipedia.org/wiki/Doo-wop",
+     "the romantic style of the doo-wop groups appealed to them"
+    ],
+    [
+     "https://es.alegsaonline.com/art/28498",
+     "ya sea con fines nostálgicos o para aportar calidez y claridad melódica"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2
+  },
+  {
+   "slug": "funk-y-soul",
+   "familia": "funk-y-soul",
+   "comparadoCon": [
+    "latin-funk",
+    "doo-wop"
+   ],
+   "caracter": [
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "sensual",
+     "emocion",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "Categoría paraguas: el soul aporta la pasión vocal y el funk la energía rítmica.",
+   "fuentes": [
+    [
+     "https://www.flyriver.com/g/characteristics-of-funk-and-soul",
+     "whose passionate vocals and heartfelt lyrics captured the essence of soul's emotional core"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Soul_music",
+     "Southern soul , a driving, energetic variety"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Soul_music",
+     "Memphis soul , a shimmering, sultry style"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "musica-clasica",
+   "familia": "musica-clasica",
+   "comparadoCon": [
+    "opera",
+    "musica-de-camara"
+   ],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://psicofronteras.com/que-emociones-transmite-la-musica-clasica/",
+     "se caracteriza por su capacidad de evocar una amplia gama de emociones, desde la alegría hasta la melancolía"
+    ]
+   ],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Paraguas de cuatro siglos: las fuentes dicen que abarca toda la gama emocional. El carácter depende del período y la obra; no se asigna uno típico."
+  },
+  {
+   "slug": "musica-de-camara",
+   "familia": "musica-clasica",
+   "comparadoCon": [
+    "musica-clasica",
+    "opera"
+   ],
+   "caracter": [
+    [
+     "íntimo",
+     "ambiente",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "dialogante",
+     "actitud",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Frente a la ópera y la orquesta: pocos instrumentos que conversan.",
+   "fuentes": [
+    [
+     "https://es.alegsaonline.com/art/18410",
+     "Intimidad y diálogo: los instrumentos interactúan como si conversaran"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "opera",
+   "familia": "musica-clasica",
+   "comparadoCon": [
+    "musica-de-camara",
+    "musica-clasica"
+   ],
+   "caracter": [
+    [
+     "dramático",
+     "emocion",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "El género clásico más teatral.",
+   "fuentes": [
+    [
+     "https://onabo.org/armonia-en-la-opera-musical/",
+     "en la creación de mundos dramáticos ricos y complejos en la ópera"
+    ],
+    [
+     "https://www.wikiteka.com/apuntes/explorando-musica-clasica-camara-opera-generos/",
+     "derivó hacia una ópera lírica con temática de drama o fantasía romántica"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2
+  },
+  {
+   "slug": "musica-coral",
+   "familia": "musica-clasica",
+   "comparadoCon": [
+    "musica-sacra"
+   ],
+   "caracter": [
+    [
+     "exuberante",
+     "ambiente",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Solo hay evidencia de comunidad (RYM, 24 discos: «lush»).",
+   "fuentes": [],
+   "confianza": "baja",
+   "lote": 2,
+   "nota": "Sin fuentes web con carácter; el rasgo sale del perfil RYM.",
+   "comunidadRym": {
+    "discos": 24,
+    "tipico": [
+     [
+      "lush",
+      0.14
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "musica-sacra",
+   "familia": "musica-clasica",
+   "comparadoCon": [
+    "musica-coral",
+    "adoracion"
+   ],
+   "caracter": [
+    [
+     "solemne",
+     "emocion",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "reverente",
+     "actitud",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "trascendente/espiritual",
+     "ambiente",
+     "pos",
+     "definitorio"
+    ]
+   ],
+   "contraste": "Frente a la música de adoración actual: más solemne y litúrgica.",
+   "fuentes": [
+    [
+     "https://educadua.com/la-musica-sacra-origen-significado-e-historia-religiosa/",
+     "se caracteriza por su carácter solemne y reverente, utilizando armonías y melodías que evocan la trascendencia y la adoración"
+    ],
+    [
+     "https://educadua.com/la-musica-sacra-origen-significado-e-historia-religiosa/",
+     "para crear un ambiente de solemnidad y trascendencia"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2,
+   "nota": "Una sola fuente web (dos frases); el perfil RYM añade «lush».",
+   "comunidadRym": {
+    "discos": 17,
+    "tipico": [
+     [
+      "lush",
+      0.17
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "musica-antigua",
+   "familia": "musica-clasica",
+   "comparadoCon": [
+    "musica-clasica"
+   ],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Etiqueta de período (Edad Media y Renacimiento), sin carácter emocional común en las fuentes."
+  },
+  {
+   "slug": "nacionalismo-musical",
+   "familia": "musica-clasica",
+   "comparadoCon": [
+    "musica-clasica"
+   ],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://www.wikiteka.com/apuntes/nacionalismo-musical-siglo-xx-corrientes-caracteristicas/",
+     "movimiento ligado al Romanticismo que se inspira en el folclore y la tradición de cada país"
+    ]
+   ],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Corriente histórica: su carácter es el del folclor que toma en cada país."
+  },
+  {
+   "slug": "neoclasica",
+   "familia": "metal",
+   "comparadoCon": [
+    "power-metal",
+    "technical-metal"
+   ],
+   "caracter": [
+    [
+     "virtuoso",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "pesado",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "agresivo",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "Acepción de Brian: solo metal neoclásico. Lo distingue el virtuosismo; lo demás lo hereda del power metal.",
+   "fuentes": [
+    [
+     "https://www.lafactoriadelritmo.com/metal-neoclasico/la-furia-y-la-tecnica/",
+     "en su origen fueron un grupo de músicos de inmenso talento y preparación"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2,
+   "heredaDe": [
+    "power-metal"
+   ],
+   "herencia": [
+    "power-metal (perfil RYM, 255 discos)"
+   ]
+  },
+  {
+   "slug": "bandas-sonoras",
+   "familia": "bandas-sonoras",
+   "comparadoCon": [],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://pdfcoffee.com/elementos-que-conforman-una-banda-sonora-3-pdf-free.html",
+     "Desde la funcionalidad de la música como portadora de sentimientos y emociones"
+    ]
+   ],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Categoría funcional: acompaña una imagen y su emoción la da la escena."
+  },
+  {
+   "slug": "musica-cristiana",
+   "familia": "musica-cristiana",
+   "comparadoCon": [
+    "adoracion"
+   ],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Categoría temática (letras de fe) con todos los estilos; usar el género musical del disco."
+  },
+  {
+   "slug": "musica-cristiana-contemporanea",
+   "familia": "musica-cristiana",
+   "comparadoCon": [
+    "musica-cristiana"
+   ],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/M%C3%BAsica_cristiana",
+     "se entiende no propiamente como un estilo musical separado del resto de estilos, sino más bien como una categoría musical cuya lírica representa un contenido de fe cristiana"
+    ]
+   ],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "La propia fuente dice que no es un estilo: es temática."
+  },
+  {
+   "slug": "adoracion",
+   "familia": "musica-cristiana",
+   "comparadoCon": [
+    "musica-sacra"
+   ],
+   "caracter": [
+    [
+     "devoto",
+     "actitud",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "espiritual/íntimo",
+     "ambiente",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "reflexivo",
+     "emocion",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más íntima y personal que la música sacra litúrgica.",
+   "fuentes": [
+    [
+     "https://prezi.com/p/4oyy7vx3h1jg/la-musica-de-adoracion/",
+     "facilitando un momento de reflexión y conexión espiritual profunda"
+    ],
+    [
+     "https://prezi.com/p/4oyy7vx3h1jg/la-musica-de-adoracion/",
+     "reflejando la necesidad de expresar devoción en comunidad"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "white-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "metal"
+   ],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Temático (metal cristiano): suena como cualquier subgénero de metal; usar ese subgénero."
+  },
+  {
+   "slug": "tech-house",
+   "familia": "electronica",
+   "comparadoCon": [
+    "future-house",
+    "house"
+   ],
+   "caracter": [
+    [
+     "hipnótico",
+     "ambiente",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "enérgico/bailable",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "nocturno/de club",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "tensión y liberación",
+     "emocion",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más seco y duro que el deep house, que es cálido y profundo.",
+   "fuentes": [
+    [
+     "https://www.zipdj.com/blog/tech-house",
+     "This rhythmic and hypnotic aesthetic"
+    ],
+    [
+     "https://www.zipdj.com/blog/tech-house",
+     "Designed for underground nightclubs rather than commercial venues, tech house plays with tension and release"
+    ],
+    [
+     "https://genre-ai.app/blog/deep-house-vs-tech-house",
+     "tech house is the workhorse that keeps bodies moving"
+    ],
+    [
+     "https://genre-ai.app/blog/deep-house-vs-tech-house",
+     "starting deep and warm, then sliding into harder, drier tech house grooves"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "comunidadRym": {
+    "discos": 88,
+    "tipico": [
+     [
+      "party",
+      0.11
+     ],
+     [
+      "rhythmic",
+      0.12
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "future-house",
+   "familia": "electronica",
+   "comparadoCon": [
+    "tech-house"
+   ],
+   "caracter": [
+    [
+     "enérgico",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "accesible/melódico",
+     "actitud",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más accesible y melódico que el tech house.",
+   "fuentes": [
+    [
+     "https://grokipedia.com/page/Future_house",
+     "with its emphasis on melodic hooks and high-energy drops"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "latin-electronic-fusion",
+   "familia": "electronica",
+   "comparadoCon": [
+    "changa-tuki",
+    "fusion-latina"
+   ],
+   "caracter": [
+    [
+     "fiestero/bailable",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "surrealista",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "nocturno",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "futurista",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Ritmos latinos y caribeños sobre electrónica.",
+   "fuentes": [
+    [
+     "https://grokipedia.com/page/Latin_Electronic_Music",
+     "its emphasis on festive, body-moving grooves"
+    ],
+    [
+     "https://www.melodigging.com/genre/latin-electronic",
+     "Latin Electronic Argentina · 2000 s Dancing Chill Happy Dreamy Sentimental"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM (192 discos): fiestero, rítmico, surrealista, nocturno, futurista, caótico.",
+   "comunidadRym": {
+    "discos": 192,
+    "tipico": [
+     [
+      "surreal",
+      0.25
+     ],
+     [
+      "party",
+      0.27
+     ],
+     [
+      "rhythmic",
+      0.38
+     ],
+     [
+      "futuristic",
+      0.18
+     ],
+     [
+      "chaotic",
+      0.18
+     ],
+     [
+      "nocturnal",
+      0.19
+     ],
+     [
+      "dense",
+      0.17
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "ethereal-wave",
+   "familia": "electronica",
+   "comparadoCon": [
+    "dark-folk",
+    "futurepop"
+   ],
+   "caracter": [
+    [
+     "etéreo/de otro mundo",
+     "ambiente",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "gótico/oscuro",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "introspectivo",
+     "emocion",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "La cara etérea y romántica del darkwave.",
+   "fuentes": [
+    [
+     "https://academia-lab.com/enciclopedia/onda-eterea/",
+     "se describe de diversas formas como \"gótico\", \"romántico\" y \"de otro mundo\""
+    ],
+    [
+     "https://pt.wikipedia.org/wiki/Ethereal_wave",
+     "é descrito como \"gótico\", \"romântico\" e \"sobrenatural\""
+    ],
+    [
+     "https://radarmusica.com/darkwave/",
+     "romanticismo oscuro, ethereal wave y sensibilidad introspectiva"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "futurepop",
+   "familia": "electronica",
+   "comparadoCon": [
+    "ethereal-wave"
+   ],
+   "caracter": [
+    [
+     "optimista",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "futurista",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más optimista y bailable que el synthpop, que es melancólico y nostálgico.",
+   "fuentes": [
+    [
+     "https://thecontentauthority.com/blog/futurepop-vs-synthpop",
+     "Futurepop tends to be more upbeat and energetic, while synthpop can be more melancholy and introspective"
+    ],
+    [
+     "https://thecontentauthority.com/blog/futurepop-vs-synthpop",
+     "characterized by its upbeat and optimistic sound"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2,
+   "nota": "Una sola fuente, comparativa."
+  },
+  {
+   "slug": "changa-tuki",
+   "familia": "electronica",
+   "comparadoCon": [
+    "raptor-house",
+    "latin-electronic-fusion"
+   ],
+   "caracter": [
+    [
+     "fiestero/frenético",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "crudo",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "callejero/urbano",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "ingenioso/humorístico",
+     "actitud",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "variable"
+    ]
+   ],
+   "contraste": "Movimiento caraqueño; el raptor house es su cara más agresiva.",
+   "fuentes": [
+    [
+     "https://lyricassistant.com/how-to-write-changa-tuki-songs/",
+     "Changa Tuki is raw energy in speaker form"
+    ],
+    [
+     "https://crackmagazine.net/article/profiles/history-of-changa-tuki-caracas-venezuela-dj-baba-yirvin/",
+     "is in every way a child of its frenetic mother city: raw, energetic, violent, witty, Caribbean"
+    ],
+    [
+     "https://www.melodigging.com/genre/changa-tuki",
+     "Changa Tuki Venezuela · 1990 s Dancing Intense Happy Dark Sentimental"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM (131 discos): fiestero, rítmico, enérgico, tropical, urbano, nocturno.",
+   "comunidadRym": {
+    "discos": 131,
+    "tipico": [
+     [
+      "party",
+      0.44
+     ],
+     [
+      "rhythmic",
+      0.53
+     ],
+     [
+      "energetic",
+      0.36
+     ],
+     [
+      "tropical",
+      0.16
+     ],
+     [
+      "urban",
+      0.1
+     ],
+     [
+      "nocturnal",
+      0.09
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "raptor-house",
+   "familia": "house",
+   "comparadoCon": [
+    "changa-tuki"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "humorístico",
+     "actitud",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "callejero/urbano",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Dentro de la changa, la variante de sintetizadores y caídas más agresivos.",
+   "fuentes": [
+    [
+     "https://grokipedia.com/page/raptor_house",
+     "raptor house emphasizing aggressive synths and drops reflective of Caracas's vibrant yet turbulent urban energy"
+    ],
+    [
+     "https://ritmoslatam.distintaslatitudes.net/raptor-house/",
+     "los ritmos caribeño y una pizca de humor"
+    ],
+    [
+     "https://crackmagazine.net/article/profiles/history-of-changa-tuki-caracas-venezuela-dj-baba-yirvin/",
+     "raw, energetic, violent, witty, Caribbean"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "dark-folk",
+   "familia": "folk",
+   "comparadoCon": [
+    "ethereal-wave"
+   ],
+   "caracter": [
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "apocalíptico/ritual",
+     "ambiente",
+     "neg",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Nombre alternativo del neofolk.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Neofolk",
+     "Otros términos vagos a veces usados para describir a artistas de este género son «dark folk»"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Neofolk",
+     "imaginería religiosa y apocalíptica"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "nueva-cancion",
+   "familia": "folk",
+   "comparadoCon": [
+    "nueva-trova"
+   ],
+   "caracter": [
+    [
+     "comprometido/combativo",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Canción política latinoamericana; la nueva trova cubana es más romántica.",
+   "fuentes": [
+    [
+     "https://en.wikipedia.org/wiki/Nueva_canci%C3%B3n",
+     "musicians often faced censorship, exile, torture, death, or forceful disappearances"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Nueva_canci%C3%B3n",
+     "a key counterhegemonic institution that broke through the censorship"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2,
+   "nota": "El perfil RYM (70 discos) solo da «melancholic» (0,08).",
+   "comunidadRym": {
+    "discos": 70,
+    "tipico": [
+     [
+      "melancholic",
+      0.08
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "nueva-trova",
+   "familia": "folk",
+   "comparadoCon": [
+    "nueva-cancion"
+   ],
+   "caracter": [
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "introspectivo",
+     "emocion",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "comprometido",
+     "actitud",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más romántica e introspectiva que la nueva canción.",
+   "fuentes": [
+    [
+     "https://grokipedia.com/page/Nueva_trova",
+     "infused Nueva Trova with romantic introspection"
+    ],
+    [
+     "https://havanamusicschool.com/pablo-milanes-el-romantico-de-la-nueva-trova/",
+     "Pablo Milanés – El romántico de la nueva trova"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2
+  },
+  {
+   "slug": "folk-punk",
+   "familia": "punk",
+   "comparadoCon": [
+    "folk",
+    "street-punk"
+   ],
+   "caracter": [
+    [
+     "crudo/enérgico",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "rebelde/político",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "humorístico",
+     "actitud",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "Energía punk con instrumentos acústicos.",
+   "fuentes": [
+    [
+     "https://bayareapunk.com/blog/Folk_Punk.html",
+     "Raw, energetic, and often acoustic-driven music"
+    ],
+    [
+     "https://bayareapunk.com/blog/Folk_Punk.html",
+     "known for their political lyrics and energetic live performances"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "flamenco",
+   "familia": "folk",
+   "comparadoCon": [
+    "tango"
+   ],
+   "caracter": [
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "intenso/profundo",
+     "emocion",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "Lo jondo (profundo) frente a los cantes festivos; el tango es más sensual y nostálgico.",
+   "fuentes": [
+    [
+     "https://www.andalucia.com/flamenco/characteristics.htm",
+     "to see a deep passionate display of flamenco"
+    ],
+    [
+     "https://talkpal.ai/culture/what-are-the-linguistic-roots-of-the-flamenco-musical-tradition/",
+     "A heightened state of emotion, expression, and authenticity in flamenco performance"
+    ],
+    [
+     "https://thecontentauthority.com/blog/flamenco-vs-tango",
+     "can create an energetic and festive ambiance"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "tango",
+   "familia": "fusion-latina",
+   "comparadoCon": [
+    "flamenco"
+   ],
+   "caracter": [
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "nostálgico",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "sensual",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "intenso",
+     "emocion",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más nostálgico que el flamenco, más sensual que el bolero.",
+   "fuentes": [
+    [
+     "http://www.dancefacts.net/tango/tango-music/",
+     "nostalgic lyrics, sudden changes in dynamics"
+    ],
+    [
+     "http://www.dancefacts.net/tango/tango-music/",
+     "intense but melancholic mood"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Tango",
+     "el ritmo tanguero y su clima nostálgico"
+    ],
+    [
+     "http://www.dancefacts.net/tango/tango-music/",
+     "the more “romantic” or “sensual” the tango song is"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "folk-celta",
+   "familia": "folk",
+   "comparadoCon": [
+    "folk"
+   ],
+   "caracter": [
+    [
+     "noble",
+     "actitud",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "reflexivo",
+     "emocion",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://musaisong.app/estilo/celtic-folk",
+     "el folk celta requiere perspectiva y nobleza, no fuego rápido"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "musica-navidena",
+   "familia": "folk",
+   "comparadoCon": [
+    "aguinaldo",
+    "gaita-de-furro"
+   ],
+   "caracter": [
+    [
+     "alegre",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "afectuoso",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "sereno/en paz",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "En Venezuela abarca aguinaldos y gaitas, de ahí el «tropical» de RYM.",
+   "fuentes": [
+    [
+     "https://www.elespanol.com/viajes/20231218/viaje-musica-navidena-entranable-popular-representativa-mundo/818168230_0.html",
+     "reviven cada año sentimientos de alegría, amor y paz"
+    ],
+    [
+     "https://www.elespanol.com/viajes/20231218/viaje-musica-navidena-entranable-popular-representativa-mundo/818168230_0.html",
+     "Villancicos, para unas fechas que predican alegría, buenos sentimientos"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM (65 discos): happy (0,14), tropical (0,11).",
+   "comunidadRym": {
+    "discos": 65,
+    "tipico": [
+     [
+      "happy",
+      0.14
+     ],
+     [
+      "tropical",
+      0.11
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "musica-infantil",
+   "familia": "pop",
+   "comparadoCon": [],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Categoría de público, no de estilo."
+  },
+  {
+   "slug": "world-ethnic",
+   "familia": "folk",
+   "comparadoCon": [],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Categoría comercial que reúne folclores de todo el mundo; usar el género concreto."
+  },
+  {
+   "slug": "jazz",
+   "familia": "jazz",
+   "comparadoCon": [
+    "big-band",
+    "smooth-jazz",
+    "blues"
+   ],
+   "caracter": [
+    [
+     "espontáneo/improvisado",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "juguetón",
+     "actitud",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "alegre",
+     "emocion",
+     "pos",
+     "variable"
+    ],
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "variable"
+    ]
+   ],
+   "contraste": "Más variable que el blues: va de la euforia a la melancolía.",
+   "fuentes": [
+    [
+     "https://georgecaldwelljazz.com/el-caracter-improvisado-del-jazz-y-su-espontaneidad-la-esencia-del-jazzista/",
+     "El carácter improvisado del jazz y su espontaneidad"
+    ],
+    [
+     "https://musicway.es/como-expresa-el-jazz-sus-sentimientos/",
+     "desde la alegría y la euforia hasta la melancolía y la tristeza"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2,
+   "nota": "Perfil RYM (148 discos): playful (0,09).",
+   "comunidadRym": {
+    "discos": 148,
+    "tipico": [
+     [
+      "playful",
+      0.09
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "big-band",
+   "familia": "jazz",
+   "comparadoCon": [
+    "jazz",
+    "smooth-jazz"
+   ],
+   "caracter": [
+    [
+     "cálido",
+     "ambiente",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "enérgico/bailable",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "elegante/sofisticado",
+     "actitud",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "nostálgico/vintage",
+     "ambiente",
+     "neu",
+     "variable"
+    ]
+   ],
+   "contraste": "Arreglos escritos para baile o concierto, frente al combo pequeño e improvisado.",
+   "fuentes": [
+    [
+     "https://radarmusica.com/big-band/",
+     "evocar glamour, años 40, crimen, comedia sofisticada, baile, ciudad nocturna, casino, swing o energía vintage"
+    ],
+    [
+     "https://radarmusica.com/big-band/",
+     "Una Big band puede tocar música muy bailable o música muy sofisticada"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2,
+   "nota": "Perfil RYM (28 discos): warm (0,20), energetic (0,13).",
+   "comunidadRym": {
+    "discos": 28,
+    "tipico": [
+     [
+      "warm",
+      0.2
+     ],
+     [
+      "energetic",
+      0.13
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "smooth-jazz",
+   "familia": "jazz",
+   "comparadoCon": [
+    "jazz",
+    "jazz-fusion"
+   ],
+   "caracter": [
+    [
+     "relajante",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "sofisticado",
+     "actitud",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "La cara suave y de fondo del jazz.",
+   "fuentes": [
+    [
+     "https://audiolover.com/genres/jazz/what-is-smooth-jazz/",
+     "can be enjoyed as background music for relaxation"
+    ],
+    [
+     "https://audiolover.com/genres/jazz/what-is-smooth-jazz/",
+     "This format focused on smooth and romantic R&B and soul music"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "jazz-fusion",
+   "familia": "jazz",
+   "comparadoCon": [
+    "rock-fusion",
+    "smooth-jazz"
+   ],
+   "caracter": [
+    [
+     "enérgico/explosivo",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "vanguardista",
+     "actitud",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más enérgico y experimental que el smooth jazz.",
+   "fuentes": [
+    [
+     "https://reddigitalcatolica.com/jazz-fusion-el-nuevo-lenguaje-de-las-emociones",
+     "puede pasar de ser suave y melódico a explosivo y enérgico"
+    ],
+    [
+     "https://reddigitalcatolica.com/jazz-fusion-el-nuevo-lenguaje-de-las-emociones",
+     "convierten al jazz fusión en un lenguaje expresivo y vanguardista"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2,
+   "nota": "Perfil RYM (82 discos): warm, rhythmic (débil).",
+   "comunidadRym": {
+    "discos": 82,
+    "tipico": [
+     [
+      "warm",
+      0.08
+     ],
+     [
+      "rhythmic",
+      0.1
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "rock-fusion",
+   "familia": "rock",
+   "comparadoCon": [
+    "jazz-fusion"
+   ],
+   "caracter": [
+    [
+     "enérgico/explosivo",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "vanguardista",
+     "actitud",
+     "neu",
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Sin fuentes con carácter propio.",
+   "heredaDe": [
+    "jazz-fusion"
+   ],
+   "herencia": [
+    "jazz-fusion (carácter)"
+   ]
+  },
+  {
+   "slug": "instrumental",
+   "familia": "instrumental",
+   "comparadoCon": [],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Categoría funcional (sin voz)."
+  },
+  {
+   "slug": "guaracha",
+   "familia": "fusion-latina",
+   "comparadoCon": [
+    "timba",
+    "soca"
+   ],
+   "caracter": [
+    [
+     "picaresco/jocoso",
+     "actitud",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "sensual",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "festivo/exuberante",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Canción rápida y burlona; la timba es más agresiva.",
+   "fuentes": [
+    [
+     "https://directoriomusicacubana.com/generos/guaracha/",
+     "se define por sus temas picarescos y sensuales"
+    ],
+    [
+     "https://web.archive.org/web/20100401204320/http://www.musica.cult.cu/documen/guaracha.htm",
+     "de ritmo rpido y texto jocoso"
+    ],
+    [
+     "https://thesoundatlas.org/discover/guaracha",
+     "its spirit lives on in the more festive, humorous strands of salsa"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "comunidadRym": {
+    "discos": 51,
+    "tipico": [
+     [
+      "warm",
+      0.09
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "timba",
+   "familia": "fusion-latina",
+   "comparadoCon": [
+    "guaracha"
+   ],
+   "caracter": [
+    [
+     "agresivo/intenso",
+     "actitud",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "bailable",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "humor negro/crítico",
+     "actitud",
+     "neu",
+     "variable"
+    ]
+   ],
+   "contraste": "La salsa cubana más agresiva y compleja.",
+   "fuentes": [
+    [
+     "https://en.wikipedia.org/wiki/Timba",
+     "Because timba is highly aggressive and a challenge to dance to"
+    ],
+    [
+     "https://thesoundatlas.org/discover/timba",
+     "addressing the economic desperation of the special period with dark humor"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "samba",
+   "familia": "fusion-latina",
+   "comparadoCon": [
+    "soca"
+   ],
+   "caracter": [
+    [
+     "sensual/corporal",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "humorístico",
+     "actitud",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "La samba-canção y la bossa la vuelven más contenida y romántica.",
+   "fuentes": [
+    [
+     "https://en.wikipedia.org/wiki/Samba",
+     "the rhythmic-bodily sensuality of traditional samba"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Samba_(m%C3%BAsica)",
+     "habituales reuniones festivas, regadas de música, comida y bebida"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Samba",
+     "generally humorous in character"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2
+  },
+  {
+   "slug": "vallenato",
+   "familia": "fusion-latina",
+   "comparadoCon": [
+    "cumbia"
+   ],
+   "caracter": [
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "narrativo",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "variable"
+    ],
+    [
+     "nostálgico",
+     "emocion",
+     "neg",
+     "variable"
+    ]
+   ],
+   "contraste": "Cada aire tiene su carácter: paseo narrativo, merengue festivo, son nostálgico.",
+   "fuentes": [
+    [
+     "https://prezi.com/p/fvvztggyud3t/comparacion-de-variantes-linguisticas-en-vallenato-salsa-y-rock-en-espanol/",
+     "aborda temáticas románticas y cotidianas, utilizando un lenguaje emotivo y poético"
+    ],
+    [
+     "https://www.vallenatia.org/cultura/aires-del-vallenato",
+     "Narrativo, melódico, pausado Merengue 2/4 Allegro (120-140 BPM) Festivo, rápido, bailable"
+    ],
+    [
+     "https://www.vallenatia.org/cultura/aires-del-vallenato",
+     "Lento, nostálgico, improvisado"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "soca",
+   "familia": "fusion-latina",
+   "comparadoCon": [
+    "samba",
+    "guaracha"
+   ],
+   "caracter": [
+    [
+     "fiestero",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "festivo/eufórico",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "picaresco",
+     "actitud",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "Música de carnaval; más bailable y menos narrativa que el calipso.",
+   "fuentes": [
+    [
+     "https://radarmusica.com/soca-que-es/",
+     "por qué todo el mundo entra en “modo fiesta” en cuanto suena"
+    ],
+    [
+     "https://sfconservatoryofdance.org/dance-music-glossary/soca-music/",
+     "its infectious rhythms and vibrant energy"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Soca",
+     "de humor picaresco de subido tono sexual"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "comunidadRym": {
+    "discos": 127,
+    "tipico": [
+     [
+      "tropical",
+      0.09
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "fusion-latina",
+   "familia": "fusion-latina",
+   "comparadoCon": [],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Paraguas de 769 discos sin carácter común; un disco de fusión combina el de sus géneros de base."
+  },
+  {
+   "slug": "folclor-fusion",
+   "familia": "fusion-latina",
+   "comparadoCon": [
+    "joropo-fusion"
+   ],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Acepción de Brian: folclore venezolano renovado. Combina el carácter del folclor de base del disco."
+  },
+  {
+   "slug": "joropo-fusion",
+   "familia": "fusion-latina",
+   "comparadoCon": [
+    "folclor-fusion"
+   ],
+   "caracter": [
+    [
+     "pastoral",
+     "ambiente",
+     "pos",
+     "heredado"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "cálido",
+     "ambiente",
+     "pos",
+     "heredado"
+    ],
+    [
+     "juguetón",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "sentimental",
+     "emocion",
+     "mix",
+     "heredado"
+    ],
+    [
+     "agridulce",
+     "emocion",
+     "mix",
+     "heredado"
+    ],
+    [
+     "suave",
+     "ambiente",
+     "pos",
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "rítmico",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Sin fuentes propias; parte del joropo.",
+   "heredaDe": [
+    "joropo"
+   ],
+   "herencia": [
+    "joropo (perfil RYM, 173 discos)"
+   ]
+  },
+  {
+   "slug": "metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "metal-extremo",
+    "heavy-rock"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "intenso",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "rebelde",
+     "actitud",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más oscuro y agresivo que el hard rock, que es festivo.",
+   "fuentes": [
+    [
+     "https://todossomosuno.com.mx/portal/metal-y-psicologia-la-conexion-entre-la-musica-pesada-y-el-bienestar-emocional/",
+     "con su energía agresiva y ritmos intensos"
+    ],
+    [
+     "https://thisvsthat.io/heavy-metal-vs-metal",
+     "Heavy Metal tends to have a darker and more aggressive tone"
+    ],
+    [
+     "https://www.xeriaoficial.com/blog/73-power-metal-heavy-metal-sinfonico-diferencias",
+     "libertad rebeldía historia guerra fantasía"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "metal-extremo",
+   "familia": "metal",
+   "comparadoCon": [
+    "metal"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "rápido/intenso",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://aimusic.so/tag/metal-extremo",
+     "characterized by its aggressive, fast-paced sound, and often dark and complex themes"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "metal-instrumental",
+   "familia": "metal",
+   "comparadoCon": [
+    "metal"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "heredado"
+    ],
+    [
+     "intenso",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "heredado"
+    ],
+    [
+     "rebelde",
+     "actitud",
+     "neu",
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Categoría funcional dentro del metal.",
+   "heredaDe": [
+    "metal"
+   ],
+   "herencia": [
+    "metal (carácter)"
+   ]
+  },
+  {
+   "slug": "death-metal-old-school",
+   "familia": "metal",
+   "comparadoCon": [
+    "death-metal",
+    "death-and-roll"
+   ],
+   "caracter": [
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "intenso",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "crudo/primitivo",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "épico",
+     "emocion",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "La forma cruda y fundacional del death metal.",
+   "fuentes": [
+    [
+     "https://www.melodigging.com/genre/old-school-death-metal",
+     "Old School Death Metal United States · 1980 s Intense Dark Epic Sad"
+    ],
+    [
+     "https://www.melodigging.com/genre/old-school-death-metal",
+     "primal atmosphere, and unapologetically heavy sound"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2
+  },
+  {
+   "slug": "death-and-roll",
+   "familia": "metal",
+   "comparadoCon": [
+    "death-metal-old-school"
+   ],
+   "caracter": [
+    [
+     "hedonista/rebelde",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "intenso",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "bailable",
+     "energia",
+     null,
+     "variable"
+    ]
+   ],
+   "contraste": "Death metal con el balanceo del rock 'n' roll.",
+   "fuentes": [
+    [
+     "https://grokipedia.com/page/Death_%27n%27_roll",
+     "frequently explore themes of hedonism , rebellion , and existential despair"
+    ],
+    [
+     "https://www.melodigging.com/genre/death-n-roll",
+     "Death 'n' Roll Sweden · 1990 s Intense Dark Dancing"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2
+  },
+  {
+   "slug": "death-groove-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "death-metal"
+   ],
+   "caracter": [
+    [
+     "pesado",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "agresivo",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "heredado"
+    ],
+    [
+     "crudo",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "rabioso",
+     "emocion",
+     "neg",
+     "heredado"
+    ],
+    [
+     "rítmico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "rebelde",
+     "actitud",
+     "neu",
+     "heredado"
+    ],
+    [
+     "saltarín",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "denso",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Sin fuentes.",
+   "heredaDe": [
+    "death-metal",
+    "groove-metal"
+   ],
+   "herencia": [
+    "death-metal (perfil RYM, 599 discos)",
+    "groove-metal (perfil RYM, 229 discos)"
+   ]
+  },
+  {
+   "slug": "death-metal-progresivo",
+   "familia": "metal",
+   "comparadoCon": [
+    "technical-metal"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "caótico",
+     "ambiente",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "pesado",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "heredado"
+    ],
+    [
+     "crudo",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "Acepción de Brian: no es death técnico. Le suma ambición compositiva al death metal; el resto lo hereda de él.",
+   "fuentes": [
+    [
+     "https://breakpointmetal.com/genero/progressive-death-metal/",
+     "fusiona la agresividad vocal y rítmica del death metal con la complejidad estructural"
+    ],
+    [
+     "https://deathdoom.com/death-metal/progressive-death-metal/",
+     "Chaotic song structures"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2,
+   "heredaDe": [
+    "death-metal"
+   ],
+   "herencia": [
+    "death-metal (perfil RYM, 599 discos)"
+   ]
+  },
+  {
+   "slug": "technical-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "death-metal-progresivo"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "heredado"
+    ],
+    [
+     "intenso",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "heredado"
+    ],
+    [
+     "rebelde",
+     "actitud",
+     "neu",
+     "heredado"
+    ]
+   ],
+   "contraste": "Rasgo técnico, no emocional.",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Las fuentes solo describen técnica; hereda del metal.",
+   "heredaDe": [
+    "metal"
+   ],
+   "herencia": [
+    "metal (carácter)"
+   ]
+  },
+  {
+   "slug": "melodic-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "metal"
+   ],
+   "caracter": [
+    [
+     "épico",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "variable"
+    ]
+   ],
+   "contraste": "Equilibrio entre melodía y potencia.",
+   "fuentes": [
+    [
+     "https://www.decrowned.fi/l/what-is-melodic-metal-a-clear-beginner-s-guide-to-the-genre/",
+     "contrast between aggressive and epic moods"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "power-metal-sinfonico",
+   "familia": "metal",
+   "comparadoCon": [
+    "power-metal-progresivo",
+    "power-metal"
+   ],
+   "caracter": [
+    [
+     "épico",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "grandioso",
+     "ambiente",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "contrastado",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "pesado",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "agresivo",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "Power metal con orquesta y coros.",
+   "fuentes": [
+    [
+     "https://www.xeriaoficial.com/blog/73-power-metal-heavy-metal-sinfonico-diferencias",
+     "coros épicos arreglos inspirados en la música clásica"
+    ],
+    [
+     "https://www.xeriaoficial.com/blog/73-power-metal-heavy-metal-sinfonico-diferencias",
+     "contrastes entre momentos suaves y explosiones de potencia"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2,
+   "heredaDe": [
+    "power-metal"
+   ],
+   "herencia": [
+    "power-metal (perfil RYM, 255 discos)"
+   ]
+  },
+  {
+   "slug": "power-metal-progresivo",
+   "familia": "metal",
+   "comparadoCon": [
+    "power-metal-sinfonico"
+   ],
+   "caracter": [
+    [
+     "heroico/épico",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "luminoso",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "intenso",
+     "energia",
+     null,
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://www.melodigging.com/genre/progressive-power-metal",
+     "the speed, bright melodies, and heroic tone of power metal"
+    ],
+    [
+     "https://www.melodigging.com/genre/progressive-power-metal",
+     "Progressive Power Metal Sweden · 1990 s Epic Happy Intense Dark Dreamy"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2
+  },
+  {
+   "slug": "dark-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "doom-metal"
+   ],
+   "caracter": [
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "depresivo",
+     "emocion",
+     "neg",
+     "definitorio"
+    ]
+   ],
+   "contraste": "Entre doom y black metal.",
+   "fuentes": [
+    [
+     "https://metal-addiction.com/2024/06/17/las-mejores-bandas-de-depressive-suicidal-black-metal/",
+     "fusionar elementos de doom y black metal con una temática depresiva y suicida"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "metal-latino",
+   "familia": "metal",
+   "comparadoCon": [
+    "metal"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "heredado"
+    ],
+    [
+     "intenso",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "heredado"
+    ],
+    [
+     "rebelde",
+     "actitud",
+     "neu",
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Etiqueta regional.",
+   "heredaDe": [
+    "metal"
+   ],
+   "herencia": [
+    "metal (carácter)"
+   ]
+  },
+  {
+   "slug": "barquisimetal",
+   "familia": "metal",
+   "comparadoCon": [
+    "metal"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "heredado"
+    ],
+    [
+     "intenso",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "heredado"
+    ],
+    [
+     "rebelde",
+     "actitud",
+     "neu",
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Escena y sitio de Barquisimeto, no un estilo; hereda del metal.",
+   "heredaDe": [
+    "metal"
+   ],
+   "herencia": [
+    "metal (carácter)"
+   ]
+  },
+  {
+   "slug": "guarorock",
+   "familia": "rock",
+   "comparadoCon": [
+    "rock"
+   ],
+   "caracter": [
+    [
+     "himno",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "juguetón",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "agridulce",
+     "emocion",
+     "mix",
+     "heredado"
+    ],
+    [
+     "rítmico",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Etiqueta regional (Barquisimeto).",
+   "heredaDe": [
+    "rock"
+   ],
+   "herencia": [
+    "rock (perfil RYM, 156 discos)"
+   ]
+  },
+  {
+   "slug": "balada",
+   "familia": "pop",
+   "comparadoCon": [
+    "bolero"
+   ],
+   "caracter": [
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "pausado",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Heredera del bolero: canción de amor lenta.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Balada_rom%C3%A1ntica",
+     "una canción de amor de tiempo lento, interpretada por un cantante solista"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Balada",
+     "cuando deciden llamar \"ballad\" a los temas lentos de temática romántica"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM (177 discos): romantic, passionate.",
+   "comunidadRym": {
+    "discos": 177,
+    "tipico": [
+     [
+      "romantic",
+      0.1
+     ],
+     [
+      "passionate",
+      0.08
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "dance-pop",
+   "familia": "pop",
+   "comparadoCon": [
+    "balada"
+   ],
+   "caracter": [
+    [
+     "bailable/enérgico",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "fiestero",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "alegre",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "juguetón",
+     "actitud",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://en.wikipedia.org/wiki/Dance-pop",
+     "Up-tempo and upbeat music that dance-oriented or dance-centered"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM (182 discos): rhythmic, energetic, party, playful.",
+   "comunidadRym": {
+    "discos": 182,
+    "tipico": [
+     [
+      "rhythmic",
+      0.34
+     ],
+     [
+      "party",
+      0.19
+     ],
+     [
+      "energetic",
+      0.23
+     ],
+     [
+      "playful",
+      0.13
+     ],
+     [
+      "passionate",
+      0.14
+     ],
+     [
+      "sensual",
+      0.09
+     ],
+     [
+      "romantic",
+      0.1
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "hardcore-punk",
+   "familia": "punk",
+   "comparadoCon": [
+    "hardcore-melodico",
+    "raw-punk"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "crudo",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "caótico",
+     "ambiente",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "intenso",
+     "energia",
+     null,
+     "definitorio"
+    ]
+   ],
+   "contraste": "Más rápido y agresivo que el punk; el melódico añade introspección.",
+   "fuentes": [
+    [
+     "https://thisvsthat.io/hardcore-punk-vs-melodic-hardcore",
+     "The atmosphere at a hardcore punk show is often chaotic and aggressive"
+    ],
+    [
+     "https://thisvsthat.io/hardcore-punk-vs-melodic-hardcore",
+     "Sound Fast, aggressive, raw"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM (154 discos): raw, aggressive.",
+   "comunidadRym": {
+    "discos": 154,
+    "tipico": [
+     [
+      "raw",
+      0.1
+     ],
+     [
+      "aggressive",
+      0.11
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "hardcore-melodico",
+   "familia": "punk",
+   "comparadoCon": [
+    "hardcore-punk"
+   ],
+   "caracter": [
+    [
+     "emotivo/introspectivo",
+     "emocion",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://thisvsthat.io/hardcore-punk-vs-melodic-hardcore",
+     "melodic hardcore tends to have a more introspective and emotional lyrical approach"
+    ],
+    [
+     "https://thisvsthat.io/hardcore-punk-vs-melodic-hardcore",
+     "blending melody and aggression to create a unique and emotionally charged sound"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2
+  },
+  {
+   "slug": "raw-punk",
+   "familia": "punk",
+   "comparadoCon": [
+    "hardcore-punk",
+    "crust-punk"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "heredado"
+    ],
+    [
+     "crudo",
+     "actitud",
+     "neu",
+     "heredado"
+    ],
+    [
+     "caótico",
+     "ambiente",
+     "neg",
+     "heredado"
+    ],
+    [
+     "intenso",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "ruidoso",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "frenético",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Las fuentes solo lo usan como adjetivo.",
+   "heredaDe": [
+    "hardcore-punk",
+    "crust-punk"
+   ],
+   "herencia": [
+    "hardcore-punk (carácter)",
+    "crust-punk (perfil RYM, 53 discos)"
+   ]
+  },
+  {
+   "slug": "street-punk",
+   "familia": "punk",
+   "comparadoCon": [
+    "oi",
+    "hardcore-punk"
+   ],
+   "caracter": [
+    [
+     "desolador",
+     "emocion",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "irreverente",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "callejero/pendenciero",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Street_punk",
+     "su mensaje era más desolador e irreverente"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Street_punk",
+     "se refieren a temas sobre las peleas, beber, hacer fiestas, la violencia"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2
+  },
+  {
+   "slug": "oi",
+   "familia": "punk",
+   "comparadoCon": [
+    "street-punk"
+   ],
+   "caracter": [
+    [
+     "desolador",
+     "emocion",
+     "neg",
+     "heredado"
+    ],
+    [
+     "irreverente",
+     "actitud",
+     "neu",
+     "heredado"
+    ],
+    [
+     "callejero/pendenciero",
+     "ambiente",
+     "neu",
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Sin fuentes propias; pariente directo del street punk.",
+   "heredaDe": [
+    "street-punk"
+   ],
+   "herencia": [
+    "street-punk (carácter)"
+   ]
+  },
+  {
+   "slug": "emo",
+   "familia": "punk",
+   "comparadoCon": [
+    "hardcore-melodico"
+   ],
+   "caracter": [
+    [
+     "emotivo/apasionado",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "introspectivo/confesional",
+     "emocion",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "ansioso",
+     "emocion",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "crudo",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "depresivo",
+     "emocion",
+     "neg",
+     "variable"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://www.scarystudies.com/goth-vs-punk-vs-emo-vs-grunge-scene/",
+     "confessional expression, introspection, emotionally intense feelings"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Emo",
+     "his cracked, almost distraught, intense vocal style"
+    ],
+    [
+     "https://www.scarystudies.com/goth-vs-punk-vs-emo-vs-grunge-scene/",
+     "emo encompasses the same interests in darkness and melancholy expression"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM (99 discos): passionate, raw, melancholic, sentimental, anxious, depressive.",
+   "comunidadRym": {
+    "discos": 99,
+    "tipico": [
+     [
+      "raw",
+      0.16
+     ],
+     [
+      "depressive",
+      0.1
+     ],
+     [
+      "passionate",
+      0.17
+     ],
+     [
+      "sentimental",
+      0.12
+     ],
+     [
+      "anxious",
+      0.12
+     ],
+     [
+      "melancholic",
+      0.14
+     ],
+     [
+      "noisy",
+      0.14
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "psychobilly",
+   "familia": "punk",
+   "comparadoCon": [
+    "horror-punk",
+    "rockabilly"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "macabro/terror",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "juguetón/kitsch",
+     "actitud",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "caótico",
+     "energia",
+     null,
+     "frecuente"
+    ]
+   ],
+   "contraste": "Rockabilly juguetón con agresión punk y terror de serie B.",
+   "fuentes": [
+    [
+     "https://musicadviser.co.uk/music-genres/music-genres-music-genres-general/psychobilly/the-complete-guide-to-psychobilly.html",
+     "a fusion of rockabilly's twangy, bouncy energy with punk rock's raw aggression and theatrical horror aesthetic"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Psychobilly",
+     "the \"aesthetics of kitsch, camp and cheese\" are openly embraced"
+    ],
+    [
+     "https://musicadviser.co.uk/music-genres/music-genres-music-genres-general/psychobilly/the-complete-guide-to-psychobilly.html",
+     "Psychobilly dancing is deliberately chaotic"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "horror-punk",
+   "familia": "punk",
+   "comparadoCon": [
+    "psychobilly",
+    "deathrock"
+   ],
+   "caracter": [
+    [
+     "macabro/terror",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "humor negro",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "crudo/agresivo",
+     "energia",
+     null,
+     "definitorio"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://grokipedia.com/page/Horror_punk",
+     "a raw, aggressive energy derived from punk rock foundations"
+    ],
+    [
+     "https://grokipedia.com/page/Horror_punk",
+     "often infused with dark humor or satire"
+    ],
+    [
+     "https://revistafantastique.com/horror-punk/",
+     "con temáticas y estéticas inspirados en el cine de terror de serie B"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "deathrock",
+   "familia": "punk",
+   "comparadoCon": [
+    "horror-punk"
+   ],
+   "caracter": [
+    [
+     "mórbido",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "teatral",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "crudo",
+     "actitud",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más crudo y punk que el rock gótico.",
+   "fuentes": [
+    [
+     "https://easure.net/en/pages/deathrock-musikrichtung-erklart-ursprung-einflusse",
+     "combining raw energy with a morbid, theatrical mood"
+    ],
+    [
+     "https://easure.net/en/pages/deathrock-musikrichtung-erklart-ursprung-einflusse",
+     "a mixture of punk and gothic with a dark mood and horror influences"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Deathrock",
+     "evocan directamente a la muerte y no únicamente la visión romántica de ésta"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "punk-metal",
+   "familia": "punk",
+   "comparadoCon": [
+    "hardcore-punk"
+   ],
+   "caracter": [
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "rápido/directo",
+     "energia",
+     null,
+     "definitorio"
+    ]
+   ],
+   "contraste": "Crossover thrash: hardcore y thrash.",
+   "fuentes": [
+    [
+     "https://radarmusica.com/crossover-thrash/",
+     "suena rápido, seco, agresivo y directo"
+    ],
+    [
+     "https://hermpie.com/crossover-thrash-key-characteristics-influential-bands-and-cultural-impact/",
+     "Speed and aggression are central to Crossover Thrash"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "blackened-crust",
+   "familia": "punk",
+   "comparadoCon": [
+    "crust-punk"
+   ],
+   "caracter": [
+    [
+     "oscuro/sombrío",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "frío",
+     "ambiente",
+     "neg",
+     "frecuente"
+    ],
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "intenso",
+     "energia",
+     null,
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://radarmusica.com/crust-punk/",
+     "riffs más fríos, atmósfera oscura, voces más extremas y una estética más sombría"
+    ],
+    [
+     "https://www.melodigging.com/genre/blackened-crust",
+     "Blackened Crust Canada · 2000 s Intense Dark Sad Epic"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "sludge-metal",
+   "familia": "metal",
+   "comparadoCon": [
+    "doom-metal",
+    "hardcore-punk"
+   ],
+   "caracter": [
+    [
+     "opresivo",
+     "emocion",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "denso/sucio",
+     "ambiente",
+     "neg",
+     "definitorio"
+    ],
+    [
+     "lento/pesado",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "agresivo",
+     "actitud",
+     "neg",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Lentitud del doom con agresión del hardcore.",
+   "fuentes": [
+    [
+     "https://breakpointmetal.com/genero/sludge-metal/",
+     "dando como resultado un sonido denso, sucio y emocionalmente opresivo"
+    ],
+    [
+     "https://www.melodigging.com/genre/blackened-crust",
+     "Sludge metal is a hybrid of doom metal’s slow, downtuned weight and hardcore punk’s raw aggression"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM (67 discos): heavy.",
+   "comunidadRym": {
+    "discos": 67,
+    "tipico": [
+     [
+      "heavy",
+      0.16
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "reggae-y-ska",
+   "familia": "reggae-y-ska",
+   "comparadoCon": [
+    "roots-reggae",
+    "rocksteady"
+   ],
+   "caracter": [
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "consciente",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "tropical",
+     "ambiente",
+     "pos",
+     "heredado"
+    ],
+    [
+     "rítmico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "cálido",
+     "ambiente",
+     "pos",
+     "heredado"
+    ],
+    [
+     "juguetón",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "Paraguas; el resto se hereda de reggae y ska.",
+   "fuentes": [
+    [
+     "https://en.wikipedia.org/wiki/Roots_reggae",
+     "Although romantic songs continued to predominate"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Reggae",
+     "contribution to international discourse on issues of injustice, resistance, love and humanity"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2,
+   "heredaDe": [
+    "reggae",
+    "ska"
+   ],
+   "herencia": [
+    "reggae (perfil RYM, 140 discos)",
+    "ska (perfil RYM, 130 discos)"
+   ]
+  },
+  {
+   "slug": "roots-reggae",
+   "familia": "reggae-y-ska",
+   "comparadoCon": [
+    "rocksteady",
+    "ragga"
+   ],
+   "caracter": [
+    [
+     "espiritual",
+     "ambiente",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "consciente/combativo",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "nostálgico",
+     "emocion",
+     "neg",
+     "variable"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://thereggaeinstitute.org/historical-eras-ska-%E2%86%92-rocksteady-%E2%86%92-roots-%E2%86%92-digital-%E2%86%92-modern/",
+     "Rastafari spiritual themes • Liberation, justice, and identity narratives"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Roots_reggae",
+     "is shaped by desire, nostalgia and trauma"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "rocksteady",
+   "familia": "reggae-y-ska",
+   "comparadoCon": [
+    "roots-reggae"
+   ],
+   "caracter": [
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "relajado",
+     "energia",
+     null,
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más lento y romántico que el ska.",
+   "fuentes": [
+    [
+     "https://en.wikipedia.org/wiki/Reggae",
+     "a genre slower than ska featuring more romantic lyrics"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Rocksteady",
+     "Las letras del rocksteady van desde temas románticos"
+    ],
+    [
+     "https://grokipedia.com/page/Rocksteady",
+     "leveraging rocksteady's laid-back groove for romantic and social themes"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "ragga",
+   "familia": "reggae-y-ska",
+   "comparadoCon": [
+    "roots-reggae"
+   ],
+   "caracter": [
+    [
+     "enérgico/animado",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "optimista",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más enérgico que el reggae.",
+   "fuentes": [
+    [
+     "https://thecontentauthority.com/blog/reggae-vs-ragga",
+     "It is a more upbeat and energetic style of music"
+    ],
+    [
+     "https://thecontentauthority.com/blog/reggae-vs-ragga",
+     "instantly uplifts my mood"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "rock-and-roll",
+   "familia": "rock",
+   "comparadoCon": [
+    "rockabilly",
+    "twist"
+   ],
+   "caracter": [
+    [
+     "enérgico",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "alegre/animado",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "rebelde",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "juvenil/salvaje",
+     "actitud",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://thisvsthat.io/rock-and-roll-vs-rockabilly",
+     "Style Upbeat, energetic Upbeat, twangy"
+    ],
+    [
+     "https://thisvsthat.io/rock-and-roll-vs-rockabilly",
+     "characterized by its energetic and rebellious sound"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Rockabilly",
+     "volviéndose más salvaje y juvenil"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM (18 discos): energetic.",
+   "comunidadRym": {
+    "discos": 18,
+    "tipico": [
+     [
+      "energetic",
+      0.21
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "rockabilly",
+   "familia": "rock",
+   "comparadoCon": [
+    "rock-and-roll",
+    "psychobilly"
+   ],
+   "caracter": [
+    [
+     "juguetón",
+     "actitud",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "atrevido/sensual",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "nostálgico",
+     "emocion",
+     "neu",
+     "variable"
+    ]
+   ],
+   "contraste": "Más campestre (twangy) que el rock and roll.",
+   "fuentes": [
+    [
+     "https://www.corbetosboots.com/blog/moteros/breve-historia-de-la-musica-rockabilly/",
+     "Atrevimiento, sensualidad y diversión a partes iguales"
+    ],
+    [
+     "https://en.wikipedia.org/wiki/Rockabilly",
+     "creating a subculture rooted in music, dance and nostalgia"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM (19 discos): playful (0,26), energetic (0,26).",
+   "comunidadRym": {
+    "discos": 19,
+    "tipico": [
+     [
+      "playful",
+      0.26
+     ],
+     [
+      "energetic",
+      0.26
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "twist",
+   "familia": "rock",
+   "comparadoCon": [
+    "rock-and-roll"
+   ],
+   "caracter": [
+    [
+     "bailable",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "alegre",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://www.melodigging.com/genre/twist",
+     "Twist United States · 1960 s Dancing Happy Sentimental"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "beat",
+   "familia": "rock",
+   "comparadoCon": [
+    "rock-and-roll"
+   ],
+   "caracter": [
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "variable"
+    ],
+    [
+     "himno",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "juguetón",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "agridulce",
+     "emocion",
+     "mix",
+     "heredado"
+    ],
+    [
+     "rítmico",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "baja",
+   "lote": 2,
+   "nota": "Sin fuentes web con carácter; rasgo débil del perfil RYM (30 discos: melancholic 0,10). Lo demás hereda del rock.",
+   "heredaDe": [
+    "rock"
+   ],
+   "comunidadRym": {
+    "discos": 30,
+    "tipico": [
+     [
+      "psychedelic",
+      0.1
+     ],
+     [
+      "melancholic",
+      0.1
+     ]
+    ]
+   },
+   "herencia": [
+    "rock (perfil RYM, 156 discos)"
+   ]
+  },
+  {
+   "slug": "glam-rock",
+   "familia": "rock",
+   "comparadoCon": [
+    "heavy-rock"
+   ],
+   "caracter": [
+    [
+     "hedonista/sensual",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "bailable/pegadizo",
+     "energia",
+     null,
+     "frecuente"
+    ],
+    [
+     "teatral",
+     "actitud",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Glam_rock",
+     "letras hedonistas y superficiales que interpretaba de forma deliberadamente sensual"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Glam_rock",
+     "su boogie rock pegadizo, influido por melodías bailables"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2
+  },
+  {
+   "slug": "heavy-rock",
+   "familia": "rock",
+   "comparadoCon": [
+    "metal",
+    "glam-rock"
+   ],
+   "caracter": [
+    [
+     "rudo/pesado",
+     "actitud",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "Más festivo y bluesero que el heavy metal.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Hard_rock",
+     "más «pesados» y «rudos» que el tradicional"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/Hard_rock",
+     "más festivas en el hard rock (a excepciones)"
+    ]
+   ],
+   "confianza": "media",
+   "lote": 2
+  },
+  {
+   "slug": "rock-progresivo",
+   "familia": "rock",
+   "comparadoCon": [
+    "rock-sinfonico",
+    "space-rock"
+   ],
+   "caracter": [
+    [
+     "épico",
+     "emocion",
+     "pos",
+     "variable"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "variable"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "http://resonanciaprogresiva.blogspot.com/",
+     "considerada por algunos como el primer álbum de rock progresivo épico"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2,
+   "nota": "El perfil RYM (324 discos) solo da energetic (0,15): no hay carácter emocional común fuerte.",
+   "comunidadRym": {
+    "discos": 324,
+    "tipico": [
+     [
+      "energetic",
+      0.15
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "rock-sinfonico",
+   "familia": "rock",
+   "comparadoCon": [
+    "rock-progresivo"
+   ],
+   "caracter": [
+    [
+     "grandioso/exuberante",
+     "ambiente",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://www.dlsi.ua.es/~inesta/Prog/progclass-e.html",
+     "Caracterizado por el lujo en teclas y sintetizadores y por las voces melódicas"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2,
+   "heredaDe": [
+    "rock-progresivo"
+   ],
+   "herencia": [
+    "rock-progresivo (carácter)"
+   ]
+  },
+  {
+   "slug": "space-rock",
+   "familia": "rock",
+   "comparadoCon": [
+    "neo-psicodelia",
+    "rock-progresivo"
+   ],
+   "caracter": [
+    [
+     "onírico/etéreo",
+     "ambiente",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "atmosférico",
+     "ambiente",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "psicodélico",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://ourmusicworld22.substack.com/p/a-complete-overview-of-space-rock",
+     "to create a dreamy, ethereal sound"
+    ],
+    [
+     "https://bingleymusiclive.com/musical-genres-glossary/space-rock/",
+     "the atmospheric textures and ambient soundscapes of space rock"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2
+  },
+  {
+   "slug": "rock-melodico",
+   "familia": "rock",
+   "comparadoCon": [
+    "aor"
+   ],
+   "caracter": [
+    [
+     "nostálgico",
+     "emocion",
+     "neg",
+     "variable"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "himno",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "heredado"
+    ]
+   ],
+   "contraste": "Se identifica con el AOR (estilo).",
+   "fuentes": [
+    [
+     "https://www.ecured.cu/Rock_mel%C3%B3dico",
+     "O también conocido como melodic rock (AOR)"
+    ],
+    [
+     "https://www.billboard.com/lists/las-50-mejores-bandas-de-rock-en-espanol-clasificadas/",
+     "letras poéticas y nostálgicas"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2,
+   "heredaDe": [
+    "aor"
+   ],
+   "herencia": [
+    "aor (perfil RYM, 122 discos)"
+   ]
+  },
+  {
+   "slug": "rock-instrumental",
+   "familia": "rock",
+   "comparadoCon": [
+    "rock"
+   ],
+   "caracter": [
+    [
+     "himno",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "juguetón",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "agridulce",
+     "emocion",
+     "mix",
+     "heredado"
+    ],
+    [
+     "rítmico",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Categoría funcional dentro del rock.",
+   "heredaDe": [
+    "rock"
+   ],
+   "herencia": [
+    "rock (perfil RYM, 156 discos)"
+   ]
+  },
+  {
+   "slug": "rock-electronico",
+   "familia": "rock",
+   "comparadoCon": [
+    "rock",
+    "electronica"
+   ],
+   "caracter": [
+    [
+     "himno",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "juguetón",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "agridulce",
+     "emocion",
+     "mix",
+     "heredado"
+    ],
+    [
+     "rítmico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "futurista",
+     "ambiente",
+     "neu",
+     "heredado"
+    ],
+    [
+     "atmosférico",
+     "ambiente",
+     "neu",
+     "heredado"
+    ],
+    [
+     "surrealista",
+     "ambiente",
+     "neu",
+     "heredado"
+    ],
+    [
+     "ruidoso",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "oscuro",
+     "ambiente",
+     "neg",
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Sin fuentes con carácter.",
+   "heredaDe": [
+    "rock",
+    "electronica"
+   ],
+   "herencia": [
+    "rock (perfil RYM, 156 discos)",
+    "electronica (perfil RYM, 1303 discos)"
+   ]
+  },
+  {
+   "slug": "ethnic-rock",
+   "familia": "rock",
+   "comparadoCon": [
+    "rock"
+   ],
+   "caracter": [
+    [
+     "himno",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "enérgico",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "juguetón",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "apasionado",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "agridulce",
+     "emocion",
+     "mix",
+     "heredado"
+    ],
+    [
+     "rítmico",
+     "energia",
+     null,
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Sin fuentes; combinar con el folclor del disco.",
+   "heredaDe": [
+    "rock"
+   ],
+   "herencia": [
+    "rock (perfil RYM, 156 discos)"
+   ]
+  },
+  {
+   "slug": "neo-psicodelia",
+   "familia": "rock-psicodelico",
+   "comparadoCon": [
+    "space-rock"
+   ],
+   "caracter": [
+    [
+     "psicodélico",
+     "ambiente",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "atmosférico",
+     "ambiente",
+     "neu",
+     "definitorio"
+    ],
+    [
+     "surrealista",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "hipnótico",
+     "ambiente",
+     "neu",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://grokipedia.com/page/Neo-psychedelia",
+     "trippy soundscapes, experimental production techniques, and evocative atmospheres"
+    ],
+    [
+     "https://grokipedia.com/page/Neo-psychedelia",
+     "echoing guitars, modal structures, and hypnotic rhythms"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM (156 discos): psychedelic, atmospheric, surreal, dense, ethereal, mysterious.",
+   "comunidadRym": {
+    "discos": 156,
+    "tipico": [
+     [
+      "psychedelic",
+      0.48
+     ],
+     [
+      "atmospheric",
+      0.37
+     ],
+     [
+      "surreal",
+      0.28
+     ],
+     [
+      "dense",
+      0.19
+     ],
+     [
+      "ethereal",
+      0.17
+     ],
+     [
+      "mysterious",
+      0.14
+     ],
+     [
+      "noisy",
+      0.18
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "tonada",
+   "familia": "musica-venezolana",
+   "comparadoCon": [
+    "pasaje"
+   ],
+   "caracter": [
+    [
+     "sencillo",
+     "actitud",
+     "neu",
+     "frecuente"
+    ],
+    [
+     "cariñoso",
+     "emocion",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "Canto de trabajo del llano (ordeño, arreo), no de baile.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Llanero",
+     "denominadas propiamente cantos de ordeño y cabresteo"
+    ],
+    [
+     "http://cuentaelabuelo.blogspot.com/2010/02/la-tonada.html",
+     "esta forma de música sencilla, proyectada por el trabajador rural"
+    ],
+    [
+     "http://cuentaelabuelo.blogspot.com/2010/02/la-tonada.html",
+     "las palabras cariñosas a la vaca Canastilla"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "aguinaldo",
+   "familia": "musica-venezolana",
+   "comparadoCon": [
+    "gaita-de-furro",
+    "musica-navidena"
+   ],
+   "caracter": [
+    [
+     "festivo/parrandero",
+     "emocion",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "devoto",
+     "actitud",
+     "pos",
+     "variable"
+    ],
+    [
+     "alegre",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "afectuoso",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "sereno/en paz",
+     "emocion",
+     "pos",
+     "heredado"
+    ]
+   ],
+   "contraste": "Hay aguinaldos de parranda y aguinaldos religiosos.",
+   "fuentes": [
+    [
+     "https://es.wikipedia.org/wiki/Aguinaldo_(Venezuela)",
+     "los aguinaldos pueden dividirse en aguinaldos de parranda y aguinaldos religiosos"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2,
+   "heredaDe": [
+    "musica-navidena"
+   ],
+   "herencia": [
+    "musica-navidena (carácter)"
+   ]
+  },
+  {
+   "slug": "vals-venezolano",
+   "familia": "musica-venezolana",
+   "comparadoCon": [
+    "vals-andino"
+   ],
+   "caracter": [
+    [
+     "elegante",
+     "actitud",
+     "pos",
+     "frecuente"
+    ],
+    [
+     "romántico/serenatero",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://orinocopadrerio.blogspot.com/2014/03/el-vals-venezolano-12.html",
+     "abiertas a los serenateros, recorriendo con su elegancia melódica"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "merengue-venezolano",
+   "familia": "musica-venezolana",
+   "comparadoCon": [
+    "vals-venezolano"
+   ],
+   "caracter": [
+    [
+     "alegre/festivo",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "bailable",
+     "energia",
+     null,
+     "definitorio"
+    ]
+   ],
+   "contraste": "Merengue caraqueño de cinco por ocho.",
+   "fuentes": [
+    [
+     "https://prezi.com/p/cdnnp0jcd7sd/el-merengue-caraqueno/",
+     "desborda un sin fin de ritmos y alegrías a nivel personal, donde el goce, la efervescencia"
+    ],
+    [
+     "https://prezi.com/p/cdnnp0jcd7sd/el-merengue-caraqueno/",
+     "detallándolo como género musical bailable"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "golpe-larense",
+   "familia": "musica-venezolana",
+   "comparadoCon": [
+    "tamunangue"
+   ],
+   "caracter": [
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "bailable",
+     "energia",
+     null,
+     "frecuente"
+    ]
+   ],
+   "contraste": "Se canta y baila en fiestas patronales; el tamunangue es su contraparte ritual.",
+   "fuentes": [
+    [
+     "https://eltocuyo.com/en/did-you-know/golperos-del-tocuyo-golpe-larense",
+     "Golpe is music to sing and dance to : groups of four to six musicians animate patron saint festivities, parrandas, vigils, weddings"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "bambuco",
+   "familia": "musica-andina-venezolana",
+   "comparadoCon": [
+    "vals-andino"
+   ],
+   "caracter": [
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "idílico",
+     "ambiente",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "señorial",
+     "actitud",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://www.absolutviajes.com/venezuela/musica-tradicional-venezolana/",
+     "se caracteriza por ser melodías románticas, idílicas con ciertos matices señoriales"
+    ],
+    [
+     "https://www.labrujuladelcanto.com/2022/04/musica-tradicional-venezolana.html",
+     "se caracteriza por ofrecer melodías románticas, idílicas y con ciertos matices señoriales"
+    ],
+    [
+     "https://es.wikipedia.org/wiki/M%C3%BAsica_de_Venezuela",
+     "encontrándose en estos últimos bajo formas de melodías románticas"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Dos de las fuentes repiten el mismo texto."
+  },
+  {
+   "slug": "vals-andino",
+   "familia": "musica-andina-venezolana",
+   "comparadoCon": [
+    "bambuco",
+    "vals-venezolano"
+   ],
+   "caracter": [
+    [
+     "suave/acompasado",
+     "energia",
+     null,
+     "heredado"
+    ],
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "elegante",
+     "actitud",
+     "pos",
+     "heredado"
+    ],
+    [
+     "romántico/serenatero",
+     "emocion",
+     "pos",
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Sin fuente propia clara.",
+   "heredaDe": [
+    "musica-andina-venezolana",
+    "vals-venezolano"
+   ],
+   "herencia": [
+    "musica-andina-venezolana (carácter)",
+    "vals-venezolano (carácter)"
+   ]
+  },
+  {
+   "slug": "musica-venezolana",
+   "familia": "musica-venezolana",
+   "comparadoCon": [],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Paraguas nacional."
+  },
+  {
+   "slug": "musica-oriental",
+   "familia": "musica-venezolana",
+   "comparadoCon": [
+    "polo-oriental",
+    "malaguena",
+    "jota-oriental",
+    "galeron"
+   ],
+   "caracter": [
+    [
+     "melancólico",
+     "emocion",
+     "neg",
+     "heredado"
+    ],
+    [
+     "triste",
+     "emocion",
+     "neg",
+     "heredado"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://musicamargaritayoriental.blogspot.com/",
+     "tiene el ritmo y el sentimiento de la música oriental venezolana"
+    ]
+   ],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Familia con dos polos: polo, malagueña y jota son melancólicos; galerón y gaita, festivos. Los dos quedan como heredados (de malagueña, jota, galerón y gaita oriental)."
+  },
+  {
+   "slug": "musica-andina-venezolana",
+   "familia": "musica-venezolana",
+   "comparadoCon": [
+    "bambuco"
+   ],
+   "caracter": [
+    [
+     "suave/acompasado",
+     "energia",
+     null,
+     "definitorio"
+    ],
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "frecuente"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [
+    [
+     "https://hablemosdeculturas.com/musica-andina-venezolana/",
+     "ha tomado melodías suaves y acompasadas que pueden llegar a recordar los boleros"
+    ],
+    [
+     "https://hablemosdeculturas.com/musica-andina-venezolana/",
+     "se le da el nombre de melodías románticas"
+    ]
+   ],
+   "confianza": "baja",
+   "lote": 2
+  },
+  {
+   "slug": "tambor-afrovenezolano",
+   "familia": "musica-venezolana",
+   "comparadoCon": [
+    "fulia",
+    "sangueo"
+   ],
+   "caracter": [
+    [
+     "devoto",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "festivo",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "festivo/parrandero",
+     "emocion",
+     "pos",
+     "heredado"
+    ],
+    [
+     "comunitario (coro responsorial)",
+     "actitud",
+     "pos",
+     "heredado"
+    ]
+   ],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "heredado",
+   "lote": 2,
+   "nota": "Sin fuentes nuevas; hereda de sus géneros de la muestra.",
+   "heredaDe": [
+    "sangueo",
+    "fulia"
+   ],
+   "herencia": [
+    "sangueo (carácter)",
+    "fulia (carácter)"
+   ]
+  },
+  {
+   "slug": "musica-de-camara-popular",
+   "familia": "musica-venezolana",
+   "comparadoCon": [],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Formato, no estilo."
+  },
+  {
+   "slug": "ritmo-orquidea",
+   "familia": "musica-venezolana",
+   "comparadoCon": [],
+   "caracter": [],
+   "contraste": "",
+   "fuentes": [],
+   "confianza": "sin_caracter",
+   "lote": 2,
+   "nota": "Sin fuentes en la web."
+  },
+  {
+   "slug": "gaita-de-furro",
+   "familia": "gaita",
+   "comparadoCon": [
+    "aguinaldo"
+   ],
+   "caracter": [
+    [
+     "alegre/festivo",
+     "emocion",
+     "pos",
+     "definitorio"
+    ],
+    [
+     "devoto",
+     "actitud",
+     "pos",
+     "variable"
+    ],
+    [
+     "contestatario",
+     "actitud",
+     "neu",
+     "variable"
+    ],
+    [
+     "romántico",
+     "emocion",
+     "pos",
+     "variable"
+    ]
+   ],
+   "contraste": "Gaita zuliana: costumbrista, de protesta, chiquinquireña o romántica según la letra.",
+   "fuentes": [
+    [
+     "https://infoguia.com/infotip.asp?t=expresion-del-sentir-venezolano-y-la-gaita-zuliana&a=841",
+     "es escuchada en cada rincón de Venezuela alegrando el ambiente decembrino"
+    ],
+    [
+     "https://infoguia.com/infotip.asp?t=expresion-del-sentir-venezolano-y-la-gaita-zuliana&a=841",
+     "de protesta, que denuncia situaciones sociales y políticas, la chiquinquireña"
+    ]
+   ],
+   "confianza": "alta",
+   "lote": 2,
+   "nota": "Perfil RYM de «gaita» (79 discos): tropical, rhythmic, uplifting, playful."
+  }
+ ],
+ "confianzas": {
+  "alta": "varias fuentes coinciden",
+  "media": "fuentes buenas pero pocas, o con matices",
+  "baja": "una fuente o fuentes flojas",
+  "heredado": "sin carácter propio: lo toma de su familia",
+  "sin_caracter": "categoría funcional, temática o paraguas: no tiene carácter típico"
+ }
+}

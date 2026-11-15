@@ -6,6 +6,7 @@
 // Last.fm) y popularidad (oyentes). Los tags dudosos y las etiquetas sin
 // emoción no participan: `entity_emotions` solo lleva emociones claras.
 import { getPool } from "../../db/client.js";
+import { dailyDate } from "../../shared/daily-cycle.js";
 
 export const EMOTION_VALUES = [
   "emocion", "tristeza", "enfocado", "libertad", "cachonda", "aumenta_mi_aura",
@@ -120,8 +121,20 @@ interface EmotionRow {
   listeners: string;
 }
 
-/** Artistas con esa emoción clara, mejor evidencia y más oyentes primero. */
-export async function emotionArtists(emotion: Emotion, limit: number, offset = 0): Promise<EmotionArtist[]> {
+
+/**
+ * Barajado diario (Brian, 2026-11-12): para que un artista con muchas fichas (Arca) no se adueñe
+ * de una emoción, el orden cambia cada día con el reloj editorial (00:00 America/Caracas) y es el
+ * mismo para todos durante el día (paginación estable). Es un sorteo ponderado por puntuación
+ * (clave -ln(u)/score): lo más claro tiende a salir antes, sin quedarse fijo.
+ * `u` sale de md5(día:emoción:id), en (0, 1).
+ */
+const dailyKey = (dateParam: string, idSql: string, scoreSql: string) =>
+  `(-ln((('x' || substr(md5(${dateParam}::text || ':' || $1::text || ':' || ${idSql}::text), 1, 8))::bit(32)::bigint + 1)::float8 / 4294967297.0)
+     / GREATEST(${scoreSql}, 0.0001)::float8)`;
+
+/** Artistas con esa emoción clara, barajados cada día (pesan la evidencia y los oyentes). */
+export async function emotionArtists(emotion: Emotion, limit: number, offset = 0, date = dailyDate()): Promise<EmotionArtist[]> {
   const { rows } = await getPool().query<EmotionRow>(
     `SELECT e.artist_id::text AS id, a.name, e.emotion,
             SUM(e.score)::real AS score, SUM(e.evidence)::int AS evidence,
@@ -137,9 +150,9 @@ export async function emotionArtists(emotion: Emotion, limit: number, offset = 0
       WHERE e.artist_id IS NOT NULL AND e.emotion = $1 AND e.basis = 'tags'
         AND EXISTS (SELECT 1 FROM ingest.lastfm_artist_verifications v WHERE v.artist_id=e.artist_id)
       GROUP BY e.artist_id, a.name, e.emotion, m.listeners
-      ORDER BY SUM(e.score) * ln(1 + COALESCE(m.listeners, 0)) DESC, SUM(e.score) DESC
+      ORDER BY ${dailyKey("$4", "e.artist_id", "SUM(e.score) * ln(2 + COALESCE(m.listeners, 0))")}, e.artist_id
       LIMIT $2 OFFSET $3`,
-    [emotion, limit, offset],
+    [emotion, limit, offset, date],
   );
   return rows.map((row) => {
     const tags = row.details.flatMap((d) => d.detail?.tags ?? []);
@@ -164,4 +177,90 @@ export async function emotionArtistCount(emotion: Emotion): Promise<number> {
     [emotion],
   );
   return Number(rows[0]?.n ?? 0);
+}
+
+// ---------------------------------------------------------------------------
+// Emoción de respaldo por capas (Brian, 2026-11-12): pista → disco → artista → género.
+// Filas cargadas por scripts/emociones/cargar-entity-emotions.ts. Cada disco usa su capa más alta:
+// si tiene reseñas o descriptores RYM propios, sus filas «típico del género» no cuentan.
+// Interruptor CRV_EMOTION_FALLBACK=off|shadow|on (defecto off): en shadow se calcula y solo se mide.
+
+export type EmotionFallbackMode = "off" | "shadow" | "on";
+export function emotionFallbackMode(env: NodeJS.ProcessEnv = process.env): EmotionFallbackMode {
+  const v = env["CRV_EMOTION_FALLBACK"];
+  return v === "shadow" || v === "on" ? v : "off";
+}
+
+export const FALLBACK_BASES = ["resenas", "descriptor_rym", "genero", "genero_artista"] as const;
+export type FallbackBasis = (typeof FALLBACK_BASES)[number];
+
+export interface EmotionAlbum {
+  id: number;
+  title: string;
+  artistId: number;
+  artistName: string;
+  emotion: Emotion;
+  score: number;
+  basis: FallbackBasis;
+  /** Sale del carácter típico de su género (o del de su artista), no de evidencia propia del disco. */
+  typicalOfGenre: boolean;
+  traits: string[];
+}
+
+
+/** La capa más alta de cada disco ($1 = emoción; `layers` = el parámetro con las capas). */
+const albumBestSql = (layers: string) => `best AS (
+       SELECT DISTINCT ON (e.album_id) e.album_id, e.score, e.basis, e.detail
+         FROM public.entity_emotions e
+        WHERE e.album_id IS NOT NULL AND e.emotion = $1 AND e.basis = ANY(${layers})
+        ORDER BY e.album_id, array_position(${layers}::varchar[], e.basis::varchar)
+     )`;
+/** Con evidencia propia (reseñas, descriptores), «típico del género» no cuenta. */
+const ALBUM_OWN_LAYER_SQL = `NOT (b.basis IN ('genero', 'genero_artista') AND EXISTS (
+                SELECT 1 FROM public.entity_emotions o
+                 WHERE o.album_id = b.album_id AND o.basis IN ('resenas', 'descriptor_rym')))`;
+
+/** Total de discos con esa emoción: el mismo criterio que la lista (la búsqueda y su desplegable lo muestran). */
+export async function emotionAlbumCount(emotion: Emotion): Promise<number> {
+  const { rows } = await getPool().query<{ n: string }>(
+    `WITH ${albumBestSql("$2")}
+     SELECT count(*)::text AS n FROM best b JOIN public.albums a ON a.id = b.album_id
+      WHERE ${ALBUM_OWN_LAYER_SQL}`,
+    [emotion, FALLBACK_BASES],
+  );
+  return Number(rows[0]?.n ?? 0);
+}
+
+/** Discos con esa emoción, barajados cada día; un disco por artista en cada vuelta para que ninguno acapare la lista. */
+export async function emotionAlbums(emotion: Emotion, limit: number, offset = 0, date = dailyDate()): Promise<EmotionAlbum[]> {
+  const { rows } = await getPool().query<{
+    id: string; title: string; artist_id: string; artist_name: string; score: number; basis: FallbackBasis;
+    traits: string[] | null;
+  }>(
+    `WITH ${albumBestSql("$4")}
+     , ranked AS (
+       SELECT b.*, a.title, a.artist_id, ${dailyKey("$5", "b.album_id", "b.score * ln(2 + COALESCE(a.rym_ratings_count, 0))")} AS k
+         FROM best b
+         JOIN public.albums a ON a.id = b.album_id
+        WHERE ${ALBUM_OWN_LAYER_SQL}
+     )
+     SELECT k.album_id::text AS id, k.title, k.artist_id::text AS artist_id, r.name AS artist_name, k.score, k.basis,
+            ARRAY(SELECT jsonb_array_elements_text(COALESCE(k.detail->'rasgos', '[]'::jsonb))) AS traits
+       FROM ranked k
+       JOIN public.artists r ON r.id = k.artist_id
+      ORDER BY row_number() OVER (PARTITION BY k.artist_id ORDER BY k.k, k.album_id), k.k, k.album_id
+      LIMIT $2 OFFSET $3`,
+    [emotion, limit, offset, FALLBACK_BASES, date],
+  );
+  return rows.map((row) => ({
+    id: Number(row.id),
+    title: row.title,
+    artistId: Number(row.artist_id),
+    artistName: row.artist_name,
+    emotion,
+    score: row.score,
+    basis: row.basis,
+    typicalOfGenre: row.basis === "genero" || row.basis === "genero_artista",
+    traits: row.traits ?? [],
+  }));
 }

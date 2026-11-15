@@ -1,0 +1,43 @@
+{
+ "version": "crv-emotion-fallback-0.1.0",
+ "catalogoExportado": "2026-11-12T15:52:19.470Z",
+ "generos": {
+  "total": 282,
+  "porEstado": {
+   "sin_caracter": 16,
+   "ficha_heredado": 13,
+   "ficha_media": 54,
+   "ficha_alta": 49,
+   "perfil_rym": 149,
+   "ficha_baja": 1
+  }
+ },
+ "discos": {
+  "total": 25493,
+  "capaPrincipal": {
+   "genero": 9573,
+   "genero_artista": 11343,
+   "sin_emocion": 3508,
+   "descriptores_rym": 934,
+   "resenas": 135
+  },
+  "conDescriptoresRym": 934,
+  "sensacionPrincipalPorEmocion": {
+   "aumenta_mi_aura": 15103,
+   "tristeza": 7779,
+   "libertad": 2453,
+   "emocion": 10079,
+   "enfocado": 4942,
+   "cachonda": 501
+  },
+  "mixtos": 793
+ },
+ "artistasConEvidenciaDeSusDiscos": 374,
+ "filasEntityEmotions": {
+  "genero": 19965,
+  "genero_artista": 21584,
+  "descriptor_rym": 1569,
+  "resenas": 172,
+  "artista_discos": 592
+ }
+}
