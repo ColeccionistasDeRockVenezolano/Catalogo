@@ -73,3 +73,24 @@ export const genreListFilterSchema = {
 /** Solo discos: con `genre`, suma los discos sin género propio cuyo artista tiene ese género. */
 export const relatedGenreQuerySchema = queryFlagSchema.optional()
   .describe("Con `genre`: suma los discos sin género propio cuyo artista tiene ese género (vista de búsqueda; no asigna nada).");
+
+/**
+ * Tarjeta de disco en fichas de persona y organización (estandarización del
+ * 2026-11-14): los mismos datos que la discografía del artista.
+ */
+export const albumCardSchema = z.object({
+  albumId: z.number().int(), title: z.string(), releaseYear: z.number().int().nullable(), albumType: z.string(),
+  coverUrl: z.string().nullable(), isLive: z.boolean(), isBSides: z.boolean(),
+  classifications: z.array(z.object({ classification: z.string() })), editionTypes: z.array(z.string()),
+  artistId: z.number().int(), artistName: z.string(),
+});
+
+/** Vínculo persona ↔ organización ya unido: directo y/o derivado de los créditos. */
+export const organizationLinkFieldsSchema = {
+  via: z.array(z.enum(["direct", "statement", "studio", "label"]))
+    .describe("direct = registrado; statement = misma frase de crédito; studio = mismo trabajo en un disco hecho allí; label = trabajo para el sello."),
+  roles: z.array(z.string()).describe("Claves de rol (tipo de crédito o rol de sello) y textos de los vínculos directos."),
+  albumCount: z.number().int().nonnegative(),
+  fromYear: z.number().int().nullable(),
+  toYear: z.number().int().nullable(),
+};

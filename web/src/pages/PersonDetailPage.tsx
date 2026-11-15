@@ -1,5 +1,4 @@
 import { EntityAdminBar } from "../components/EntityAdminBar";
-import { GenrePeriods } from "../components/GenrePeriods";
 import { CatalogModelPanel } from "../components/CatalogModelPanel";
 import { EntityVerification } from "../components/EntityVerification";
 import { CompleteRecord } from "../components/CompleteRecord";
@@ -9,7 +8,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { RewritePendingMark } from "../components/RewritePendingMark";
 import { BackLink } from "../components/BackLink";
 import { DeceasedMark } from "../components/DeceasedMark";
-import { ArrowsSplit } from "@phosphor-icons/react";
+import { ArrowsOutSimple, ArrowsSplit, CalendarBlank, Clock, MapPin } from "@phosphor-icons/react";
+import { ImageViewer } from "../components/ImageViewer";
 import { personWrites, personsApi, reviewApi } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
 import { useMovedToRedirect } from "../lib/useMovedTo";
@@ -35,7 +35,9 @@ import { entityFormValues, PERSON_FIELDS } from "../lib/entityFields";
 import { EntityInfo, type InfoItem } from "../components/EntityInfo";
 import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
-import { creditTypeLabel, memberRoleLabel, membershipNoun, nameClassLabel, roleTitle } from "../lib/labels";
+import { membershipNoun, nameClassLabel } from "../lib/labels";
+import { OrganizationLinkCards, PersonBandCards, PersonCreditCards } from "../components/LinkedEntityCards";
+import { Modal } from "../components/Modal";
 import { ageText, formatDate } from "../lib/format";
 import { mediaImage } from "../lib/media";
 
@@ -57,10 +59,12 @@ export function PersonDetailPage() {
   const [splitting, setSplitting] = useState(false);
   const [converting, setConverting] = useState<"organization" | "artist" | null>(null);
   const [researchOpen, setResearchOpen] = useState(false);
+  const [editingOrgs, setEditingOrgs] = useState(false);
+  const [viewingPhoto, setViewingPhoto] = useState(false);
   const [researchOther, setResearchOther] = useState<{ id: number; name: string } | null>(null);
   const [researchError, setResearchError] = useState<string | null>(null);
 
-  useEffect(() => { setResearchOpen(false); setResearchOther(null); setResearchError(null); }, [personId]);
+  useEffect(() => { setResearchOpen(false); setResearchOther(null); setResearchError(null); setViewingPhoto(false); }, [personId]);
 
   if (loading && (!person || person.id !== personId)) return <DetailSkeleton />;
   if (error || !person) return <EntityLoadError message={error ?? "Persona no encontrada."} errorValue={errorValue} onRetry={reload} />;
@@ -70,123 +74,59 @@ export function PersonDetailPage() {
   // persona ES el artista (caso Ashwave) las dos fichas son la misma identidad
   // repartida en dos tipos. El vínculo se nombra por lo que es.
   const vinculo = membershipNoun(person.bands);
-  const info: InfoItem[] = [
+  // Mismo bloque que la ficha de artista (Brian, 2026-11-15): datos de
+  // lugar y tiempo arriba, con icono; identidad en filas debajo.
+  const age = dead && !person.deathDate ? null : ageText(person.birthDate, dead ? person.deathDate : null);
+  const bandCount = new Set(person.bands.map((band) => band.artistId)).size;
+  const factsInfo: InfoItem[] = [
+    { label: "Lugar de nacimiento", value: person.birthCity ? <span className="artist-profile__fact"><MapPin size={16} aria-hidden="true" />{person.birthCity}</span> : null },
+    { label: "Nacimiento", value: person.birthDate ? <span className="artist-profile__fact"><CalendarBlank size={16} aria-hidden="true" />{formatDate(person.birthDate)}</span> : null, fallback: "Sin dato" },
+    { label: "Fallecimiento", value: dead && person.deathDate ? <span className="artist-profile__fact"><CalendarBlank size={16} aria-hidden="true" />{formatDate(person.deathDate)}</span> : null },
+    { label: dead ? "Edad al fallecer" : "Edad", value: age ? <span className="artist-profile__fact"><Clock size={16} aria-hidden="true" />{age}</span> : null },
+  ];
+  const identityInfo: InfoItem[] = [
     { label: "Nombre real", value: person.realName },
-    { label: "Ciudad de nacimiento", value: person.birthCity },
     { label: "Género", value: person.gender && person.gender !== "unknown" ? ({ male: "Masculino", female: "Femenino" } as Record<string, string>)[person.gender] ?? person.gender : null },
     { label: "Nacionalidad", value: person.nationality, fallback: "Sin dato" },
     // En CRV se asume venezolano/a: el público solo ve el «No», que rompe la regla (plan v2, punto 1).
     { label: "Venezolano/a", value: person.isVenezuelan === false ? "No (extranjero/a)" : isAdmin && person.isVenezuelan === true ? "Sí" : null, fallback: "Sin dato" },
     { label: "Estado", value: dead ? "Fallecido/a" : null, fallback: "Sin dato" },
     { label: "Causa de fallecimiento", value: dead ? person.deathCause : null },
-    { label: "Nacimiento", value: formatDate(person.birthDate) },
-    { label: "Fallecimiento", value: dead ? formatDate(person.deathDate) : null },
-    { label: dead ? "Edad al fallecer" : "Edad", value: dead && !person.deathDate ? null : ageText(person.birthDate, dead ? person.deathDate : null) },
-    { label: person.bands.length === 1 ? vinculo.singular : vinculo.plural, value: person.bands.length ? (
+    { label: bandCount === 1 ? vinculo.singular : vinculo.plural, value: bandCount ? (
       <>
         {[...new Map(person.bands.map((band) => [band.artistId, band])).values()].slice(0, 4).map((band, index) => (
           <span key={band.artistId}>{index > 0 ? ", " : ""}<Link to={`/artistas/${band.artistId}`}>{band.artistName}</Link></span>
         ))}
-        {new Set(person.bands.map((band) => band.artistId)).size > 4 ? ` y ${new Set(person.bands.map((band) => band.artistId)).size - 4} más` : ""}
+        {bandCount > 4 ? ` y ${bandCount - 4} más` : ""}
       </>
     ) : null },
   ];
 
-  const bandPeriod = (band: { fromYear: number | null; toYear: number | null; isCurrent: boolean }) =>
-    `${band.fromYear ?? "—"}${band.isCurrent ? "–presente" : band.toYear ? `–${band.toYear}` : ""}`;
-
+  const creditAlbums = person.creditAlbums ?? [];
+  const organizationLinks = person.organizationLinks ?? [];
   const tabs: TabSpec[] = [
     {
-      key: "bandas", label: person.bands.length === 1 ? vinculo.singular : vinculo.plural, count: person.bands.length,
-      content: person.bands.length === 0 ? <TabEmpty>Sin bandas ni proyectos registrados.</TabEmpty> : (
-        <div className="table-wrap">
-          <table>
-            <thead><tr><th>{vinculo.singular}</th><th>Rol</th><th>Periodo</th></tr></thead>
-            <tbody>
-              {person.bands.map((band) => (
-                <tr key={band.id}>
-                  <td><Link to={`/artistas/${band.artistId}`}>{band.artistName}</Link></td>
-                  <td>{memberRoleLabel(band.role)}</td>
-                  <td className="mono">{bandPeriod(band)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ),
+      key: "bandas", label: person.bands.length === 1 ? vinculo.singular : vinculo.plural, count: new Set(person.bands.map((band) => band.artistId)).size,
+      content: person.bands.length === 0 ? <TabEmpty>Sin bandas ni proyectos registrados.</TabEmpty> : <PersonBandCards bands={person.bands} />,
     },
     {
-      key: "discos", label: "Créditos de disco", count: person.albumCredits.length,
-      content: person.albumCredits.length === 0 ? <TabEmpty>Sin créditos registrados.</TabEmpty> : (
-        <div className="table-wrap">
-          <table>
-            <thead><tr><th>Disco</th><th>Artista</th><th>Tipo</th><th>Rol</th></tr></thead>
-            <tbody>
-              {person.albumCredits.map((credit) => (
-                <tr key={credit.id}>
-                  <td><Link to={`/discos/${credit.albumId}`}>{credit.albumTitle}</Link></td>
-                  <td><Link to={`/artistas/${credit.artistId}`}>{credit.artistName}</Link></td>
-                  <td><span className="badge">{creditTypeLabel(credit.creditType)}</span></td>
-                  <td>{roleTitle(credit.role)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ),
+      // Créditos de disco y de pista juntos: un disco por tarjeta (estandarización 2026-11-14).
+      key: "discos", label: "Créditos", count: creditAlbums.length,
+      content: creditAlbums.length === 0 ? <TabEmpty>Sin créditos registrados.</TabEmpty> : <PersonCreditCards albums={creditAlbums} />,
     },
     {
-      key: "pistas", label: "Créditos de pista", count: person.trackCredits.length,
-      content: person.trackCredits.length === 0 ? <TabEmpty>Sin créditos registrados.</TabEmpty> : (
-        <div className="table-wrap table-wrap--scroll">
-          <table>
-            <thead><tr><th>Pista</th><th>Disco</th><th>Tipo</th><th>Rol</th></tr></thead>
-            <tbody>
-              {person.trackCredits.map((credit) => (
-                <tr key={credit.id}>
-                  <td>{credit.trackTitle}</td>
-                  <td><Link to={`/discos/${credit.albumId}`}>{credit.albumTitle}</Link></td>
-                  <td><span className="badge">{creditTypeLabel(credit.creditType)}</span></td>
-                  <td>{roleTitle(credit.role)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ),
-    },
-    {
-      key: "organizaciones", label: "Organizaciones", count: person.organizations.length,
-      content: isAdmin ? (
-        <PersonOrgManager
-          fixedKind="person"
-          fixedId={person.id}
-          rows={person.organizations.map((org) => ({
-            id: org.id, role: org.role, fromYear: org.fromYear, toYear: org.toYear,
-            otherId: org.organizationId, otherName: org.organizationName,
-          }))}
-          onChanged={reload}
-          emptyText="Sin organizaciones registradas."
-        />
-      ) : person.organizations.length === 0 ? <TabEmpty>Sin vínculos con organizaciones.</TabEmpty> : (
-        <div className="table-wrap">
-          <table>
-            <thead><tr><th>Organización</th><th>Rol</th><th>Periodo</th></tr></thead>
-            <tbody>
-              {person.organizations.map((org) => (
-                <tr key={org.id}>
-                  <td><Link to={`/organizaciones/${org.organizationId}`}>{org.organizationName}</Link></td>
-                  <td>{org.role}</td>
-                  <td className="mono">{org.fromYear ?? "—"}{org.toYear ? `–${org.toYear}` : ""}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ),
+      key: "organizaciones", label: "Organizaciones", count: organizationLinks.length,
+      content: <>
+        {isAdmin ? <div className="page-actions" style={{ marginBottom: 14 }}>
+          <button type="button" className="btn btn--sm" onClick={() => setEditingOrgs(true)}>Editar vínculos</button>
+        </div> : null}
+        {organizationLinks.length === 0 ? <TabEmpty>Sin vínculos con organizaciones.</TabEmpty> : (
+          <OrganizationLinkCards links={organizationLinks} pageParam="organizacionesPage"
+            to={(link) => `/organizaciones/${link.organizationId}`} title={(link) => link.name} />
+        )}
+      </>,
     },
     ...(isAdmin ? [
-      { key: "generos-periodos", label: "Géneros por período", content: <GenrePeriods kind="person" id={person.id}/> },
       { key: "fuentes", label: "Origen de los datos", content: <EntityProvenance entity="person" id={person.id} revision={person} /> },
       { key: "historial", label: "Historial", content: <EntityHistory entity="person" id={person.id} /> },
     ] : []),
@@ -203,19 +143,33 @@ export function PersonDetailPage() {
         extra={[{ label: "Dividir en varias…", icon: <ArrowsSplit size={14} weight="bold" aria-hidden="true" />, onClick: () => setSplitting(true) }]}
         more={[{ label: `Investigar identidad con otra ficha${identityResearch?.length ? ` · ${identityResearch.length} guardadas` : ""}`, onClick: () => setResearchOpen((open) => !open) }]} /> : null}
 
-      <div className="entity-hero">
-        <span className="entity-hero__art">
-          {person.pictureUrl ? <img {...mediaImage(person.pictureUrl, 132)} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(person.name)}</span>}
-        </span>
-        <div>
-          <h1 className="entity-hero__title">{person.displayName ?? person.name}<DeceasedMark deceased={person.isDeceased} /></h1>
-          <EntityInfo items={info} showEmpty={isAdmin}
-            wide={isAdmin || person.aliases.some((alias) => !alias.publicHidden) ? { label: "Alias", content: <AliasEditor path="persons" entityId={person.id} aliases={person.aliases} onChanged={reload} /> } : undefined} />
-          {person.biography ? <div className="entity-hero__bio"><ExpandableText className="entity-hero__desc" text={person.biography} /></div> : null}
-          {person.trivia ? <div className="entity-hero__bio"><h2>Datos adicionales</h2><ExpandableText text={person.trivia} /></div> : null}
-          <RewritePendingMark kind="person" id={person.id} onDone={reload} />
+      <section className="entity-hero artist-profile" aria-label={`Ficha de ${person.displayName ?? person.name}`}>
+        <div className="artist-profile__media">
+          {person.pictureUrl ? (
+            <button type="button" className="entity-hero__art artist-profile__image-button" aria-label={`Ampliar foto de ${person.displayName ?? person.name}`} onClick={() => setViewingPhoto(true)}>
+              <img {...mediaImage(person.pictureUrl, 640)} alt="" loading="eager" decoding="async" />
+              <span className="artist-profile__photo-hint" aria-hidden="true"><ArrowsOutSimple size={16} /><span>Ampliar foto</span></span>
+            </button>
+          ) : <span className="entity-hero__art"><span className="placeholder">{initialOf(person.name)}</span></span>}
         </div>
-      </div>
+        <div className="artist-profile__content">
+          <h1 className="entity-hero__title">{person.displayName ?? person.name}<DeceasedMark deceased={person.isDeceased} /></h1>
+          <div className="artist-profile__facts"><EntityInfo items={factsInfo} showEmpty={isAdmin} /></div>
+          <div className="artist-profile__identity"><EntityInfo items={identityInfo} showEmpty={isAdmin} /></div>
+          {person.biography ? <div className="artist-profile__biography entity-hero__bio"><h2>Biografía</h2><ExpandableText key={person.id} className="entity-hero__desc" text={person.biography} /></div> : null}
+          {person.trivia ? <div className="artist-profile__biography entity-hero__bio"><h2>Datos adicionales</h2><ExpandableText key={`trivia-${person.id}`} className="entity-hero__desc" text={person.trivia} /></div> : null}
+          {isAdmin || person.aliases.some((alias) => !alias.publicHidden) ? (
+            <div className="artist-profile__aliases">
+              <h2>Alias</h2>
+              <AliasEditor path="persons" entityId={person.id} aliases={person.aliases} onChanged={reload} compactTypeLabels />
+            </div>
+          ) : null}
+        </div>
+        <RewritePendingMark kind="person" id={person.id} onDone={reload} />
+      </section>
+
+      {viewingPhoto && person.pictureUrl ? <ImageViewer key={person.id} src={person.pictureUrl}
+        title={`Foto de ${person.displayName ?? person.name}`} onClose={() => setViewingPhoto(false)} /> : null}
 
       {isAdmin && researchOpen ? <section className="section" aria-label="Investigar identidad de dos personas" style={{ marginTop: 16 }}>
         <h2>Comparar identidad de «{person.name}»</h2>
@@ -261,6 +215,22 @@ export function PersonDetailPage() {
       {isAdmin ? <CompleteRecord kind="person" id={person.id} name={person.name}><EntityVerification kind="person" id={person.id} revision={person} artistConversionBlocked={person.artistConversionBlocked ?? false} onChanged={reload} /></CompleteRecord> : null}
 
       <EntityTabs tabs={tabs} defaultKey={defaultKey} />
+
+      {isAdmin && editingOrgs ? (
+        <Modal title={`Organizaciones de «${person.name}»`} wide onClose={() => { setEditingOrgs(false); reload(); }}>
+          <p className="hint" style={{ marginBottom: 12 }}>Aquí se editan los vínculos registrados. Los que salen «Por créditos» se deducen de los créditos y no se editan aquí.</p>
+          <PersonOrgManager
+            fixedKind="person"
+            fixedId={person.id}
+            rows={person.organizations.map((org) => ({
+              id: org.id, role: org.role, fromYear: org.fromYear, toYear: org.toYear,
+              otherId: org.organizationId, otherName: org.organizationName,
+            }))}
+            onChanged={reload}
+            emptyText="Sin vínculos registrados."
+          />
+        </Modal>
+      ) : null}
 
       {isAdmin && editing ? (
         <EntityFormModal

@@ -2,7 +2,7 @@ import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { paginationQuerySchema, toPage } from "../pagination.js";
-import { idParamSchema, aliasSchema, paginatedResponseSchema } from "../schemas.js";
+import { idParamSchema, aliasSchema, albumCardSchema, organizationLinkFieldsSchema, paginatedResponseSchema } from "../schemas.js";
 import { getOrganizationDetail, listOrganizations, getOrganizationFacets } from "../repositories/organizations.js";
 import { organizationTypeEnum } from "../../db/schema/core.js";
 import { notFoundEntity } from "../repositories/redirects.js";
@@ -31,6 +31,17 @@ const organizationDetailSchema = organizationListItemSchema.extend({
     fromYear: z.number().int().nullable(), toYear: z.number().int().nullable(),
   })),
   aliases: z.array(aliasSchema),
+  albums: z.array(albumCardSchema.extend({
+    roles: z.array(z.string()).describe("label / distributor / licensee y los trabajos de estudio (recording, mixing…)."),
+  })).describe("Discografía asociada: un disco por tarjeta con todos sus roles, en orden cronológico."),
+  artists: z.array(z.object({
+    artistId: z.number().int(), name: z.string(), artistType: z.string(), pictureUrl: z.string().nullable(),
+    albumCount: z.number().int().nonnegative(), fromYear: z.number().int().nullable(), toYear: z.number().int().nullable(),
+  })).describe("Titulares de la discografía asociada (sin Various Artists), en orden cronológico."),
+  personLinks: z.array(z.object({
+    personId: z.number().int(), name: z.string(), displayName: z.string().nullable(), pictureUrl: z.string().nullable(), isDeceased: z.boolean(),
+    ...organizationLinkFieldsSchema,
+  })).describe("Personas vinculadas: directas primero y luego derivadas de los créditos."),
   ...organizationDiscographySchema,
 });
 

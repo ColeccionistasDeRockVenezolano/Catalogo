@@ -1,4 +1,6 @@
 // CRV · Consultas de lectura para personas (PHASES §E7A/E11.7/E11.9).
+import { albumCardsByIds, byYearThenTitle, type AlbumCard } from "./album-cards.js";
+import { personOrganizationLinks, type PersonOrganizationLink } from "./person-organization-links.js";
 import { getPool } from "../../db/client.js";
 import type { Pool, QueryResultRow } from "pg";
 import { ReadCache } from "../../shared/read-cache.js";
@@ -353,10 +355,19 @@ export interface PersonDetail {
   /** Clasificación del nombre (E11.7): la web avisa cuando no es `ok`. */
   nameClass: PersonNameClass;
   nameClassReason: string;
-  bands: Array<{ id: number; artistId: number; artistName: string; artistType: string; role: string; fromYear: number | null; toYear: number | null; isCurrent: boolean }>;
+  bands: Array<{ id: number; artistId: number; artistName: string; artistType: string; role: string; fromYear: number | null; toYear: number | null; isCurrent: boolean; pictureUrl: string | null }>;
   albumCredits: Array<{ id: number; albumId: number; albumTitle: string; artistId: number; artistName: string; creditType: string; role: string }>;
   trackCredits: Array<{ id: number; trackId: number; trackTitle: string; albumId: number; albumTitle: string; creditType: string; role: string }>;
   organizations: Array<{ id: number; organizationId: number; organizationName: string; role: string; fromYear: number | null; toYear: number | null }>;
+  /** Un disco por tarjeta con sus créditos de disco y de pista (estandarización 2026-11-14). */
+  creditAlbums: Array<AlbumCard & {
+    albumRoles: Array<{ creditType: string; role: string }>;
+    trackRoles: Array<{ creditType: string; role: string; tracks: string[] }>;
+  }>;
+  /** Directas primero; después las derivadas de los créditos (person-organization-links.ts). */
+  organizationLinks: Array<Omit<PersonOrganizationLink, "personId" | "organizationId" | "albumIds"> & {
+    organizationId: number; name: string; organizationType: string; pictureUrl: string | null; albumCount: number;
+  }>;
   aliases: Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean; publicHidden: boolean }>;
 }
 
@@ -491,7 +502,8 @@ export async function getPersonDetail(id: number): Promise<PersonDetail | null> 
        COALESCE((
          SELECT jsonb_agg(jsonb_build_object(
            'id', am.id, 'artistId', ar.id, 'artistName', ar.name, 'artistType', ar.artist_type, 'role', am.role,
-           'fromYear', am.from_year, 'toYear', am.to_year, 'isCurrent', am.is_current
+           'fromYear', am.from_year, 'toYear', am.to_year, 'isCurrent', am.is_current,
+           'pictureUrl', coalesce(nullif(ar.picture_url, ''), nullif(ar.logo_url, ''))
          ) ORDER BY am.from_year NULLS LAST, ar.name)
          FROM public.artist_members am JOIN ingest.catalog_artists ar ON ar.id = am.artist_id
          WHERE am.person_id = p.id
@@ -537,7 +549,13 @@ export async function getPersonDetail(id: number): Promise<PersonDetail | null> 
   // El veredicto sobre el nombre se calcula aquí (no en la web): un solo
   // clasificador alimenta el filtro, el aviso y el plan de correcciones.
   const classification = classifyPersonName(String(row["name"]));
-  const displayNames = await personDisplayNames([id]);
+  const albumCredits = row["album_credits"] as PersonDetail["albumCredits"];
+  const trackCredits = row["track_credits"] as PersonDetail["trackCredits"];
+  const [displayNames, cards, links] = await Promise.all([
+    personDisplayNames([id]),
+    albumCardsByIds([...albumCredits.map((credit) => credit.albumId), ...trackCredits.map((credit) => credit.albumId)]),
+    personOrganizationLinks({ personId: id }),
+  ]);
   return {
     id: Number(row["id"]),
     artistConversionBlocked: Boolean(row["artist_conversion_blocked"]),
@@ -562,9 +580,55 @@ export async function getPersonDetail(id: number): Promise<PersonDetail | null> 
     nameClass: classification.kind,
     nameClassReason: classification.reason,
     bands: row["bands"] as PersonDetail["bands"],
-    albumCredits: row["album_credits"] as PersonDetail["albumCredits"],
-    trackCredits: row["track_credits"] as PersonDetail["trackCredits"],
+    albumCredits,
+    trackCredits,
     organizations: row["organizations"] as PersonDetail["organizations"],
+    creditAlbums: groupCreditsByAlbum(cards, albumCredits, trackCredits),
+    organizationLinks: await organizationLinkCards(links),
     aliases: withPublicAliases(String(row["name"]), row["aliases"] as Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>, [displayNames.get(id) ?? null]),
   };
+}
+
+/** Un disco por tarjeta: roles de disco y, debajo, roles de pista con sus canciones. */
+function groupCreditsByAlbum(
+  cards: Map<number, AlbumCard>, albumCredits: PersonDetail["albumCredits"], trackCredits: PersonDetail["trackCredits"],
+): PersonDetail["creditAlbums"] {
+  const byAlbum = new Map<number, PersonDetail["creditAlbums"][number]>();
+  const entry = (albumId: number) => {
+    const card = cards.get(albumId);
+    if (!card) return null;
+    let item = byAlbum.get(albumId);
+    if (!item) { item = { ...card, albumRoles: [], trackRoles: [] }; byAlbum.set(albumId, item); }
+    return item;
+  };
+  for (const credit of albumCredits) {
+    const item = entry(credit.albumId);
+    if (item && !item.albumRoles.some((r) => r.creditType === credit.creditType && r.role === credit.role)) {
+      item.albumRoles.push({ creditType: credit.creditType, role: credit.role });
+    }
+  }
+  for (const credit of trackCredits) {
+    const item = entry(credit.albumId);
+    if (!item) continue;
+    let role = item.trackRoles.find((r) => r.creditType === credit.creditType && r.role === credit.role);
+    if (!role) { role = { creditType: credit.creditType, role: credit.role, tracks: [] }; item.trackRoles.push(role); }
+    if (!role.tracks.includes(credit.trackTitle)) role.tracks.push(credit.trackTitle);
+  }
+  return [...byAlbum.values()].sort(byYearThenTitle((album) => album.releaseYear, (album) => album.title));
+}
+
+/** Datos de tarjeta de cada organización vinculada; directas primero, luego cronológico. */
+async function organizationLinkCards(links: PersonOrganizationLink[]): Promise<PersonDetail["organizationLinks"]> {
+  if (!links.length) return [];
+  const { rows } = await getPool().query<{ id: string; name: string; organization_type: string; picture_url: string | null }>(
+    "SELECT id::text, name, organization_type::text, nullif(picture_url, '') AS picture_url FROM public.organizations WHERE id = ANY($1::bigint[])",
+    [links.map((link) => link.organizationId)],
+  );
+  const orgs = new Map(rows.map((row) => [Number(row.id), row]));
+  const chronological = byYearThenTitle<PersonDetail["organizationLinks"][number]>((link) => link.fromYear, (link) => link.name);
+  return links.flatMap((link) => {
+    const org = orgs.get(link.organizationId);
+    return org ? [{ organizationId: link.organizationId, name: org.name, organizationType: org.organization_type, pictureUrl: org.picture_url,
+      via: link.via, roles: link.roles, albumCount: link.albumIds.length, fromYear: link.fromYear, toYear: link.toYear }] : [];
+  }).sort((a, b) => Number(b.via.includes("direct")) - Number(a.via.includes("direct")) || chronological(a, b));
 }

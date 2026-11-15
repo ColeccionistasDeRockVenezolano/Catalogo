@@ -382,6 +382,8 @@ export interface PersonBand {
   /** La API más antigua no lo manda: sin él, el vínculo se nombra «banda». */
   artistType?: string;
   fromYear: number | null; toYear: number | null; isCurrent: boolean;
+  /** Foto del artista, o su logo si no tiene foto. */
+  pictureUrl?: string | null;
 }
 export interface PersonAlbumCredit { id: number; albumId: number; albumTitle: string; artistId: number; artistName: string; creditType: string; role: string; }
 export interface PersonTrackCredit { id: number; trackId: number; trackTitle: string; albumId: number; albumTitle: string; creditType: string; role: string; }
@@ -406,7 +408,40 @@ export interface PersonDetail extends PersonListItem {
   albumCredits: PersonAlbumCredit[];
   trackCredits: PersonTrackCredit[];
   organizations: PersonOrganization[];
+  /** Estandarización 2026-11-14: un disco por tarjeta con sus créditos de disco y de pista. */
+  creditAlbums?: PersonCreditAlbum[];
+  /** Directas primero; luego las derivadas de los créditos. */
+  organizationLinks?: PersonOrganizationLink[];
   aliases: Alias[];
+}
+
+/** Datos de la tarjeta de disco en fichas de persona y organización (mismos que la discografía). */
+export interface AlbumCardData {
+  albumId: number; title: string; releaseYear: number | null; albumType: string; coverUrl: string | null;
+  isLive: boolean; isBSides: boolean; classifications: Array<{ classification: string }>; editionTypes: string[];
+  artistId: number; artistName: string;
+}
+export interface PersonCreditAlbum extends AlbumCardData {
+  albumRoles: Array<{ creditType: string; role: string }>;
+  trackRoles: Array<{ creditType: string; role: string; tracks: string[] }>;
+}
+/** direct = registrado; statement = misma frase de crédito; studio = mismo trabajo en un disco hecho allí; label = trabajo para el sello. */
+export type OrganizationLinkVia = "direct" | "statement" | "studio" | "label";
+export interface OrganizationLinkFields {
+  via: OrganizationLinkVia[];
+  roles: string[];
+  albumCount: number;
+  fromYear: number | null;
+  toYear: number | null;
+}
+export interface PersonOrganizationLink extends OrganizationLinkFields {
+  organizationId: number; name: string; organizationType: string; pictureUrl: string | null;
+}
+export interface OrganizationPersonLink extends OrganizationLinkFields {
+  personId: number; name: string; displayName: string | null; pictureUrl: string | null; isDeceased: boolean;
+}
+export interface OrganizationArtist {
+  artistId: number; name: string; artistType: string; pictureUrl: string | null; albumCount: number; fromYear: number | null; toYear: number | null;
 }
 
 // ---------- fusión de fichas (E11.3/E11.4/E11.5/E11.10) ----------
@@ -535,6 +570,10 @@ export interface OrganizationDetail extends OrganizationListItem {
   places?: Array<{ id: number; name: string }>;
   roleAlbums?: Array<LabelAlbum & { role: LabelRef["role"]; roleLabel: string }>;
   studioAlbums?: Array<LabelAlbum & { roles: string[] }>;
+  /** Estandarización 2026-11-14: discografía asociada única, con todos los roles de cada disco. */
+  albums?: Array<AlbumCardData & { roles: string[] }>;
+  artists?: OrganizationArtist[];
+  personLinks?: OrganizationPersonLink[];
 }
 
 // ---------- modelo discográfico (plan del primo, etapa 2) ----------

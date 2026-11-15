@@ -3,6 +3,9 @@ import { getPool } from "../../db/client.js";
 import type { PaginationQuery } from "../pagination.js";
 import { personDisplayNames, withPublicAliases } from "./person-display.js";
 import { organizationDiscography, type OrganizationDiscography } from "./discography.js";
+import { albumCardsByIds, byYearThenTitle, type AlbumCard } from "./album-cards.js";
+import { personOrganizationLinks, type PersonOrganizationLink } from "./person-organization-links.js";
+import { personDeceasedSql } from "./deceased.js";
 
 export interface OrganizationListRow {
   id: number;
@@ -73,6 +76,12 @@ export interface OrganizationDetail {
   places: OrganizationDiscography["places"];
   roleAlbums: OrganizationDiscography["roleAlbums"];
   studioAlbums: OrganizationDiscography["studioAlbums"];
+  /** Estandarización 2026-11-14: sello, distribución, licencia y estudio en una sola discografía. */
+  albums: Array<AlbumCard & { roles: string[] }>;
+  artists: Array<{ artistId: number; name: string; artistType: string; pictureUrl: string | null; albumCount: number; fromYear: number | null; toYear: number | null }>;
+  personLinks: Array<Omit<PersonOrganizationLink, "personId" | "organizationId" | "albumIds"> & {
+    personId: number; name: string; displayName: string | null; pictureUrl: string | null; isDeceased: boolean; albumCount: number;
+  }>;
 }
 
 export async function getOrganizationDetail(id: number): Promise<OrganizationDetail | null> {
@@ -112,9 +121,36 @@ export async function getOrganizationDetail(id: number): Promise<OrganizationDet
   const row = rows[0];
   if (!row) return null;
   const associatedPersons = row["associated_persons"] as Array<Omit<OrganizationDetail["associatedPersons"][number], "personDisplayName">>;
-  const displayNames = await personDisplayNames(associatedPersons.map((person) => person.personId));
+  const labelAlbums = row["label_albums"] as OrganizationDetail["labelAlbums"];
+  const [discography, creditRoles, links] = await Promise.all([
+    organizationDiscography(id),
+    getPool().query<{ album_id: string; credit_type: string }>(
+      "SELECT DISTINCT album_id::text, credit_type::text FROM public.album_credits WHERE organization_id = $1", [id]),
+    personOrganizationLinks({ organizationId: id }),
+  ]);
+  const displayNames = await personDisplayNames([...associatedPersons.map((person) => person.personId), ...links.map((link) => link.personId)]);
+  // Un disco, una tarjeta: se suman los roles de cada camino (sello, distribución, estudio, crédito).
+  const rolesByAlbum = new Map<number, Set<string>>();
+  const addRole = (albumId: number, role: string) => {
+    const roles = rolesByAlbum.get(albumId) ?? new Set<string>();
+    roles.add(role);
+    rolesByAlbum.set(albumId, roles);
+  };
+  for (const album of labelAlbums) addRole(album.albumId, "label");
+  for (const album of discography.roleAlbums) addRole(album.albumId, album.role);
+  for (const album of discography.studioAlbums) for (const role of album.roles.length ? album.roles : ["other"]) addRole(album.albumId, role);
+  for (const credit of creditRoles.rows) addRole(Number(credit.album_id), credit.credit_type);
+  const cards = await albumCardsByIds([...rolesByAlbum.keys()]);
+  const albums = [...rolesByAlbum].flatMap(([albumId, roles]) => {
+    const card = cards.get(albumId);
+    return card ? [{ ...card, roles: [...roles] }] : [];
+  }).sort(byYearThenTitle((album) => album.releaseYear, (album) => album.title));
+  const [artists, personLinks] = await Promise.all([organizationArtists(albums), personLinkCards(links, displayNames)]);
   return {
-    ...await organizationDiscography(id),
+    ...discography,
+    albums,
+    artists,
+    personLinks,
     id: Number(row["id"]),
     name: row["name"] as string,
     organizationType: row["organization_type"] as string,
@@ -123,9 +159,50 @@ export async function getOrganizationDetail(id: number): Promise<OrganizationDet
     websiteUrl: row["website_url"] as string | null,
     country: row["country"] as string | null,
     notes: row["notes"] as string | null,
-    labelAlbums: row["label_albums"] as OrganizationDetail["labelAlbums"],
+    labelAlbums,
     creditedArtists: row["credited_artists"] as OrganizationDetail["creditedArtists"],
     associatedPersons: associatedPersons.map((person) => ({ ...person, personDisplayName: displayNames.get(person.personId) ?? null })),
     aliases: withPublicAliases(String(row["name"]), row["aliases"] as Array<{ id: number; alias: string; aliasType: string; isPrimary: boolean }>),
   };
+}
+
+const VARIOUS_ARTISTS = new Set(["various artists", "varios artistas", "various", "v.a.", "va"]);
+
+/** Titulares de la discografía asociada, una tarjeta cada uno, por su primer disco. */
+async function organizationArtists(albums: OrganizationDetail["albums"]): Promise<OrganizationDetail["artists"]> {
+  const byArtist = new Map<number, { albumIds: Set<number>; years: number[] }>();
+  for (const album of albums) {
+    const entry = byArtist.get(album.artistId) ?? { albumIds: new Set<number>(), years: [] };
+    entry.albumIds.add(album.albumId);
+    if (album.releaseYear !== null) entry.years.push(album.releaseYear);
+    byArtist.set(album.artistId, entry);
+  }
+  if (!byArtist.size) return [];
+  const { rows } = await getPool().query<{ id: string; name: string; artist_type: string; picture_url: string | null }>(
+    `SELECT id::text, name, artist_type::text, coalesce(nullif(picture_url, ''), nullif(logo_url, '')) AS picture_url
+       FROM ingest.catalog_artists WHERE id = ANY($1::bigint[])`,
+    [[...byArtist.keys()]],
+  );
+  return rows.filter((row) => !VARIOUS_ARTISTS.has(row.name.trim().toLowerCase())).map((row) => {
+    const entry = byArtist.get(Number(row.id))!;
+    return { artistId: Number(row.id), name: row.name, artistType: row.artist_type, pictureUrl: row.picture_url, albumCount: entry.albumIds.size,
+      fromYear: entry.years.length ? Math.min(...entry.years) : null, toYear: entry.years.length ? Math.max(...entry.years) : null };
+  }).sort(byYearThenTitle((artist) => artist.fromYear, (artist) => artist.name));
+}
+
+/** Datos de tarjeta de cada persona vinculada; directas primero, luego cronológico. */
+async function personLinkCards(links: PersonOrganizationLink[], displayNames: Map<number, string>): Promise<OrganizationDetail["personLinks"]> {
+  if (!links.length) return [];
+  const { rows } = await getPool().query<{ id: string; name: string; picture_url: string | null; is_deceased: boolean }>(
+    `SELECT p.id::text, p.name, nullif(p.picture_url, '') AS picture_url, ${personDeceasedSql("p")} AS is_deceased
+       FROM public.persons p WHERE p.id = ANY($1::bigint[])`,
+    [links.map((link) => link.personId)],
+  );
+  const persons = new Map(rows.map((row) => [Number(row.id), row]));
+  const chronological = byYearThenTitle<OrganizationDetail["personLinks"][number]>((link) => link.fromYear, (link) => link.displayName ?? link.name);
+  return links.flatMap((link) => {
+    const person = persons.get(link.personId);
+    return person ? [{ personId: link.personId, name: person.name, displayName: displayNames.get(link.personId) ?? null, pictureUrl: person.picture_url,
+      isDeceased: Boolean(person.is_deceased), via: link.via, roles: link.roles, albumCount: link.albumIds.length, fromYear: link.fromYear, toYear: link.toYear }] : [];
+  }).sort((a, b) => Number(b.via.includes("direct")) - Number(a.via.includes("direct")) || chronological(a, b));
 }

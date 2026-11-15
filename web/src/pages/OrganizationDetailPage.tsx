@@ -21,15 +21,17 @@ import { CompleteRecord } from "../components/CompleteRecord";
 import { goToCompleteRecord } from "../lib/completeRecord";
 import { EntityLoadError } from "../components/RemovedEntityState";
 import { initialOf } from "../components/EntityCard";
-import { DeceasedMark } from "../components/DeceasedMark";
 import { entityFormValues, ORGANIZATION_FIELDS } from "../lib/entityFields";
-import { CatalogYear } from "../components/CatalogMetadata";
 import { EntityInfo, type InfoItem } from "../components/EntityInfo";
 import { EntityTabs, TabEmpty, type TabSpec } from "../components/EntityTabs";
 import { ExpandableText } from "../components/ExpandableText";
-import { creditTypeLabel, organizationTypeLabel } from "../lib/labels";
+import { organizationTypeLabel } from "../lib/labels";
+import { OrganizationArtistCards, OrganizationDiscographyCards, OrganizationLinkCards } from "../components/LinkedEntityCards";
+import { Modal } from "../components/Modal";
 import { OrganizationSuccession } from "../components/Discography";
 import { mediaImage } from "../lib/media";
+import { ArrowsOutSimple, Globe, MapPin } from "@phosphor-icons/react";
+import { ImageViewer } from "../components/ImageViewer";
 
 export function OrganizationDetailPage() {
   const { id } = useParams();
@@ -42,120 +44,51 @@ export function OrganizationDetailPage() {
   const [editing, setEditing] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [merging, setMerging] = useState(false);
+  const [editingPersons, setEditingPersons] = useState(false);
+  const [viewingPhoto, setViewingPhoto] = useState<number | null>(null);
 
   if (loading && (!org || org.id !== orgId)) return <DetailSkeleton />;
   if (error || !org) return <EntityLoadError message={error ?? "Organización no encontrada."} errorValue={errorValue} onRetry={reload} />;
 
-  const info: InfoItem[] = [
-    { label: "Tipo", value: organizationTypeLabel(org.organizationType) },
-    { label: "País", value: org.country, fallback: "Sin dato" },
-    { label: "Sitio web", value: org.websiteUrl ? <a href={org.websiteUrl} target="_blank" rel="noreferrer noopener">{org.websiteUrl.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}</a> : null },
-    { label: "Ubicación", value: org.places?.length ? org.places.map((place, index) => (
+  // Mismo bloque que la ficha de artista (Brian, 2026-11-15): lugar arriba,
+  // con icono; identidad en filas debajo.
+  const factsInfo: InfoItem[] = [
+    { label: "Ubicación", value: org.places?.length ? <span className="artist-profile__fact"><MapPin size={16} aria-hidden="true" /><span>{org.places.map((place, index) => (
       <span key={place.id}>{index ? " · " : ""}<Link to={`/lugares/${place.id}`}>{place.name}</Link></span>
-    )) : null },
+    ))}</span></span> : null },
+    { label: "País", value: org.country ? <span className="artist-profile__fact"><Globe size={16} aria-hidden="true" />{org.country}</span> : null, fallback: "Sin dato" },
+  ];
+  const identityInfo: InfoItem[] = [
+    { label: "Tipo", value: organizationTypeLabel(org.organizationType) },
+    { label: "Sitio web", value: org.websiteUrl ? <a href={org.websiteUrl} target="_blank" rel="noreferrer noopener">{org.websiteUrl.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}</a> : null },
     { label: "Discos como sello", value: org.labelAlbums.length ? org.labelAlbums.length : null },
-    { label: "Artistas acreditados", value: org.creditedArtists.length ? org.creditedArtists.length : null },
+    { label: "Artistas acreditados", value: (org.artists ?? org.creditedArtists).length || null },
   ];
 
+  const albums = org.albums ?? [];
+  const artists = org.artists ?? [];
+  const personLinks = org.personLinks ?? [];
   const tabs: TabSpec[] = [
     {
-      key: "discografia", label: "Discografía asociada", count: org.labelAlbums.length,
-      content: org.labelAlbums.length === 0 ? <TabEmpty>Sin discos como sello.</TabEmpty> : (
-        <div className="table-wrap">
-          <table>
-            <thead><tr><th>Disco</th><th>Artista</th><th className="num">Año</th></tr></thead>
-            <tbody>
-              {org.labelAlbums.map((album) => (
-                <tr key={album.albumId}>
-                  <td><Link to={`/discos/${album.albumId}`}>{album.title}</Link></td>
-                  <td><Link to={`/artistas/${album.artistId}`}>{album.artistName}</Link></td>
-                  <td className="num"><CatalogYear year={album.releaseYear}> {album.releaseYear ?? "—"}</CatalogYear></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ),
-    },
-    ...((org.roleAlbums?.length ?? 0) > 0 ? [{
-      key: "distribucion", label: "Distribución y licencias", count: org.roleAlbums!.length,
-      content: (
-        <div className="table-wrap">
-          <table>
-            <thead><tr><th>Disco</th><th>Artista</th><th>Rol</th><th className="num">Año</th></tr></thead>
-            <tbody>
-              {org.roleAlbums!.map((album) => (
-                <tr key={`${album.albumId}:${album.role}`}>
-                  <td><Link to={`/discos/${album.albumId}`}>{album.title}</Link></td>
-                  <td><Link to={`/artistas/${album.artistId}`}>{album.artistName}</Link></td>
-                  <td>{album.roleLabel}</td>
-                  <td className="num"><CatalogYear year={album.releaseYear}>{album.releaseYear ?? "—"}</CatalogYear></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ),
-    }] : []),
-    ...((org.studioAlbums?.length ?? 0) > 0 ? [{
-      key: "estudio", label: "Discos hechos aquí", count: org.studioAlbums!.length,
-      content: (
-        <div className="table-wrap">
-          <table>
-            <thead><tr><th>Disco</th><th>Artista</th><th>Trabajo</th><th className="num">Año</th></tr></thead>
-            <tbody>
-              {org.studioAlbums!.map((album) => (
-                <tr key={album.albumId}>
-                  <td><Link to={`/discos/${album.albumId}`}>{album.title}</Link></td>
-                  <td><Link to={`/artistas/${album.artistId}`}>{album.artistName}</Link></td>
-                  <td>{album.roles.map(creditTypeLabel).join(", ")}</td>
-                  <td className="num"><CatalogYear year={album.releaseYear}>{album.releaseYear ?? "—"}</CatalogYear></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ),
-    }] : []),
-    {
-      key: "artistas", label: "Artistas acreditados", count: org.creditedArtists.length,
-      content: org.creditedArtists.length === 0 ? <TabEmpty>Sin artistas acreditados.</TabEmpty> : (
-        <ul style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-          {org.creditedArtists.map((artist) => (
-            <li key={artist.artistId} className="chip"><Link to={`/artistas/${artist.artistId}`}>{artist.artistName}</Link></li>
-          ))}
-        </ul>
-      ),
+      // Sello, distribución, licencia y estudio en una sola discografía (estandarización 2026-11-14).
+      key: "discografia", label: "Discografía asociada", count: albums.length,
+      content: albums.length === 0 ? <TabEmpty>Sin discos asociados.</TabEmpty> : <OrganizationDiscographyCards albums={albums} />,
     },
     {
-      key: "personas", label: "Personas relacionadas", count: org.associatedPersons.length,
-      content: isAdmin ? (
-        <PersonOrgManager
-          fixedKind="organization"
-          fixedId={org.id}
-          rows={org.associatedPersons.map((person) => ({
-            id: person.id, role: person.role, fromYear: person.fromYear, toYear: person.toYear,
-            otherId: person.personId, otherName: person.personName,
-          }))}
-          onChanged={reload}
-          emptyText="Sin personas relacionadas."
-        />
-      ) : org.associatedPersons.length === 0 ? <TabEmpty>Sin personas relacionadas.</TabEmpty> : (
-        <div className="table-wrap">
-          <table>
-            <thead><tr><th>Persona</th><th>Rol</th><th>Periodo</th></tr></thead>
-            <tbody>
-              {org.associatedPersons.map((person) => (
-                <tr key={person.id}>
-                  <td><Link to={`/personas/${person.personId}`}>{person.personDisplayName ?? person.personName}</Link><DeceasedMark deceased={person.personIsDeceased} /></td>
-                  <td>{person.role}</td>
-                  <td className="mono">{person.fromYear ?? "—"}{person.toYear ? `–${person.toYear}` : ""}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ),
+      key: "artistas", label: "Artistas acreditados", count: artists.length,
+      content: artists.length === 0 ? <TabEmpty>Sin artistas acreditados.</TabEmpty> : <OrganizationArtistCards artists={artists} />,
+    },
+    {
+      key: "personas", label: "Personas relacionadas", count: personLinks.length,
+      content: <>
+        {isAdmin ? <div className="page-actions" style={{ marginBottom: 14 }}>
+          <button type="button" className="btn btn--sm" onClick={() => setEditingPersons(true)}>Editar vínculos</button>
+        </div> : null}
+        {personLinks.length === 0 ? <TabEmpty>Sin personas relacionadas.</TabEmpty> : (
+          <OrganizationLinkCards links={personLinks} pageParam="personasPage" to={(link) => `/personas/${link.personId}`}
+            title={(link) => link.displayName ?? link.name} deceased={(link) => link.isDeceased} />
+        )}
+      </>,
     },
     ...(isAdmin ? [
       { key: "investigacion", label: "Investigar y completar", content: <CompleteRecord kind="organization" id={org.id} name={org.name}><EntityVerification kind="organization" id={org.id} revision={org} onChanged={reload} /></CompleteRecord> },
@@ -171,18 +104,32 @@ export function OrganizationDetailPage() {
 
       {isAdmin ? <EntityAdminBar onEdit={() => setEditing(true)} onComplete={goToCompleteRecord} onMerge={() => setMerging(true)} onRemove={() => setDeleting(true)} /> : null}
 
-      <div className="entity-hero">
-        <span className="entity-hero__art">
-          {org.pictureUrl ? <img {...mediaImage(org.pictureUrl, 132)} alt="" loading="lazy" decoding="async" /> : <span className="placeholder">{initialOf(org.name)}</span>}
-        </span>
-        <div>
-          <h1 className="entity-hero__title">{org.name}</h1>
-          <EntityInfo items={info} showEmpty={isAdmin}
-            wide={isAdmin || org.aliases.some((alias) => !alias.publicHidden) ? { label: "Alias", content: <AliasEditor path="organizations" entityId={org.id} aliases={org.aliases} onChanged={reload} /> } : undefined} />
-          {org.biography ? <div className="entity-hero__bio"><ExpandableText className="entity-hero__desc" text={org.biography} /></div> : null}
-          <RewritePendingMark kind="organization" id={org.id} onDone={reload} />
+      <section className="entity-hero artist-profile" aria-label={`Ficha de ${org.name}`}>
+        <div className="artist-profile__media">
+          {org.pictureUrl ? (
+            <button type="button" className="entity-hero__art artist-profile__image-button" aria-label={`Ampliar imagen de ${org.name}`} onClick={() => setViewingPhoto(org.id)}>
+              <img {...mediaImage(org.pictureUrl, 640)} alt="" loading="eager" decoding="async" />
+              <span className="artist-profile__photo-hint" aria-hidden="true"><ArrowsOutSimple size={16} /><span>Ampliar imagen</span></span>
+            </button>
+          ) : <span className="entity-hero__art"><span className="placeholder">{initialOf(org.name)}</span></span>}
         </div>
-      </div>
+        <div className="artist-profile__content">
+          <h1 className="entity-hero__title">{org.name}</h1>
+          <div className="artist-profile__facts"><EntityInfo items={factsInfo} showEmpty={isAdmin} /></div>
+          <div className="artist-profile__identity"><EntityInfo items={identityInfo} showEmpty={isAdmin} /></div>
+          {org.biography ? <div className="artist-profile__biography entity-hero__bio"><h2>Historia</h2><ExpandableText key={org.id} className="entity-hero__desc" text={org.biography} /></div> : null}
+          {isAdmin || org.aliases.some((alias) => !alias.publicHidden) ? (
+            <div className="artist-profile__aliases">
+              <h2>Alias</h2>
+              <AliasEditor path="organizations" entityId={org.id} aliases={org.aliases} onChanged={reload} compactTypeLabels />
+            </div>
+          ) : null}
+        </div>
+        <RewritePendingMark kind="organization" id={org.id} onDone={reload} />
+      </section>
+
+      {viewingPhoto === org.id && org.pictureUrl ? <ImageViewer key={org.id} src={org.pictureUrl}
+        title={`Imagen de ${org.name}`} onClose={() => setViewingPhoto(null)} /> : null}
 
       {org.relations?.length ? (
         <div className="section">
@@ -192,6 +139,22 @@ export function OrganizationDetailPage() {
       ) : null}
 
       <EntityTabs tabs={tabs} defaultKey={defaultKey} />
+
+      {isAdmin && editingPersons ? (
+        <Modal title={`Personas de «${org.name}»`} wide onClose={() => { setEditingPersons(false); reload(); }}>
+          <p className="hint" style={{ marginBottom: 12 }}>Aquí se editan los vínculos registrados. Los que salen «Por créditos» se deducen de los créditos y no se editan aquí.</p>
+          <PersonOrgManager
+            fixedKind="organization"
+            fixedId={org.id}
+            rows={org.associatedPersons.map((person) => ({
+              id: person.id, role: person.role, fromYear: person.fromYear, toYear: person.toYear,
+              otherId: person.personId, otherName: person.personName,
+            }))}
+            onChanged={reload}
+            emptyText="Sin vínculos registrados."
+          />
+        </Modal>
+      ) : null}
 
       {isAdmin && editing ? (
         <EntityFormModal

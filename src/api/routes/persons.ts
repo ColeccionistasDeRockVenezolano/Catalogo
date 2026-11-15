@@ -2,7 +2,7 @@ import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { paginationQuerySchema, toPage } from "../pagination.js";
-import { idParamSchema, aliasSchema, paginatedResponseSchema, writeErrorResponses } from "../schemas.js";
+import { idParamSchema, aliasSchema, albumCardSchema, organizationLinkFieldsSchema, paginatedResponseSchema, writeErrorResponses } from "../schemas.js";
 import { getPersonDetail, listPersons, getPersonFacets } from "../repositories/persons.js";
 import { creditTypeEnum } from "../../db/schema/core.js";
 import { notFoundEntity } from "../repositories/redirects.js";
@@ -42,6 +42,7 @@ const personDetailSchema = personListItemSchema.extend({
   bands: z.array(z.object({
     id: z.number().int(), artistId: z.number().int(), artistName: z.string(), artistType: z.string(), role: z.string(),
     fromYear: z.number().int().nullable(), toYear: z.number().int().nullable(), isCurrent: z.boolean(),
+    pictureUrl: z.string().nullable().describe("Foto del artista, o su logo si no tiene foto."),
   })),
   albumCredits: z.array(z.object({
     id: z.number().int(), albumId: z.number().int(), albumTitle: z.string(), artistId: z.number().int(), artistName: z.string(),
@@ -54,7 +55,15 @@ const personDetailSchema = personListItemSchema.extend({
   organizations: z.array(z.object({
     id: z.number().int(), organizationId: z.number().int(), organizationName: z.string(), role: z.string(),
     fromYear: z.number().int().nullable(), toYear: z.number().int().nullable(),
-  })),
+  })).describe("Vínculos directos registrados (los que edita el administrador)."),
+  creditAlbums: z.array(albumCardSchema.extend({
+    albumRoles: z.array(z.object({ creditType: z.string(), role: z.string() })),
+    trackRoles: z.array(z.object({ creditType: z.string(), role: z.string(), tracks: z.array(z.string()) })),
+  })).describe("Un disco por tarjeta con sus créditos de disco y de pista, en orden cronológico."),
+  organizationLinks: z.array(z.object({
+    organizationId: z.number().int(), name: z.string(), organizationType: z.string(), pictureUrl: z.string().nullable(),
+    ...organizationLinkFieldsSchema,
+  })).describe("Organizaciones vinculadas: directas primero y luego derivadas de los créditos, en orden cronológico."),
   aliases: z.array(aliasSchema),
 });
 
