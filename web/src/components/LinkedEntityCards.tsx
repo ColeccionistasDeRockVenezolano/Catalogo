@@ -129,7 +129,7 @@ export function PersonCreditCards({ albums }: { albums: PersonCreditAlbum[] }) {
       return (
         <EntityCard key={album.albumId} to={`/discos/${album.albumId}`} title={album.title} albumMetadata={albumMetadata(album)}
           imageUrl={images.get(album) ?? null} imageFit="contain" placeholder={initialOf(album.title)}
-          note={joinUnique([...albumRoles, ...trackRoles])} noteTitle={detail.join("\n")} />
+          notes={[...new Set([...albumRoles, ...trackRoles])]} notesDetail={[...new Set(detail)]} />
       );
     }} />
   );
@@ -249,7 +249,7 @@ export function OrganizationDiscographyCards({ albums }: { albums: Array<AlbumCa
       <PagedGrid items={filtered} pageParam={ROLE_PAGE_PARAM} className="grid-cards discography-grid" render={(album) => (
         <EntityCard key={album.albumId} to={`/discos/${album.albumId}`} title={album.title} albumMetadata={albumMetadata(album)}
           imageUrl={images.get(album) ?? null} imageFit="contain" placeholder={initialOf(album.title)}
-          note={joinUnique(album.roles.map(organizationRoleLabel))} />
+          notes={[...new Set(album.roles.map(organizationRoleLabel))]} />
       )} />
     </>
   );

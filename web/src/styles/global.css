@@ -691,6 +691,11 @@ section:first-child > .similar-reason { margin-top: 0; }
 }
 
 .entity-card__tag { margin-top: 6px; font-size: 10.5px; align-self: flex-start; }
+/* Una etiqueta nunca sale de su tarjeta: se parte en líneas si no cabe. */
+.entity-card__tag, .entity-card__note { max-width: 100%; white-space: normal; overflow-wrap: anywhere; line-height: 1.35; }
+.entity-card__notes { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; max-width: 100%; margin-top: 1px; }
+.entity-card__note { font-size: 10.5px; }
+.entity-card__notes-list { margin: 8px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 13px; color: var(--text-muted); overflow-wrap: anywhere; }
 
 @media (max-width: 600px) {
   :root { --gallery-column-min: 136px; --gallery-column-gap: 16px; --gallery-row-gap: 28px; }

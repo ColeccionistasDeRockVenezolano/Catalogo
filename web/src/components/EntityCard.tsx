@@ -23,9 +23,17 @@ interface EntityCardProps {
   typeValue?: string | undefined;
   note?: string | null | undefined;
   noteTitle?: string | undefined;
+  /** Varias etiquetas (p. ej. roles): una por elemento, se parten en líneas y
+   *  las que pasan de NOTES_VISIBLE van a «+N». `notesDetail` es la lista completa
+   *  del desplegable (con pistas); por defecto, las propias etiquetas. */
+  notes?: readonly string[] | undefined;
+  notesDetail?: readonly string[] | undefined;
+  notesNoun?: { one: string; many: string; title: string } | undefined;
 }
 
-export function EntityCard({ to, title, subtitle, albumMetadata, imageUrl, imageFit = "cover", placeholder, tag, tagTitle, deceased, genres, year, typeValue, note, noteTitle }: EntityCardProps) {
+const NOTES_VISIBLE = 2;
+
+export function EntityCard({ to, title, subtitle, albumMetadata, imageUrl, imageFit = "cover", placeholder, tag, tagTitle, deceased, genres, year, typeValue, note, noteTitle, notes, notesDetail, notesNoun = { one: "rol", many: "roles", title: "Roles" } }: EntityCardProps) {
   const [failedImage, setFailedImage] = useState<string | null>(null);
   const hasImage = Boolean(imageUrl && failedImage !== imageUrl);
   const isAlbum = to.startsWith("/discos/");
@@ -87,6 +95,26 @@ export function EntityCard({ to, title, subtitle, albumMetadata, imageUrl, image
           </Popover.Root> : null}
         </span> : null}
         {note ? <span className="badge badge--violet entity-card__tag" title={noteTitle}>{note}</span> : null}
+        {notes?.length ? <span className="entity-card__notes">
+          {notes.slice(0, NOTES_VISIBLE).map((label) => <span key={label} className="badge badge--violet entity-card__note">{label}</span>)}
+          {notes.length > NOTES_VISIBLE || (notesDetail && notesDetail.length > 0 && notesDetail.join() !== notes.join()) ? <Popover.Root>
+            <Popover.Trigger className="entity-card__genres-more" aria-label={`Ver los ${notes.length} ${notes.length === 1 ? notesNoun.one : notesNoun.many} en ${title}`}>
+              {notes.length > NOTES_VISIBLE ? <>+{notes.length - NOTES_VISIBLE} <span>{notes.length - NOTES_VISIBLE === 1 ? notesNoun.one : notesNoun.many}</span></> : <span>Detalle</span>}<CaretDown size={12} aria-hidden="true" />
+            </Popover.Trigger>
+            <Popover.Portal>
+              <Popover.Positioner side="bottom" align="start" sideOffset={6} collisionPadding={12} className="album-genres-popover__positioner">
+                <Popover.Popup className="album-genres-popover">
+                  <div className="album-genres-popover__head">
+                    <Popover.Title>{notesNoun.title}</Popover.Title>
+                    <Popover.Close aria-label={`Cerrar ${notesNoun.many}`}><X size={18} aria-hidden="true" /></Popover.Close>
+                  </div>
+                  <Popover.Description className="album-genres-popover__album">{title}</Popover.Description>
+                  <ul className="entity-card__notes-list">{(notesDetail ?? notes).map((line) => <li key={line}>{line}</li>)}</ul>
+                </Popover.Popup>
+              </Popover.Positioner>
+            </Popover.Portal>
+          </Popover.Root> : null}
+        </span> : null}
         {tag ? <span className="badge badge--amber entity-card__tag" title={tagTitle}>{tag}</span> : null}
       </div>
     </div>

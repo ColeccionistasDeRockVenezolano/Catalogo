@@ -933,3 +933,20 @@ Producción: `/health`, fichas de persona, organización, artista y disco en 200
 
 Vuelta atrás: retirar `zzzz-fichas.conf` y `zzzzzzzz-fichas.conf`, `daemon-reload` y reiniciar `crv-api` y
 `crv-web`. Respaldo de los drop-ins en `.deploy-backup/` de cada release.
+
+## Etiquetas de rol y página de error · 2026-11-15
+
+Solo web (`crv-web`, :3120 `/crv/`): `/home/brian/apps/crv-release/catalog-roles-error-20261115`, copia (`cp -al`)
+de `catalog-fichas-20261115`. Sustituidos (sin hardlink): `EntityCard.tsx` y `LinkedEntityCards.tsx` (roles como
+etiquetas que se parten en líneas; dos visibles y el resto en «+N roles»), `service-error.css` (el resplandor de la
+página de error pasa a `.svc-error__art::before` y ya no se corta) y `global.css` (el de la release más solo el
+bloque `.entity-card__notes`; el CSS del buscador sin publicar del árbol compartido no entra). Antes del build se
+rompieron los hardlinks de `radio.js`, `radio-first-touch.js` y `logo-dimensions.json`, que el prebuild reescribe.
+`dist-public` recompilado conservando los 582 `assets` anteriores (33 nombres repetidos, todos con bytes iguales).
+Drop-in `zzzzzzzzz-roles-error.conf`. Sin cambios en la API ni en la base.
+
+Ensayo: gateway en :3129 (rutas SPA, API y `assets` inmutables en 200). Producción: portada, persona 939
+(`?tab=discos`), organización 44 y disco 1 en 200; journal sin errores.
+
+Vuelta atrás: retirar `zzzzzzzzz-roles-error.conf`, `daemon-reload` y reiniciar `crv-web` (vuelve a
+`catalog-fichas-20261115`).
