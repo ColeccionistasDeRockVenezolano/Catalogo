@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { ArrowUpRight, ImageSquare, PencilSimple, Plus, Trash, UploadSimple } from "@phosphor-icons/react";
+import { ArrowUpRight, ImageSquare, PencilSimple, Plus, Trash, UploadSimple, UserCircle } from "@phosphor-icons/react";
 import { GALLERY_CATEGORIES, GALLERY_CATEGORY_LABELS, type ArtistGalleryPhoto, type GalleryCategory, type GalleryPhotoInput } from "../../../src/shared/artist-gallery";
 import { IMAGE_UPLOAD_MAX_BYTES, IMAGE_UPLOAD_TYPES } from "../../../src/shared/image-upload";
 import { artistGalleryApi } from "../lib/api";
@@ -24,6 +24,7 @@ export function ArtistGallery({ artistId, artistName, items, onChanged }: {
   const [managing, setManaging] = useState(false);
   const [editor, setEditor] = useState<ArtistGalleryPhoto | "new" | null>(null);
   const [removing, setRemoving] = useState<ArtistGalleryPhoto | null>(null);
+  const [promoting, setPromoting] = useState<ArtistGalleryPhoto | null>(null);
   const [viewing, setViewing] = useState<ArtistGalleryPhoto | null>(null);
   const visible = items.filter(photo => category === "all" || photo.category === category);
   const viewingIndex = viewing ? visible.findIndex(photo => photo.id === viewing.id) : -1;
@@ -58,6 +59,7 @@ export function ArtistGallery({ artistId, artistName, items, onChanged }: {
         </figure>
         {isAdmin && managing ? <div className="artist-gallery__actions">
           <button type="button" className="btn btn--sm" aria-label={`Editar ${photo.title || "foto"}`} onClick={() => setEditor(photo)}><PencilSimple size={16} />Editar</button>
+          <button type="button" className="btn btn--sm" aria-label={`Usar ${photo.title || "esta foto"} como foto de perfil`} onClick={() => setPromoting(photo)}><UserCircle size={16} />Foto de perfil</button>
           <button type="button" className="btn btn--danger btn--sm" aria-label={`Eliminar ${photo.title || "foto"}`} onClick={() => setRemoving(photo)}><Trash size={16} />Eliminar</button>
         </div> : null}
       </li>)}
@@ -70,6 +72,9 @@ export function ArtistGallery({ artistId, artistName, items, onChanged }: {
     {isAdmin && removing ? <ConfirmDialog title="Eliminar foto de la galería" description={`Se retirará ${removing.title ? `«${removing.title}»` : "esta foto"} de la galería del artista. Puedes deshacer el cambio desde el historial.`}
       confirmLabel="Eliminar foto" danger presets={["Imagen duplicada", "No corresponde al artista", "Corrección de la galería"]} onClose={() => setRemoving(null)}
       onConfirm={async note => { await artistGalleryApi.remove(artistId, removing.id, note); setRemoving(null); onChanged(); notify("success", "Foto eliminada de la galería."); }} /> : null}
+    {isAdmin && promoting ? <ConfirmDialog title="Usar como foto de perfil" description={`${promoting.title ? `«${promoting.title}»` : "Esta foto"} pasará a ser la foto de perfil de ${artistName} y la foto de perfil actual quedará en la galería. Puedes deshacer el cambio desde el historial.`}
+      confirmLabel="Usar como foto de perfil" presets={["Mejor foto de perfil", "Foto más reciente del artista", "Corrección de la foto de perfil"]} onClose={() => setPromoting(null)}
+      onConfirm={async note => { await artistGalleryApi.setProfile(artistId, promoting.id, note); setPromoting(null); onChanged(); notify("success", "Foto de perfil actualizada."); }} /> : null}
   </section>;
 }
 

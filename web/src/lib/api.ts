@@ -11,7 +11,7 @@ import type { ChatMessage, ChatEffect, ChatUser, ChatRoom, Wallet as ChatWallet 
 import type { CatalogDraft,CatalogKind,CatalogPlan,CatalogVocabulary } from "../../../src/curation/ai/types";
 import type {
   Alias, AliasWriteResult, AlbumDetail, AlbumListItem, ArtistDetail, ArtistListItem, AuditRow, Claim, CreditSource, EntityWriteResult,
-  MergeableKind, OrganizationDetail, OrganizationFacets, OrganizationListItem, Page, PersonDetail, PersonFacets, PersonListItem, RelationUpdateResult, RelationWriteResult,
+  Emotion, EmotionAlbum, MergeableKind, OrganizationDetail, OrganizationFacets, OrganizationListItem, Page, PersonDetail, PersonFacets, PersonListItem, RelationUpdateResult, RelationWriteResult,
   PersonConversionResult, PersonDuplicateCandidate, PersonMergePreview, PersonMergeResult, RemovalResult, ReviewActionResult,
   ReviewDetail, ReviewListItem, PersonWebVerification, PersonPairResearch, PersonResearchJob, PersonPairResearchSummary, SearchEntityType, SearchResults, Source, UnmergeResult, VideoDetail, VideoListItem,
   TrackDetail, TrackListItem, TypeFacets,
@@ -52,7 +52,7 @@ function apiBaseUrl(): string {
 }
 
 const BASE_URL = apiBaseUrl();
-/** Base de la API para quien no pasa por `request` (aviso de procedencia del catálogo). */
+/** Base de la API para quien no pasa por `request` (p. ej. el reporte de errores del navegador). */
 export const API_BASE_URL = BASE_URL;
 
 export class ApiError extends Error {
@@ -381,6 +381,9 @@ export const searchApi = {
   knowledgeReview: (id: number, signal?: AbortSignal) => request<import("../../../src/search/knowledge-publication").KnowledgeReviewDetail>(`/search/administration/knowledge/reviews/${id}`, { ...(signal ? {signal} : {}) }),
   decideKnowledge: (id: number, body: import("zod").input<typeof import("../../../src/search/knowledge-publication").knowledgeDecisionSchema>) => request<{runId:number;result:{revision:number;status:string}}>(`/search/administration/knowledge/reviews/${id}/decision`, {method:"POST",body}),
   knowledge: (signal?: AbortSignal) => request<import("../../../src/search/knowledge-administration").KnowledgeAdministration>("/search/administration/knowledge", { ...(signal ? { signal } : {}) }),
+  /** Más discos de una emoción, en el orden barajado del día (`date` = fecha del ciclo). */
+  emotionAlbums: (emotion: Emotion, limit: number, offset: number, date: string | undefined, signal?: AbortSignal) =>
+    request<Page<EmotionAlbum>>(`/emotions/${emotion}/albums`, { query: { limit, offset, ...(date ? { date } : {}) }, ...(signal ? { signal } : {}) }),
   /** More hits of one type, paginated (the API caps at 200 known matches). */
   byType: (q: string, type: SearchEntityType, limit: number, offset = 0, signal?: AbortSignal) =>
     request<SearchResults>("/search", { query: { q, types: type, limit, offset }, ...(signal ? { signal } : {}) }),
@@ -1030,6 +1033,8 @@ export const artistGalleryApi = {
     request<{ runId: number }>(`/artists/${artistId}/gallery/${photoId}`, { method: "PATCH", authenticated: true, body: { ...photo, note } }),
   remove: (artistId: number, photoId: number, note: string) =>
     request<{ runId: number }>(`/artists/${artistId}/gallery/${photoId}?note=${encodeURIComponent(note)}`, { method: "DELETE", authenticated: true }),
+  setProfile: (artistId: number, photoId: number, note: string) =>
+    request<{ runId: number; pictureUrl: string; previousPhotoId: number | null }>(`/artists/${artistId}/gallery/${photoId}/profile`, { method: "POST", authenticated: true, body: { note } }),
 };
 export const artistDocumentsApi = {
  reclassify:(artistId:number,ids:number[],category:import('../../../src/shared/artist-documents').DocumentCategory,note:string)=>request<{runId:number;updated:number}>(`/artists/${artistId}/documents`,{method:'PATCH',authenticated:true,body:{ids,category,note}}),

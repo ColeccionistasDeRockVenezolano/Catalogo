@@ -4,6 +4,7 @@ import { getPool } from "../db/client.js";
 import { OperatorError, updateEntity, withOperatorRun, type OperatorContext } from "./operator.js";
 import { storeChosenImage, type downloadImage } from "./image-inspection.js";
 import { ApiError } from "../api/http-errors.js";
+import { addRejectedArtistCandidatesToGallery } from "./gallery-from-candidates.js";
 export type ImageKind = "album" | "artist";
 const FIELD = { album: "cover_url", artist: "picture_url" } as const;
 const ID_COLUMN = { album: "album_id", artist: "artist_id" } as const;
@@ -72,6 +73,7 @@ export async function decideImage(input: { kind: ImageKind; id: number; candidat
              decided_by = $4, decided_at = now(), decision_run_id = $5
        WHERE entity_kind = $1 AND ${column} = $2 AND status = 'open'`,
     [kind, id, candidateId ?? 0, context.operator, context.runId]);
+    if (kind === "artist") await addRejectedArtistCandidatesToGallery(context.client, { decisionRunId: context.runId });
     await options.complete?.(context, { chosenUrl });
     return { chosenUrl };
   });

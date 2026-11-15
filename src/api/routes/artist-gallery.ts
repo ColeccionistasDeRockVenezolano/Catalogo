@@ -2,10 +2,13 @@ import type { FastifyInstance } from "fastify";
 import type { ZodTypeProvider } from "fastify-type-provider-zod";
 import { z } from "zod";
 import { GALLERY_CATEGORIES } from "../../shared/artist-gallery.js";
-import { withOperatorRun } from "../../merge/operator.js";
+import path from "node:path";
+import { updateEntity, withOperatorRun } from "../../merge/operator.js";
+import { downloadImage, storeChosenImage } from "../../merge/image-inspection.js";
 import { OPERATOR_SECURITY } from "../auth.js";
-import { notFound } from "../http-errors.js";
+import { ApiError, notFound } from "../http-errors.js";
 import { noteSchema } from "./catalog-writes.js";
+import { getPool } from "../../db/client.js";
 
 const optionalText = (max: number) => z.string().trim().max(max).nullable().transform(value => value || null);
 const imageUrl = z.string().trim().min(1).max(2000).refine(value => {
@@ -27,7 +30,9 @@ export const galleryPhotoSchema = galleryPhotoInputSchema.extend({
 const params = z.object({ id: z.coerce.number().int().positive(), photoId: z.coerce.number().int().positive() });
 const mutation = z.object({ runId: z.number().int() });
 
-export async function registerArtistGalleryRoutes(app: FastifyInstance): Promise<void> {
+const LOCAL_MEDIA = "/crv/media/";
+
+export async function registerArtistGalleryRoutes(app: FastifyInstance, options: { mediaRoot?: string; download?: typeof downloadImage } = {}): Promise<void> {
   const api = app.withTypeProvider<ZodTypeProvider>();
   api.post("/artists/:id/gallery", {
     schema: { tags: ["artists"], security: OPERATOR_SECURITY, params: params.omit({ photoId: true }),
@@ -74,5 +79,48 @@ export async function registerArtistGalleryRoutes(app: FastifyInstance): Promise
       if (!result.rowCount) throw notFound("Foto", request.params.photoId);
     });
     return { runId };
+  });
+  // Elegir una foto de la galería como foto de perfil (Brian, 2026-11-13). La
+  // foto sale de la galería y la foto de perfil anterior entra en su lugar, para
+  // que no se pierda. Una foto enlazada a otra web se copia antes al catálogo,
+  // como al elegir en Curaduría: la ficha no depende de que la fuente siga viva.
+  api.post("/artists/:id/gallery/:photoId/profile", {
+    schema: { tags: ["artists"], security: OPERATOR_SECURITY, params,
+      body: z.object({ note: noteSchema }).strict(),
+      response: { 200: mutation.extend({ pictureUrl: z.string(), previousPhotoId: z.number().int().nullable() }) } },
+  }, async request => {
+    const { id: artistId, photoId } = request.params;
+    const photo = (await getPool().query<{ image_url: string }>("SELECT image_url FROM media.artist_gallery WHERE artist_id=$1 AND id=$2", [artistId, photoId])).rows[0];
+    if (!photo) throw notFound("Foto", photoId);
+    let pictureUrl = photo.image_url;
+    if (!pictureUrl.startsWith(LOCAL_MEDIA)) {
+      const copy = await storeChosenImage(pictureUrl, null, {
+        mediaRoot: options.mediaRoot ?? path.resolve("web/public/media"), publish: options.mediaRoot === undefined,
+        ...(options.download ? { download: options.download } : {}),
+      });
+      if ("error" in copy) throw new ApiError(502, "image_unavailable", `No se pudo guardar una copia estable de la imagen: ${copy.error}. La ficha no cambió.`);
+      pictureUrl = copy.url;
+    }
+    const { runId, result } = await withOperatorRun({ name: "api:artist-gallery-profile", operator: request.operator,
+      note: request.body.note, params: { artistId, photoId, pictureUrl } }, async context => {
+      const { client } = context;
+      const artist = (await client.query<{ picture_url: string | null }>("SELECT picture_url FROM public.artists WHERE id=$1 FOR UPDATE", [artistId])).rows[0];
+      if (!artist) throw notFound("Artista", artistId);
+      const removed = await client.query("DELETE FROM media.artist_gallery WHERE artist_id=$1 AND id=$2 AND image_url=$3 RETURNING id", [artistId, photoId, photo.image_url]);
+      if (!removed.rowCount) throw new ApiError(409, "photo_changed", "Esta foto cambió o salió de la galería mientras la elegías; vuelve a cargar la galería.");
+      if (artist.picture_url === pictureUrl) throw new ApiError(409, "already_profile", "Esa imagen ya es la foto de perfil.");
+      await updateEntity(context, "artist", artistId, { picture_url: pictureUrl });
+      let previousPhotoId: number | null = null;
+      const previous = artist.picture_url;
+      if (previous) {
+        const kept = await client.query<{ id: string }>(`INSERT INTO media.artist_gallery(artist_id,image_url,category,source_key,metadata)
+          SELECT $1,$2,'artist',$3,jsonb_build_object('via','foto-de-perfil-anterior','runId',$4::bigint)
+           WHERE NOT EXISTS (SELECT 1 FROM media.artist_gallery WHERE artist_id=$1 AND image_url=$2) RETURNING id`,
+        [artistId, previous, `foto-de-perfil-anterior:${context.runId}`, context.runId]);
+        previousPhotoId = kept.rows[0] ? Number(kept.rows[0].id) : null;
+      }
+      return { previousPhotoId };
+    });
+    return { runId, pictureUrl, previousPhotoId: result.previousPhotoId };
   });
 }

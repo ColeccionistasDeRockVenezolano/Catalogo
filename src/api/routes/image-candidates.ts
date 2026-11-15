@@ -25,6 +25,7 @@ import { inspectImageCandidates, type downloadImage } from "../../merge/image-in
 import { decideImage } from "../../merge/image-decisions.js";
 import { createDeepSeekGateway } from "../../ai/gateway.js";
 import { createVisionClassifier, type VisionClassifier } from "../../verification/image-vision.js";
+import { addRejectedArtistCandidatesToGallery } from "../../merge/gallery-from-candidates.js";
 
 const KINDS = ["album", "artist"] as const;
 type ImageKind = (typeof KINDS)[number];
@@ -234,6 +235,7 @@ export async function registerImageCandidateRoutes(app: FastifyInstance, options
          WHERE entity_kind = $1 AND ${column} = ANY($2::bigint[]) AND status = 'open'
         RETURNING ${column}::text AS entity_id`, [kind, entityIds, context.operator, context.runId]);
       if (closed.rows.length === 0) throw new OperatorError("not_open", "Estas fichas ya no tienen imágenes candidatas pendientes.", { kind });
+      if (kind === "artist") await addRejectedArtistCandidatesToGallery(context.client, { decisionRunId: context.runId });
       return { entities: new Set(closed.rows.map((row) => row.entity_id)).size, candidates: closed.rows.length };
     });
     return { runId, kind, ...result };
