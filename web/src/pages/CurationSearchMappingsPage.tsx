@@ -51,8 +51,8 @@ export function CurationSearchMappingsPage() {
 
   return <div className="emotion-review">
     <header className="emotion-review__head">
-      <h2>Correspondencias RYM → CRV</h2>
-      <p>Cada término de RYM tiene una propuesta del analista. Apruébala, corrígela o recházala. Tu decisión fija el significado del término; no cambia los géneros asignados a discos o artistas ni amplía búsquedas por sí sola.</p>
+      <h2>Correspondencias de términos → CRV</h2>
+      <p>Cada término externo tiene una propuesta del analista. Apruébala, corrígela o recházala. Tu decisión fija el significado del término; no cambia los géneros asignados a discos o artistas ni amplía búsquedas por sí sola.</p>
       {data ? <span className="emotion-review__count">{data.decided} de {data.total} decididas</span> : null}
     </header>
     {error ? <p role="alert" className="emotion-review__error">{error}</p> : null}

@@ -63,14 +63,14 @@ const SECTIONS: readonly SectionSpec[] = [
   { key: "Conocimiento", label: "Conocimiento", group: "Decidir", icon: BookOpen, intro: "Afirmaciones propuestas para el buscador, pendientes de una decisión humana." },
   { key: "Emociones", label: "Emociones", group: "Decidir", icon: Heart, ownHeader: true, standalone: true },
   { key: "Evaluar lecturas", label: "Evaluar lecturas", group: "Decidir", icon: Scales, ownHeader: true, standalone: true },
-  { key: "Correspondencias RYM", label: "Correspondencias RYM", group: "Decidir", icon: TreeStructure, ownHeader: true, standalone: true },
+  { key: "Correspondencias de términos", label: "Correspondencias de términos", group: "Decidir", icon: TreeStructure, ownHeader: true, standalone: true },
   { key: "Etiquetar consultas", label: "Etiquetar consultas", group: "Decidir", icon: Tag, ownHeader: true, standalone: true },
   { key: "Laya y evaluación", label: "Laya y evaluación", group: "Decidir", icon: ChartLineUp, standalone: true,
     intro: "Modelos de Laya evaluados contra criterios congelados. Activar o desactivar deja una fila atribuida y reversible; no cambia decisiones humanas ni el buscador público." },
   { key: "Cómo funciona", label: "Cómo funciona", group: "Referencia", icon: Info, intro: "Las reglas que gobiernan el buscador y dónde se deshace cada decisión.", standalone: true },
 ];
 /** Nombres antiguos de `?seccion=` que siguen funcionando en enlaces guardados. */
-const LEGACY: Record<string, string> = { "Reglas e historial": "Cómo funciona" };
+const LEGACY: Record<string, string> = { "Reglas e historial": "Cómo funciona", "Correspondencias RYM": "Correspondencias de términos" };
 
 export function SearchAdministrationPage() {
   const { isAdmin, isChecking } = useOperator();
@@ -128,7 +128,7 @@ export function SearchAdministrationPage() {
 
         {section.key === "Emociones" ? <CurationEmotionsPage />
           : section.key === "Evaluar lecturas" ? <CurationSearchEvaluationPage />
-          : section.key === "Correspondencias RYM" ? <CurationSearchMappingsPage />
+          : section.key === "Correspondencias de términos" ? <CurationSearchMappingsPage />
           : section.key === "Etiquetar consultas" ? <CurationSearchQueryLabelsPage />
           : section.key === "Cómo funciona" ? <HowItWorks />
           : section.key === "Laya y evaluación" ? <LayaEvaluation />

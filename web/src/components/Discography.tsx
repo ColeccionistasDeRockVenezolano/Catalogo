@@ -8,6 +8,7 @@ import type {
   AlbumVersion, ArtistMember, CreditStatement, DiscographyItem, LabelRef, OrganizationRelation, ScopedCredit, SeriesMembership, Credit,
 } from "../lib/types";
 import { DeceasedMark } from "./DeceasedMark";
+import { isPublicSourceUrl } from "../lib/publicSources";
 import { albumFilterTypeLabel, roleTitle } from "../lib/labels";
 import { creditTarget, orderMusicianBlocks, trackScope, type CreditLine } from "../lib/creditLayout";
 import { INSTRUMENT_LABEL } from "../../../src/discography/instruments";
@@ -52,7 +53,7 @@ export function AlbumVersions({ versions, coverUrl }: { versions: AlbumVersion[]
               </p>
               {version.notes ? <p className="version-row__notes">{version.notes}</p> : null}
             </div>
-            {version.sourceUrl ? (
+            {isPublicSourceUrl(version.sourceUrl) ? (
               <a className="version-row__source" href={version.sourceUrl} target="_blank" rel="noreferrer noopener">Fuente</a>
             ) : null}
           </li>
@@ -349,8 +350,8 @@ export function OrganizationSuccession({ relations }: { relations: OrganizationR
           </p>
           <p className="org-succession__evidence">
             {relation.evidenceNote}
-            {relation.sourceUrls.map((url, index) => (
-              <Fragment key={url}> <a href={url} target="_blank" rel="noreferrer noopener">Fuente{relation.sourceUrls.length > 1 ? ` ${index + 1}` : ""}</a></Fragment>
+            {relation.sourceUrls.filter(isPublicSourceUrl).map((url, index, shown) => (
+              <Fragment key={url}> <a href={url} target="_blank" rel="noreferrer noopener">Fuente{shown.length > 1 ? ` ${index + 1}` : ""}</a></Fragment>
             ))}
           </p>
         </li>

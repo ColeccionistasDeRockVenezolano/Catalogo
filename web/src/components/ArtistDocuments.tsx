@@ -7,6 +7,7 @@ import { useToast } from "../lib/ToastContext";
 import { TabEmpty } from "./EntityTabs";
 import { Modal } from "./Modal";
 import "../styles/artist-documents.css";
+import { isPublicSourceUrl } from "../lib/publicSources";
 
 const searchable = (text: string) => text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("es").trim();
 const tagLabel = (tag: string) => tag === WAYBACK_ARCHIVE_TAG ? "Archivo Wayback · 2026-10-22" : tag.replaceAll("-", " ");
@@ -14,7 +15,7 @@ const tagLabel = (tag: string) => tag === WAYBACK_ARCHIVE_TAG ? "Archivo Wayback
 function DocumentSources({ document }: { document: ArtistDocument }) {
   return <div className="artist-documents__sources">
     {document.archiveUrl ? <a href={document.archiveUrl} target="_blank" rel="noreferrer">Consultar captura archivada <ArrowSquareOut size={16} aria-hidden="true" /></a> : null}
-    {document.sourceUrl ? <a href={document.sourceUrl} target="_blank" rel="noreferrer">Página de origen <ArrowSquareOut size={16} aria-hidden="true" /></a> : null}
+    {isPublicSourceUrl(document.sourceUrl) ? <a href={document.sourceUrl} target="_blank" rel="noreferrer">Página de origen <ArrowSquareOut size={16} aria-hidden="true" /></a> : null}
   </div>;
 }
 

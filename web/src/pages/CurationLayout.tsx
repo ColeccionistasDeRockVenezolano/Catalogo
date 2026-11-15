@@ -347,7 +347,7 @@ function CurationNav({ summary, duplicateCount, imageCount, canCurate, canCommun
                   </div>
                 )}
                 <NavGroup id="cside-tools" label="Herramientas" entries={tools} />
-                <p className="cside__aside">Emociones, evaluación de lecturas y correspondencias RYM están en <Link to="/administrar/buscador?seccion=Emociones">Administrar › Buscador</Link>.</p>
+                <p className="cside__aside">Emociones, evaluación de lecturas y correspondencias de términos están en <Link to="/administrar/buscador?seccion=Emociones">Administrar › Buscador</Link>.</p>
               </>
             ) : null}
             {canCommunity ? <NavGroup id="cside-community" label="Comunidad" entries={communityEntries} /> : null}
