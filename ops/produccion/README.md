@@ -916,3 +916,20 @@ El gateway y la API de la portada no cambian; su panel `/admin` muestra la entra
 Vuelta atrás: copiar `crv-api-2026-11-14-procedencia/.deploy-backup/fijado.conf.2026-11-14-procedencia`
 como `fijado.conf`, retirar `zz-procedencia.conf` y `zzzzz-procedencia.conf`, `daemon-reload` y
 reiniciar `crv-api` y `crv-web`. Las filas ya guardadas se conservan.
+
+## Fichas de persona y organización como artista · 2026-11-15
+
+API del catálogo (`crv-api`, :8080): `/home/brian/apps/crv-release/crv-api-2026-11-15-fichas`, copia (`cp -al`)
+de `crv-api-2026-11-14-errors`. Sustituidos (sin hardlink): `album-cards.ts` y `person-organization-links.ts`
+(nuevos), `repositories/organizations.ts`, `routes/persons.ts`, `routes/organizations.ts` (iguales a `d31fb036`);
+`repositories/persons.ts` y `schemas.ts` con el parche del commit aplicado sobre la versión de la release.
+Drop-in `zzzz-fichas.conf`. Web (`crv-web`, :3120 `/crv/`): `/home/brian/apps/crv-release/catalog-fichas-20261115`,
+copia de `catalog-errors-20261114` con `types.ts`, `LinkedEntityCards.tsx` y las dos fichas de `ad7b5894`;
+`dist-public` recompilado conservando los `assets` anteriores (sin nombres con bytes distintos). Drop-in
+`zzzzzzzz-fichas.conf`. Sin migraciones ni escrituras en la base.
+
+Ensayo: API en :8092 y gateway en :3129 (persona 601/939, organización 44/350, escritorio y móvil).
+Producción: `/health`, fichas de persona, organización, artista y disco en 200; journal sin errores.
+
+Vuelta atrás: retirar `zzzz-fichas.conf` y `zzzzzzzz-fichas.conf`, `daemon-reload` y reiniciar `crv-api` y
+`crv-web`. Respaldo de los drop-ins en `.deploy-backup/` de cada release.
