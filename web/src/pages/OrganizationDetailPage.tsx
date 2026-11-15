@@ -56,7 +56,8 @@ export function OrganizationDetailPage() {
     { label: "Ubicación", value: org.places?.length ? <span className="artist-profile__fact"><MapPin size={16} aria-hidden="true" /><span>{org.places.map((place, index) => (
       <span key={place.id}>{index ? " · " : ""}<Link to={`/lugares/${place.id}`}>{place.name}</Link></span>
     ))}</span></span> : null },
-    { label: "País", value: org.country ? <span className="artist-profile__fact"><Globe size={16} aria-hidden="true" />{org.country}</span> : null, fallback: "Sin dato" },
+    // Hay países guardados como «Caracas, Venezuela»: el público no ve la ubicación dos veces.
+    { label: "País", value: org.country && (isAdmin || !org.places?.some((place) => place.name.toLowerCase().includes(org.country!.toLowerCase()))) ? <span className="artist-profile__fact"><Globe size={16} aria-hidden="true" />{org.country}</span> : null, fallback: "Sin dato" },
   ];
   const identityInfo: InfoItem[] = [
     { label: "Tipo", value: organizationTypeLabel(org.organizationType) },
