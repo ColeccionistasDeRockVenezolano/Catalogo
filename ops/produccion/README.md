@@ -890,3 +890,29 @@ Release `/home/brian/apps/crv-release/crv-api-2026-11-12-buscador-sugerencia` = 
 `.deploy-backup/fijado.conf.2026-11-12-operacion`). Drop-in `~/.config/systemd/user/crv-api.service.d/zz-buscador-sugerencia.conf` con `CRV_DID_YOU_MEAN=on`.
 Sin migraciones. Vuelta atrás rápida: `CRV_DID_YOU_MEAN=off`, `daemon-reload`, reiniciar `crv-api`; o restaurar el `fijado.conf` anterior.
 Evaluación: `docs/unified-search/stage5/fuzzy/RESULTADOS.md` (criterio 5 sin cumplir, 67 %).
+
+## Procedencia (utm_campaign) del catálogo · 2026-11-14
+
+API del catálogo (`crv-api`, :8080): `/home/brian/apps/crv-release/crv-api-2026-11-14-procedencia`,
+copia (`cp -al`) de `crv-api-2026-11-12-emociones`. Archivos sustituidos (sin hardlink):
+`src/traffic/attribution.ts` (página `catalog`) y `src/traffic/acquisition.ts` (nuevos),
+`src/traffic/record.ts`, `src/traffic/report.ts` y `src/api/routes/traffic.ts` (iguales a HEAD),
+`src/api/auth.ts` (`/traffic/event` como escritura pública con Origin) y `src/api/app.ts`
+(rutas de tráfico registradas con `CRV_TRAFFIC_ENABLED` aunque la comunidad esté apagada).
+Drop-ins: `fijado.conf` apunta a la release y `zz-procedencia.conf` enciende `CRV_TRAFFIC_ENABLED`
+(`CRV_TRAFFIC_VERIFY_NETWORK` sigue en false: sin descargas de listas).
+
+Web del catálogo (`crv-web`, :3120 `/crv/`): `/home/brian/apps/crv-release/catalog-acquisition-20261114`,
+copia de `catalog-player-single-20261114` con el aviso `web/src/lib/acquisition.ts`, el panel
+`AcquisitionReportPanel.tsx` en `/curaduria/visitas` y la exportación `API_BASE_URL` en `lib/api.ts`;
+`dist-public` recompilado. Drop-in `zzzzz-procedencia.conf`.
+
+Ensayo en `:8089` contra `crv_staging`: 204 con origen confiable, 403 ajeno/sin Origin, 400 página
+inválida, fila `landing=catalog` con campaña; filas de ensayo borradas. Producción: `/health` 200,
+400/403 en avisos inválidos, búsqueda 200, sin errores en el journal. Navegador: un aviso por
+documento, sin `utm_term` ni `q`, ninguno desde curaduría. No se escribieron visitas de prueba en producción.
+El gateway y la API de la portada no cambian; su panel `/admin` muestra la entrada como `catalog`.
+
+Vuelta atrás: copiar `crv-api-2026-11-14-procedencia/.deploy-backup/fijado.conf.2026-11-14-procedencia`
+como `fijado.conf`, retirar `zz-procedencia.conf` y `zzzzz-procedencia.conf`, `daemon-reload` y
+reiniciar `crv-api` y `crv-web`. Las filas ya guardadas se conservan.

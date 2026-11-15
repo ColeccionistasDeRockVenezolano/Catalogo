@@ -69,7 +69,23 @@ export interface MetricsAgent {
   lastAt: string | null;
 }
 export interface MetricsCountry { code: string; name: string; flag: string | null; count: number }
+/** Procedencia: espejo de acquisitionReport (src/traffic/acquisition.ts). */
+export interface AcquisitionDimensions {
+  source: string; medium: string; campaign: string; content: string; ref: string; referrer: string;
+  method: "link" | "utm" | "referrer" | "direct"; country: string; landing: string;
+  category: "human" | "ai" | "search" | "bot" | "suspicious";
+}
+export interface AcquisitionRow {
+  dimensions: AcquisitionDimensions; visitors: number; js_visitors: number; requests: number; pages: number;
+  collaborate: number; radio: number; applications: number;
+}
+export interface AcquisitionLink {
+  id: number; code: string; label: string; source: string; medium: string; campaign: string;
+  content: string; destination: string; archived: boolean;
+}
+export interface AcquisitionReport { from: string; to: string; since: string | null; rows: AcquisitionRow[]; links: AcquisitionLink[] }
 export interface MetricsReport {
+  acquisition?: AcquisitionReport;
   days: number; from: string; to: string; since: string | null;
   totals: { confirmed: { current: number; previous: number }; categories: { current: MetricsPairs; previous: MetricsPairs }; jsAgents: number };
   daily: Array<{ day: string; confirmed: number } & MetricsPairs>;

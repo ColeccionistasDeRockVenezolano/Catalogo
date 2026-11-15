@@ -17,7 +17,15 @@ Las etiquetas son declaradas, no certifican la aplicación de origen. Reenviar u
 - «Visitantes/día»: huellas diarias por tipo. «Con JS»: aquellas con aviso de página; no demuestra humanidad. «Páginas JS»: una por documento cargado, no por heartbeat. «Solicitudes»: documentos medidos por el gateway.
 - Colaborar/Radio: visitantes/día que pulsaron esos controles. Radio no mide minutos ni reproducción confirmada. Candidaturas: visitantes/día con un envío confirmado por `/community/applications`, nunca por un evento del navegador.
 - Reintentos con el mismo evento no duplican cifras. Los clics repetidos del mismo visitante/día cuentan una vez por acción. Compartir IP puede unir navegadores: las cifras no identifican personas.
-- Las páginas permitidas son portada, colaborar, login, registro y activar. Se excluyen administración, perfil, formularios y catálogo del origen de navegación. Los tokens de activación no se conservan.
+- Las páginas permitidas son portada, colaborar, login, registro, activar y catálogo. Se excluyen administración, perfil y formularios. Los tokens de activación no se conservan.
+
+## Catálogo (2026-11-14)
+
+La app del catálogo (`web/src/lib/acquisition.ts`, instalada en `web/src/main.tsx`; en producción desde el 2026-11-14, ver `ops/produccion/README.md`) envía un aviso `page=catalog`, `kind=page` por documento cargado, con las mismas etiquetas que la portada (`ref`, `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`) y el origen del referente. Navegar dentro de la app no vuelve a contar. No se miden `/curaduria`, `/administrar`, `/configuracion`, `/historial`, `/cuenta` ni `/revision`. El catálogo no pasa por el aviso del gateway, así que su columna «Solicitudes» queda en 0. Mientras rija la puerta temporal (Fase 2B) el dominio no lleva al catálogo; la medición queda lista para su publicación.
+
+Los enlaces registrados (`?ref=`) también atribuyen en el catálogo. Su destino en el panel sigue limitado a `/` y `/colaborar`; para el catálogo se usan UTM sin registrar.
+
+Visualización: Curaduría → «Visitas y métricas» (`/curaduria/visitas`) muestra «De dónde vienen · campañas» (`web/src/components/AcquisitionReportPanel.tsx`): totales, filtro por entrada (todas / portada y su recorrido / catálogo), tipo de tráfico, agrupación por campaña, fuente, medio, variante, enlace, web referente, página de entrada o país, CSV y un generador local de enlaces UTM hacia el catálogo. El mismo panel aparece en la ventana de Métricas del roadmap en desarrollo; el panel de la portada (`acquisition-panel.js`) muestra «Catálogo» como página de entrada.
 
 ## Almacenamiento y seguridad
 
@@ -31,4 +39,4 @@ El escritor usa la cola existente, límite de 5.000 eventos, transacciones, bloq
 
 Aplicar solo 0126 y registrar su versión antes de reiniciar la API nueva. Ensayar en `crv_staging`; respaldar `auth` antes de producción. Desplegar en una copia aislada del release público vigente, conservando sus cambios previos y su configuración. Las tablas son aditivas: volver al release anterior detiene la medición nueva y conserva sus datos. El `down` se niega a borrar campañas o agregados existentes.
 
-Pruebas: `test/traffic/attribution.test.ts`, `test/contract/traffic-acquisition.test.ts` y `web/tests/visual/traffic-acquisition-qa.mjs`. La prueba de navegador solo escribe en staging y restaura sus fixtures; no fabrica visitas ni campañas de producción.
+Pruebas: `test/traffic/attribution.test.ts`, `test/contract/traffic-acquisition.test.ts`, `web/tests/unit/catalog-acquisition.test.ts` y `web/tests/visual/traffic-acquisition-qa.mjs`. La prueba de navegador solo escribe en staging y restaura sus fixtures; no fabrica visitas ni campañas de producción.

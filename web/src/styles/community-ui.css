@@ -66,3 +66,26 @@
   .community-detail dl { grid-template-columns: 1fr; }
   .community-table th:nth-child(4), .community-table td:nth-child(4) { display: none; }
 }
+
+/* «De dónde vienen · campañas» (AcquisitionReportPanel). */
+.acquisition-report { display: grid; gap: 14px; }
+.acquisition-report h2 { margin-bottom: 0; }
+.acquisition-report__stats { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.acquisition-report__stats div {
+  display: grid; gap: 2px; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg);
+}
+.acquisition-report__stats strong { font-size: 22px; font-variant-numeric: tabular-nums; }
+.acquisition-report__stats span { color: var(--text-muted); font-size: 12.5px; }
+.acquisition-report__table .is-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.acquisition-report__table tbody th {
+  position: relative; text-align: left; font-weight: 500; text-transform: none; letter-spacing: normal;
+  background: transparent; color: var(--text); font-size: 13.5px; min-width: 180px; overflow-wrap: anywhere; }
+.acquisition-report__table tbody th span { position: relative; z-index: 1; }
+.acquisition-report__bar {
+  position: absolute; left: 0; bottom: 3px; height: 3px; border-radius: 2px;
+  background: color-mix(in srgb, var(--red) 70%, transparent);
+}
+.acquisition-report__pages { display: flex; gap: 10px; align-items: center; justify-content: flex-end; font-size: 13px; }
+.acquisition-report__builder, .acquisition-report__help { display: grid; gap: 10px; }
+.acquisition-report__builder summary, .acquisition-report__help summary { cursor: pointer; font-weight: 600; font-size: 14px; }
+.acquisition-report__help p { margin: 6px 0 0; color: var(--text-muted); font-size: 13px; }

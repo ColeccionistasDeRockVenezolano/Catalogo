@@ -52,6 +52,8 @@ function apiBaseUrl(): string {
 }
 
 const BASE_URL = apiBaseUrl();
+/** Base de la API para quien no pasa por `request` (aviso de procedencia del catálogo). */
+export const API_BASE_URL = BASE_URL;
 
 export class ApiError extends Error {
   constructor(readonly status: number, readonly code: string, message: string, readonly details?: Record<string, unknown>) {

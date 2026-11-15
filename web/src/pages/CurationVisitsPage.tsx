@@ -6,6 +6,9 @@
 import { useAsync } from "../lib/useAsync";
 import { roadmapApi, type AdminVisits } from "../lib/roadmap";
 import { ErrorState, LoadingState } from "../components/StateViews";
+import { AcquisitionReportPanel } from "../components/AcquisitionReportPanel";
+import { communityApi } from "../lib/community";
+import { useState } from "react";
 import "../styles/community-ui.css";
 
 const number = new Intl.NumberFormat("es-VE");
@@ -15,20 +18,54 @@ function dayLabel(day: string): string {
   return `${date}/${month}/${year?.slice(2)}`;
 }
 
+/** Procedencia y campañas (portada + catálogo), con su propio periodo. */
+function AcquisitionSection() {
+  const [days, setDays] = useState<7 | 30 | 90>(30);
+  const report = useAsync(() => communityApi.metrics(days), [days]);
+  return (
+    <>
+      <div className="community-tabs" role="group" aria-label="Periodo de procedencia">
+        {([7, 30, 90] as const).map((value) => (
+          <button key={value} type="button" className={value === days ? "is-active" : ""} aria-pressed={value === days}
+            onClick={() => setDays(value)}>{value} días</button>
+        ))}
+        <button type="button" onClick={() => void report.reload()} disabled={report.loading}>{report.loading ? "Actualizando…" : "Actualizar"}</button>
+      </div>
+      {report.error ? <ErrorState message={report.error} onRetry={() => void report.reload()} />
+        : report.data?.acquisition ? <AcquisitionReportPanel report={report.data.acquisition} />
+          : <LoadingState label="Cargando la procedencia…" />}
+    </>
+  );
+}
+
 export function CurationVisitsPage() {
   const visits = useAsync<AdminVisits>(() => roadmapApi.adminVisits(30), []);
 
   if (visits.loading) return <div className="community-page"><LoadingState label="Cargando las visitas…" /></div>;
-  if (visits.error) return <div className="community-page"><ErrorState message={visits.error} onRetry={() => void visits.reload()} /></div>;
   const data = visits.data;
-  if (!data) return null;
+  // La API del catálogo no publica el detalle de visitas (comunidad apagada), pero sí
+  // la procedencia: un fallo de la parte antigua no oculta las campañas.
+  if (visits.error || !data) {
+    return (
+      <div className="community-page">
+        <div className="page-header">
+          <div>
+            <h1>Visitas y métricas</h1>
+            <p className="hint">Procedencia y campañas (portada y catálogo).</p>
+          </div>
+        </div>
+        <AcquisitionSection />
+        {visits.error ? <p className="community-muted">El detalle de visitas por país no está disponible en esta instancia ({visits.error}).</p> : null}
+      </div>
+    );
+  }
 
   return (
     <div className="community-page">
       <div className="page-header">
         <div>
           <h1>Visitas y métricas</h1>
-          <p className="hint">Personas por día, histórico por país y solicitudes de las pantallas públicas. Los últimos 3 días conservan el detalle; el histórico por país no se poda.</p>
+          <p className="hint">Personas por día, procedencia y campañas (portada y catálogo), histórico por país y solicitudes de las pantallas públicas. Los últimos 3 días conservan el detalle; el histórico por país no se poda.</p>
         </div>
       </div>
 
@@ -38,6 +75,8 @@ export function CurationVisitsPage() {
         <div><strong>{number.format(data.total)}</strong><span>visitas históricas</span></div>
         <div><strong>{number.format(data.trafficRequests)}</strong><span>solicitudes (30 días)</span></div>
       </div>
+
+      <AcquisitionSection />
 
       <div className="community-grid">
         <section className="community-card">

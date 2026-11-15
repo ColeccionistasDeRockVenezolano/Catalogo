@@ -34,7 +34,7 @@
   function sourceName(value) {
     return ({ direct: t('Directo / desconocido', 'Direct / unknown'), 'unregistered-link': t('Enlace no registrado', 'Unregistered link') })[value] || value;
   }
-  var pageNames = { roadmap: t('Portada', 'Home'), collaborate: t('Colaborar', 'Collaborate'), login: t('Entrar', 'Sign in'), register: t('Registro', 'Register'), activate: t('Activación', 'Activation') };
+  var pageNames = { roadmap: t('Portada', 'Home'), collaborate: t('Colaborar', 'Collaborate'), login: t('Entrar', 'Sign in'), register: t('Registro', 'Register'), activate: t('Activación', 'Activation'), catalog: t('Catálogo', 'Catalog') };
   var countKeys = ['visitors', 'js_visitors', 'pages', 'requests', 'collaborate', 'radio', 'applications'];
   var columns = [t('Procedencia', 'Origin'), t('Visitantes/día', 'Visitors/day'), t('Con JS', 'With JS'),
     t('Páginas JS', 'JS pages'), t('Solicitudes', 'Requests'), t('Colaborar', 'Collaborate'), t('Radio', 'Radio'), t('Candidaturas', 'Applications')];

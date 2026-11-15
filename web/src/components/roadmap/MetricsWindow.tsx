@@ -11,6 +11,7 @@ import { communityApi, type MetricsPairs, type MetricsReport } from "../../lib/c
 import { useToast } from "../../lib/ToastContext";
 import { Modal } from "../Modal";
 import { ConfirmDialog } from "../ConfirmDialog";
+import { AcquisitionReportPanel } from "../AcquisitionReportPanel";
 
 type Categoria = keyof MetricsPairs;
 const CATEGORIAS: Array<{ key: Categoria; label: string; color: string; descripcion: string }> = [
@@ -22,7 +23,7 @@ const CATEGORIAS: Array<{ key: Categoria; label: string; color: string; descripc
 ];
 const PANTALLAS: Record<string, string> = {
   roadmap: "Roadmap", collaborate: "Colaborar", login: "Entrar", register: "Registro",
-  activate: "Activación", llms: "llms.txt", sitemap: "sitemap.xml", robots: "robots.txt",
+  activate: "Activación", catalog: "Catálogo", llms: "llms.txt", sitemap: "sitemap.xml", robots: "robots.txt",
 };
 const USOS: Record<string, string> = {
   training: "Entrenamiento", search: "Búsqueda", user: "A petición de un usuario", seo: "SEO",
@@ -324,6 +325,8 @@ export function MetricsWindow({ title, kicker, onClose }: {
                 </div>
               </section>
             </div>
+
+            {report.acquisition ? <AcquisitionReportPanel report={report.acquisition} /> : null}
 
             <details className="metrics__how">
               <summary>Como se decide y qué se guarda</summary>

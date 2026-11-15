@@ -1,7 +1,9 @@
 // Datos de campaña, nunca URLs completas, términos de búsqueda ni datos de formularios.
-export const ACQUISITION_PAGES = ['roadmap', 'collaborate', 'login', 'register', 'activate'] as const;
+// `catalog` es la entrada por la app del catálogo (aviso JS de web/src/lib/acquisition.ts);
+// no tiene documento propio en el gateway, así que no suma «solicitudes».
+export const ACQUISITION_PAGES = ['roadmap', 'collaborate', 'login', 'register', 'activate', 'catalog'] as const;
 export type AcquisitionPage = typeof ACQUISITION_PAGES[number];
-export const PUBLIC_PATHS: Record<AcquisitionPage, string> = {
+export const PUBLIC_PATHS: Record<Exclude<AcquisitionPage, 'catalog'>, string> = {
   roadmap: '/', collaborate: '/colaborar', login: '/login', register: '/registro', activate: '/activar',
 };
 export interface Attribution {

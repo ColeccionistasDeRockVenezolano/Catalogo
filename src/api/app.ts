@@ -185,6 +185,10 @@ export async function buildApp(): Promise<FastifyInstance> {
     // Ventana 3.7: el informe de métricas es de comunidad; la escritura del
     // agregado sigue detrás de CRV_TRAFFIC_ENABLED (apagado por defecto).
     await registerTrafficRoutes(app);
+  } else if (env.CRV_TRAFFIC_ENABLED) {
+    // API del catálogo (sin comunidad, 2026-11-14): solo el aviso de procedencia y el
+    // informe de métricas, que el guard reserva a administración y comunidad.
+    await registerTrafficRoutes(app);
   }
   if (env.CRV_RADIO_ENABLED) await registerRadioRoutes(app);
   await registerHealthRoutes(app);

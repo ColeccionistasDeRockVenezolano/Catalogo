@@ -120,6 +120,11 @@ describe('procedencia: PostgreSQL real, permisos y deduplicación', () => {
     expect((await app.inject({ method: 'POST', url: '/traffic/event', headers: { ...browserHeaders, origin: 'https://evil.example' }, payload })).statusCode).toBe(403);
     expect((await app.inject({ method: 'POST', url: '/traffic/event', headers: browserHeaders, payload: { ...payload, kind: 'application' } })).statusCode).toBe(400);
     expect((await app.inject({ method: 'POST', url: '/traffic/event', headers: browserHeaders, payload: { ...payload, page: 'admin' } })).statusCode).toBe(400);
+    // El catálogo es una entrada medida; la campaña viaja como etiquetas, igual que en la portada.
+    expect((await app.inject({ method: 'POST', url: '/traffic/event', headers: browserHeaders,
+      payload: { ...payload, page: 'catalog', eventId: 'catalog-event-1', attribution: { source: 'instagram', campaign: 'lanzamiento' } } })).statusCode).toBe(204);
+    expect((await app.inject({ method: 'POST', url: '/traffic/event', headers: browserHeaders,
+      payload: { ...payload, page: 'catalog', kind: 'collaborate', eventId: 'catalog-event-2', attribution: { term: 'x' } } })).statusCode).toBe(400);
     expect((await app.inject({ method: 'POST', url: '/traffic/page', payload: { page: 'roadmap' } })).statusCode).toBe(403);
     await flushAcquisitions();
   });

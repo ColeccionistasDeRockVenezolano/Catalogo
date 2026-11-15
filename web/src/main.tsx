@@ -8,6 +8,8 @@ import { ToastProvider } from "./lib/ToastContext";
 import { DailyCycleProvider } from "./lib/DailyCycleContext";
 import { I18nProvider } from "./lib/i18n";
 import { reloadForNewBuild } from "./lib/staleBuild";
+import { installCatalogAcquisition } from "./lib/acquisition";
+import { API_BASE_URL } from "./lib/api";
 import "./styles/global.css";
 import "./styles/discography.css";
 import "./styles/site-appearance.css";
@@ -23,6 +25,9 @@ import "./styles/video-player.css";
 window.addEventListener("vite:preloadError", (event) => {
   if (reloadForNewBuild()) event.preventDefault();
 });
+
+// Procedencia (utm_campaign, ref…) de quien entra por el catálogo; una vez por documento.
+installCatalogAcquisition(API_BASE_URL);
 
 const container = document.getElementById("root");
 if (!container) throw new Error("#root no encontrado");
