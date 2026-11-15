@@ -109,6 +109,24 @@ a.statement-part:hover { text-decoration-color: currentColor; }
 
 .catalog-series-tools { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
 .catalog-view-switch { display: flex; gap: 6px; }
+.catalog-series-link--discover {
+  background: var(--red-soft);
+  border-color: var(--red);
+  font-weight: 700;
+}
+.catalog-series-link--discover:hover,
+.catalog-series-link--discover:focus-visible {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+.catalog-series-link__arrow { transition: transform 180ms ease-out; }
+.catalog-series-link--discover:hover .catalog-series-link__arrow,
+.catalog-series-link--discover:focus-visible .catalog-series-link__arrow { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) {
+  .catalog-series-link, .catalog-series-link__arrow { transition: none; }
+  .catalog-series-link__arrow { transform: none !important; }
+}
 .catalog-series-description { color: var(--text-muted); margin: 0 0 20px; max-width: 65ch; }
 .series-card__covers { color: var(--text-muted); font-size: 0.8rem; }
 .series-page-nav { display: flex; flex-wrap: wrap; align-items: center; column-gap: 20px; margin-bottom: 16px; }

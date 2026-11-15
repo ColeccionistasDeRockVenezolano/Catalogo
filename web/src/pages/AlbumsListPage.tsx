@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { ArrowRight, Stack } from "@phosphor-icons/react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { DecadeFilter } from "../components/DecadeFilter";
 import { useDecadeFilter, decadeLabel } from "../lib/useDecadeFilter";
@@ -92,11 +93,11 @@ function AlbumsCatalog({ seriesOnly }: { seriesOnly: boolean }) {
         <div className="catalog-view-switch" aria-label="Ver catálogo">
           <Link className={`btn btn--sm${!showSeries ? " btn--primary" : ""}`} aria-current={!showSeries ? "page" : undefined}
             to={{ pathname: "/discos", search: (() => { const next = new URLSearchParams(params); next.delete("vista"); next.delete("offset"); return next.toString(); })() }}>Discos</Link>
-          <Link className={`btn btn--sm${showSeries ? " btn--primary" : ""}`} aria-current={showSeries ? "page" : undefined}
-            to={{ pathname: seriesOnly ? "/series" : "/discos", search: (() => { const next = new URLSearchParams(params); if (!seriesOnly) next.set("vista", "series"); next.delete("offset"); return next.toString(); })() }}>Series</Link>
+          <Link className={`btn btn--sm catalog-series-link${showSeries ? " btn--primary" : " catalog-series-link--discover"}`} aria-current={showSeries ? "page" : undefined}
+            to={{ pathname: seriesOnly ? "/series" : "/discos", search: (() => { const next = new URLSearchParams(params); if (!seriesOnly) next.set("vista", "series"); next.delete("offset"); return next.toString(); })() }}><Stack size={16} weight="duotone" aria-hidden="true" />Series{!showSeries ? <ArrowRight className="catalog-series-link__arrow" size={14} aria-hidden="true" /> : null}</Link>
         </div>
         {showSeries ? <button className="btn btn--sm" type="button" aria-pressed={rotating} onClick={toggleRotation}>
-          {rotating ? "Pausar carátulas" : "Activar carátulas"}</button> : <Link to="/series">Explorar todas las series</Link>}
+          {rotating ? "Pausar carátulas" : "Activar carátulas"}</button> : null}
       </div>
       {showSeries ? <p className="catalog-series-description">Compilados agrupados por colección. Abre una serie para recorrer sus entregas.</p> : null}
       {isAdmin && showSeries ? <HiddenSeriesPanel /> : null}
