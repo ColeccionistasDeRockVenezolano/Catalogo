@@ -11,5 +11,7 @@ export function useDailyAsync<T>(fetcher: (date: string, signal: AbortSignal) =>
   const current = state.data?.date === cycle?.date;
   return { ...state, data: current ? state.data?.value : undefined,
     loading: (!cycle && !error) || state.loading || (!current && !state.error),
-    error: cycle ? state.error : error, reload: cycle ? state.reload : retry };
+    error: cycle ? state.error : error, reload: cycle ? state.reload : retry,
+    // Sin reloj no hay ficha que buscar: es un fallo, no un «no encontrado».
+    errorValue: cycle ? state.errorValue : error ? new Error(error) : undefined };
 }

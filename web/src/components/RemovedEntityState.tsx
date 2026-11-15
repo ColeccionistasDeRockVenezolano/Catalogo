@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ArrowArcLeft } from "@phosphor-icons/react";
 import { ApiError } from "../lib/api";
 import { useOperator } from "../lib/OperatorContext";
-import { ErrorState } from "./StateViews";
+import { EmptyState, ErrorState } from "./StateViews";
 import { UndoDialog } from "./UndoDialog";
 
 export function removedByRunFrom(errorValue: unknown): number | undefined {
@@ -20,7 +20,12 @@ export function EntityLoadError({ message, errorValue, onRetry }: { message: str
   const { isAdmin } = useOperator();
   const [undoing, setUndoing] = useState(false);
   const runId = removedByRunFrom(errorValue);
-  if (!runId || !isAdmin) return <ErrorState message={message} onRetry={onRetry} />;
+  if (!runId || !isAdmin) {
+    // Una ficha que no existe no es una avería: se dice sin código ni detalle.
+    const missing = errorValue === undefined || (errorValue instanceof ApiError && errorValue.status === 404);
+    if (missing) return <EmptyState title="No encontramos esta ficha" hint="Puede que el enlace haya cambiado. Búscala de nuevo en el catálogo." />;
+    return <ErrorState message={message} onRetry={onRetry} error={errorValue} />;
+  }
   return (
     <div className="state-block removed-entity">
       <h3>Esta ficha fue retirada del catálogo</h3>

@@ -1,0 +1,406 @@
+/* ============================================================
+   CRV · Pantalla de error del catálogo (ServiceErrorPage)
+   Port del #main-content de la página 503: mano que lanza el servidor,
+   halos que giran y doble destello al atraparlo, todo en un ciclo de 3.6s.
+   Prefijo .svc-error para no chocar con el resto de la interfaz.
+   Responde al ancho de su contenedor (container queries), no a la ventana:
+   puede ocupar la página entera o solo la zona de resultados.
+   ============================================================ */
+
+.svc-error {
+  --svc-red: #ee1e2b;
+  --svc-text: #f5f3f2;
+  --svc-muted: #b9b8b9;
+  --svc-faint: #747479;
+  container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  color: var(--svc-text);
+}
+
+/* Grid: una columna (ilustración arriba, mensaje centrado); dos columnas desde 760px de contenedor. */
+.svc-error__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "art" "copy";
+  align-items: center;
+  row-gap: 8px;
+  width: min(100%, 1120px);
+  margin-inline: auto;
+  padding: clamp(16px, 5cqi, 56px) clamp(16px, 4cqi, 28px) clamp(36px, 6cqi, 60px);
+}
+
+.svc-error__art {
+  grid-area: art;
+  position: relative;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  padding-block: clamp(34px, 4cqi, 42px) clamp(18px, 2.4cqi, 26px);
+}
+/* Resplandor detrás de la ilustración. Antes era el fondo de toda la sección:
+   su elipse (55 % del lado más lejano) era mayor que la caja y los bordes de
+   la sección la cortaban en seco. Con closest-side llega a transparente
+   antes del borde de su propia caja, así que no hay corte posible. */
+.svc-error__art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(105, 13, 23, 0.2), rgba(105, 13, 23, 0.07) 55%, transparent);
+}
+
+.svc-error__frame {
+  position: relative;
+  z-index: 2;
+  width: min(100%, clamp(250px, 78cqi, 430px));
+  transform: rotate(-2deg);
+}
+
+.svc-error__hand {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 32%;
+  filter: drop-shadow(0 15px 28px #0009);
+  transform-origin: 15% 60%;
+  animation: svc-offer 3.6s infinite;
+}
+
+.svc-error__server {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 31%;
+  width: 62%;
+  height: auto;
+  will-change: transform, filter;
+  animation: svc-toss 3.6s infinite, svc-shake 3.6s linear infinite, svc-flicker 3.6s steps(1, end) infinite;
+}
+
+/* Halos centrados detrás del servidor (62% / 41% del marco). */
+.svc-error__halo {
+  position: absolute;
+  z-index: 0;
+  top: 41%;
+  left: 62%;
+  width: 63%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid #99253030;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.svc-error__halo::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+}
+.svc-error__halo--a {
+  box-shadow: 0 0 70px #9c11241c, inset 0 0 70px #9c11240e;
+  animation: svc-rotate 26s linear infinite reverse;
+}
+.svc-error__halo--a::before { background: conic-gradient(from 180deg, #e9232b66 0, transparent 24%); }
+.svc-error__halo--b {
+  width: 80%;
+  border-style: dashed;
+  border-color: #c42a3540;
+  animation: svc-rotate 14s linear infinite;
+}
+.svc-error__halo--b::before { background: conic-gradient(transparent 0 62%, #ff2a3522 75%, #ff2a35cc 99.5%, transparent 100%); }
+.svc-error__halo--b::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: calc(50% - 4px);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff3a44;
+  box-shadow: 0 0 6px 1px #ff2a35, 0 0 18px 4px #f0263288;
+}
+
+.svc-error__label {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 700 11px/1 var(--font-body, Inter, sans-serif);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #5e5e62;
+  white-space: nowrap;
+}
+.svc-error__label-line { width: 30px; height: 1px; background: #535357; }
+.svc-error__slash { color: var(--svc-red); }
+
+/* Mensaje: grid con un solo espaciado vertical. */
+.svc-error__message {
+  grid-area: copy;
+  min-width: 0;
+  max-width: 540px;
+  margin-inline: auto;
+  display: grid;
+  justify-items: center;
+  row-gap: clamp(20px, 2.6cqi, 28px);
+  text-align: center;
+}
+
+.svc-error__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin: 0 0 -8px;
+  color: #cd8f94;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.svc-error__pulse {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--svc-red);
+  box-shadow: 0 0 0 5px #ec172a18;
+  animation: svc-glow 2.6s ease-in-out infinite;
+}
+
+.svc-error__title {
+  margin: 0;
+  max-width: 590px;
+  font-family: var(--font-display, "Anton", "Arial Black", sans-serif);
+  font-weight: 400;
+  font-size: clamp(32px, 1.4rem + 3.4cqi, 54px);
+  line-height: 1.1;
+  letter-spacing: 0.005em;
+  text-wrap: balance;
+  color: var(--svc-text);
+}
+.svc-error__highlight { position: relative; display: inline-block; white-space: nowrap; }
+.svc-error__highlight::after {
+  content: "";
+  position: absolute;
+  left: 4%;
+  right: 0;
+  bottom: -8px;
+  height: 6px;
+  background: var(--svc-red);
+  border-radius: 70% 60% 80% 50%;
+  transform: rotate(-1.2deg);
+  clip-path: polygon(0 35%, 15% 20%, 39% 27%, 57% 12%, 79% 20%, 100% 42%, 100% 87%, 73% 77%, 49% 70%, 25% 86%, 0 100%);
+}
+
+.svc-error__lead {
+  max-width: 470px;
+  margin: 0;
+  color: var(--svc-muted);
+  font-size: clamp(13.5px, 0.78rem + 0.3cqi, 15px);
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+
+/* Botones: en angosto, Ayudar a todo el ancho y Reintentar debajo. */
+.svc-error__actions {
+  display: grid;
+  grid-template-columns: minmax(0, 340px);
+  grid-template-areas: "help" "retry";
+  justify-items: center;
+  gap: 6px;
+  width: 100%;
+  justify-content: center;
+}
+
+.svc-error__retry {
+  grid-area: retry;
+  position: relative;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 3px;
+  border: 0;
+  background: none;
+  color: #d9d8d9;
+  font: 700 14px/1 var(--font-body, Inter, sans-serif);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.svc-error__retry::after {
+  content: "";
+  position: absolute;
+  left: 33px;
+  right: 3px;
+  bottom: 9px;
+  height: 1px;
+  background: #5d5d63;
+  transform-origin: left;
+  transition: background 0.2s, transform 0.2s;
+}
+.svc-error__retry-icon { width: 20px; height: 20px; transition: transform 0.25s; }
+.svc-error__retry:disabled { cursor: progress; color: #fff; }
+.svc-error__retry.is-loading .svc-error__retry-icon { animation: svc-spin 0.7s linear infinite; }
+
+.svc-error__help {
+  grid-area: help;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 22px;
+  border: 1px solid #ff4553;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #e5202e, #a60f1c);
+  color: #fff;
+  font: 800 15px/1 var(--font-body, Inter, sans-serif);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  box-shadow: 0 10px 28px #e11b2a38, inset 0 1px #ff7a7c80, inset 0 -2px #6e081180;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s, filter 0.25s;
+}
+/* Destello que cruza el botón al pasar el cursor. */
+.svc-error__help::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 30%, #ffffff3d 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.svc-error__help-icon { width: 22px; height: 22px; transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.svc-error__help-external { width: 16px; height: 16px; opacity: 0.75; transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s; }
+.svc-error__help:active { transform: translateY(0) scale(0.98); filter: brightness(0.96); box-shadow: 0 5px 14px #e11b2a40, inset 0 2px 6px #0005; }
+
+@media (hover: hover) {
+  .svc-error__retry:hover { color: #fff; }
+  .svc-error__retry:hover::after { background: #fff; transform: scaleX(1.06); }
+  .svc-error__retry:hover .svc-error__retry-icon { transform: rotate(52deg); }
+  .svc-error__help:hover { color: #fff; transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 16px 36px #e11b2a55, inset 0 1px #ff7a7c80, inset 0 -2px #6e081180; }
+  .svc-error__help:hover::before { transform: translateX(120%); }
+  .svc-error__help:hover .svc-error__help-icon { transform: rotate(-10deg) scale(1.08); }
+  .svc-error__help:hover .svc-error__help-external { transform: translate(2px, -2px); opacity: 1; }
+  .svc-error__code:hover { border-color: #5a3337; color: #fff; }
+}
+
+.svc-error__retry:focus-visible,
+.svc-error__help:focus-visible,
+.svc-error__code:focus-visible { outline: 2px solid #ff6b74; outline-offset: 3px; border-radius: 8px; }
+
+/* Código de referencia: lo único que el usuario sabe del error. */
+.svc-error__reference {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 10px;
+  margin: 0;
+  color: var(--svc-faint);
+  font-size: 12px;
+}
+.svc-error__code {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 4px 10px;
+  border: 1px solid #323235;
+  border-radius: 8px;
+  background: #151517;
+  color: #d9d8d9;
+  font: 600 12.5px/1 var(--font-mono, ui-monospace, monospace);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.svc-error__code code { font: inherit; }
+.svc-error__code svg { width: 14px; height: 14px; color: #8d8d92; }
+
+.svc-error__footnote { margin: 0; max-width: 44ch; color: var(--svc-faint); font-size: 10.5px; line-height: 1.5; }
+.svc-error__footnote-line { display: inline-block; vertical-align: middle; width: 16px; height: 1px; margin-right: 9px; background: #be2634; }
+
+@container (min-width: 520px) {
+  .svc-error__actions { grid-template-columns: auto auto; grid-template-areas: "retry help"; gap: clamp(16px, 2.4cqi, 27px); width: auto; }
+  .svc-error__help { width: auto; min-width: 180px; }
+}
+
+@container (min-width: 760px) {
+  .svc-error__layout {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-areas: "art copy";
+    column-gap: clamp(28px, 5cqi, 64px);
+    min-height: clamp(420px, 62vh, 560px);
+  }
+  .svc-error__label { left: 19%; transform: none; }
+  .svc-error__message { margin-inline: 0; justify-items: start; text-align: left; }
+  .svc-error__reference { justify-content: flex-start; }
+  .svc-error__footnote { display: flex; align-items: center; gap: 9px; max-width: none; }
+  .svc-error__footnote-line { flex: none; margin-right: 0; }
+}
+
+/* Lanzamiento: mano y servidor comparten el ciclo de 3.6s.
+   0-14% impulso · 14-26% lanzamiento · 26-55% vuelo · 55-82% caída · 82-100% atrapada */
+@keyframes svc-offer {
+  0% { transform: translateY(0) rotate(0); animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
+  14% { transform: translateY(6px) rotate(1.5deg); animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0.4); }
+  26% { transform: translateY(-8px) rotate(-3deg); animation-timing-function: cubic-bezier(0.25, 0.6, 0.4, 1); }
+  45%, 82% { transform: translateY(0) rotate(0); animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1); }
+  88% { transform: translateY(4px) rotate(1deg); animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1); }
+  100% { transform: translateY(0) rotate(0); }
+}
+@keyframes svc-toss {
+  0% { translate: 0 20px; rotate: 0deg; animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1); }
+  14% { translate: 0 31px; rotate: 0.8deg; animation-timing-function: cubic-bezier(0.5, 0, 0.75, 0.4); }
+  26% { translate: 0 -8px; rotate: -2deg; animation-timing-function: cubic-bezier(0.2, 0.65, 0.4, 1); }
+  55% { translate: 0 -38px; rotate: 4deg; animation-timing-function: cubic-bezier(0.6, 0, 0.85, 0.45); }
+  82% { translate: 0 20px; rotate: 0deg; animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1); }
+  88% { translate: 0 27px; rotate: 0.5deg; animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1); }
+  100% { translate: 0 20px; rotate: 0deg; }
+}
+/* Temblor y doble destello justo al atraparlo (82%). */
+@keyframes svc-shake {
+  0%, 84%, 100% { transform: translateX(0); }
+  86% { transform: translateX(-2px) rotate(-0.6deg); }
+  88% { transform: translateX(2px) rotate(0.6deg); }
+  90% { transform: translateX(-2px) rotate(-0.4deg); }
+  92% { transform: translateX(1.5px) rotate(0.4deg); }
+  94% { transform: translateX(-1px); }
+  96% { transform: translateX(0); }
+}
+@keyframes svc-flicker {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 10px #e9232b22); }
+  82% { filter: brightness(1.35) drop-shadow(0 0 18px #ff2a3577); }
+  85% { filter: brightness(1) drop-shadow(0 0 10px #e9232b22); }
+  89% { filter: brightness(1.25) drop-shadow(0 0 16px #ff2a3566); }
+  91% { filter: brightness(1) drop-shadow(0 0 10px #e9232b22); }
+}
+@keyframes svc-rotate { to { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes svc-glow { 0%, 100% { box-shadow: 0 0 0 5px #ec172a18; } 50% { box-shadow: 0 0 0 8px #ec172a09; } }
+@keyframes svc-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .svc-error__hand,
+  .svc-error__server,
+  .svc-error__halo,
+  .svc-error__pulse,
+  .svc-error__retry.is-loading .svc-error__retry-icon { animation: none; }
+  .svc-error__server { translate: 0 20px; }
+  .svc-error__help,
+  .svc-error__help::before { transition: none; }
+}

@@ -28,6 +28,8 @@ import { getEnv } from "../config/env.js";
 import { toApiError } from "./http-errors.js";
 import { registerOperatorAuth } from "./auth.js";
 import { registerHealthRoutes } from "./routes/health.js";
+import { registerClientErrorRoutes } from "./routes/client-errors.js";
+import { newIncidentCode } from "./incident-code.js";
 import { registerCommunityRoutes } from "./routes/community.js";
 import { registerAccountRoutes } from "./routes/account.js";
 import { registerRoadmapRoutes } from "./routes/roadmap.js";
@@ -161,17 +163,24 @@ export async function buildApp(): Promise<FastifyInstance> {
     }
     // Errores de validación Zod ya vienen serializados por fastify-type-provider-zod
     // con statusCode; el resto es un fallo real que se registra y no se disfraza.
+    // El detalle de validación (nombres de campo, forma esperada) solo lo ve
+    // un administrador; al resto le basta saber que la petición no era válida.
     const statusCode = (error as { statusCode?: number }).statusCode;
     if (statusCode !== undefined && statusCode < 500) {
-      reply.status(statusCode).send({ error: { code: "bad_request", message: request.url.startsWith("/search") ? "Parámetros de petición inválidos" : error.message } });
+      const showDetail = request.viewer?.role === "admin" && !request.url.startsWith("/search");
+      reply.status(statusCode).send({ error: { code: "bad_request", message: showDetail ? error.message : "Parámetros de petición inválidos" } });
       return;
     }
-    log.error(request.url.startsWith("/search") ? { code: "unhandled_api_error" } : { err: error }, "error no controlado en la API");
-    reply.status(500).send({ error: { code: "internal_error", message: "error interno" } });
+    // Un fallo real: el detalle queda en el log con un código que el cliente
+    // muestra al usuario (details.incident), sin decir qué falló.
+    const incident = newIncidentCode();
+    log.error(request.url.startsWith("/search") ? { code: "unhandled_api_error", incident } : { err: error, incident, url: request.url.split("?")[0] }, "error no controlado en la API");
+    reply.status(500).send({ error: { code: "internal_error", message: "error interno", details: { incident } } });
   });
 
   app.setNotFoundHandler((request, reply) => {
-    reply.status(404).send({ error: { code: "not_found", message: `ruta inexistente: ${request.method} ${request.url}` } });
+    // Sin eco de la ruta: no se describe qué existe y qué no.
+    reply.status(404).send({ error: { code: "not_found", message: "recurso no encontrado" } });
   });
 
   await registerOperatorAuth(app);
@@ -192,6 +201,7 @@ export async function buildApp(): Promise<FastifyInstance> {
   }
   if (env.CRV_RADIO_ENABLED) await registerRadioRoutes(app);
   await registerHealthRoutes(app);
+  await registerClientErrorRoutes(app);
   // La portada tiene una API propia. No registra editores ni trabajadores
   // del catálogo: tampoco puede reiniciar sus investigaciones al arrancar.
   if (env.CRV_API_MODE === "landing") return app;

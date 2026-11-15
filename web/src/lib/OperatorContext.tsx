@@ -91,3 +91,8 @@ export function useOperator(): OperatorContextValue {
   if (!ctx) throw new Error("useOperator debe usarse dentro de OperatorProvider");
   return ctx;
 }
+
+/** Igual que useOperator, pero sin exigir el proveedor (pantallas de error fuera del árbol principal). */
+export function useOptionalOperator(): OperatorContextValue | undefined {
+  return useContext(OperatorContext);
+}

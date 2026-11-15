@@ -585,6 +585,8 @@ export async function registerOperatorAuth(
       path === "/community/applications" || path === "/community/register"
       || path === "/community/activate" || path === "/roadmap/visit" || path === "/roadmap/launch" || path === "/radio/listener"
       || path === "/radio/unavailable" || path === "/radio/diagnostic"
+      // Errores del navegador hacia el log (routes/client-errors.ts).
+      || path === "/client-errors"
       // Aviso interno del gateway para las métricas: exige token propio en la
       // ruta y solo llega desde loopback.
       || path === "/traffic/page" || path === '/traffic/event');

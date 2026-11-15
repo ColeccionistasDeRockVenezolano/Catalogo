@@ -1,8 +1,12 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import { isChunkLoadError, reloadForNewBuild } from "../lib/staleBuild";
+import { newIncidentCode, reportError } from "../lib/clientErrors";
+import { ServiceErrorPage } from "./ServiceErrorPage";
 
 interface ErrorBoundaryState {
   error: Error | undefined;
+  /** Código de referencia que ve el usuario y que lleva la entrada del log. */
+  code: string | undefined;
 }
 
 interface ErrorBoundaryProps {
@@ -10,7 +14,7 @@ interface ErrorBoundaryProps {
   label?: string;
   resetKey?: unknown;
   onError?: () => void;
-  fallback?: (error: Error, retry: () => void) => ReactNode;
+  fallback?: (error: Error, retry: () => void, code: string) => ReactNode;
 }
 
 export function ErrorNotice({ label, onRetry }: { label: string; onRetry: () => void }) {
@@ -24,21 +28,21 @@ export function ErrorNotice({ label, onRetry }: { label: string; onRetry: () => 
 /**
  * Red de seguridad de la SPA: un error de render en cualquier página (un dato
  * con forma inesperada, por ejemplo) dejaba la aplicación en blanco, sin
- * mensaje ni salida. Aquí se muestra qué pasó, se ofrece recargar y el error
- * queda en consola para el reporte.
+ * mensaje ni salida. El detalle va al log del servidor con un código; quien
+ * visita solo ve la pantalla de servicio y ese código (lib/clientErrors.ts).
  */
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  override state: ErrorBoundaryState = { error: undefined };
+  override state: ErrorBoundaryState = { error: undefined, code: undefined };
 
   static getDerivedStateFromError(error: unknown): ErrorBoundaryState {
-    return { error: error instanceof Error ? error : new Error(String(error)) };
+    return { error: error instanceof Error ? error : new Error(String(error)), code: newIncidentCode() };
   }
 
   private retry = () => {
     // Un chunk perdido tras un deploy no se recupera re-renderizando: React.lazy
     // conserva el rechazo. Reintentar significa recargar con el build nuevo.
     if (isChunkLoadError(this.state.error)) window.location.reload();
-    else this.setState({ error: undefined });
+    else this.setState({ error: undefined, code: undefined });
   };
 
   override componentDidUpdate(previous: ErrorBoundaryProps): void {
@@ -48,28 +52,20 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   override componentDidCatch(error: Error, info: ErrorInfo): void {
     if (isChunkLoadError(error) && reloadForNewBuild()) return;
-    // eslint-disable-next-line no-console -- la consola del navegador es el canal de diagnóstico de un error de render
-    console.error("CRV: error de render", error, info.componentStack);
+    const code = this.state.code ?? newIncidentCode();
+    reportError(code, "render", error, { componentStack: info.componentStack ?? undefined });
+    // eslint-disable-next-line no-console -- en desarrollo la consola sigue siendo el canal rápido; en producción, solo el log
+    if (import.meta.env.DEV) console.error("CRV: error de render", code, error, info.componentStack);
     this.props.onError?.();
   }
 
   override render(): ReactNode {
     const { error } = this.state;
     if (!error) return this.props.children;
-    if (this.props.fallback) return this.props.fallback(error, this.retry);
+    const code = this.state.code ?? "CRV-000000";
+    if (this.props.fallback) return this.props.fallback(error, this.retry, code);
     if (this.props.label) return <ErrorNotice label={this.props.label} onRetry={this.retry} />;
-    return (
-      <div className="state-block is-error" role="alert">
-        <h3>La interfaz encontró un error</h3>
-        <p>
-          No se pudo mostrar la interfaz. Recarga la página;
-          si vuelve a pasar, el detalle está en la consola del navegador (F12).
-        </p>
-        <p style={{ color: "var(--text-faint)", fontSize: 12.5 }}>{error.message}</p>
-        <div style={{ marginTop: 14 }}>
-          <button type="button" className="btn btn--sm" onClick={() => window.location.reload()}>Recargar</button>
-        </div>
-      </div>
-    );
+    // Raíz: fuera del router y de la sesión; sin detalle para nadie (el detalle está en el log).
+    return <ServiceErrorPage variant="unexpected" code={code} heading="h1" onRetry={() => window.location.reload()} />;
   }
 }

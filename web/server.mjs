@@ -483,9 +483,11 @@ function proxyApi(req, res, requestUrl) {
     res.writeHead(upstreamResponse.statusCode ?? 502, { ...upstreamResponse.headers, ...SECURITY_HEADERS });
     upstreamResponse.pipe(res);
   });
-  upstream.on("error", () => reply(res, 502, isChat
-    ? "El chat de CRV no está disponible."
-    : "La API CRV no está disponible."));
+  // Al log el qué y el dónde; al visitante, nada que describa la arquitectura.
+  upstream.on("error", (error) => {
+    console.error(`CRV proxy: ${isChat ? "chat" : "API"} sin respuesta (${error.code ?? error.message}) en ${req.method} ${upstreamPath.split("?")[0]}`);
+    reply(res, 502, "Servicio no disponible por ahora.");
+  });
   if (sinCuerpo) {
     req.resume();
     upstream.end();
