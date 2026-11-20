@@ -105,6 +105,17 @@ Este diseño es local a esta máquina. En otro checkout/equipo hay que disponer
 del mismo almacén y configurar sus enlaces de manera deliberada; clonar Git
 no descarga estas capturas. No versionar los enlaces absolutos de esta máquina.
 
+### Apagones: disco sin montar (2026-11-20)
+
+Tras un corte de luz el NTFS queda «dirty» y `ntfs3` no lo monta. Ahora:
+la API arranca igual sin el disco (inventario de fuentes vacío, reintento cada
+5 min); `crv-disco-1tb.service` lo monta al arrancar y quita la marca con
+`ntfsfix -d` solo si el núcleo dijo «dirty»; el vigilante de Hermes avisa por
+Telegram. Si la API no arranca tras un reinicio, mirar primero
+`findmnt /mnt/1tb` y `/var/log/crv-disco-1tb.log`. Instalación, decisiones
+(sin `force` en fstab, nunca `mount` a mano) y reparación manual en
+[ops/disco-1tb/README.md](../ops/disco-1tb/README.md).
+
 ## Conflictos evaluados y resolución
 
 1. **Git:** `reports` contenía más de 20.000 archivos versionados. Un enlace

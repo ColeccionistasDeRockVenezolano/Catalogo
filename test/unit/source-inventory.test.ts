@@ -1,8 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { existsSync } from "node:fs";
+import { copyFileSync, existsSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { createHash } from "node:crypto";
-import { inventoryResearchUrls, inventorySummary, loadSourceInventory, sourceInventorySchema } from "../../src/verification/source-inventory.js";
+import {
+  currentSourceInventory, EMPTY_SOURCE_INVENTORY, inventoryResearchUrls, inventorySummary, loadSourceInventory,
+  resetSourceInventoryCache, sourceInventorySchema,
+} from "../../src/verification/source-inventory.js";
 import { researchVerification, type ResearchState } from "../../src/verification/research.js";
 import { DeepSeekGateway, MemoryDeepSeekRunStore, MockDeepSeekTransport } from "../../src/ai/gateway.js";
 import type { VerificationSnapshot } from "../../src/verification/types.js";
@@ -89,5 +93,25 @@ describe("inventario de fuentes para investigación dirigida", () => {
       page: async () => { throw new Error("No se permite descargar"); },
     }, gateway(), undefined, { preservedOnly: true });
     expect(report.research?.sources).toEqual([]);
+  });
+});
+
+// 2026-11-20: sin el disco de 1 TB la API moría al importar este módulo y se caía el catálogo.
+describe("inventario con el almacén externo ausente", () => {
+  it("no lanza: usa uno vacío, reintenta a los 5 min y se recupera; uno inválido sí falla", () => {
+    const dir = mkdtempSync(path.join(tmpdir(), "crv-inventario-"));
+    const file = path.join(dir, "venezuelan-music-sources.json");
+    resetSourceInventoryCache();
+    expect(currentSourceInventory(file, 0)).toBe(EMPTY_SOURCE_INVENTORY);
+    copyFileSync(path.resolve("test/fixtures/source-inventory-ci.json"), file);
+    expect(currentSourceInventory(file, 60_000)).toBe(EMPTY_SOURCE_INVENTORY);  // aún dentro de la espera
+    const recovered = currentSourceInventory(file, 5 * 60_000 + 1);
+    expect(recovered).not.toBe(EMPTY_SOURCE_INVENTORY);
+    expect(recovered.policy.catalogAutoImport).toBe(false);
+    resetSourceInventoryCache();
+    writeFileSync(file, JSON.stringify({ schemaVersion: 2 }));
+    expect(() => currentSourceInventory(file, 0)).toThrow();                     // presente pero inválido: error de datos
+    resetSourceInventoryCache();
+    rmSync(dir, { recursive: true, force: true });
   });
 });

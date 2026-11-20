@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { z } from "zod";
 import { projectRoot } from "../config/project-root.js";
+import { moduleLogger } from "../logger/index.js";
 import type { VerificationSnapshot } from "./types.js";
 
 const publicUrl = z.string().url().refine(value => {
@@ -67,14 +68,57 @@ export type SourceInventory = z.infer<typeof sourceInventorySchema>;
 // CRV_SOURCE_INVENTORY apunta a un inventario mínimo de prueba para que el código arranque.
 export const SOURCE_INVENTORY_PATH = process.env["CRV_SOURCE_INVENTORY"]
   ?? path.join(projectRoot(import.meta.url), "data/research/venezuelan-music-sources.json");
-export function loadSourceInventory(): SourceInventory {
-  return sourceInventorySchema.parse(JSON.parse(readFileSync(SOURCE_INVENTORY_PATH, "utf8")) as unknown);
+export function loadSourceInventory(filePath: string = SOURCE_INVENTORY_PATH): SourceInventory {
+  return sourceInventorySchema.parse(JSON.parse(readFileSync(filePath, "utf8")) as unknown);
 }
-const inventory = loadSourceInventory();
+
+// 2026-11-20: la API leía el inventario al importar este módulo; con el disco de 1 TB sin montar
+// (apagón → NTFS «dirty») moría al arrancar y se caía todo el catálogo. Ahora se carga al primer
+// uso y, si el archivo no se puede leer (disco ausente, error de E/S), se usa uno vacío: solo se
+// pierden estas entradas de investigación dirigida. Se reintenta cada 5 min, así que vuelve solo
+// cuando el disco se monta. Un inventario presente pero inválido sí falla: eso es un error de datos.
+export const EMPTY_SOURCE_INVENTORY: SourceInventory = Object.freeze({
+  schemaVersion: 1, researchDate: "1970-01-01", language: "es",
+  purpose: "Inventario no disponible (almacén externo sin montar)",
+  reportedCounters: { projects: 0, urls: 0, critical: 0 }, counterNotes: "",
+  policy: {
+    targetedResearch: true, bulkScrapingEnabled: false, catalogAutoImport: false,
+    bandcampOwnership: "pending_per_profile", publicMediaReuse: "requires_rights_review", capturedAt: "",
+  },
+  projects: [], discoverySources: [],
+}) as SourceInventory;
+const RETRY_MS = 5 * 60 * 1000;
+let cached: SourceInventory | undefined;
+let unavailableSince: number | undefined;
+
+const isUnreadable = (error: unknown) => error instanceof Error && "code" in error && typeof error.code === "string";
+
+/** Inventario en memoria; vacío (con reintento) si el almacén externo no está disponible. */
+export function currentSourceInventory(filePath: string = SOURCE_INVENTORY_PATH, now: number = Date.now()): SourceInventory {
+  if (cached) return cached;
+  if (unavailableSince !== undefined && now - unavailableSince < RETRY_MS) return EMPTY_SOURCE_INVENTORY;
+  try {
+    cached = loadSourceInventory(filePath);
+    if (unavailableSince !== undefined) moduleLogger("verification:source-inventory").info({ path: filePath }, "inventario de fuentes recuperado");
+    unavailableSince = undefined;
+    return cached;
+  } catch (error) {
+    if (!isUnreadable(error)) throw error;
+    if (unavailableSince === undefined) {
+      moduleLogger("verification:source-inventory").warn({ path: filePath, code: (error as NodeJS.ErrnoException).code },
+        "inventario de fuentes no disponible (¿disco de 1 TB sin montar?): se usa vacío y se reintenta cada 5 min");
+    }
+    unavailableSince = now;
+    return EMPTY_SOURCE_INVENTORY;
+  }
+}
+
+/** Solo para pruebas. */
+export function resetSourceInventoryCache() { cached = undefined; unavailableSince = undefined; }
 const normalize = (name: string) => name.normalize("NFKD").replace(/\p{M}/gu, "").toLocaleLowerCase("es").replace(/\s+/gu, " ").trim();
 
 /** Finite entrypoints for the existing broker, never an ingest source or accepted fact. */
-export function inventoryResearchUrls(snapshot: VerificationSnapshot, sources: SourceInventory = inventory): string[] {
+export function inventoryResearchUrls(snapshot: VerificationSnapshot, sources: SourceInventory = currentSourceInventory()): string[] {
   let subject: string | undefined, release: string | undefined;
   if (snapshot.kind === "artist" || snapshot.kind === "person") subject = snapshot.name;
   else if (snapshot.kind === "album" || snapshot.kind === "track") {
@@ -95,7 +139,7 @@ export function inventoryResearchUrls(snapshot: VerificationSnapshot, sources: S
   ).map(source => source.url))];
 }
 
-export function inventorySummary(sources: SourceInventory = inventory) {
+export function inventorySummary(sources: SourceInventory = currentSourceInventory()) {
   const urls = [...sources.projects, ...sources.discoverySources].flatMap(item => item.sources);
   return {
     projects: sources.projects.length, discoverySources: sources.discoverySources.length,

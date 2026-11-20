@@ -1,0 +1,18 @@
+# CRV · Montar el disco de 1 TB al arrancar y quitarle la marca NTFS «dirty» si un apagón la dejó.
+# Instalado en /etc/systemd/system por ops/disco-1tb/instalar.sh (2026-11-20).
+# Corre antes de las sesiones de usuario: crv-api y compañía encuentran el disco ya montado.
+[Unit]
+Description=CRV: montar el disco de 1 TB (reparar marca NTFS dirty tras apagado brusco)
+After=local-fs.target mnt-1tb.automount
+Before=systemd-user-sessions.service
+ConditionPathExists=/usr/local/sbin/crv-disco-1tb-montar
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/crv-disco-1tb-montar
+RemainAfterExit=yes
+# ntfsfix sobre 1 TB tarda segundos; el tope evita que un disco colgado retrase el arranque.
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target
